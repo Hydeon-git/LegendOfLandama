@@ -55,7 +55,7 @@ void Map::Draw()
 	// L06: DONE 4: Make sure we draw all the layers and not just the first one	
 	while (layer != NULL)
 	{
-		if (layer->data->name == "ground")
+		if (layer->data->name == "poble")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
@@ -266,7 +266,6 @@ void Map::DrawPuzzle()
 		layerPuzzle = layerPuzzle->next;
 	}
 }
-
 
 void Map::DrawHeart()
 {

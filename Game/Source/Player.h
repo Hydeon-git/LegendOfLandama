@@ -48,12 +48,6 @@ public:
 	bool TakeCheckpoint();
 	bool TakeHeart();
 	bool ThereIsDoor();
-
-
-	void Jump();
-
-	void GravityPlayer();
-
 	bool LoseLifes();
 	
 

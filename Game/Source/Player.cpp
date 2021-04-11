@@ -173,15 +173,21 @@ bool Player::Update(float dt)
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
 		{
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && godModeEnabled)
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !ThereAreSpikes())
 			{
-				position.y -= speedX;
-				currentAnimation = &leftAnim;
+				if (!ThereIsLeftWall() && !ThereIsChestLeft())
+				{
+					position.y -= speedX;
+					currentAnimation = &leftAnim;
+				}				
 			}
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godModeEnabled)
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && !ThereAreSpikes())
 			{
-				position.y += speedX;
-				currentAnimation = &leftAnim;
+				if (!ThereIsLeftWall() && !ThereIsChestLeft())
+				{
+					position.y += speedX;
+					currentAnimation = &leftAnim;
+				}				
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !ThereAreSpikes())
@@ -205,11 +211,7 @@ bool Player::Update(float dt)
 				isJumping = true;
 				speedY = 5.0f;
 			}
-			if (isJumping)
-			{
-				Jump();
-				isJumping = false;
-			}
+			
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 			{
 				if (currentAnimation == &leftAnim)
@@ -232,8 +234,6 @@ bool Player::Update(float dt)
 				}
 				
 			}
-
-			if (!godModeEnabled) GravityPlayer();
 		}
 
 		if (shotCountdown > 0) --shotCountdown;
@@ -664,24 +664,6 @@ bool Player::ThereIsDoor()
 
 }
 
-void Player::Jump() 
-{
-	speedY -= gravity;
-	position.y -= speedY;
-}
-
-void Player::GravityPlayer()
-{
-	if (!ThereIsGround() && !ThereIsChestBelow())
-	{
-		speedY -= gravity;
-		position.y -= speedY;
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) currentAnimation = &jumpAnimLeft;
-		else currentAnimation = &jumpAnimRight;
-	}
-	if ((ThereIsGround() || ThereIsChestBelow()) && (position.y + 85) % 64 != 0) position.y--;
-}
-
 bool Player::LoseLifes()
 {
 	lifes--;
@@ -693,7 +675,6 @@ bool Player::LoseLifes()
 
 	return true;
 }
-
 
 bool Player::CleanUp()
 {
