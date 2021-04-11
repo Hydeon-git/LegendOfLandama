@@ -2,16 +2,10 @@
 <!-- L01: DONE 1: Create configuration file-->
 <config>
   <app>
-    <title>Platformer Game by Fake Xeics</title>
+    <title>Game Development Testbed</title>
     <organization>UPC</organization>
-    <fps capMax="60" capMin="30"/>
   </app>
-  
-  <audio>
-    <music_volume value="50"/>
-    <fx_volume value="50" />
-  </audio>
-  
+
   <renderer>
     <vsync value="false"/>
   </renderer>
@@ -23,9 +17,4 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
-
-  <!-- L03: Added maps folder as config option -->
-  <map>
-    <folder>Assets/maps/</folder>
-  </map>
 </config>

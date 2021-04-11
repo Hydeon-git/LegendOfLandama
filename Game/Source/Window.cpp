@@ -99,13 +99,3 @@ uint Window::GetScale() const
 {
 	return scale;
 }
-
-bool Window::ChangeScreenSize()
-{
-	if (fullScreen == true) SDL_SetWindowFullscreen(window, true);
-	else SDL_SetWindowFullscreen(window, false);
-
-
-
-	return true;
-}

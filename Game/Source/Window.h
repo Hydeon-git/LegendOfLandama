@@ -18,8 +18,6 @@ public:
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
-
-
 	// Called before quitting
 	bool CleanUp();
 
@@ -32,9 +30,6 @@ public:
 	// Retrieve window scale
 	uint GetScale() const;
 
-	bool ChangeScreenSize();
-
-	bool fullScreen;
 public:
 	// The window we'll be rendering to
 	SDL_Window* window;

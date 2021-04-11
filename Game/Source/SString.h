@@ -49,7 +49,7 @@ public:
 		if(format != NULL)
 		{
 			static char tmp[TMP_STRING_SIZE];
-			static va_list ap;
+			static va_list  ap;
 
 			// Construct the string from variable arguments
 			va_start(ap, format);
@@ -84,7 +84,7 @@ public:
 		if(format != NULL)
 		{
 			static char tmp[TMP_STRING_SIZE];
-			static va_list ap;
+			static va_list  ap;
 
 			// Construct the string from variable arguments
 			va_start(ap, format);

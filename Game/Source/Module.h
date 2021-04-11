@@ -6,8 +6,6 @@
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
-class GuiControl;
-enum class GuiControlState;
 
 class Module
 {
@@ -16,9 +14,9 @@ public:
 	Module() : active(false)
 	{}
 
-	void Init(bool moduleActive)
+	void Init()
 	{
-		active = moduleActive;
+		active = true;
 	}
 
 	// Called before render is available
@@ -57,41 +55,6 @@ public:
 	{
 		return true;
 	}
-
-	// L02: DONE 2: Create new virtual methods to Load / Save state
-	virtual bool LoadState(pugi::xml_node&)
-	{
-		return true;
-	}
-
-	virtual bool SaveState(pugi::xml_node&) const
-	{
-		return true;
-	}
-	
-	virtual bool OnGuiMouseClickEvent(GuiControl* control)
-	{
-		return true;
-	}
-
-	void Enable()
-	{
-		if (!active)
-		{
-			active = true;
-			Start();
-		}
-	}
-
-	void Disable()
-	{
-		if (active)
-		{
-			active = false;
-			CleanUp();
-		}
-	}
-
 
 public:
 

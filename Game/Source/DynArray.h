@@ -36,7 +36,7 @@ public:
 	// Operators
 	VALUE& operator[](unsigned int index)
 	{
-		assert(index < numElements);
+		ASSERT(index < numElements);
 		return data[index];
 	}
 
@@ -180,7 +180,6 @@ public:
 		return ret;
 	}
 
-
 	int BubbleSortOptimized()
 	{
 		int ret = 0;
@@ -203,7 +202,6 @@ public:
 		}
 		return ret;
 	}
-
 
 	int CombSort()
 	{

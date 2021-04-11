@@ -5,13 +5,12 @@
 
 // NOTE: SDL redefines main function
 #include "SDL/include/SDL.h"
-#pragma comment(linker, "/subsystem:windows")
+
 // NOTE: Library linkage is configured in Linker Options
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2.lib")
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2main.lib")
 
 #include <stdlib.h>
-#pragma comment(linker, "/subsystem:windows")
 
 enum MainState
 {
@@ -43,15 +42,18 @@ int main(int argc, char* args[])
 
 			app = new App(argc, args);
 
-			if(app != NULL) state = AWAKE;
-			else state = FAIL;
+			if(app != NULL)
+				state = AWAKE;
+			else
+				state = FAIL;
 
 			break;
 
 			// Awake all modules -----------------------------------------------
 			case AWAKE:
 			LOG("AWAKE PHASE ===============================");
-			if(app->Awake() == true) state = START;
+			if(app->Awake() == true)
+				state = START;
 			else
 			{
 				LOG("ERROR: Awake failed");
@@ -77,7 +79,8 @@ int main(int argc, char* args[])
 
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
-			if(app->Update() == false) state = CLEAN;
+			if(app->Update() == false)
+				state = CLEAN;
 			break;
 
 			// Cleanup allocated memory -----------------------------------------
@@ -89,7 +92,8 @@ int main(int argc, char* args[])
 				result = EXIT_SUCCESS;
 				state = EXIT;
 			}
-			else state = FAIL;
+			else
+				state = FAIL;
 
 			break;
 

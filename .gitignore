@@ -1,9 +1,6 @@
 # Prerequisites
 *.d
 
-# Prerequisites
-*.d
-
 # Compiled Object files
 *.slo
 *.lo
@@ -61,6 +58,7 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+*.tlog
 .vs
 
 [Bb]uild

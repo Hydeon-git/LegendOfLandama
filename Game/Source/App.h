@@ -3,13 +3,8 @@
 
 #include "Module.h"
 #include "List.h"
-#include "PerfTimer.h"
-#include "Timer.h"
 
 #include "PugiXml/src/pugixml.hpp"
-
-#define CONFIG_FILENAME		"config.xml"
-#define SAVE_STATE_FILENAME "save_game.xml"
 
 // Modules
 class Window;
@@ -17,15 +12,7 @@ class Input;
 class Render;
 class Textures;
 class Audio;
-class Map;
-class PathFinding;
-class EntityManager;
-class FadeToBlack;
 class Scene;
-class SceneIntro;
-class SceneWin;
-class SceneLose;
-class Font;
 
 class App
 {
@@ -50,7 +37,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(Module* module, bool active);
+	void AddModule(Module* module);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -58,17 +45,10 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-	// L02: DONE 1: Create methods to request Load / Save
-	void LoadGameRequest();
-	void SaveGameRequest() const;
-
-	 
-
 private:
 
 	// Load config file
-	// NOTE: It receives config document
-	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+	bool LoadConfig();
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -85,10 +65,6 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
-	// Load / Save
-	bool LoadGame();
-	bool SaveGame() const;
-
 public:
 
 	// Modules
@@ -97,20 +73,7 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
-	PathFinding* pathfinding;
 	Scene* scene;
-	Map* map;
-	FadeToBlack* fadeToBlack;
-	SceneIntro* sceneIntro;
-	SceneWin* sceneWin;
-	SceneLose* sceneLose;
-	EntityManager* entityManager;
-	Font* font;
-
-	bool capped = false;
-	bool loadGameRequested;
-	bool vSync = false;
-
 
 private:
 
@@ -119,32 +82,17 @@ private:
 	SString title;
 	SString organization;
 
-	List<Module*> modules;
+	List<Module *> modules;
 
-	// L01: DONE 2: Create new variables from pugui namespace
-	// NOTE: Redesigned LoadConfig() to avoid storing this variables
-	//pugi::xml_document configFile;
-	//pugi::xml_node config;
-	//pugi::xml_node configApp;
+	// TODO 2: Create new variables from pugui namespace:
+	// a xml_document to store the config file and
+	// two xml_node to read specific branches of the xml
+	pugi::xml_document configFile;
+	pugi::xml_node config;
+	pugi::xml_node configApp;
 
-	mutable bool saveGameRequested;
-	SString loadedGame;
-	mutable SString savedGame;
-
-	// L07: DONE 4: Calculate some timing measures
-	// required variables are provided:
-	PerfTimer ptimer;
-	uint64 frameCount = 0;
-
-	Timer startupTime;
-	Timer frameTime;
-	Timer lastSecFrameTime;
-	uint32 lastSecFrameCount = 0;
-	uint32 prevLastSecFrameCount = 0;
-	float dt = 0.0f;
-	
-	float cappedMs = -1;
-	float cappedMsMin = -1;
+	uint frames;
+	float dt;
 };
 
 extern App* app;
