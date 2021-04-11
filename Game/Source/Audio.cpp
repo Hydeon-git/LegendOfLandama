@@ -54,6 +54,11 @@ bool Audio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
+	else
+	{
+		volume = config.child("music_volume").attribute("value").as_int();
+		fxVolume = config.child("fx_volume").attribute("value").as_int();
+	}
 
 	return ret;
 }
@@ -61,8 +66,7 @@ bool Audio::Awake(pugi::xml_node& config)
 // Called before quitting
 bool Audio::CleanUp()
 {
-	if(!active)
-		return true;
+	if(!active) return true;
 
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
@@ -85,18 +89,17 @@ bool Audio::CleanUp()
 }
 
 // Play a music file
-bool Audio::PlayMusic(const char* path, float fadeTime)
+bool Audio::PlayMusic(const char* path, float fade_time)
 {
 	bool ret = true;
 
-	if(!active)
-		return false;
+	if(!active) return false;
 
 	if(music != NULL)
 	{
-		if(fadeTime > 0.0f)
+		if(fade_time > 0.0f)
 		{
-			Mix_FadeOutMusic(int(fadeTime * 1000.0f));
+			Mix_FadeOutMusic(int(fade_time * 1000.0f));
 		}
 		else
 		{
@@ -116,9 +119,11 @@ bool Audio::PlayMusic(const char* path, float fadeTime)
 	}
 	else
 	{
-		if(fadeTime > 0.0f)
+		Mix_VolumeMusic(volume);
+
+		if(fade_time > 0.0f)
 		{
-			if(Mix_FadeInMusic(music, -1, (int) (fadeTime * 1000.0f)) < 0)
+			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
 			{
 				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
@@ -143,8 +148,7 @@ unsigned int Audio::LoadFx(const char* path)
 {
 	unsigned int ret = 0;
 
-	if(!active)
-		return 0;
+	if(!active) return 0;
 
 	Mix_Chunk* chunk = Mix_LoadWAV(path);
 
@@ -166,13 +170,40 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 {
 	bool ret = false;
 
-	if(!active)
-		return false;
+	if(!active) return false;
 
-	if(id > 0 && id <= fx.Count())
+	if (id > 0 && id <= fx.Count())
 	{
+		Mix_VolumeChunk(fx[id - 1], fxVolume);
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
-	}
+	}	
 
 	return ret;
+}
+
+void Audio::ChangeMusicVolume(int index)
+{
+	volume = index;
+	Mix_VolumeMusic(volume);
+}
+
+void Audio::ChangeFxVolume(int index)
+{
+	fxVolume = index;
+}
+
+bool Audio::LoadState(pugi::xml_node& audioNode)
+{
+	//volume = audioNode.child("volume").attribute("value").as_int();
+	//Mix_VolumeMusic(volume);
+
+	return true;
+}
+
+bool Audio::SaveState(pugi::xml_node& audioNode) const
+{
+	pugi::xml_node node = audioNode.append_child("volume");
+	node.append_attribute("value").set_value(volume);
+
+	return true;
 }

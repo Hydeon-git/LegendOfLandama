@@ -1,6 +1,14 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "FlyingEnemy.h"
+#include "Map.h"
+#include "Scene.h"
+#include "FadeToBlack.h"
+#include "SceneWin.h"
+#include "SceneLose.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -43,10 +51,12 @@ bool Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = app->win->screenSurface->w;
-		camera.h = app->win->screenSurface->h;
-		camera.x = 0;
-		camera.y = 0;
+		if (app->scene->player != nullptr)
+		{
+			camera.w = app->win->screenSurface->w;
+			camera.h = app->win->screenSurface->h;
+			camera.y = app->scene->player->position.y - (camera.h * 2) + 10;
+		}
 	}
 
 	return ret;
@@ -56,7 +66,6 @@ bool Render::Awake(pugi::xml_node& config)
 bool Render::Start()
 {
 	LOG("render start");
-	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
 	return true;
 }
@@ -70,6 +79,13 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
+	if (!app->scene->paused)
+	{
+		if (app->scene->player != nullptr)
+		{
+			if (app->scene->player->dead) DeadRestart();
+		}
+	}
 	return true;
 }
 
@@ -85,6 +101,97 @@ bool Render::CleanUp()
 {
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
+	return true;
+}
+
+//restart values
+void Render::RestartValues()
+{
+	if (app->scene->player != nullptr)
+	{
+		if (app->map->checkpointTaken && !app->sceneWin->won && !app->sceneLose->lost && !app->scene->restart)
+		{
+			app->scene->player->position.x = 938;
+			app->scene->player->position.y = 171;
+
+			app->render->camera.x = -588;
+			app->render->camera.y = -99;
+		}
+		if (!app->map->checkpointTaken)
+		{
+			app->scene->player->position.x = 350;
+			app->scene->player->position.y = 875;
+
+			app->render->camera.x = app->scene->player->position.x - app->scene->player->position.x;
+			app->render->camera.y = app->scene->player->position.y - (app->render->camera.h * 2) + 10-1440;
+			
+		}
+		if (app->scene->restart)
+		{
+			app->scene->player->position.x = 350;
+			app->scene->player->position.y = 875;
+
+			app->render->camera.x = app->scene->player->position.x - app->scene->player->position.x;
+			app->render->camera.y = app->scene->player->position.y - (app->render->camera.h * 2) + 10 - 1440;
+			app->map->keyTaken = false;
+			app->map->chestTaken = false;
+			app->map->heartTaken = false;
+			app->map->puzzleTaken = false;
+			app->map->checkpointTaken = false;
+			app->scene->player->lifes = 3;
+			app->scene->player->counterKey = 0;
+			app->scene->player->counterCheckpoint = 0;
+			app->scene->player->counterHeart = 0;
+			app->scene->player->counterPuzzle = 0;
+			app->scene->restart = false;
+			app->scene->timer = 0;
+		}
+
+		if (app->scene->player->dead || app->scene->player->win) app->render->camera.y = -2000;
+
+		app->scene->enemy->active = true;
+		app->scene->enemy->dead = false;
+		app->scene->flyingEnemy->active = true;
+		app->scene->flyingEnemy->dead = false;
+		app->scene->enemy->EnemyInitialPosition();
+		app->scene->flyingEnemy->FlyingEnemyInitialPosition();
+		app->scene->player->deathAnim.Reset();
+		counter = 0;
+		app->scene->player->spiked = false;
+		app->scene->player->dead = false;
+		app->scene->player->godModeEnabled = false;
+	}
+}
+
+void Render::DeadRestart()
+{
+	if (app->scene->player->currentAnimation == &app->scene->player->deathAnim)
+	{
+		if (counter > 100)
+		{
+			RestartValues();
+			app->scene->player->dead = false;
+		}
+		else counter++;
+	}
+}
+
+// L02: DONE 6: Implement a method to load the state, for now load camera's x and y
+// Load Game State
+bool Render::LoadState(pugi::xml_node& data)
+{
+	camera.x = data.child("camera").attribute("x").as_int();
+	camera.y = data.child("camera").attribute("y").as_int();
+	return true;
+}
+
+// L02: DONE 8: Create a method to save the state of the renderer
+// Save Game State
+bool Render::SaveState(pugi::xml_node& data) const
+{
+	pugi::xml_node cam = data.append_child("camera");
+	cam.append_attribute("x") = camera.x;
+	cam.append_attribute("y") = camera.y;
 	return true;
 }
 
@@ -118,10 +225,7 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 		rect.w = section->w;
 		rect.h = section->h;
 	}
-	else
-	{
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-	}
+	else SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 
 	rect.w *= scale;
 	rect.h *= scale;
@@ -183,10 +287,8 @@ bool Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b,
 
 	int result = -1;
 
-	if(use_camera)
-		result = SDL_RenderDrawLine(renderer, camera.x + x1 * scale, camera.y + y1 * scale, camera.x + x2 * scale, camera.y + y2 * scale);
-	else
-		result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
+	if(use_camera) result = SDL_RenderDrawLine(renderer, camera.x + x1 * scale, camera.y + y1 * scale, camera.x + x2 * scale, camera.y + y2 * scale);
+	else result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
 
 	if(result != 0)
 	{

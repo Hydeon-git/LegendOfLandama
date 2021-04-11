@@ -1,12 +1,23 @@
 <?xml version="1.0"?>
-<!-- L02: TODO 4: Create a simulation xml file to read -->
-<game_state>
-	<input />
+<save_state>
 	<window />
+	<input />
 	<textures />
-	<audio />
-	<scene />
+	<audio>
+		<volume value="48" />
+	</audio>
+	<:anonymous />
+	<SceneWin />
+	<SceneLose />
+	<scene>
+		<positionPlayer x="350" y="875" />
+	</scene>
+	<map />
+	<entitymanager />
+	<font />
+	<pathfinding />
+	<fadeToBlack />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="0" y="-555" />
 	</renderer>
-</game_state>
+</save_state>
