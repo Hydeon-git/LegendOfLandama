@@ -33,8 +33,8 @@ Player::Player() : Entity(EntityType::PLAYER)
 	
 	if (app->sceneIntro->playClicked)
 	{
-		position.x = 350;
-		position.y = 875;
+		position.x = 200;
+		position.y = 100;
 		app->sceneIntro->playClicked = false;
 		app->sceneIntro->posContinue = false;
 		app->sceneWin->won = false;
@@ -42,8 +42,8 @@ Player::Player() : Entity(EntityType::PLAYER)
 	}
 	else if (!app->sceneIntro->posContinue)
 	{
-		position.x = 350;
-		position.y = 875;
+		position.x = 200;
+		position.y = 100;
 
 	}
 	else if (app->sceneWin->won||app->sceneLose->lost)
@@ -64,27 +64,30 @@ Player::Player() : Entity(EntityType::PLAYER)
 	}
 
 	//idlanim
-	idlAnim.PushBack({ 0, 0, 64, 85 });
-	idlAnim.PushBack({ 0, 681, 64, 85 });
+	idlAnim.PushBack({ 0, 0, 15, 16 });
+	idlAnim.PushBack({ 16, 0, 16, 16 });
 	idlAnim.speed = 0.02f;
 
 	//move right
-	rightAnim.PushBack({ 0, 85, 64, 85 });
-	rightAnim.PushBack({ 0, 170, 64, 85 });
+	rightAnim.PushBack({ 0, 0, 16, 16 });
+	rightAnim.PushBack({ 16, 0, 16, 16 });
+	rightAnim.PushBack({ 32, 0, 16, 16 });
+	rightAnim.PushBack({ 48, 0, 16, 16 });
 	rightAnim.speed = 0.1f;
 
 	//move left
-	leftAnim.PushBack({ 0, 255, 64, 85 });
-	leftAnim.PushBack({ 0, 340, 64, 85 });
+	leftAnim.PushBack({ 64, 16, 16, 16 });
+	leftAnim.PushBack({ 48, 16, 16, 16 });
+	leftAnim.PushBack({ 32, 16, 16, 16 });
+	leftAnim.PushBack({ 16, 16, 16, 16 });
 	leftAnim.speed = 0.1f;
-
-	//jumpAnimRight
-	jumpAnimRight.PushBack({ 0, 425, 64, 85 });
-	jumpAnimRight.speed = 0.1f;
 	
-	//jumpAnimRight
-	jumpAnimLeft.PushBack({ 0, 510, 64, 85 });
-	jumpAnimLeft.speed = 0.1f;
+	//move up
+	upAnim.PushBack({ 64, 32, 16, 16 });
+	upAnim.PushBack({ 48, 32, 16, 16 });
+	upAnim.PushBack({ 32, 32, 16, 16 });
+	upAnim.PushBack({ 16, 32, 16, 16 });
+	upAnim.speed = 0.1f;
 
 	//deathAnim
 	deathAnim.PushBack({ 0, 595, 64, 85 });
@@ -135,7 +138,7 @@ bool Player::Start()
 			lifes = app->scene->lifesScene;
 
 		}
-		texPlayer = app->tex->Load("Assets/Textures/player_textures.png");
+		texPlayer = app->tex->Load("Assets/Textures/main_character.png");
 		texFireBall = app->tex->Load("Assets/Textures/shot_fireball.png");
 		playerDeathFx = app->audio->LoadFx("Assets/Audio/Fx/death_sound.wav");
 		itemTakenFx = app->audio->LoadFx("Assets/Audio/Fx/item.wav");
@@ -162,30 +165,22 @@ bool Player::Update(float dt)
 	{
 		currentAnimation = &idlAnim;
 
-		if (ThereIsGround()) speedY = 0;
-
-
-		if ((ThereAreSpikes() || ThereIsEnemy() || ThereIsFlyingEnemy()))
-		{
-			LoseLifes();
-		}
-
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
 		{
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !ThereAreSpikes())
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 			{
 				if (!ThereIsLeftWall() && !ThereIsChestLeft())
 				{
-					position.y -= speedX;
-					currentAnimation = &leftAnim;
+					position.y -= speed;
+					currentAnimation = &upAnim;
 				}				
 			}
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && !ThereAreSpikes())
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 			{
 				if (!ThereIsLeftWall() && !ThereIsChestLeft())
 				{
-					position.y += speedX;
+					position.y += speed;
 					currentAnimation = &leftAnim;
 				}				
 			}
@@ -194,7 +189,7 @@ bool Player::Update(float dt)
 			{
 				if (!ThereIsLeftWall() && !ThereIsChestLeft())
 				{
-					position.x -= speedX;
+					position.x -= speed;
 					currentAnimation = &leftAnim;
 				}
 			}
@@ -202,16 +197,10 @@ bool Player::Update(float dt)
 			{
 				if (!ThereIsRightWall() && !ThereIsChestRight())
 				{
-					position.x += speedX;
+					position.x += speed;
 					currentAnimation = &rightAnim;
 				}
 			}
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (ThereIsGround() || ThereIsChestBelow()) && !ThereAreSpikes())
-			{
-				isJumping = true;
-				speedY = 5.0f;
-			}
-			
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 			{
 				if (currentAnimation == &leftAnim)

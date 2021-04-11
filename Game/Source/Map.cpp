@@ -108,56 +108,32 @@ void Map::DrawColliders()
 	}
 }
 
-void Map::DrawKey()
+void Map::DrawVillage()
 {
 	if (mapLoaded == false) return;
 
-	ListItem<MapLayer*>* layerNoKey = data.layers.start;
-	ListItem<MapLayer*>* layerKey = data.layers.start;
+	ListItem<MapLayer*>* layer = data.layers.start;
 
-	while (layerNoKey != NULL)
+	while (layer != NULL)
 	{
-
-		if (layerNoKey->data->name == "keyTaken")
+		if (layer->data->name == "cases")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = layerNoKey->data->Get(x, y);
+					int tileId = layer->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (keyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		layerNoKey = layerNoKey->next;
-	}
-	while (layerKey != NULL)
-	{
-
-		if (layerKey->data->name == "key")
-		{
-			for (int y = 0; y < data.height; ++y)
-			{
-				for (int x = 0; x < data.width; ++x)
-				{
-					int tileId = layerKey->data->Get(x, y);
-					if (tileId > 0)
-					{
-						TileSet* set = GetTilesetFromTileId(tileId);
-						SDL_Rect rect = set->GetTileRect(tileId);
-						iPoint pos = MapToWorld(x, y);
-						if (!keyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
-					}
-				}
-			}
-		}
-		layerKey = layerKey->next;
+		layer = layer->next;
 	}
 }
 

@@ -56,11 +56,8 @@ public:
 	Animation idlAnim;
 	Animation rightAnim;
 	Animation leftAnim;
-	Animation jumpAnimRight;
-	Animation jumpAnimLeft;
-	Animation deathAnim;
-
 	Animation upAnim;
+	Animation deathAnim;
 
 	bool dead = false;
 	bool win = false;
@@ -81,10 +78,8 @@ public:
 	bool loaded = false;
 
 private:
-	float speedX = 3.0f;
-	float speedY = 0.0f;
+	float speed = 1.0f;
 	float fireBallSpeed = 3.0f;
-	float gravity = 0.15f;
 	int playerHeight = 85;
 	int playerWidth = 64;
 	bool isJumping = false;

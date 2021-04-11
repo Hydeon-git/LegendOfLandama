@@ -123,8 +123,8 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
-	cameraX = app->render->camera.x;
-	cameraY = app->render->camera.y;
+	app->render->camera.x = 200;
+	app->render->camera.y = 100;
 
 	// L02: DONE 3: Request Load / Save when pressing L/S
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
@@ -248,10 +248,10 @@ bool Scene::PostUpdate()
 
 
 	// Draw map
-	app->render->DrawTexture(background, 0, 0);
+	//app->render->DrawTexture(background, 0, 0);
 	app->map->Draw();
 	app->map->DrawColliders();
-	app->map->DrawKey();
+	app->map->DrawVillage();
 	app->map->DrawCheckpoint();
 	app->map->DrawPuzzle();
 	if (!app->map->chestTaken) app->map->DrawChest();

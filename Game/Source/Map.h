@@ -120,7 +120,7 @@ public:
 
 	// Called each loop iteration
 	void Draw();
-	void DrawKey();
+	void DrawVillage();
 	void DrawCheckpoint();
 	void DrawPuzzle();
 	void DrawChest();

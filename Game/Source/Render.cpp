@@ -86,6 +86,7 @@ bool Render::Update(float dt)
 			if (app->scene->player->dead) DeadRestart();
 		}
 	}
+	
 	return true;
 }
 
