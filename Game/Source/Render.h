@@ -30,6 +30,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Load / Save
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&) const;
+
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
 
@@ -41,6 +45,12 @@ public:
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
+
+	//restart values
+	void RestartValues();
+	void DeadRestart();
+
+	int counter = 0;
 
 public:
 

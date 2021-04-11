@@ -9,7 +9,7 @@ struct QueueItem
 	tdata data;
 	QueueItem<tdata>* next;
 
-	inline QueueItem(const tdata& _data) : data(_data), next(NULL)
+	inline QueueItem(const tdata& pData) : data(pData), next(NULL)
 	{}
 };
 
