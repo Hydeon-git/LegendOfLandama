@@ -225,6 +225,28 @@ bool Player::Update(float dt)
 			}
 		}
 
+
+		if (!godModeEnabled)
+		{
+			iPoint tilePosition;
+			ListItem<MapLayer*>* layer = app->map->data.layers.start;
+			int groundId;
+			while (layer != NULL)
+			{
+				if (layer->data->properties.GetProperty("Navigation") == 0)
+				{
+					for (int i = 0; i < 4; ++i)
+					{
+						tilePosition = app->map->WorldToMap(position.x + i * 4, position.y - 1);
+						groundId = layer->data->Get(tilePosition.x, tilePosition.y);
+						if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && groundId == COLLIDER_BLUE); //entrar a casa;
+					}
+
+				}
+				layer = layer->next;
+			}
+		}
+
 		if (shotCountdown > 0) --shotCountdown;
 
 		if (ThereIsChestBelow() || ThereIsChestLeft() || ThereIsChestRight())
@@ -314,9 +336,9 @@ bool Player::ThereIsTopWall()
 		{
 			if (layer->data->properties.GetProperty("Navigation") == 0)
 			{
-				for (int i = 0; i < 5; ++i)
+				for (int i = 0; i < 4; ++i)
 				{
-					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y-1);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
 					if (groundId == COLLIDER_RED) valid = true;
 				}
@@ -341,7 +363,7 @@ bool Player::ThereIsBottomWall()
 		{
 			if (layer->data->properties.GetProperty("Navigation") == 0)
 			{
-				for (int i = 0; i < 5; ++i)
+				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
@@ -370,7 +392,7 @@ bool Player::ThereIsLeftWall()
 			{
 				for (int i = 0; i < 4; ++i)
 				{
-					tilePosition = app->map->WorldToMap(position.x, position.y + i * 4);
+					tilePosition = app->map->WorldToMap(position.x-1, position.y + i * 4);
 					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
 					if (leftWallId == COLLIDER_RED) valid = true;
 				}
@@ -395,7 +417,7 @@ bool Player::ThereIsRightWall()
 			{
 				for (int i = 0; i < 4; ++i)
 				{
-					tilePosition = app->map->WorldToMap(position.x + playerWidth, position.y + i * 4);
+					tilePosition = app->map->WorldToMap(position.x + playerWidth+1, position.y + i * 4);
 					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
 					if (rightWallId == COLLIDER_RED) valid = true;
 				}
