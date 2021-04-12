@@ -87,8 +87,8 @@ bool Scene::Start()
 		clockText = app->tex->Load("Assets/Textures/timer.png");
 		player->spiked = false;
 
-		char lookupTable[] = { "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ:/,!+-%  " };
-		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 9);
+		char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~"};
+		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
 
 
 		if(!app->sceneIntro->posContinue) timer = 0;
@@ -374,7 +374,7 @@ void Scene::Pause()
 	//SDL_Rect rect = { -app->render->camera.x + 450, -app->render->camera.y + 50, 400, 450 };
 
 	//Buttons
-	btnResume = new GuiButton(1, { -app->render->camera.x+535, -app->render->camera.y+160, 210, 50 }, "RESUME");
+	btnResume = new GuiButton(1, { -app->render->camera.x+535, -app->render->camera.y+160, 210, 50 }, "Resume");
 	btnResume->SetObserver(this);
 
 	btnSettings = new GuiButton(2, { -app->render->camera.x+505, -app->render->camera.y+263, 269, 51 }, "SETTINGS");

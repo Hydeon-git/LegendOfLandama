@@ -50,8 +50,8 @@ bool SceneIntro::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = -555;
 
-	char lookupTable[] = { "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ:/,!+-%  " };
-	whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 9);
+	char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
+	whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
 	yellowFont = app->font->Load("Assets/Textures/yellow_font.png", lookupTable, 9);
 	btnPlay = new GuiButton(1, { 180, 315, 48, 16 }, "PLAY");
 	btnPlay->SetObserver(this);
