@@ -86,7 +86,7 @@ void Map::DrawColliders()
 	{
 		if (colliders)
 		{
-			if (layer->data->name == "collisions")
+			if (layer->data->name == "colliders")
 			{
 				for (int y = 0; y < data.height; ++y)
 				{

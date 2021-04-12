@@ -20,8 +20,8 @@
 
 
 #define COLLIDER_GREEN 265
-#define COLLIDER_RED 266
-#define COLLIDER_BLUE 267
+#define COLLIDER_RED 857
+#define COLLIDER_BLUE 858
 #define COLLIDER_YELLOW 268
 #define COLLIDER_PINK 269
 #define COLLIDER_GREY 270
@@ -170,7 +170,7 @@ bool Player::Update(float dt)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 			{
-				if (!ThereIsLeftWall() && !ThereIsChestLeft())
+				if (!ThereIsTopWall())
 				{
 					position.y -= speed;
 					currentAnimation = &upAnim;
@@ -178,7 +178,7 @@ bool Player::Update(float dt)
 			}
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 			{
-				if (!ThereIsLeftWall() && !ThereIsChestLeft())
+				if (!ThereIsBottomWall())
 				{
 					position.y += speed;
 					currentAnimation = &leftAnim;
@@ -187,7 +187,7 @@ bool Player::Update(float dt)
 
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !ThereAreSpikes())
 			{
-				if (!ThereIsLeftWall() && !ThereIsChestLeft())
+				if (!ThereIsLeftWall())
 				{
 					position.x -= speed;
 					currentAnimation = &leftAnim;
@@ -195,7 +195,7 @@ bool Player::Update(float dt)
 			}
 			else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !ThereAreSpikes())
 			{
-				if (!ThereIsRightWall() && !ThereIsChestRight())
+				if (!ThereIsRightWall())
 				{
 					position.x += speed;
 					currentAnimation = &rightAnim;
@@ -302,7 +302,7 @@ bool Player::PostUpdate()
 	return true;
 }
 
-bool Player::ThereIsGround()
+bool Player::ThereIsTopWall()
 {
 	bool valid = false;
 	if (!godModeEnabled)
@@ -316,7 +316,34 @@ bool Player::ThereIsGround()
 			{
 				for (int i = 0; i < 5; ++i)
 				{
-					tilePosition = app->map->WorldToMap(position.x + 24 + i * 4, position.y + playerHeight);
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (groundId == COLLIDER_RED) valid = true;
+				}
+
+			}
+			layer = layer->next;
+		}
+	}
+	return valid;
+
+}
+
+bool Player::ThereIsBottomWall()
+{
+	bool valid = false;
+	if (!godModeEnabled)
+	{
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int groundId;
+		while (layer != NULL)
+		{
+			if (layer->data->properties.GetProperty("Navigation") == 0)
+			{
+				for (int i = 0; i < 5; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
 					if (groundId == COLLIDER_RED) valid = true;
 				}
@@ -343,7 +370,7 @@ bool Player::ThereIsLeftWall()
 			{
 				for (int i = 0; i < 4; ++i)
 				{
-					tilePosition = app->map->WorldToMap(position.x, position.y + 21 + i * 16);
+					tilePosition = app->map->WorldToMap(position.x, position.y + i * 4);
 					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
 					if (leftWallId == COLLIDER_RED) valid = true;
 				}
@@ -368,7 +395,7 @@ bool Player::ThereIsRightWall()
 			{
 				for (int i = 0; i < 4; ++i)
 				{
-					tilePosition = app->map->WorldToMap(position.x + playerWidth, position.y + 21 + i * 16);
+					tilePosition = app->map->WorldToMap(position.x + playerWidth, position.y + i * 4);
 					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
 					if (rightWallId == COLLIDER_RED) valid = true;
 				}

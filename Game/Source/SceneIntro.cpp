@@ -53,31 +53,31 @@ bool SceneIntro::Start()
 	char lookupTable[] = { "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ:/,!+-%  " };
 	whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 9);
 	yellowFont = app->font->Load("Assets/Textures/yellow_font.png", lookupTable, 9);
-	btnPlay = new GuiButton(1, { 540, 950, 145, 50 }, "PLAY");
+	btnPlay = new GuiButton(1, { 180, 315, 48, 16 }, "PLAY");
 	btnPlay->SetObserver(this);
 	
-	btnContinue = new GuiButton(2, { 480, 1025, 270, 50 }, "CONTINUE");
+	btnContinue = new GuiButton(2, { 160, 341, 90, 16 }, "CONTINUE");
 	btnContinue->SetObserver(this);
 	
-	btnSettings = new GuiButton(3, { 988, 1200, 270, 50 }, "SETTINGS");
+	btnSettings = new GuiButton(3, { 329, 400, 90, 16 }, "SETTINGS");
 	btnSettings->SetObserver(this);
 	
-	btnCredits = new GuiButton(4, { 19, 1200, 240, 50 }, "CREDITS");
+	btnCredits = new GuiButton(4, { 19, 400, 80, 16 }, "CREDITS");
 	btnCredits->SetObserver(this);
 	
-	btnExit = new GuiButton(5, { 1113, 582, 145, 50 }, "EXIT");
+	btnExit = new GuiButton(5, { 371, 194, 48, 16 }, "EXIT");
 	btnExit->SetObserver(this);
 	
-	btnBackSettings = new GuiButton(6, { 540, 1200, 145, 50 }, "BACK");
+	btnBackSettings = new GuiButton(6, { 180, 400, 48, 16 }, "BACK");
 	btnBackSettings->SetObserver(this);
 	
-	btnBackCredits = new GuiButton(7, { 540, 1200, 145, 50 }, "BACK");
+	btnBackCredits = new GuiButton(7, { 180, 400, 48, 16 }, "BACK");
 	btnBackCredits->SetObserver(this);
 
-	btnControls = new GuiButton(8, { 480, 1200, 270, 50 }, "CONTROLS");
+	btnControls = new GuiButton(8, { 160, 400, 90, 16 }, "CONTROLS");
 	btnControls->SetObserver(this);
 
-	btnBackControls = new GuiButton(9, { 540, 1200, 145, 50 }, "BACK");
+	btnBackControls = new GuiButton(9, { 180, 400, 48, 16 }, "BACK");
 	btnBackControls->SetObserver(this);
 
 	sliderMusicVolume = new GuiSlider(1, { 725, 950, 10, 28 }, "MUSIC VOLUME");
@@ -149,11 +149,11 @@ bool SceneIntro::PostUpdate()
 	bool ret = true;
 	if (exit == true) ret = false;
 
-	if (count <= 240) app->render->DrawTexture(logoText, 0, 555, NULL);
+	if (count <= 240) app->render->DrawTexture(logoText, 0, 185, NULL);
 
 	else if (count > 240)
 	{
-		app->render->DrawTexture(introText, 0, 555, NULL);
+		app->render->DrawTexture(introText, 0, 185, NULL);
 
 		if (settings == true)
 		{

@@ -123,8 +123,8 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
-	app->render->camera.x = 200;
-	app->render->camera.y = 100;
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 
 	// L02: DONE 3: Request Load / Save when pressing L/S
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
@@ -256,25 +256,6 @@ bool Scene::PostUpdate()
 	app->map->DrawPuzzle();
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();
-	if (player->lifes == 4)
-	{
-		app->render->DrawTexture(heart, -app->render->camera.x, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-		app->render->DrawTexture(heart, -app->render->camera.x + 64, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-		app->render->DrawTexture(heart, -app->render->camera.x + 128, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-		app->render->DrawTexture(heart, -app->render->camera.x + 192, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-	}
-	if (player->lifes == 3)
-	{
-		app->render->DrawTexture(heart, -app->render->camera.x, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-		app->render->DrawTexture(heart, -app->render->camera.x + 64, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-		app->render->DrawTexture(heart, -app->render->camera.x + 128, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-	}
-	if (player->lifes == 2)
-	{
-		app->render->DrawTexture(heart, -app->render->camera.x, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-		app->render->DrawTexture(heart, -app->render->camera.x + 64, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
-	}
-	if (player->lifes == 1) app->render->DrawTexture(heart, -app->render->camera.x, -app->render->camera.y, &(lifesAnim.GetCurrentFrame()));
 
 	if(app->map->keyTaken) app->render->DrawTexture(key, -app->render->camera.x + 10, -app->render->camera.y + 75, &(keyAnim.GetCurrentFrame()));
 

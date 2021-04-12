@@ -33,7 +33,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool ThereIsGround();
+	bool ThereIsTopWall();
+	bool ThereIsBottomWall();
 	bool ThereIsLeftWall();
 	bool ThereIsRightWall();
 	
@@ -80,8 +81,8 @@ public:
 private:
 	float speed = 1.0f;
 	float fireBallSpeed = 3.0f;
-	int playerHeight = 85;
-	int playerWidth = 64;
+	int playerHeight = 16;
+	int playerWidth = 16;
 	bool isJumping = false;
 	
 

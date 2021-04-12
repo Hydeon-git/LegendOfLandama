@@ -3223,6 +3223,10 @@
   </data>
  </layer>
  <layer id="4" name="colliders" width="40" height="40">
+  <properties>
+   <property name="Navigation" type="int" value="0"/>
+   <property name="NoDrawable" type="int" value="1"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
