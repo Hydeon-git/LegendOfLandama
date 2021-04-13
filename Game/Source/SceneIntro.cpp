@@ -43,7 +43,6 @@ bool SceneIntro::Start()
 	bool ret = true;
 
 	introText = app->tex->Load("Assets/Textures/portada.png");
-	creditText = app->tex->Load("Assets/Textures/credits.png");
 	logoText = app->tex->Load("Assets/Textures/logo.png");
 	app->sceneLose->Disable();
 	app->sceneWin->Disable();
@@ -53,7 +52,6 @@ bool SceneIntro::Start()
 
 	char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 	whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
-	yellowFont = app->font->Load("Assets/Textures/yellow_font.png", lookupTable, 9);
 	btnPlay = new GuiButton(1, { 180, 315, 48, 16 }, "PLAY");
 	btnPlay->SetObserver(this);
 	

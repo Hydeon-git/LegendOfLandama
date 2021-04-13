@@ -210,19 +210,6 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	texture = app->tex->Load("Assets/Textures/shot_fireball.png");
-
-
-	fireBallRight.anim.PushBack({ 0, 0, 22, 14 });
-	fireBallRight.speed.x = 5;
-	fireBallRight.lifeTime = 70;
-	fireBallRight.anim.speed = 0.2f;
-
-	fireBallLeft.anim.PushBack({ 0, 14, 22, 14 });
-	fireBallLeft.speed.x = -5;
-	fireBallLeft.lifeTime = 70;
-	fireBallLeft.anim.speed = 0.2f;
-
 	return true;
 }
 

@@ -34,19 +34,7 @@ Scene::Scene() : Module()
 
 	clockAnim.PushBack({ 0,0,40,34 });
 	clockAnim.PushBack({ 0,34,40,34 });
-	clockAnim.speed = 0.0168f;
-	
-	lifesAnim.PushBack({ 0,0,54,56 });
-	lifesAnim.PushBack({ 0,56,54,56 });
-	lifesAnim.speed = 0.02f;
-
-	keyAnim.PushBack({ 0,0,32,34 });
-	keyAnim.PushBack({ 0,34,32,34 });
-	keyAnim.speed = 0.04f;
-
-	puzzleAnim.PushBack({ 0,0,40,37 });
-	puzzleAnim.PushBack({ 0,37,40,37 });
-	puzzleAnim.speed = 0.04f;
+	clockAnim.speed = 0.0168f;	
 }
 
 // Destructor
@@ -67,24 +55,11 @@ bool Scene::Start()
 	if (this->active == true)
 	{
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-		enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
-		flyingEnemy = (FlyingEnemy*)app->entityManager->CreateEntity(EntityType::FLYING_ENEMY);
-		particles = (ModuleParticles*)app->entityManager->CreateEntity(EntityType::PARTICLE);
 
 		player->Start();
 		//player->active = true;
-		enemy->Start();
-		flyingEnemy->Start();
-		particles->Start();
 
 		app->map->Enable();
-		background = app->tex->Load("Assets/Textures/background.png");
-		heart = app->tex->Load("Assets/Textures/head_life.png");
-		key = app->tex->Load("Assets/Textures/key.png");
-		puzzle = app->tex->Load("Assets/Textures/puzzle.png");
-		pause = app->tex->Load("Assets/Textures/pause.png");
-		creditText = app->tex->Load("Assets/Textures/settings_paused.png");
-		clockText = app->tex->Load("Assets/Textures/timer.png");
 		player->spiked = false;
 
 		char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~"};
@@ -258,9 +233,6 @@ bool Scene::Update(float dt)
 	}
 
 	if (!paused) clockAnim.Update();
-	if (!paused) lifesAnim.Update();
-	if (!paused) keyAnim.Update();
-	if (!paused) puzzleAnim.Update();
 
 	lifesScene = player->lifes;
 	sceneCounterKey = player->counterKey;
@@ -287,13 +259,6 @@ bool Scene::PostUpdate()
 	app->map->DrawPuzzle();
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();
-
-	if(app->map->keyTaken) app->render->DrawTexture(key, -app->render->camera.x + 10, -app->render->camera.y + 75, &(keyAnim.GetCurrentFrame()));
-
-	if(app->map->puzzleTaken&&!app->map->chestTaken) app->render->DrawTexture(puzzle, -app->render->camera.x + 70, -app->render->camera.y + 71, &(puzzleAnim.GetCurrentFrame()));
-	
-	if (app->map->chestTaken) app->render->DrawTexture(puzzle, -app->render->camera.x + 70, -app->render->camera.y + 71, &puzzleRect);
-
 
 	//menu pause
 
@@ -359,10 +324,6 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-	app->tex->UnLoad(background);
-	app->tex->UnLoad(heart);
-	app->tex->UnLoad(key);
-	app->tex->UnLoad(puzzle);
 	app->tex->UnLoad(pause);
 	app->tex->UnLoad(creditText);
 	app->tex->UnLoad(clockText);
@@ -446,9 +407,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			paused = false;
 			app->scene->player->texPlayer= app->tex->Load("Assets/Textures/player_textures.png");
-			app->scene->enemy->texEnemy = app->tex->Load("Assets/Textures/enemy_texture.png");
-			app->scene->flyingEnemy->texFlyingEnemy = app->tex->Load("Assets/Textures/flying_enemy_texture.png");
-			app->scene->particles->texture = app->tex->Load("Assets/Textures/shot_fireball.png");
 		}
 		else if (control->id == 2) pausedSettings = true;
 		else if (control->id == 3)

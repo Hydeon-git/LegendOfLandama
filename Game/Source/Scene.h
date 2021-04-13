@@ -68,19 +68,13 @@ public:
 	bool restart = false;
 	uint timer = 0;
 private:
-	SDL_Texture* background;
 	SDL_Texture* debugTex;
-	SDL_Texture* heart;
-	SDL_Texture* key;
-	SDL_Texture* puzzle;
+	
 	SDL_Texture* pause;
 	SDL_Texture* creditText = nullptr;
 	SDL_Texture* clockText;
 
 	Animation clockAnim;
-	Animation lifesAnim;
-	Animation keyAnim;
-	Animation puzzleAnim;
 
 	GuiButton* btnResume;
 	GuiButton* btnSettings;

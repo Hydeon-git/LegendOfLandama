@@ -139,7 +139,6 @@ bool Player::Start()
 
 		}
 		texPlayer = app->tex->Load("Assets/Textures/main_character.png");
-		texFireBall = app->tex->Load("Assets/Textures/shot_fireball.png");
 		playerDeathFx = app->audio->LoadFx("Assets/Audio/Fx/death_sound.wav");
 		itemTakenFx = app->audio->LoadFx("Assets/Audio/Fx/item.wav");
 		checkpointFx = app->audio->LoadFx("Assets/Audio/Fx/checkpoint.wav");
