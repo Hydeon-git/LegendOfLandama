@@ -94,6 +94,7 @@ bool Scene::Start()
 		if(!app->sceneIntro->posContinue) timer = 0;
 
 		// L03: DONE: Load map
+
 		if (app->map->Load("town.tmx") == true)
 		{
 			int w, h;

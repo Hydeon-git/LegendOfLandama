@@ -7,6 +7,10 @@
   <image source="../../../../Projecte/Super_Retro_World_Interior_pack_week9/Package/atlas_16x.png" width="768" height="256"/>
  </tileset>
  <layer id="7" name="Floor" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -386,6 +390,10 @@
   </data>
  </layer>
  <layer id="6" name="Walls" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -765,6 +773,10 @@
   </data>
  </layer>
  <layer id="8" name="Furniture" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -1144,6 +1156,10 @@
   </data>
  </layer>
  <layer id="11" name="Windows" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -1523,6 +1539,10 @@
   </data>
  </layer>
  <layer id="9" name="Furniture2" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -1902,6 +1922,10 @@
   </data>
  </layer>
  <layer id="12" name="colliders" width="25" height="15" opacity="0.82">
+  <properties>
+   <property name="Navigation" type="int" value="0"/>
+   <property name="NoDrawable" type="int" value="1"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -2187,8 +2211,8 @@
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>

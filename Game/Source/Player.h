@@ -77,6 +77,7 @@ public:
 	int counterCheckpoint;
 	int counterHeart;
 	bool loaded = false;
+	bool house = false;
 
 private:
 	float speed = 1.0f;
@@ -84,7 +85,7 @@ private:
 	int playerHeight = 16;
 	int playerWidth = 16;
 	bool isJumping = false;
-	
+
 
 	SDL_Texture* texFireBall;
 	uint playerDeathFx = 0;

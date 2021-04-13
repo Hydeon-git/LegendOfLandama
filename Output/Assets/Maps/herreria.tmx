@@ -7,6 +7,10 @@
   <image source="colors.png" width="124" height="16"/>
  </tileset>
  <layer id="1" name="Floor" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -386,6 +390,10 @@
   </data>
  </layer>
  <layer id="4" name="Furniture2" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -765,6 +773,10 @@
   </data>
  </layer>
  <layer id="3" name="Furniture" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -1144,6 +1156,10 @@
   </data>
  </layer>
  <layer id="2" name="Walls" width="25" height="15">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDrawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -1523,6 +1539,10 @@
   </data>
  </layer>
  <layer id="5" name="colliders" width="25" height="15" opacity="0.82">
+  <properties>
+   <property name="Navigation" type="int" value="0"/>
+   <property name="NoDrawable" type="int" value="1"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -1811,8 +1831,8 @@
    <tile gid="770"/>
    <tile gid="770"/>
    <tile gid="770"/>
-   <tile gid="771"/>
-   <tile gid="771"/>
+   <tile gid="769"/>
+   <tile gid="769"/>
    <tile gid="770"/>
    <tile gid="770"/>
    <tile gid="770"/>
