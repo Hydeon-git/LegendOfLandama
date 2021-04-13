@@ -25,7 +25,8 @@ private:
 	int guiButtonErrorFx = 0;
 	int guiButtonMoveFx = 0;
 	bool soundDone = false;
-
+	SDL_Texture* pointerText = nullptr;
+	SDL_Rect* fullscreenRect;
 };
 
 #endif // __GUIBUTTON_H__

@@ -52,19 +52,20 @@ bool SceneIntro::Start()
 
 	char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 	whiteFont = app->font->Load("Assets/Textures/black_font_mini.png", lookupTable, 1);
-	btnPlay = new GuiButton(1, { 180, 315, 48, 16 }, "PLAY");
+
+	btnPlay = new GuiButton(1, { 40, 315, 48, 16 }, "PLAY");
 	btnPlay->SetObserver(this);
 	
-	btnContinue = new GuiButton(2, { 160, 341, 90, 16 }, "CONTINUE");
+	btnContinue = new GuiButton(2, { 50, 341, 90, 16 }, "CONTINUE");
 	btnContinue->SetObserver(this);
 	
-	btnSettings = new GuiButton(3, { 329, 400, 90, 16 }, "SETTINGS");
+	btnSettings = new GuiButton(3, { 60, 367, 90, 16 }, "SETTINGS");
 	btnSettings->SetObserver(this);
 	
-	btnCredits = new GuiButton(4, { 19, 400, 80, 16 }, "CREDITS");
+	btnCredits = new GuiButton(4, { 300, 400, 90, 16 }, "CREDITS");
 	btnCredits->SetObserver(this);
 	
-	btnExit = new GuiButton(5, { 371, 194, 48, 16 }, "EXIT");
+	btnExit = new GuiButton(5, { 70, 393, 80, 16 }, "EXIT");
 	btnExit->SetObserver(this);
 	
 	btnBackSettings = new GuiButton(6, { 180, 400, 48, 16 }, "BACK");
