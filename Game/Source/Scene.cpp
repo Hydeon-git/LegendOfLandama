@@ -29,7 +29,8 @@
 Scene::Scene() : Module()
 {
 	name.Create("scene");
-	currentScene = GameScene::SCENE_TOWN;
+
+	puzzleRect = SDL_Rect{ 0,74,40,43 };
 
 	clockAnim.PushBack({ 0,0,40,34 });
 	clockAnim.PushBack({ 0,34,40,34 });
@@ -86,6 +87,8 @@ bool Scene::Start()
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	}
 
+
+
 	return true;
 }
 
@@ -133,120 +136,111 @@ bool Scene::Update(float dt)
 		app->render->camera.x = -635;
 	}
 
-	switch (currentScene)
-	{	
-		case SCENE_TOWN:
-		{
-			// L02: DONE 3: Request Load / Save when pressing L/S
-			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
-
-			if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
 
 
-			//restart from first level
-			if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && !paused && !pausedSettings)
-			{
-				restart = true;
-				app->render->RestartValues();
-			}
+	// L02: DONE 3: Request Load / Save when pressing L/S
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
 
-			//restart the current level
-			if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN && !paused && !pausedSettings)
-			{
-				restart = true;
-				app->render->RestartValues();
-			}
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
 
-			//view colliders
-			if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) app->map->colliders = !app->map->colliders;
 
-			//god mode
-			if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) player->godModeEnabled = !player->godModeEnabled;
-
-			//cap fps
-			if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) app->capped = !app->capped;
-
-			//SceneWin
-			if (player->win)
-			{
-				app->sceneWin->won = true;
-				player->win = true;
-				app->fadeToBlack->FadeToBlk(this, app->sceneWin, 30);
-
-				app->render->RestartValues();
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !paused && !pausedSettings)
-			{
-				if (player->position.x <= 938 && app->scene->player->position.x >= 851 && app->scene->player->position.y <= 171 && app->scene->player->position.y >= 81)
-				{
-					app->scene->player->position.x = 350;
-					app->scene->player->position.y = 875;
-					app->render->camera.x = 0;
-					app->render->camera.y = -555;
-				}
-				else
-				{
-					player->position.x = 938;
-					player->position.y = 171;
-					app->render->camera.x = -588;
-					app->render->camera.y = -99;
-				}
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
-
-			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-			{
-				if (!pausedSettings)
-				{
-					paused = true;
-					Pause();
-				}
-
-			}
-
-			if (paused && pausedSettings)
-			{
-				sliderMusicVolume->Update(dt);
-				sliderFxVolume->Update(dt);
-				checkBoxFullscreen->Update(dt);
-				checkBoxVSync->Update(dt);
-				btnBack->Update(dt);
-			}
-			else if (!pausedSettings && paused)
-			{
-				btnResume->Update(dt);
-				btnSettings->Update(dt);
-				btnBackIntro->Update(dt);
-				btnExit->Update(dt);
-			}
-
-			if (!paused) clockAnim.Update();
-
-			lifesScene = player->lifes;
-			sceneCounterKey = player->counterKey;
-			sceneCounterCheckpoint = player->counterCheckpoint;
-			sceneCounterHeart = player->counterHeart;
-			sceneCounterPuzzle = player->counterPuzzle;
-
-			if (app->sceneIntro->exit == true) return false;
-		} break;
-		case SCENE_HOUSE1:
-		{
-			
-		} break;
-		case SCENE_INN:
-		{
-			
-		} break;
-		case SCENE_BLACKSMITH:
-		{
-			
-		} break;
+	//restart from first level
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && !paused && !pausedSettings)
+	{
+		restart = true;
+		app->render->RestartValues();
 	}
 
+	//restart the current level
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN && !paused && !pausedSettings)
+	{
+		restart = true;
+		app->render->RestartValues();
+	}
+
+	//view colliders
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) app->map->colliders = !app->map->colliders;
+
+	//god mode
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) player->godModeEnabled = !player->godModeEnabled;
+
+	//cap fps
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) app->capped = !app->capped;
+
+	//SceneWin
+	if (player->win)
+	{
+		app->sceneWin->won = true;
+		player->win = true;
+		app->fadeToBlack->FadeToBlk(this, app->sceneWin, 30);
+
+		app->render->RestartValues();
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !paused && !pausedSettings)
+	{
+		if (player->position.x <= 938 && app->scene->player->position.x >= 851 && app->scene->player->position.y <= 171 && app->scene->player->position.y >= 81)
+		{
+			app->scene->player->position.x = 350;
+			app->scene->player->position.y = 875;
+			app->render->camera.x = 0;
+			app->render->camera.y = -555;
+		}
+		else
+		{
+			player->position.x = 938;
+			player->position.y = 171;
+			app->render->camera.x = -588;
+			app->render->camera.y = -99;
+		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
+
+
+
+
 	
+
+
+
+
+
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		if (!pausedSettings)
+		{
+			paused = true;
+			Pause();
+		}
+		
+	}
+
+	if (paused && pausedSettings)
+	{
+		sliderMusicVolume->Update(dt);
+		sliderFxVolume->Update(dt);
+		checkBoxFullscreen->Update(dt);
+		checkBoxVSync->Update(dt);
+		btnBack->Update(dt);
+	}
+	else if (!pausedSettings && paused)
+	{
+		btnResume->Update(dt);
+		btnSettings->Update(dt);
+		btnBackIntro->Update(dt);
+		btnExit->Update(dt);
+	}
+
+	if (!paused) clockAnim.Update();
+
+	lifesScene = player->lifes;
+	sceneCounterKey = player->counterKey;
+	sceneCounterCheckpoint = player->counterCheckpoint;
+	sceneCounterHeart = player->counterHeart;
+	sceneCounterPuzzle = player->counterPuzzle;
+
+	if (app->sceneIntro->exit == true) return false;
 	return true;
 }
 
@@ -335,83 +329,14 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(clockText);
 	app->font->UnLoad(whiteFont);
 	app->entityManager->DestroyEntity(player);
+	app->entityManager->DestroyEntity(enemy);
+	app->entityManager->DestroyEntity(flyingEnemy);
+	app->entityManager->DestroyEntity(particles);
 
 	return true;
 }
 
-void Scene::ChangeScene(GameScene nextScene)
-{
-	LOG("Changing scene");
 
-	// Delete player and enemies
-	if (currentScene == SCENE_TOWN)
-	{
-		app->entityManager->DestroyEntity(player);
-		player = nullptr;
-	}
-	// Deleting map
-	app->map->CleanUp();
-
-	switch (nextScene)
-	{
-	case SCENE_NONE:
-		LOG("ERROR: Scene loaded was none so intro scene loaded instead.");
-		ChangeScene(SCENE_TOWN);
-		break;
-	case SCENE_TOWN:
-	{
-		app->audio->PlayMusic(menuAudioPath.GetString());
-		introScreen = app->tex->Load(introTexturePath.GetString());
-
-		MenuUI();
-
-		currentScene = SCENE_INTRO;
-	}
-	break;
-	case SCENE_1:
-	{
-		app->audio->PlayMusic(gameAudioPath.GetString());
-		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-		airEnemy = (AirEnemy*)app->entityManager->CreateEntity(EntityType::AIR_ENEMY);
-		groundEnemy = (GroundEnemy*)app->entityManager->CreateEntity(EntityType::GROUND_ENEMY);
-		checkpoint = (Checkpoint*)app->entityManager->CreateEntity(EntityType::CHECKPOINT);
-
-		player->EnablePlayer();
-		groundEnemy->EnableGroundEnemy();
-		airEnemy->EnableAirEnemy();
-
-		if (app->map->Load(mapLevel1.GetString()) == true)
-		{
-			checkpoint->Load();
-
-			int w, h;
-			uchar* data = NULL;
-			if (app->map->CreateWalkabilityMap(w, h, &data))
-				app->pathfinding->SetMap(w, h, data);
-
-			RELEASE_ARRAY(data);
-		}
-
-		// Objects
-		for (int i = 0; i < objects.Count(); i++)
-		{
-			app->obj->CreateObject(objects[i]->pos, (ObjectType)objects[i]->type);
-		}
-
-		GameUI();
-
-		endCol = app->collision->AddCollider({ 960, 194, 15, 30 }, COLLIDER_END, this);
-		ended = false;
-		currentScene = SCENE_1;
-	} break;
-	case SCENE_END:
-	{
-		app->audio->PlayMusic(winAudioPath.GetString());
-		endScreen = app->tex->Load(endTexturePath.GetString());
-		currentScene = SCENE_END;
-	} break;
-	}
-}
 
 bool Scene::LoadState(pugi::xml_node& node)
 {
@@ -433,6 +358,12 @@ bool Scene::SaveState(pugi::xml_node& node) const
 void Scene::Pause()
 {
 	app->tex->UnLoad(app->scene->player->texPlayer);
+	app->tex->UnLoad(app->scene->enemy->texEnemy);
+	app->tex->UnLoad(app->scene->flyingEnemy->texFlyingEnemy);
+	app->tex->UnLoad(app->scene->particles->texture);
+
+
+	//SDL_Rect rect = { -app->render->camera.x + 450, -app->render->camera.y + 50, 400, 450 };
 
 	//Buttons
 	btnResume = new GuiButton(1, { -app->render->camera.x+535, -app->render->camera.y+160, 210, 50 }, "Resume");
