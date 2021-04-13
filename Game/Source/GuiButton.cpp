@@ -80,7 +80,6 @@ bool GuiButton::Draw()
 	else if(app->scene->paused) app->render->DrawRectangle({ bounds.x - 4, bounds.y - 4,bounds.w +8,bounds.h +8 }, 20, 20, 20);
 	else if (app->scene->pausedSettings) app->render->DrawRectangle({ bounds.x - 4, bounds.y - 4,bounds.w + 8,bounds.h + 8 }, 20, 20, 20);
 	
-
 	switch (state)
 	{
 	case GuiControlState::DISABLED: app->render->DrawRectangle(bounds, 100, 100, 100, 255);
@@ -96,7 +95,8 @@ bool GuiButton::Draw()
 	default:
 		break;
 	}
-	app->font->DrawText((bounds.x + (app->render->camera.x) + 8) / app->win->GetScale(), (bounds.y + (app->render->camera.y) + 8) / app->win->GetScale(), 0, text.GetString());
+	
+	app->font->DrawText(bounds.x + (app->render->camera.x) / app->win->GetScale(), bounds.y + (app->render->camera.y) / app->win->GetScale(), 0, text.GetString());
 
 	if (app->scene->guiColliders && app->scene->paused) app->render->DrawRectangle({ bounds.x - 4, bounds.y - 4,bounds.w + 8,bounds.h + 8 }, 0, 0, 255, 100);
 

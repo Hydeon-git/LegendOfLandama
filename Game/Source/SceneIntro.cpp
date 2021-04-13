@@ -51,7 +51,7 @@ bool SceneIntro::Start()
 	app->render->camera.y = -555;
 
 	char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
-	whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
+	whiteFont = app->font->Load("Assets/Textures/black_font_mini.png", lookupTable, 1);
 	btnPlay = new GuiButton(1, { 180, 315, 48, 16 }, "PLAY");
 	btnPlay->SetObserver(this);
 	
