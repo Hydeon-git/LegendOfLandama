@@ -33,6 +33,7 @@ SceneIntro::~SceneIntro()
 
 bool SceneIntro::Awake(pugi::xml_node& node)
 {
+	fullscreenRect = new SDL_Rect{ 0, 0, 1280, 720 };
 	return true;
 }
 
@@ -41,9 +42,9 @@ bool SceneIntro::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 
-	introText = app->tex->Load("Assets/Textures/scene_intro.png");
+	introText = app->tex->Load("Assets/Textures/portada.png");
 	creditText = app->tex->Load("Assets/Textures/credits.png");
-	logoText = app->tex->Load("Assets/Textures/logo.png");
+	logoText = app->tex->Load("Assets/Textures/portada.png");
 	app->sceneLose->Disable();
 	app->sceneWin->Disable();
 	app->audio->PlayMusic("Assets/Audio/Music/intro_theme.ogg");
@@ -149,15 +150,15 @@ bool SceneIntro::PostUpdate()
 	bool ret = true;
 	if (exit == true) ret = false;
 
-	if (count <= 240) app->render->DrawTexture(logoText, 0, 185, NULL);
+	if (count <= 240) app->render->DrawTexture(logoText, 0, 185, fullscreenRect, 3);
 
 	else if (count > 240)
 	{
-		app->render->DrawTexture(introText, 0, 185, NULL);
+		app->render->DrawTexture(introText, 0, 185, fullscreenRect, 3);
 
 		if (settings == true)
 		{
-			app->render->DrawTexture(creditText, 220, 900, NULL);
+			app->render->DrawTexture(creditText, 220, 900, fullscreenRect, 3);
 			sliderMusicVolume->Draw();
 			sliderFxVolume->Draw();
 			btnBackSettings->Draw();
@@ -169,7 +170,7 @@ bool SceneIntro::PostUpdate()
 		}
 		else if (credits == true)
 		{
-			app->render->DrawTexture(creditText, 220, 900, NULL);
+			app->render->DrawTexture(creditText, 220, 900, fullscreenRect, 3);
 			app->font->DrawText(450, 380, yellowFont, "FAKE XEICS");
 			app->font->DrawText(420, 450, whiteFont, "ARNAU BONADA");
 			app->font->DrawText(430, 500, whiteFont, "MAX LLOVERA");
@@ -181,7 +182,7 @@ bool SceneIntro::PostUpdate()
 		}
 		else if (controls == true)
 		{
-			app->render->DrawTexture(creditText, 220, 900, NULL);
+			app->render->DrawTexture(creditText, 220, 900, fullscreenRect, 3);
 			app->font->DrawText(300, 380, whiteFont, "MOVE LEFT");
 			app->font->DrawText(300, 425, whiteFont, "MOVE RIGHT");
 			app->font->DrawText(300, 470, whiteFont, "JUMP");

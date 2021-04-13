@@ -68,10 +68,10 @@ private:
 	SDL_Texture* creditText = nullptr;
 	SDL_Texture* logoText = nullptr;
 
-	int whiteFont = -1;
-	int yellowFont = -1;
+	SDL_Rect* fullscreenRect;
 
-	
+	int whiteFont = -1;
+	int yellowFont = -1;	
 
 	int count = 0;
 };
