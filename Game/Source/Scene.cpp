@@ -144,7 +144,22 @@ bool Scene::Update(float dt)
 			else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsBottomWall()) app->render->camera.y -= 3.0f;
 		}	
 	}
-
+	if (player->position.y == 100)
+	{
+		app->render->camera.y = -2;
+	}
+	if (player->position.y == 400)
+	{
+		app->render->camera.y = -902;
+	}
+	if (player->position.x == 220)
+	{
+		app->render->camera.x = -20;
+	}
+	if (player->position.x == 426)
+	{
+		app->render->camera.x = -635;
+	}
 
 
 
