@@ -90,6 +90,9 @@ bool Scene::Start()
 		char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~"};
 		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
 
+		app->render->camera.x = -player->position.x+180;
+		app->render->camera.y = -player->position.y+100;
+
 
 		if(!app->sceneIntro->posContinue) timer = 0;
 
@@ -123,9 +126,27 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	//PROVISIONAL CAMERA
-	app->render->camera.x = -player->position.x*2;
-	app->render->camera.y = -player->position.y*2;
+
+
+	//CAMERA
+	if (!app->scene->paused)
+	{
+		//camera x
+		if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
+		{
+			if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 426 && !player->ThereIsLeftWall()) app->render->camera.x += 3.0f;
+			else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 426 && !player->ThereIsRightWall()) app->render->camera.x -= 3.0f;
+		}
+		//camera y
+		if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
+		{
+			if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsTopWall()) app->render->camera.y += 3.0f;
+			else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsBottomWall()) app->render->camera.y -= 3.0f;
+		}	
+	}
+
+
+
 
 	// L02: DONE 3: Request Load / Save when pressing L/S
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
@@ -186,20 +207,14 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
 
-	if (!app->scene->paused)
-	{
-		//camera x
-		if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
-		{
-			if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && player->position.x > 350 && player->position.x <= 4400 && !player->ThereIsLeftWall() && !player->ThereIsChestLeft()) app->render->camera.x += 3.0f;
-			else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && player->position.x >= 350 && player->position.x < 4400 && !player->ThereIsRightWall() && !player->ThereIsChestRight() && !player->ThereIsLeftWall()) app->render->camera.x -= 3.0f;
-		}
-		//camera y
 
-		if (player->position.y < 570 && app->render->camera.y < -100) app->render->camera.y += 4.0f;
 
-		if (player->position.y >= 570 && app->render->camera.y > -550) app->render->camera.y -= 4.0f;
-	}
+
+	
+
+
+
+
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
