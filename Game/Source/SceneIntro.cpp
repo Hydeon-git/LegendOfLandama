@@ -44,7 +44,7 @@ bool SceneIntro::Start()
 
 	introText = app->tex->Load("Assets/Textures/portada.png");
 	creditText = app->tex->Load("Assets/Textures/credits.png");
-	logoText = app->tex->Load("Assets/Textures/portada.png");
+	logoText = app->tex->Load("Assets/Textures/logo.png");
 	app->sceneLose->Disable();
 	app->sceneWin->Disable();
 	app->audio->PlayMusic("Assets/Audio/Music/intro_theme.ogg");
@@ -150,11 +150,11 @@ bool SceneIntro::PostUpdate()
 	bool ret = true;
 	if (exit == true) ret = false;
 
-	if (count <= 240) app->render->DrawTexture(logoText, 0, 185, fullscreenRect, 3);
+	if (count <= 240) app->render->DrawTexture(logoText, 0, 555, fullscreenRect, 3);
 
 	else if (count > 240)
 	{
-		app->render->DrawTexture(introText, 0, 185, fullscreenRect, 3);
+		app->render->DrawTexture(introText, 0, 555, fullscreenRect, 3);
 
 		if (settings == true)
 		{
