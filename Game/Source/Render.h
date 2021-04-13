@@ -53,7 +53,6 @@ public:
 	int counter = 0;
 
 public:
-
 	uint scale;
 
 	SDL_Renderer* renderer;

@@ -66,6 +66,7 @@ bool Render::Awake(pugi::xml_node& config)
 bool Render::Start()
 {
 	LOG("render start");
+	scale = app->win->GetScale();
 	SDL_RenderGetViewport(renderer, &viewport);
 	return true;
 }
@@ -214,8 +215,7 @@ void Render::ResetViewPort()
 // Blit to screen
 bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, int reducedScale, float speed, double angle, int pivotX, int pivotY) const
 {
-	bool ret = true;
-	uint scale = app->win->GetScale();
+	bool ret = true;	
 
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speed) + x * (scale / reducedScale);
