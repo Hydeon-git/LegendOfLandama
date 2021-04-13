@@ -16,6 +16,15 @@ class FlyingEnemy;
 class ModuleParticles;
 
 
+enum GameScene
+{
+	SCENE_NONE,
+	SCENE_TOWN,
+	SCENE_HOUSE1,
+	SCENE_INN,
+	SCENE_BLACKSMITH
+};
+
 class Scene : public Module
 {
 public:
@@ -45,6 +54,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Change the current scene
+	void ChangeScene(GameScene nextScene);
+
+	// Pause
 	void Pause();
 
 	Player* player;
@@ -90,19 +103,17 @@ private:
 	GuiCheckBox* checkBoxFullscreen;
 	GuiCheckBox* checkBoxVSync;
 
+	GameScene currentScene;
+
 	int volume;
 
 	int cameraX;
 	int cameraY;
 
-	SDL_Rect puzzleRect;
-
 	bool resumePause = false;
 	bool settingsPause = false;
 	bool backIntroPause = false;
 	bool exitPause = false;
-
-
 
 	int whiteFont = -1;
 	char timerText[10] = { "\0" };
