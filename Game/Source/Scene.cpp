@@ -330,16 +330,43 @@ void Scene::ChangeScene(GameScene nextScene)
 				if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
 
 				RELEASE_ARRAY(data);
-			}			
+			}
+
+			app->scene->player->position.x = 153;
+			app->scene->player->position.y = 156;
 
 			currentScene = SCENE_HOUSE1;
 		} break;
 		case SCENE_BSMITH:
 		{
+			if (app->map->Load("herreria.tmx") == true)
+			{
+				int w, h;
+				uchar* data = NULL;
+
+				if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+				RELEASE_ARRAY(data);
+			}
+
+			app->scene->player->position.x = 201;
+			app->scene->player->position.y = 158;
 			currentScene = SCENE_BSMITH;
 		} break;
 		case SCENE_INN:
 		{
+			if (app->map->Load("hostal.tmx") == true)
+			{
+				int w, h;
+				uchar* data = NULL;
+
+				if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+				RELEASE_ARRAY(data);
+			}
+
+			app->scene->player->position.x = 217;
+			app->scene->player->position.y = 174;
 			currentScene = SCENE_INN;
 		} break;
 	}
@@ -366,9 +393,6 @@ bool Scene::SaveState(pugi::xml_node& node) const
 void Scene::Pause()
 {
 	app->tex->UnLoad(app->scene->player->texPlayer);
-
-
-	//SDL_Rect rect = { -app->render->camera.x + 450, -app->render->camera.y + 50, 400, 450 };
 
 	//Buttons
 	btnResume = new GuiButton(1, { -app->render->camera.x+535, -app->render->camera.y+160, 210, 50 }, "Resume");
@@ -397,8 +421,6 @@ void Scene::Pause()
 
 	checkBoxVSync = new GuiCheckBox(2, { -app->render->camera.x + 675, -app->render->camera.y + 460,40,40 }, "   VSYNC");
 	checkBoxVSync->SetObserver(this);
-
-
 
 }
 
