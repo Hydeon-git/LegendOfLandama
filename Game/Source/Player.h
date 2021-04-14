@@ -6,6 +6,14 @@
 #include "Animation.h"
 #include "Entity.h"
 
+#define COLLIDER_GREEN 856
+#define COLLIDER_RED 857
+#define COLLIDER_BLUE 858
+#define COLLIDER_YELLOW 859
+#define COLLIDER_PINK 860
+#define COLLIDER_GREY 861
+#define COLLIDER_ORANGE 862
+
 struct SDL_Texture;
 
 
@@ -43,14 +51,12 @@ public:
 	bool ThereIsChestRight();
 	bool ThereAreSpikes();
 	bool ThereIsEnemy();
-	bool ThereIsFlyingEnemy();
-	bool TakeKey();
-	bool TakePuzzle();
-	bool TakeCheckpoint();
-	bool TakeHeart();
+	bool ThereIsFlyingEnemy();	
+	bool TakeCheckpoint();	
 	bool ThereIsDoor();
 	bool LoseLifes();
 	
+	void CheckDoor();
 
 	Animation* currentAnimation = nullptr;
 

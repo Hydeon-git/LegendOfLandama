@@ -30,11 +30,8 @@ Scene::Scene() : Module()
 {
 	name.Create("scene");
 
+	// Current Scene set to town
 	currentScene = GameScene::SCENE_TOWN;
-
-	clockAnim.PushBack({ 0,0,40,34 });
-	clockAnim.PushBack({ 0,34,40,34 });
-	clockAnim.speed = 0.0168f;	
 }
 
 // Destructor
@@ -86,8 +83,6 @@ bool Scene::Start()
 		// Load music
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	}
-
-
 
 	return true;
 }
@@ -151,22 +146,7 @@ bool Scene::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
 
 			if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
-
-
-			// Restart from first level
-			if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && !paused && !pausedSettings)
-			{
-				restart = true;
-				app->render->RestartValues();
-			}
-
-			// Restart the current level
-			if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN && !paused && !pausedSettings)
-			{
-				restart = true;
-				app->render->RestartValues();
-			}
-
+			
 
 			//SceneWin
 			if (player->win)
@@ -178,24 +158,6 @@ bool Scene::Update(float dt)
 				app->render->RestartValues();
 			}
 
-			if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !paused && !pausedSettings)
-			{
-				if (player->position.x <= 938 && app->scene->player->position.x >= 851 && app->scene->player->position.y <= 171 && app->scene->player->position.y >= 81)
-				{
-					app->scene->player->position.x = 350;
-					app->scene->player->position.y = 875;
-					app->render->camera.x = 0;
-					app->render->camera.y = -555;
-				}
-				else
-				{
-					player->position.x = 938;
-					player->position.y = 171;
-					app->render->camera.x = -588;
-					app->render->camera.y = -99;
-				}
-			}
-
 			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 			{
 				if (!pausedSettings)
@@ -203,7 +165,6 @@ bool Scene::Update(float dt)
 					paused = true;
 					Pause();
 				}
-
 			}
 
 			if (paused && pausedSettings)
@@ -257,7 +218,6 @@ bool Scene::PostUpdate()
 
 
 	// Draw map
-	//app->render->DrawTexture(background, 0, 0);
 	app->map->Draw();
 	app->map->DrawVillage();
 	app->map->DrawColliders();
@@ -301,9 +261,6 @@ bool Scene::PostUpdate()
 	else if (timer < 1000) app->font->DrawText(1174, 10, whiteFont, timerText);
 	else app->font->DrawText(1145, 10, whiteFont, timerText);
 
-	
-	app->render->DrawTexture(clockText, -app->render->camera.x+1100, -app->render->camera.y+10, &(clockAnim.GetCurrentFrame()));
-
 	if (guiColliders)
 	{
 		app->render->DrawRectangle({ -app->render->camera.x + 1100, -app->render->camera.y+10 ,40,35 }, 0, 0, 100, 100);
@@ -345,15 +302,6 @@ bool Scene::CleanUp()
 void Scene::ChangeScene(GameScene nextScene)
 {
 	LOG("Changing scene");
-	// Delete player and enemies
-	if (currentScene == SCENE_TOWN)
-	{
-		app->entityManager->DestroyEntity(player);
-		app->entityManager->DestroyEntity(enemy);
-		app->entityManager->DestroyEntity(flyingEnemy);
-		app->entityManager->DestroyEntity(particles);
-		player = nullptr;
-	}
 	
 	// Clearing Map
 	app->map->CleanUp();
@@ -373,7 +321,17 @@ void Scene::ChangeScene(GameScene nextScene)
 		}
 		break;
 		case SCENE_HOUSE1:
-		{		
+		{	
+			if (app->map->Load("house1.tmx") == true)
+			{
+				int w, h;
+				uchar* data = NULL;
+
+				if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+				RELEASE_ARRAY(data);
+			}			
+
 			currentScene = SCENE_HOUSE1;
 		} break;
 		case SCENE_BSMITH:

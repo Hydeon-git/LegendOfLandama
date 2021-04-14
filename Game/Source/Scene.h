@@ -52,7 +52,8 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	// Change Scene
-	void ChangeScene(GameScene nextScene);
+	void ChangeScene(GameScene nextScene);	
+	GameScene currentScene;
 
 	// Called before quitting
 	bool CleanUp();
@@ -80,8 +81,7 @@ public:
 	bool restart = false;
 	uint timer = 0;
 private:
-	// Scene Change
-	GameScene currentScene;
+	
 
 	// Textures & Anim
 	SDL_Texture* debugTex;

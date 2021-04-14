@@ -19,13 +19,6 @@
 #include "SceneWin.h"
 
 
-#define COLLIDER_GREEN 265
-#define COLLIDER_RED 857
-#define COLLIDER_BLUE 858
-#define COLLIDER_YELLOW 268
-#define COLLIDER_PINK 269
-#define COLLIDER_GREY 270
-#define COLLIDER_ORANGE 271
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -219,32 +212,14 @@ bool Player::Update(float dt)
 						app->audio->PlayFx(fireFx, 0);
 						shotCountdown = shotMaxCountdown;
 					}
-				}
-				
+				}				
 			}
 		}
-
-
-		if (!godModeEnabled)
+		if (app->scene->currentScene == SCENE_TOWN)
 		{
-			iPoint tilePosition;
-			ListItem<MapLayer*>* layer = app->map->data.layers.start;
-			int groundId;
-			while (layer != NULL)
-			{
-				if (layer->data->properties.GetProperty("Navigation") == 0)
-				{
-					for (int i = 0; i < 4; ++i)
-					{
-						tilePosition = app->map->WorldToMap(position.x + i * 4, position.y - 1);
-						groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-						if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && groundId == COLLIDER_BLUE); //entrar a casa;
-					}
-
-				}
-				layer = layer->next;
-			}
+			CheckDoor();
 		}
+		
 
 		if (shotCountdown > 0) --shotCountdown;
 
@@ -256,36 +231,13 @@ bool Player::Update(float dt)
 				app->audio->PlayFx(chestFx, 0);
 
 			}
-		}
-
-		if (TakeKey())
-		{
-			app->map->keyTaken = true;
-			if (counterKey == 0) app->audio->PlayFx(itemTakenFx, 0);
-			counterKey = 1;
-		}
-		if (TakePuzzle())
-		{
-			app->map->puzzleTaken = true;
-			if (counterPuzzle == 0) app->audio->PlayFx(itemTakenFx, 0);
-			counterPuzzle = 1;
-		}
+		}		
 		if (TakeCheckpoint())
 		{
 			app->map->checkpointTaken = true;
 			if (counterCheckpoint == 0) app->audio->PlayFx(checkpointFx, 0);
 			counterCheckpoint = 1;
-		}
-		if (TakeHeart() && app->map->chestTaken)
-		{
-			app->map->heartTaken = true;
-			if (counterHeart == 0)
-			{
-				lifes++;
-				app->audio->PlayFx(heartFx, 0);
-			}
-			counterHeart = 1;
-		}
+		}		
 	}
 	//restart when dies
 	if (spiked && !dead)
@@ -294,8 +246,6 @@ bool Player::Update(float dt)
 		if (deathAnim.HasFinished())
 		{
 			app->render->RestartValues();
-			//app->enemy->Enable();
-			//app->flyingEnemy->Enable();
 		}
 	}
 	
@@ -321,6 +271,32 @@ bool Player::PostUpdate()
 		app->render->DrawTexture(texPlayer, position.x, position.y, &rect);
 	}
 	return true;
+}
+
+void Player::CheckDoor()
+{
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int door;
+	while (layer != NULL)
+	{
+		if (layer->data->properties.GetProperty("Navigation") == 0)
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+				door = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (door == COLLIDER_BLUE)
+				{
+					app->scene->ChangeScene(SCENE_HOUSE1);
+					break;
+				}
+				else if (door == COLLIDER_PINK) app->scene->ChangeScene(SCENE_BSMITH);
+				else if (door == COLLIDER_YELLOW) app->scene->ChangeScene(SCENE_INN);
+			}
+		}
+		layer = layer->next;
+	}
 }
 
 bool Player::ThereIsTopWall()
@@ -581,50 +557,6 @@ bool Player::ThereIsFlyingEnemy()
 	return valid;
 }
 
-bool Player::TakeKey()
-{
-	bool valid = false;
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int key;
-	while (layer != NULL)
-	{
-		if (layer->data->properties.GetProperty("Navigation") == 0)
-		{
-			for (int i = 0; i < 3; ++i)
-			{
-				tilePosition = app->map->WorldToMap(position.x + 19 + i * 13, position.y + 21);
-				key = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (key == COLLIDER_BLUE) valid = true;
-			}
-
-		}
-		layer = layer->next;
-	}
-	return valid;
-
-}
-
-bool Player::TakePuzzle()
-{
-	bool valid = false;
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int puzzle;
-	while (layer != NULL)
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			tilePosition = app->map->WorldToMap(position.x + 19 + i * 13, position.y + 21);
-			puzzle = layer->data->Get(tilePosition.x, tilePosition.y);
-			if (puzzle == COLLIDER_ORANGE) valid = true;
-		}
-		layer = layer->next;
-	}
-	return valid;
-
-}
-
 bool Player::TakeCheckpoint()
 {
 	bool valid = false;
@@ -645,30 +577,6 @@ bool Player::TakeCheckpoint()
 					//app->map->checkpointTaken = true;
 					valid = true;
 				}
-			}
-
-		}
-		layer = layer->next;
-	}
-	return valid;
-
-}
-
-bool Player::TakeHeart()
-{
-	bool valid = false;
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int heart;
-	while (layer != NULL)
-	{
-		if (layer->data->properties.GetProperty("Navigation") == 0)
-		{
-			for (int i = 0; i < 3; ++i)
-			{
-				tilePosition = app->map->WorldToMap(position.x + 19 + i * 13, position.y + 21);
-				heart = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (heart == COLLIDER_GREY) valid = true;
 			}
 
 		}
