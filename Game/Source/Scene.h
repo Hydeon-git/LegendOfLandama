@@ -15,6 +15,14 @@ class Enemy;
 class FlyingEnemy;
 class ModuleParticles;
 
+enum GameScene
+{
+	SCENE_NONE,
+	SCENE_TOWN,
+	SCENE_HOUSE1,
+	SCENE_BSMITH,
+	SCENE_INN
+};
 
 class Scene : public Module
 {
@@ -40,7 +48,11 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	// GuiClick
 	bool OnGuiMouseClickEvent(GuiControl* control);
+
+	// Change Scene
+	void ChangeScene(GameScene nextScene);
 
 	// Called before quitting
 	bool CleanUp();
@@ -68,6 +80,10 @@ public:
 	bool restart = false;
 	uint timer = 0;
 private:
+	// Scene Change
+	GameScene currentScene;
+
+	// Textures & Anim
 	SDL_Texture* debugTex;
 	
 	SDL_Texture* pause;
@@ -76,6 +92,7 @@ private:
 
 	Animation clockAnim;
 
+	// GUI
 	GuiButton* btnResume;
 	GuiButton* btnSettings;
 	GuiButton* btnBackIntro;
@@ -95,14 +112,10 @@ private:
 	int cameraX;
 	int cameraY;
 
-	SDL_Rect puzzleRect;
-
 	bool resumePause = false;
 	bool settingsPause = false;
 	bool backIntroPause = false;
 	bool exitPause = false;
-
-
 
 	int whiteFont = -1;
 	char timerText[10] = { "\0" };

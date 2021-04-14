@@ -30,7 +30,7 @@ Scene::Scene() : Module()
 {
 	name.Create("scene");
 
-	puzzleRect = SDL_Rect{ 0,74,40,43 };
+	currentScene = GameScene::SCENE_TOWN;
 
 	clockAnim.PushBack({ 0,0,40,34 });
 	clockAnim.PushBack({ 0,34,40,34 });
@@ -101,146 +101,152 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-
-
-	//CAMERA
-	if (!app->scene->paused)
-	{
-		//camera x
-		if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
-		{
-			if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 426 && !player->ThereIsLeftWall()) app->render->camera.x += 3.0f;
-			else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 426 && !player->ThereIsRightWall()) app->render->camera.x -= 3.0f;
-		}
-		//camera y
-		if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
-		{
-			if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsTopWall()) app->render->camera.y += 3.0f;
-			else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsBottomWall()) app->render->camera.y -= 3.0f;
-		}	
-	}
-	if (player->position.y == 100)
-	{
-		app->render->camera.y = -2;
-	}
-	if (player->position.y == 400)
-	{
-		app->render->camera.y = -902;
-	}
-	if (player->position.x == 220)
-	{
-		app->render->camera.x = -20;
-	}
-	if (player->position.x == 426)
-	{
-		app->render->camera.x = -635;
-	}
-
-
-
-	// L02: DONE 3: Request Load / Save when pressing L/S
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
-
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
-
-
-	//restart from first level
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && !paused && !pausedSettings)
-	{
-		restart = true;
-		app->render->RestartValues();
-	}
-
-	//restart the current level
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN && !paused && !pausedSettings)
-	{
-		restart = true;
-		app->render->RestartValues();
-	}
-
-	//view colliders
+	//View Colliders
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) app->map->colliders = !app->map->colliders;
 
-	//god mode
+	//God Mode
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) player->godModeEnabled = !player->godModeEnabled;
 
-	//cap fps
+	//Cap in-game FPS
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) app->capped = !app->capped;
-
-	//SceneWin
-	if (player->win)
+	switch (currentScene)
 	{
-		app->sceneWin->won = true;
-		player->win = true;
-		app->fadeToBlack->FadeToBlk(this, app->sceneWin, 30);
-
-		app->render->RestartValues();
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !paused && !pausedSettings)
-	{
-		if (player->position.x <= 938 && app->scene->player->position.x >= 851 && app->scene->player->position.y <= 171 && app->scene->player->position.y >= 81)
+		case SCENE_TOWN:
 		{
-			app->scene->player->position.x = 350;
-			app->scene->player->position.y = 875;
-			app->render->camera.x = 0;
-			app->render->camera.y = -555;
-		}
-		else
+			//CAMERA
+			if (!app->scene->paused)
+			{
+				//camera x
+				if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
+				{
+					if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 426 && !player->ThereIsLeftWall()) app->render->camera.x += 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 426 && !player->ThereIsRightWall()) app->render->camera.x -= 3.0f;
+				}
+				//camera y
+				if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
+				{
+					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsTopWall()) app->render->camera.y += 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsBottomWall()) app->render->camera.y -= 3.0f;
+				}
+			}
+			if (player->position.y == 100)
+			{
+				app->render->camera.y = -2;
+			}
+			if (player->position.y == 400)
+			{
+				app->render->camera.y = -902;
+			}
+			if (player->position.x == 220)
+			{
+				app->render->camera.x = -20;
+			}
+			if (player->position.x == 426)
+			{
+				app->render->camera.x = -635;
+			}
+
+			// Request Load / Save when pressing F6/F5
+			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
+
+			if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
+
+
+			// Restart from first level
+			if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && !paused && !pausedSettings)
+			{
+				restart = true;
+				app->render->RestartValues();
+			}
+
+			// Restart the current level
+			if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN && !paused && !pausedSettings)
+			{
+				restart = true;
+				app->render->RestartValues();
+			}
+
+
+			//SceneWin
+			if (player->win)
+			{
+				app->sceneWin->won = true;
+				player->win = true;
+				app->fadeToBlack->FadeToBlk(this, app->sceneWin, 30);
+
+				app->render->RestartValues();
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !paused && !pausedSettings)
+			{
+				if (player->position.x <= 938 && app->scene->player->position.x >= 851 && app->scene->player->position.y <= 171 && app->scene->player->position.y >= 81)
+				{
+					app->scene->player->position.x = 350;
+					app->scene->player->position.y = 875;
+					app->render->camera.x = 0;
+					app->render->camera.y = -555;
+				}
+				else
+				{
+					player->position.x = 938;
+					player->position.y = 171;
+					app->render->camera.x = -588;
+					app->render->camera.y = -99;
+				}
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+			{
+				if (!pausedSettings)
+				{
+					paused = true;
+					Pause();
+				}
+
+			}
+
+			if (paused && pausedSettings)
+			{
+				sliderMusicVolume->Update(dt);
+				sliderFxVolume->Update(dt);
+				checkBoxFullscreen->Update(dt);
+				checkBoxVSync->Update(dt);
+				btnBack->Update(dt);
+			}
+			else if (!pausedSettings && paused)
+			{
+				btnResume->Update(dt);
+				btnSettings->Update(dt);
+				btnBackIntro->Update(dt);
+				btnExit->Update(dt);
+			}
+
+			if (!paused) clockAnim.Update();
+
+			lifesScene = player->lifes;
+			sceneCounterKey = player->counterKey;
+			sceneCounterCheckpoint = player->counterCheckpoint;
+			sceneCounterHeart = player->counterHeart;
+			sceneCounterPuzzle = player->counterPuzzle;
+
+			if (app->sceneIntro->exit == true) return false;
+
+		} break;
+		case SCENE_HOUSE1:
 		{
-			player->position.x = 938;
-			player->position.y = 171;
-			app->render->camera.x = -588;
-			app->render->camera.y = -99;
-		}
+			
+		} break;
+		case SCENE_BSMITH:
+		{
+			
+		} break;
+		case SCENE_INN:
+		{
+			
+		} break;
 	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
-
-
-
-
 	
-
-
-
-
-
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		if (!pausedSettings)
-		{
-			paused = true;
-			Pause();
-		}
-		
-	}
-
-	if (paused && pausedSettings)
-	{
-		sliderMusicVolume->Update(dt);
-		sliderFxVolume->Update(dt);
-		checkBoxFullscreen->Update(dt);
-		checkBoxVSync->Update(dt);
-		btnBack->Update(dt);
-	}
-	else if (!pausedSettings && paused)
-	{
-		btnResume->Update(dt);
-		btnSettings->Update(dt);
-		btnBackIntro->Update(dt);
-		btnExit->Update(dt);
-	}
-
-	if (!paused) clockAnim.Update();
-
-	lifesScene = player->lifes;
-	sceneCounterKey = player->counterKey;
-	sceneCounterCheckpoint = player->counterCheckpoint;
-	sceneCounterHeart = player->counterHeart;
-	sceneCounterPuzzle = player->counterPuzzle;
-
-	if (app->sceneIntro->exit == true) return false;
 	return true;
 }
 
@@ -336,6 +342,50 @@ bool Scene::CleanUp()
 	return true;
 }
 
+void Scene::ChangeScene(GameScene nextScene)
+{
+	LOG("Changing scene");
+	// Delete player and enemies
+	if (currentScene == SCENE_TOWN)
+	{
+		app->entityManager->DestroyEntity(player);
+		app->entityManager->DestroyEntity(enemy);
+		app->entityManager->DestroyEntity(flyingEnemy);
+		app->entityManager->DestroyEntity(particles);
+		player = nullptr;
+	}
+	
+	// Clearing Map
+	app->map->CleanUp();
+
+
+	switch (nextScene)
+	{
+		case SCENE_NONE:
+		{
+			LOG("ERROR: Scene loaded was none so intro scene loaded instead.");
+			ChangeScene(SCENE_TOWN);
+			break;
+		}		
+		case SCENE_TOWN:
+		{
+			currentScene = SCENE_TOWN;
+		}
+		break;
+		case SCENE_HOUSE1:
+		{		
+			currentScene = SCENE_HOUSE1;
+		} break;
+		case SCENE_BSMITH:
+		{
+			currentScene = SCENE_BSMITH;
+		} break;
+		case SCENE_INN:
+		{
+			currentScene = SCENE_INN;
+		} break;
+	}
+}
 
 
 bool Scene::LoadState(pugi::xml_node& node)
@@ -358,9 +408,6 @@ bool Scene::SaveState(pugi::xml_node& node) const
 void Scene::Pause()
 {
 	app->tex->UnLoad(app->scene->player->texPlayer);
-	app->tex->UnLoad(app->scene->enemy->texEnemy);
-	app->tex->UnLoad(app->scene->flyingEnemy->texFlyingEnemy);
-	app->tex->UnLoad(app->scene->particles->texture);
 
 
 	//SDL_Rect rect = { -app->render->camera.x + 450, -app->render->camera.y + 50, 400, 450 };
