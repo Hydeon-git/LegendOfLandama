@@ -55,7 +55,7 @@ void Map::Draw()
 	// L06: DONE 4: Make sure we draw all the layers and not just the first one	
 	while (layer != NULL)
 	{
-		if (layer->data->name == "poble")
+		if (layer->data->name == "floor" || layer->data->name == "walls" || layer->data->name == "furniture" || layer->data->name == "extra_furniture" || layer->data->name == "windows")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
@@ -107,35 +107,35 @@ void Map::DrawColliders()
 		layer = layer->next;
 	}
 }
-
-void Map::DrawVillage()
-{
-	if (mapLoaded == false) return;
-
-	ListItem<MapLayer*>* layer = data.layers.start;
-
-	while (layer != NULL)
-	{
-		if (layer->data->name == "cases")
-		{
-			for (int y = 0; y < data.height; ++y)
-			{
-				for (int x = 0; x < data.width; ++x)
-				{
-					int tileId = layer->data->Get(x, y);
-					if (tileId > 0)
-					{
-						TileSet* set = GetTilesetFromTileId(tileId);
-						SDL_Rect rect = set->GetTileRect(tileId);
-						iPoint pos = MapToWorld(x, y);
-						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
-					}
-				}
-			}
-		}
-		layer = layer->next;
-	}
-}
+//
+//void Map::DrawVillage()
+//{
+//	if (mapLoaded == false) return;
+//
+//	ListItem<MapLayer*>* layer = data.layers.start;
+//
+//	while (layer != NULL)
+//	{
+//		if (layer->data->name == "cases" || layer->data->name == "furniture" || layer->data->name == "curtain" || layer->data->name == "windows")
+//		{
+//			for (int y = 0; y < data.height; ++y)
+//			{
+//				for (int x = 0; x < data.width; ++x)
+//				{
+//					int tileId = layer->data->Get(x, y);
+//					if (tileId > 0)
+//					{
+//						TileSet* set = GetTilesetFromTileId(tileId);
+//						SDL_Rect rect = set->GetTileRect(tileId);
+//						iPoint pos = MapToWorld(x, y);
+//						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+//					}
+//				}
+//			}
+//		}
+//		layer = layer->next;
+//	}
+//}
 
 void Map::DrawCheckpoint()
 {

@@ -6,7 +6,7 @@
  <tileset firstgid="769" name="colors" tilewidth="16" tileheight="16" tilecount="7" columns="7">
   <image source="colors.png" width="124" height="16"/>
  </tileset>
- <layer id="2" name="Floor" width="25" height="15">
+ <layer id="2" name="floor" width="25" height="15">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDrawable" type="int" value="0"/>
@@ -389,7 +389,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Furniture2" width="25" height="15">
+ <layer id="4" name="extra_furniture" width="25" height="15">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDrawable" type="int" value="0"/>
@@ -772,7 +772,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Furniture1" width="25" height="15">
+ <layer id="3" name="furniture" width="25" height="15">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDrawable" type="int" value="0"/>
@@ -1155,7 +1155,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="1" name="Walls" width="25" height="15">
+ <layer id="1" name="walls" width="25" height="15">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDrawable" type="int" value="0"/>

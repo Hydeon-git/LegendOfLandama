@@ -219,7 +219,7 @@ bool Scene::PostUpdate()
 
 	// Draw map
 	app->map->Draw();
-	app->map->DrawVillage();
+	//app->map->DrawVillage();
 	app->map->DrawColliders();
 	app->map->DrawCheckpoint();
 	app->map->DrawPuzzle();
@@ -331,7 +331,8 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
-
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
 			app->scene->player->position.x = 153;
 			app->scene->player->position.y = 156;
 
@@ -348,7 +349,8 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
-
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
 			app->scene->player->position.x = 201;
 			app->scene->player->position.y = 158;
 			currentScene = SCENE_BSMITH;
@@ -364,7 +366,8 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
-
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
 			app->scene->player->position.x = 217;
 			app->scene->player->position.y = 174;
 			currentScene = SCENE_INN;

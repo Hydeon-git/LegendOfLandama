@@ -219,6 +219,10 @@ bool Player::Update(float dt)
 		{
 			CheckDoor();
 		}
+		if (app->scene->currentScene == SCENE_BSMITH ||app->scene->currentScene == SCENE_HOUSE1 ||app->scene->currentScene == SCENE_INN)
+		{
+			CheckHouseDoor();
+		}
 		
 
 		if (shotCountdown > 0) --shotCountdown;
@@ -280,7 +284,7 @@ void Player::CheckDoor()
 	int door;
 	while (layer != NULL)
 	{
-		if (layer->data->properties.GetProperty("Navigation") == 0)
+		if (layer->data->name == "colliders")
 		{
 			for (int i = 0; i < 4; ++i)
 			{
@@ -291,8 +295,40 @@ void Player::CheckDoor()
 					app->scene->ChangeScene(SCENE_HOUSE1);
 					break;
 				}
-				else if (door == COLLIDER_PINK) app->scene->ChangeScene(SCENE_BSMITH);
-				else if (door == COLLIDER_YELLOW) app->scene->ChangeScene(SCENE_INN);
+				else if (door == COLLIDER_GREY)
+				{
+					app->scene->ChangeScene(SCENE_BSMITH);
+					break;
+				}
+				else if (door == COLLIDER_YELLOW)
+				{
+					app->scene->ChangeScene(SCENE_INN);
+					break;
+				}
+			}
+		}
+		layer = layer->next;
+	}
+}
+
+void Player::CheckHouseDoor()
+{
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int door;
+	while (layer != NULL)
+	{
+		if (layer->data->name == "colliders")
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+				door = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (door == COLLIDER_GREEN || door == COLLIDER_GREEN_HOUSE)
+				{
+					app->scene->ChangeScene(SCENE_TOWN);
+					break;
+				}
 			}
 		}
 		layer = layer->next;
@@ -309,13 +345,13 @@ bool Player::ThereIsTopWall()
 		int groundId;
 		while (layer != NULL)
 		{
-			if (layer->data->properties.GetProperty("Navigation") == 0)
+			if (layer->data->name == "colliders")
 			{
 				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y-1);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED) valid = true;
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE) valid = true;
 				}
 
 			}
@@ -336,13 +372,13 @@ bool Player::ThereIsBottomWall()
 		int groundId;
 		while (layer != NULL)
 		{
-			if (layer->data->properties.GetProperty("Navigation") == 0)
+			if (layer->data->name == "colliders")
 			{
 				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED) valid = true;
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE) valid = true;
 				}
 
 			}
@@ -363,13 +399,13 @@ bool Player::ThereIsLeftWall()
 		int leftWallId;
 		while (layer != NULL)
 		{
-			if (layer->data->properties.GetProperty("Navigation") == 0)
+			if (layer->data->name == "colliders")
 			{
 				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x-1, position.y + i * 4);
 					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (leftWallId == COLLIDER_RED) valid = true;
+					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -388,13 +424,13 @@ bool Player::ThereIsRightWall()
 		int rightWallId;
 		while (layer != NULL)
 		{
-			if (layer->data->properties.GetProperty("Navigation") == 0)
+			if (layer->data->name == "colliders")
 			{
 				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth+1, position.y + i * 4);
 					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (rightWallId == COLLIDER_RED) valid = true;
+					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE) valid = true;
 				}
 			}
 			layer = layer->next;

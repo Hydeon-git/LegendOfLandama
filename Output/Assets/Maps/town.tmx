@@ -6,7 +6,7 @@
  <tileset firstgid="856" name="colliders" tilewidth="16" tileheight="16" tilecount="7" columns="7">
   <image source="colors.png" width="124" height="16"/>
  </tileset>
- <layer id="1" name="poble" width="40" height="40">
+ <layer id="1" name="floor" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDrawable" type="int" value="0"/>
@@ -1614,7 +1614,7 @@
    <tile gid="32"/>
   </data>
  </layer>
- <layer id="2" name="cases" width="40" height="40">
+ <layer id="2" name="walls" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDrawable" type="int" value="0"/>
@@ -3542,7 +3542,7 @@
    <tile/>
    <tile gid="857"/>
    <tile gid="857"/>
-   <tile gid="860"/>
+   <tile gid="861"/>
    <tile gid="857"/>
    <tile gid="857"/>
    <tile/>

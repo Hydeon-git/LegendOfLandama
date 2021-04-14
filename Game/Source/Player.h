@@ -14,6 +14,8 @@
 #define COLLIDER_GREY 861
 #define COLLIDER_ORANGE 862
 
+#define COLLIDER_RED_HOUSE 770
+#define COLLIDER_GREEN_HOUSE 769
 struct SDL_Texture;
 
 
@@ -57,6 +59,7 @@ public:
 	bool LoseLifes();
 	
 	void CheckDoor();
+	void CheckHouseDoor();
 
 	Animation* currentAnimation = nullptr;
 
