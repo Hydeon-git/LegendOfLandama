@@ -53,32 +53,20 @@ bool SceneIntro::Start()
 	char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 	whiteFont = app->font->Load("Assets/Textures/black_font_mini.png", lookupTable, 1);
 
-	btnPlay = new GuiButton(1, { 40, 315, 48, 16 }, "PLAY");
-	btnPlay->SetObserver(this);
+	btnStart = new GuiButton(1, { 50, 330, 45, 10 }, "START");
+	btnStart->SetObserver(this);
 	
-	btnContinue = new GuiButton(2, { 50, 341, 90, 16 }, "CONTINUE");
+	btnContinue = new GuiButton(2, { 60, 350, 72, 10 }, "CONTINUE");
 	btnContinue->SetObserver(this);
 	
-	btnSettings = new GuiButton(3, { 60, 367, 90, 16 }, "SETTINGS");
-	btnSettings->SetObserver(this);
+	btnOptions = new GuiButton(3, { 70, 370, 64, 10 }, "OPTIONS");
+	btnOptions->SetObserver(this);
 	
-	btnCredits = new GuiButton(4, { 300, 400, 90, 16 }, "CREDITS");
-	btnCredits->SetObserver(this);
-	
-	btnExit = new GuiButton(5, { 70, 393, 80, 16 }, "EXIT");
+	btnExit = new GuiButton(4, { 80, 390, 36, 10 }, "EXIT");
 	btnExit->SetObserver(this);
 	
-	btnBackSettings = new GuiButton(6, { 180, 400, 48, 16 }, "BACK");
-	btnBackSettings->SetObserver(this);
-	
-	btnBackCredits = new GuiButton(7, { 180, 400, 48, 16 }, "BACK");
-	btnBackCredits->SetObserver(this);
-
-	btnControls = new GuiButton(8, { 160, 400, 90, 16 }, "CONTROLS");
-	btnControls->SetObserver(this);
-
-	btnBackControls = new GuiButton(9, { 180, 400, 48, 16 }, "BACK");
-	btnBackControls->SetObserver(this);
+	btnBackOptions = new GuiButton(5, { 180, 400, 48, 16 }, "BACK");
+	btnBackOptions->SetObserver(this);
 
 	sliderMusicVolume = new GuiSlider(1, { 725, 950, 10, 28 }, "MUSIC VOLUME");
 	sliderMusicVolume->SetObserver(this);
@@ -104,40 +92,21 @@ bool SceneIntro::Update(float dt)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
 
-		if (settings == true)
+		if (options == true)
 		{
 			sliderMusicVolume->Update(dt);
 			sliderFxVolume->Update(dt);
 			btnExit->Update(dt);
-			btnBackSettings->Update(dt);
-			btnSettings->Update(dt);
-			btnCredits->Update(dt);
+			btnBackOptions->Update(dt);
 			checkBoxFullscreen->Update(dt);
 			checkBoxVSync->Update(dt);
 		}
-		else if (credits == true)
-		{
-			btnExit->Update(dt);
-			btnBackCredits->Update(dt);
-			btnSettings->Update(dt);
-			btnCredits->Update(dt);
-		}
-
-		else if (controls == true)
-		{
-			btnExit->Update(dt);
-			btnBackControls->Update(dt);
-			btnSettings->Update(dt);
-			btnCredits->Update(dt);
-		}
 		else
 		{
-			btnPlay->Update(dt);
+			btnStart->Update(dt);
 			btnContinue->Update(dt);
-			btnSettings->Update(dt);
-			btnCredits->Update(dt);
+			btnOptions->Update(dt);
 			btnExit->Update(dt);
-			btnControls->Update(dt);
 		}
 	}
 	return true;
@@ -155,58 +124,23 @@ bool SceneIntro::PostUpdate()
 	{
 		app->render->DrawTexture(introText, 0, 555, fullscreenRect, 3);
 
-		if (settings == true)
+		if (options == true)
 		{
-			app->render->DrawTexture(creditText, 220, 900, fullscreenRect, 3);
 			sliderMusicVolume->Draw();
 			sliderFxVolume->Draw();
-			btnBackSettings->Draw();
+			btnBackOptions->Draw();
 			btnExit->Draw();
-			btnCredits->Draw();
-			btnSettings->Draw();
 			checkBoxFullscreen->Draw();
 			checkBoxVSync->Draw();
 		}
-		else if (credits == true)
-		{
-			app->render->DrawTexture(creditText, 220, 900, fullscreenRect, 3);
-			app->font->DrawText(450, 380, yellowFont, "FAKE XEICS");
-			app->font->DrawText(420, 450, whiteFont, "ARNAU BONADA");
-			app->font->DrawText(430, 500, whiteFont, "MAX LLOVERA");
-			app->font->DrawText(405, 550, whiteFont, "ARNAU USTRELL");
-			btnBackCredits->Draw();
-			btnExit->Draw();
-			btnCredits->Draw();
-			btnSettings->Draw();
-		}
-		else if (controls == true)
-		{
-			app->render->DrawTexture(creditText, 220, 900, fullscreenRect, 3);
-			app->font->DrawText(300, 380, whiteFont, "MOVE LEFT");
-			app->font->DrawText(300, 425, whiteFont, "MOVE RIGHT");
-			app->font->DrawText(300, 470, whiteFont, "JUMP");
-			app->font->DrawText(300, 515, whiteFont, "SHOOT");
-			app->font->DrawText(300, 560, whiteFont, "USE OBJECT");
-			app->font->DrawText(700, 380, yellowFont, "A");
-			app->font->DrawText(700, 425, yellowFont, "D");
-			app->font->DrawText(700, 470, yellowFont, "SPACE");
-			app->font->DrawText(700, 515, yellowFont, "P");
-			app->font->DrawText(700, 560, yellowFont, "E");
-			btnBackControls->Draw();
-			btnExit->Draw();
-			btnCredits->Draw();
-			btnSettings->Draw();
-		}
 		else
 		{
-			btnPlay->Draw();
+			btnStart->Draw();
 			btnContinue->Draw();
 			if (!posContinue || app->sceneWin->won || app->sceneLose->lost) btnContinue->state = GuiControlState::DISABLED;
 			else if (posContinue) btnContinue->state = GuiControlState::NORMAL;
-			btnSettings->Draw();
-			btnCredits->Draw();
+			btnOptions->Draw();
 			btnExit->Draw();
-			btnControls->Draw();
 		}
 	}
 
@@ -222,23 +156,15 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 1)
 		{
 			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
-			playClicked = true;
+			startClicked = true;
 		}
 		else if (control->id == 2) app->fadeToBlack->FadeToBlk(this, app->scene, 30);
 
 		else if (control->id == 3)
 		{
-			btnCredits->state = GuiControlState::DISABLED;
-			btnSettings->state = GuiControlState::DISABLED;
-			settings = true;
+			options = true;
 		}
 		else if (control->id == 4)
-		{
-			btnCredits->state = GuiControlState::DISABLED;
-			btnSettings->state = GuiControlState::DISABLED;
-			credits = true;
-		}
-		else if (control->id == 5)
 		{
 			if (app->scene->player != nullptr)
 			{
@@ -248,30 +174,10 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 			}
 			exit = true;
 		}
-		else if (control->id == 6)
+		else if (control->id == 5)
 		{
-			btnCredits->state = GuiControlState::NORMAL;
-			btnSettings->state = GuiControlState::NORMAL;
-			settings = false;
-		}
-		else if (control->id == 7)
-		{
-			btnCredits->state = GuiControlState::NORMAL;
-			btnSettings->state = GuiControlState::NORMAL;
-			credits = false;
-		}
-		else if (control->id == 8)
-		{
-			btnCredits->state = GuiControlState::DISABLED;
-			btnSettings->state = GuiControlState::DISABLED;
-			controls = true;
-		}
-		
-		else if (control->id == 9)
-		{
-			btnCredits->state = GuiControlState::NORMAL;
-			btnSettings->state = GuiControlState::NORMAL;
-			controls = false;
+			btnOptions->state = GuiControlState::NORMAL;
+			options = false;
 		}
 	}
 	case GuiControlType::SLIDER:
@@ -299,9 +205,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 bool SceneIntro::CleanUp()
 {
 	app->tex->UnLoad(introText);
-	app->tex->UnLoad(creditText);
 	app->tex->UnLoad(logoText);
 	app->font->UnLoad(whiteFont);
-	app->font->UnLoad(yellowFont);
 	return true;
 }

@@ -100,7 +100,7 @@ bool GuiButton::Draw()
 		break;
 	}
 
-	app->font->DrawText(bounds.x + (app->render->camera.x) / app->win->GetScale(), bounds.y + (app->render->camera.y) / app->win->GetScale(), 0, text.GetString());
+	app->font->DrawText(bounds.x - 1 + (app->render->camera.x) / app->win->GetScale(), bounds.y + (app->render->camera.y) / app->win->GetScale(), 0, text.GetString());
 
 	//app->font->DrawText(bounds.x / app->win->GetScale(), bounds.y / app->win->GetScale(), 0, text.GetString());
 

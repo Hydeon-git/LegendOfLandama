@@ -250,13 +250,16 @@ bool Scene::PostUpdate()
 	//draw sign
 	if (player->ThereIsLimit())
 	{
-		app->render->DrawRectangle({ 0, 580, 1280, 140}, 100, 100, 200, 255, true, false);
+		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+		app->render->DrawRectangle({ 10, 590, 1260, 120}, 100, 100, 200, 220, true, false);
+		
 		app->font->DrawText(90, 205, whiteFont, "This road is too dangerous.");
 		app->font->DrawText(90, 220, whiteFont, "  Go back to the village.");
 	}
 	if (player->ThereIsHouseClosed())
 	{
-		app->render->DrawRectangle({ 0, 580, 1280, 140}, 100, 100, 200, 255, true, false);
+		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 		app->font->DrawText(110, 205, whiteFont, " This house is closed.");
 		app->font->DrawText(110, 220, whiteFont, "There is no one inside.");
 	}

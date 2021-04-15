@@ -32,31 +32,24 @@ public:
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
-
 	bool CleanUp() override;
 
 	bool posContinue = false;
 	bool exit = false;
-	bool playClicked = false;
+	bool startClicked = false;
 
 	bool guiColliders = false;
 
-	bool settings = false;
-	bool credits = false;
-	bool controls = false;
+	bool options = false;
 
 private:
 	bool active = true;
 	SString name;
-	GuiButton* btnPlay;
+	GuiButton* btnStart;
 	GuiButton* btnContinue;
-	GuiButton* btnSettings;
-	GuiButton* btnCredits;
-	GuiButton* btnControls;
-	GuiButton* btnBackControls;
+	GuiButton* btnOptions;
 	GuiButton* btnExit;
-	GuiButton* btnBackSettings;
-	GuiButton* btnBackCredits;
+	GuiButton* btnBackOptions;
 
 	GuiSlider* sliderMusicVolume;
 	GuiSlider* sliderFxVolume;
@@ -65,13 +58,11 @@ private:
 	GuiCheckBox* checkBoxVSync;
 
 	SDL_Texture* introText = nullptr;
-	SDL_Texture* creditText = nullptr;
 	SDL_Texture* logoText = nullptr;
 
 	SDL_Rect* fullscreenRect;
 
 	int whiteFont = -1;
-	int yellowFont = -1;	
 
 	int count = 0;
 };

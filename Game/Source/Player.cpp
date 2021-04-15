@@ -24,11 +24,11 @@ Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("player");
 	
-	if (app->sceneIntro->playClicked)
+	if (app->sceneIntro->startClicked)
 	{
 		position.x = 200;
 		position.y = 100;
-		app->sceneIntro->playClicked = false;
+		app->sceneIntro->startClicked = false;
 		app->sceneIntro->posContinue = false;
 		app->sceneWin->won = false;
 		app->sceneLose->lost = false;
