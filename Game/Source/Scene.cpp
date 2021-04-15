@@ -20,7 +20,7 @@
 #include "GuiButton.h"
 #include "GuiSlider.h"
 #include "GuiCheckBox.h"
-
+#include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -31,7 +31,7 @@ Scene::Scene() : Module()
 	name.Create("scene");
 
 	// Current Scene set to town
-	currentScene = GameScene::SCENE_TOWN;
+	
 }
 
 // Destructor
@@ -51,8 +51,12 @@ bool Scene::Start()
 	// L12b: Create walkability map on map loading
 	if (this->active == true)
 	{
+
+		currentScene = GameScene::SCENE_TOWN;
+
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 
+		
 		player->Start();
 		//player->active = true;
 
@@ -241,7 +245,6 @@ bool Scene::PostUpdate()
 
 	// Draw map
 	app->map->Draw();
-	//app->map->DrawVillage();
 	app->map->DrawColliders();
 	app->map->DrawCheckpoint();
 	app->map->DrawPuzzle();

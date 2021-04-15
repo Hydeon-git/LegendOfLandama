@@ -78,6 +78,9 @@
     <ClCompile Include="Source\FadeToBlack.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DialogSystem.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -190,6 +193,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\FadeToBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DialogSystem.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>

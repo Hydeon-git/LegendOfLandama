@@ -13,6 +13,7 @@
 #define COLLIDER_PINK 860
 #define COLLIDER_GREY 861
 #define COLLIDER_ORANGE 862
+#define COLLIDER_CIAN 863
 
 #define COLLIDER_RED_HOUSE 770
 #define COLLIDER_GREEN_HOUSE 769
@@ -47,7 +48,10 @@ public:
 	bool ThereIsBottomWall();
 	bool ThereIsLeftWall();
 	bool ThereIsRightWall();
-	
+	bool ThereIsNPCBelow();
+	bool ThereIsNPCUp();
+	bool ThereIsNPCLeft();
+	bool ThereIsNPCRight();
 	bool ThereIsLimit();
 	bool ThereIsHouseClosed();
 	bool ThereIsEnemy();
@@ -70,7 +74,7 @@ public:
 	bool dead = false;
 	bool win = false;
 	bool godModeEnabled = false;
-
+	bool dialogeOn = false;
 	
 	int lifes; //player lifes
 	bool spiked; //if player lose a life

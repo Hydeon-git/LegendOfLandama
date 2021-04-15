@@ -17,6 +17,7 @@
 #include "Log.h"
 #include "SceneIntro.h"
 #include "SceneWin.h"
+#include "DialogSystem.h"
 
 
 
@@ -193,6 +194,17 @@ bool Player::Update(float dt)
 					currentAnimation = &rightAnim;
 				}
 			}
+
+			if (ThereIsNPCBelow() || ThereIsNPCUp() || ThereIsNPCLeft() || ThereIsNPCRight())
+			{
+				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				{
+					dialogeOn = true;
+				}
+			}else dialogeOn = false;
+
+
+
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 			{
 				if (currentAnimation == &leftAnim)
@@ -459,6 +471,117 @@ bool Player::ThereIsHouseClosed()
 	}
 	return valid;
 }
+
+
+bool Player::ThereIsNPCBelow()
+{
+	bool valid = false;
+
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int groundId;
+	while (layer != NULL)
+	{
+		if (layer->data->name == "colliders")
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
+				groundId = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (groundId == COLLIDER_CIAN) valid = true;
+			}
+		}
+		layer = layer->next;
+	}
+	
+	return valid;
+}
+
+bool Player::ThereIsNPCUp()
+{
+	bool valid = false;
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int rightWallId;
+	while (layer != NULL)
+	{
+		if (layer->data->name == "colliders")
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+				rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (rightWallId == COLLIDER_CIAN) valid = true;
+			}
+		}
+		layer = layer->next;
+	}
+
+	return valid;
+}
+
+bool Player::ThereIsNPCLeft()
+{
+	bool valid = false;
+
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int leftWallId;
+	while (layer != NULL)
+	{
+		if (layer->data->name == "colliders")
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x, position.y + i * 4);
+				leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (leftWallId == COLLIDER_CIAN) valid = true;
+			}
+		}
+		layer = layer->next;
+	}
+
+	return valid;
+
+}
+
+bool Player::ThereIsNPCRight()
+{
+	bool valid = false;
+
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int rightWallId;
+	while (layer != NULL)
+	{
+		if (layer->data->name == "colliders")
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + playerWidth, position.y + i * 4);
+				rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (rightWallId == COLLIDER_CIAN) valid = true;
+			}
+		}
+		layer = layer->next;
+	}
+	
+	return valid;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 bool Player::ThereIsEnemy()
 {

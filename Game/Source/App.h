@@ -26,6 +26,7 @@ class SceneIntro;
 class SceneWin;
 class SceneLose;
 class Font;
+class DialogueSystem;
 
 class App
 {
@@ -106,6 +107,7 @@ public:
 	SceneLose* sceneLose;
 	EntityManager* entityManager;
 	Font* font;
+	DialogueSystem* dialogueSystem;
 
 	bool capped = false;
 	bool loadGameRequested;

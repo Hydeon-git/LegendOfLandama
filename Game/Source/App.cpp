@@ -15,7 +15,7 @@
 #include "SceneLose.h"
 #include "PathFinding.h"
 #include "Player.h"
-
+#include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -36,6 +36,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
+	dialogueSystem = new DialogueSystem(input, render, tex);
 	map = new Map();
 	scene = new Scene();
 	sceneIntro = new SceneIntro();
@@ -45,6 +46,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fadeToBlack = new FadeToBlack();
 	pathfinding = new PathFinding();
 	font = new Font();
+
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -57,6 +59,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneLose, false);
 	AddModule(scene, false);
 	AddModule(map, false);
+	AddModule(dialogueSystem, true);
 	AddModule(entityManager, true);
 	AddModule(font, true);
 	AddModule(pathfinding, true);
