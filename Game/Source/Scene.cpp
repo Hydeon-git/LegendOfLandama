@@ -31,7 +31,7 @@ Scene::Scene() : Module()
 	name.Create("scene");
 
 	// Current Scene set to town
-	currentScene = GameScene::SCENE_TOWN;
+	currentScene = SCENE_TOWN;
 }
 
 // Destructor
@@ -332,6 +332,16 @@ void Scene::ChangeScene(GameScene nextScene)
 		}		
 		case SCENE_TOWN:
 		{
+			if (app->map->Load("town.tmx") == true)
+			{
+				int w, h;
+				uchar* data = NULL;
+
+				if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+				RELEASE_ARRAY(data);
+			}
+
 			currentScene = SCENE_TOWN;
 		}
 		break;
