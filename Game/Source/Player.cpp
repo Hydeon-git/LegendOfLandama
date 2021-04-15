@@ -281,30 +281,16 @@ void Player::CheckDoor()
 {
 	iPoint tilePosition;
 	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int door;
+	door;
 	while (layer != NULL)
 	{
-		if (layer->data->name == "colliders")
+		if (layer->data->name == "colliders" && layer != NULL)
 		{
 			for (int i = 0; i < 4; ++i)
 			{
 				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
 				door = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (door == COLLIDER_BLUE)
-				{
-					app->scene->ChangeScene(SCENE_HOUSE1);
-					break;
-				}
-				else if (door == COLLIDER_GREY)
-				{
-					app->scene->ChangeScene(SCENE_BSMITH);
-					break;
-				}
-				else if (door == COLLIDER_YELLOW)
-				{
-					app->scene->ChangeScene(SCENE_INN);
-					break;
-				}
+				
 			}
 		}
 		layer = layer->next;

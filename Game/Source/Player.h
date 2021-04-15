@@ -87,7 +87,7 @@ public:
 	int counterHeart;
 	bool loaded = false;
 	bool house = false;
-
+	int door = 0;
 private:
 	float speed = 1.0f;
 	float fireBallSpeed = 3.0f;

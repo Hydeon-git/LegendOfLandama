@@ -105,6 +105,21 @@ bool Scene::Update(float dt)
 
 	//Cap in-game FPS
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) app->capped = !app->capped;
+	if (player->door == COLLIDER_BLUE)
+	{
+		app->scene->ChangeScene(SCENE_HOUSE1);
+		player->door = 0;
+	}
+	else if (player->door == COLLIDER_GREY)
+	{
+		app->scene->ChangeScene(SCENE_BSMITH);
+		player->door = 0;
+	}
+	else if (player->door == COLLIDER_YELLOW)
+	{
+		app->scene->ChangeScene(SCENE_INN);
+		player->door = 0;
+	}
 	switch (currentScene)
 	{
 		case SCENE_TOWN:
