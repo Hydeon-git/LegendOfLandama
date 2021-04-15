@@ -62,8 +62,8 @@ bool Scene::Start()
 		char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~"};
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 
-		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
-		app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+		app->render->camera.x = -player->position.x+180;
+		app->render->camera.y = -player->position.y+100;
 
 
 		if(!app->sceneIntro->posContinue) timer = 0;
@@ -145,7 +145,22 @@ bool Scene::Update(float dt)
 					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsBottomWall()) app->render->camera.y -= 3.0f;
 				}
 			}			
-
+			if (player->position.y == 100)
+			{
+				app->render->camera.y = -2;
+			}
+			if (player->position.y == 400)
+			{
+				app->render->camera.y = -902;
+			}
+			if (player->position.x == 220)
+			{
+				app->render->camera.x = -20;
+			}
+			if (player->position.x == 426)
+			{
+				app->render->camera.x = -635;
+			}
 			
 			// Request Load / Save when pressing F6/F5
 			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
