@@ -88,7 +88,7 @@ private:
 	
 	SDL_Texture* pause;
 	SDL_Texture* creditText = nullptr;
-	SDL_Texture* clockText;
+	SDL_Texture* no;
 
 	Animation clockAnim;
 

@@ -177,7 +177,7 @@ bool Player::Update(float dt)
 				}				
 			}
 
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !ThereAreSpikes())
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
 				if (!ThereIsLeftWall())
 				{
@@ -185,7 +185,7 @@ bool Player::Update(float dt)
 					currentAnimation = &leftAnim;
 				}
 			}
-			else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !ThereAreSpikes())
+			else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			{
 				if (!ThereIsRightWall())
 				{
@@ -227,15 +227,7 @@ bool Player::Update(float dt)
 
 		if (shotCountdown > 0) --shotCountdown;
 
-		if (ThereIsChestBelow() || ThereIsChestLeft() || ThereIsChestRight())
-		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->map->puzzleTaken)
-			{
-				app->map->chestTaken = true;
-				app->audio->PlayFx(chestFx, 0);
-
-			}
-		}		
+			
 		if (TakeCheckpoint())
 		{
 			app->map->checkpointTaken = true;
@@ -419,98 +411,53 @@ bool Player::ThereIsRightWall()
 	return valid;
 }
 
-bool Player::ThereIsChestBelow()
-{
-	bool valid = false;
-	if (!app->map->chestTaken)
-	{
-		iPoint tilePosition;
-		ListItem<MapLayer*>* layer = app->map->data.layers.start;
-		int groundId;
-		while (layer != NULL)
-		{
-			for (int i = 0; i < 5; ++i)
-			{
-				tilePosition = app->map->WorldToMap(position.x + 24 + i * 4, position.y + playerHeight);
-				groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (groundId == COLLIDER_GREY) valid = true;
-			}
-			layer = layer->next;
-		}
-	}
-	return valid;
-}
-
-bool Player::ThereIsChestLeft()
-{
-	bool valid = false;
-	if (!app->map->chestTaken)
-	{
-		iPoint tilePosition;
-		ListItem<MapLayer*>* layer = app->map->data.layers.start;
-		int leftWallId;
-		while (layer != NULL)
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				tilePosition = app->map->WorldToMap(position.x, position.y + 21 + i * 16);
-				leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (leftWallId == COLLIDER_GREY) valid = true;
-			}
-			layer = layer->next;
-		}
-	}
-	return valid;
-
-}
-
-bool Player::ThereIsChestRight()
-{
-	bool valid = false;
-	if (!app->map->chestTaken)
-	{
-		iPoint tilePosition;
-		ListItem<MapLayer*>* layer = app->map->data.layers.start;
-		int rightWallId;
-		while (layer != NULL)
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				tilePosition = app->map->WorldToMap(position.x + playerWidth, position.y + 21 + i * 16);
-				rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (rightWallId == COLLIDER_GREY) valid = true;
-			}
-			layer = layer->next;
-		}
-	}
-	return valid;
-}
-
-bool Player::ThereAreSpikes()
+bool Player::ThereIsLimit()
 {
 	bool valid = false;
 	if (!godModeEnabled)
 	{
 		iPoint tilePosition;
 		ListItem<MapLayer*>* layer = app->map->data.layers.start;
-		int spikesId;
+		int limitId;
 		while (layer != NULL)
 		{
 			if (layer->data->properties.GetProperty("Navigation") == 0)
 			{
-				for (int i = 0; i < 3; ++i)
+				for (int i = 0; i < 4; ++i)
 				{
-					tilePosition = app->map->WorldToMap(position.x + 19 + i * 13, position.y + 21);
-					spikesId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (spikesId == COLLIDER_YELLOW) valid = true;
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+					limitId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (limitId == COLLIDER_PINK) valid = true;
 				}
 			}
 			layer = layer->next;
 		}
 	}
 	return valid;
-
-
+}
+bool Player::ThereIsHouseClosed()
+{
+	bool valid = false;
+	if (!godModeEnabled)
+	{
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int limitId;
+		while (layer != NULL)
+		{
+			if (layer->data->properties.GetProperty("Navigation") == 0)
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+					limitId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (limitId == COLLIDER_ORANGE) valid = true;
+				}
+			}
+			layer = layer->next;
+		}
+	}
+	return valid;
 }
 
 bool Player::ThereIsEnemy()

@@ -48,10 +48,8 @@ public:
 	bool ThereIsLeftWall();
 	bool ThereIsRightWall();
 	
-	bool ThereIsChestBelow();
-	bool ThereIsChestLeft();
-	bool ThereIsChestRight();
-	bool ThereAreSpikes();
+	bool ThereIsLimit();
+	bool ThereIsHouseClosed();
 	bool ThereIsEnemy();
 	bool ThereIsFlyingEnemy();	
 	bool TakeCheckpoint();	

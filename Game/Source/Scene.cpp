@@ -60,7 +60,7 @@ bool Scene::Start()
 		player->spiked = false;
 
 		char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~"};
-		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
+		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 
 		app->render->camera.x = -player->position.x+180;
 		app->render->camera.y = -player->position.y+100;
@@ -246,6 +246,20 @@ bool Scene::PostUpdate()
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();
 
+
+	//draw sign
+	if (player->ThereIsLimit())
+	{
+		app->render->DrawRectangle({ 0, 580, 1280, 140}, 100, 100, 200, 255, true, false);
+		app->font->DrawText(90, 205, whiteFont, "This road is too dangerous.");
+		app->font->DrawText(90, 220, whiteFont, "  Go back to the village.");
+	}
+	if (player->ThereIsHouseClosed())
+	{
+		app->render->DrawRectangle({ 0, 580, 1280, 140}, 100, 100, 200, 255, true, false);
+		app->font->DrawText(110, 205, whiteFont, " This house is closed.");
+		app->font->DrawText(110, 220, whiteFont, "There is no one inside.");
+	}
 	//menu pause
 
 	if (pausedSettings)
@@ -309,7 +323,6 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	app->tex->UnLoad(pause);
 	app->tex->UnLoad(creditText);
-	app->tex->UnLoad(clockText);
 	app->font->UnLoad(whiteFont);
 	app->entityManager->DestroyEntity(player);
 	app->entityManager->DestroyEntity(enemy);
