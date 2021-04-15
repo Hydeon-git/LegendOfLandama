@@ -177,7 +177,7 @@ bool Player::Update(float dt)
 				}				
 			}
 
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 			{
 				if (!ThereIsLeftWall())
 				{
@@ -185,7 +185,7 @@ bool Player::Update(float dt)
 					currentAnimation = &leftAnim;
 				}
 			}
-			else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
 			{
 				if (!ThereIsRightWall())
 				{
