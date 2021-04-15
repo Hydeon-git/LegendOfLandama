@@ -31,7 +31,7 @@ Scene::Scene() : Module()
 	name.Create("scene");
 
 	// Current Scene set to town
-	currentScene = SCENE_TOWN;
+	currentScene = GameScene::SCENE_TOWN;
 }
 
 // Destructor
@@ -107,27 +107,27 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) app->capped = !app->capped;
 	if (player->door == COLLIDER_BLUE)
 	{
-		app->scene->ChangeScene(SCENE_HOUSE1);
+		app->scene->ChangeScene(GameScene::SCENE_HOUSE1);
 		player->door = 0;
 	}
 	else if (player->door == COLLIDER_GREY)
 	{
-		app->scene->ChangeScene(SCENE_BSMITH);
+		app->scene->ChangeScene(GameScene::SCENE_BSMITH);
 		player->door = 0;
 	}
 	else if (player->door == COLLIDER_YELLOW)
 	{
-		app->scene->ChangeScene(SCENE_INN);
+		app->scene->ChangeScene(GameScene::SCENE_INN);
 		player->door = 0;
 	}
 	if (player->houseDoor == COLLIDER_GREEN || player->houseDoor == COLLIDER_GREEN_HOUSE)
 	{
-		app->scene->ChangeScene(SCENE_TOWN);
+		app->scene->ChangeScene(GameScene::SCENE_TOWN);
 		player->houseDoor = 0;
 	}
 	switch (currentScene)
 	{
-		case SCENE_TOWN:
+		case GameScene::SCENE_TOWN:
 		{
 			//CAMERA
 			if (!app->scene->paused)
@@ -214,15 +214,15 @@ bool Scene::Update(float dt)
 			if (app->sceneIntro->exit == true) return false;
 
 		} break;
-		case SCENE_HOUSE1:
+		case GameScene::SCENE_HOUSE1:
 		{
 			
 		} break;
-		case SCENE_BSMITH:
+		case GameScene::SCENE_BSMITH:
 		{
 			
 		} break;
-		case SCENE_INN:
+		case GameScene::SCENE_INN:
 		{
 			
 		} break;
@@ -345,13 +345,13 @@ void Scene::ChangeScene(GameScene nextScene)
 
 	switch (nextScene)
 	{
-		case SCENE_NONE:
+		case GameScene::SCENE_NONE:
 		{
 			LOG("ERROR: Scene loaded was none so intro scene loaded instead.");
-			ChangeScene(SCENE_TOWN);
+			ChangeScene(GameScene::SCENE_TOWN);
 			break;
 		}		
-		case SCENE_TOWN:
+		case GameScene::SCENE_TOWN:
 		{
 			if (app->map->Load("town.tmx") == true)
 			{
@@ -371,25 +371,32 @@ void Scene::ChangeScene(GameScene nextScene)
 				{
 					app->scene->player->position.x = 144;
 					app->scene->player->position.y = 99;
+					app->render->camera.x = 0;
+					app->render->camera.y = 0;
 					house = 0;
 				} break;
 				case 2:
 				{
 					app->scene->player->position.x = 544;
 					app->scene->player->position.y = 130;
+					app->render->camera.x = -635;
+					app->render->camera.y = -92;
+
 					house = 0;
 				} break;
 				case 3:
 				{
 					app->scene->player->position.x = 401;
 					app->scene->player->position.y = 320;
+					app->render->camera.x = -563;
+					app->render->camera.y = -674;
 					house = 0;
 				} break;			
 			}
-			currentScene = SCENE_TOWN;
+			currentScene = GameScene::SCENE_TOWN;
 		}
 		break;
-		case SCENE_HOUSE1:
+		case GameScene::SCENE_HOUSE1:
 		{	
 			if (app->map->Load("house1.tmx") == true)
 			{
@@ -402,14 +409,14 @@ void Scene::ChangeScene(GameScene nextScene)
 			}
 
 			house = 1;
-			//app->render->camera.x = 0;
-			//app->render->camera.y = 0;
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
 			app->scene->player->position.x = 153;
 			app->scene->player->position.y = 156;
 
-			currentScene = SCENE_HOUSE1;
+			currentScene = GameScene::SCENE_HOUSE1;
 		} break;
-		case SCENE_BSMITH:
+		case GameScene::SCENE_BSMITH:
 		{
 			if (app->map->Load("herreria.tmx") == true)
 			{
@@ -426,9 +433,9 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->render->camera.y = 0;
 			app->scene->player->position.x = 201;
 			app->scene->player->position.y = 158;
-			currentScene = SCENE_BSMITH;
+			currentScene = GameScene::SCENE_BSMITH;
 		} break;
-		case SCENE_INN:
+		case GameScene::SCENE_INN:
 		{
 			if (app->map->Load("hostal.tmx") == true)
 			{
@@ -445,7 +452,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->render->camera.y = 0;
 			app->scene->player->position.x = 217;
 			app->scene->player->position.y = 174;
-			currentScene = SCENE_INN;
+			currentScene = GameScene::SCENE_INN;
 		} break;
 	}
 }

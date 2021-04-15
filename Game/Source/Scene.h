@@ -15,7 +15,7 @@ class Enemy;
 class FlyingEnemy;
 class ModuleParticles;
 
-enum GameScene
+enum class GameScene
 {
 	SCENE_NONE,
 	SCENE_TOWN,

@@ -215,11 +215,11 @@ bool Player::Update(float dt)
 				}				
 			}
 		}
-		if (app->scene->currentScene == SCENE_TOWN)
+		if (app->scene->currentScene == GameScene::SCENE_TOWN)
 		{
 			CheckDoor();
 		}
-		if (app->scene->currentScene == SCENE_BSMITH ||app->scene->currentScene == SCENE_HOUSE1 ||app->scene->currentScene == SCENE_INN)
+		if (app->scene->currentScene == GameScene::SCENE_BSMITH ||app->scene->currentScene == GameScene::SCENE_HOUSE1 ||app->scene->currentScene == GameScene::SCENE_INN)
 		{
 			CheckHouseDoor();
 		}
