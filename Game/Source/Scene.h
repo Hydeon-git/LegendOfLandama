@@ -81,7 +81,6 @@ public:
 	bool restart = false;
 	uint timer = 0;
 private:
-	
 
 	// Textures & Anim
 	SDL_Texture* debugTex;
@@ -111,6 +110,13 @@ private:
 
 	int cameraX;
 	int cameraY;
+
+	// Detecting house
+	// 0 - None
+	// 1 - House1
+	// 2 - Blacksith
+	// 3 - Inn
+	int house = 0;
 
 	bool resumePause = false;
 	bool settingsPause = false;

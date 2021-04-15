@@ -144,7 +144,7 @@ bool Scene::Update(float dt)
 					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsTopWall()) app->render->camera.y += 3.0f;
 					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsBottomWall()) app->render->camera.y -= 3.0f;
 				}
-			}
+			}			
 			if (player->position.y == 100)
 			{
 				app->render->camera.y = -2;
@@ -161,7 +161,7 @@ bool Scene::Update(float dt)
 			{
 				app->render->camera.x = -635;
 			}
-
+			
 			// Request Load / Save when pressing F6/F5
 			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
 
@@ -359,7 +359,30 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
-
+			
+			// Deteting in which house the player was
+			// Reposition her
+			switch (house)
+			{
+				case 1:
+				{
+					app->scene->player->position.x = 144;
+					app->scene->player->position.y = 99;
+					house = 0;
+				} break;
+				case 2:
+				{
+					app->scene->player->position.x = 544;
+					app->scene->player->position.y = 130;
+					house = 0;
+				} break;
+				case 3:
+				{
+					app->scene->player->position.x = 401;
+					app->scene->player->position.y = 320;
+					house = 0;
+				} break;			
+			}
 			currentScene = SCENE_TOWN;
 		}
 		break;
@@ -374,8 +397,10 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
-			app->render->camera.x = 0;
-			app->render->camera.y = 0;
+
+			house = 1;
+			//app->render->camera.x = 0;
+			//app->render->camera.y = 0;
 			app->scene->player->position.x = 153;
 			app->scene->player->position.y = 156;
 
@@ -392,6 +417,8 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
+
+			house = 2;
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
 			app->scene->player->position.x = 201;
@@ -409,6 +436,8 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
+
+			house = 3;
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
 			app->scene->player->position.x = 217;
@@ -417,7 +446,6 @@ void Scene::ChangeScene(GameScene nextScene)
 		} break;
 	}
 }
-
 
 bool Scene::LoadState(pugi::xml_node& node)
 {
