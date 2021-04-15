@@ -120,6 +120,11 @@ bool Scene::Update(float dt)
 		app->scene->ChangeScene(SCENE_INN);
 		player->door = 0;
 	}
+	if (player->houseDoor == COLLIDER_GREEN || player->houseDoor == COLLIDER_GREEN_HOUSE)
+	{
+		app->scene->ChangeScene(SCENE_TOWN);
+		player->houseDoor = 0;
+	}
 	switch (currentScene)
 	{
 		case SCENE_TOWN:

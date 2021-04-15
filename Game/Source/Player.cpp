@@ -290,7 +290,6 @@ void Player::CheckDoor()
 			{
 				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
 				door = layer->data->Get(tilePosition.x, tilePosition.y);
-				
 			}
 		}
 		layer = layer->next;
@@ -301,7 +300,7 @@ void Player::CheckHouseDoor()
 {
 	iPoint tilePosition;
 	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int door;
+	houseDoor;
 	while (layer != NULL)
 	{
 		if (layer->data->name == "colliders")
@@ -309,12 +308,7 @@ void Player::CheckHouseDoor()
 			for (int i = 0; i < 4; ++i)
 			{
 				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
-				door = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (door == COLLIDER_GREEN || door == COLLIDER_GREEN_HOUSE)
-				{
-					app->scene->ChangeScene(SCENE_TOWN);
-					break;
-				}
+				houseDoor = layer->data->Get(tilePosition.x, tilePosition.y);
 			}
 		}
 		layer = layer->next;
