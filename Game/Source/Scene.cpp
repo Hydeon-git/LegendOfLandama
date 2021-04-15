@@ -372,16 +372,16 @@ void Scene::ChangeScene(GameScene nextScene)
 				{
 					app->scene->player->position.x = 144;
 					app->scene->player->position.y = 99;
-					app->render->camera.x = 0;
-					app->render->camera.y = 0;
+					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 					house = 0;
 				} break;
 				case 2:
 				{
 					app->scene->player->position.x = 544;
 					app->scene->player->position.y = 130;
-					app->render->camera.x = -635;
-					app->render->camera.y = -92;
+					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 
 					house = 0;
 				} break;
@@ -389,8 +389,8 @@ void Scene::ChangeScene(GameScene nextScene)
 				{
 					app->scene->player->position.x = 401;
 					app->scene->player->position.y = 320;
-					app->render->camera.x = -563;
-					app->render->camera.y = -674;
+					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 					house = 0;
 				} break;			
 			}
