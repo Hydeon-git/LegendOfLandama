@@ -135,34 +135,18 @@ bool Scene::Update(float dt)
 				//camera x
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
 				{
-					if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall()) app->render->camera.x += 3.0f;
-					else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall()) app->render->camera.x -= 3.0f;
+					if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 426 && !player->ThereIsLeftWall()) app->render->camera.x += 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && player->position.x > 220 && player->position.x <= 426 && !player->ThereIsRightWall()) app->render->camera.x -= 3.0f;
 				}
 				//camera y
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
 				{
-					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall()) app->render->camera.y += 3.0f;
-					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall()) app->render->camera.y -= 3.0f;
+					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsTopWall()) app->render->camera.y += 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && player->position.y > 100 && player->position.y <= 400 && !player->ThereIsBottomWall()) app->render->camera.y -= 3.0f;
 				}
 			}			
 
-			if (player->position.y <= 100)
-			{
-				app->render->camera.y = -2;
-			}
-			if (player->position.y >= 409)
-			{
-				app->render->camera.y = ((-2 - 409 * 3) + 1280 / 2) - 258;
-			}
-			if (player->position.x <= 220)
-			{
-				app->render->camera.x = -35;
-			}
-			if (player->position.x >= 426)
-			{
-				app->render->camera.x = -640;
-			}
-
+			
 			// Request Load / Save when pressing F6/F5
 			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
 
