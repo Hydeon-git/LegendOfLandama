@@ -96,6 +96,8 @@ private:
 	Animation clockAnim;
 
 	// GUI
+	SDL_Rect* fullscreenRect;
+	int scale;
 	GuiButton* btnResume;
 	GuiButton* btnSettings;
 	GuiButton* btnBackIntro;

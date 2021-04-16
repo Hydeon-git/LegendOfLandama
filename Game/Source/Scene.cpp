@@ -43,6 +43,8 @@ Scene::~Scene(){}
 bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
+	scale = (int)app->win->GetScale();
+	fullscreenRect = new SDL_Rect{ 0, 0, 1280, 720};
 	bool ret = true;
 	return ret;
 }
@@ -281,7 +283,7 @@ bool Scene::PostUpdate()
 
 	if (pausedSettings)
 	{
-		app->render->DrawRectangle({ -app->render->camera.x/3, -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
+		app->render->DrawRectangle({ -app->render->camera.x / 3, -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
 		sliderMusicVolume->Draw();
 		sliderFxVolume->Draw();
 		checkBoxFullscreen->Draw();
@@ -291,7 +293,7 @@ bool Scene::PostUpdate()
 	else if (paused)
 	{
 		//app->render->DrawRectangle({ -app->render->camera.x/3 , -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
-		app->render->DrawTexture(texMenu, -app->render->camera.x / 3, -app->render->camera.y / 3);
+		app->render->DrawTexture(texMenu, -app->render->camera.x, -app->render->camera.y, fullscreenRect, 3);
 		btnResume->Draw();
 		btnSettings->Draw();
 		btnBackIntro->Draw();
