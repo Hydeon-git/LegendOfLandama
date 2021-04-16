@@ -74,11 +74,13 @@ public:
 	bool LoadNodes(pugi::xml_node& trees, DialogueTree* oak);
 	bool LoadOptions(pugi::xml_node& text_node, DialogueNode* NPC);
 	int id = 0;
+	DialogueNode* currentNode;
+
 private:
 	int playerInput = 7;
 
 	std::vector <DialogueTree*> dialogueTrees;
-	DialogueNode* currentNode;
+	
 	pugi::xml_document	dialogues;
 
 	int whiteFont = -1;

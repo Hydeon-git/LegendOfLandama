@@ -37,7 +37,7 @@ bool SceneLose::Start()
 	{
 		LOG("Loading background assets");
 		loseText = app->tex->Load("Assets/Textures/scene_lose.png");
-		char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
+		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
 		app->map->Disable();
 		app->audio->PlayMusic("Assets/Audio/Music/game_over.ogg");

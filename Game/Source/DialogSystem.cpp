@@ -15,10 +15,10 @@ DialogueSystem::~DialogueSystem() {}
 bool DialogueSystem::Start()
 {
 	LoadDialogue("dialogue_tree.xml");
-	id = 1;
+	id = 0;
 	currentNode = dialogueTrees[id]->dialogueNodes[0];	
 	
-	char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
+	char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 	whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 	return true;
 }
@@ -49,7 +49,7 @@ bool DialogueSystem::Update(float dt)
 		id = 0;
 		currentNode = dialogueTrees[id]->dialogueNodes[0];
 		playerInput = 9;
-		PerformDialogue(id);
+		app->scene->player->dialogeOn = false;
 	}
 
 
@@ -63,18 +63,21 @@ bool DialogueSystem::PostUpdate()
 
 	if (app->scene->currentScene == GameScene::SCENE_TOWN && app->scene->player->dialogeOn)
 	{
+		app->render->DrawRectangle({ 0, 520, 1280, 60 }, 0, 0, 0, 220, true, false);
+		app->render->DrawRectangle({ 10, 530, 1260, 40 }, 100, 100, 200, 220, true, false);
+		
 		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
 		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 
 		char NPCdialogue[64] = { 0 };
 		sprintf_s(NPCdialogue, 64, currentNode->text.c_str(), 56);
-		app->font->DrawText(20, 200, whiteFont, NPCdialogue);
+		app->font->DrawText(15, 178, whiteFont, NPCdialogue);
 
 		char response[64] = { 0 };
 		for (int i = 0; i < currentNode->answersList.Count(); i++)
 		{
 			sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
-			app->font->DrawText(190, 200+12*i, whiteFont, response);
+			app->font->DrawText(15, 198+14*i, whiteFont, response);
 		}
 	}
 

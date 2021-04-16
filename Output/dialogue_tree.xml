@@ -4,17 +4,17 @@
   <!-- Fisherman -->
   <NPC Id="0">
     <node text="What are you doing?"  id="0">
-      <dialogue option="1: I'm a traveler!" returnCode="0" nextNode="1"/>
-      <dialogue option="2: I'm sorry!" returnCode="0" nextNode="5"/>
+      <dialogue option="1: I@m a traveler!" returnCode="0" nextNode="1"/>
+      <dialogue option="2: I@m sorry!" returnCode="0" nextNode="2"/>
     </node>
-    <node text="I'm calling the guards!"  id="1">
-      <dialogue option="1: Please don't!" returnCode="0" nextNode="3"/>
-      <dialogue option="2: Let's fight old man." returnCode="0" nextNode="2"/>
+    <node text="I@m calling the guards!"  id="1">
+      <dialogue option="1: Please don@t!" returnCode="0" nextNode="3"/>
+      <dialogue option="2: Let@s fight old man." returnCode="0" nextNode="2"/>
     </node>
     <node text="Get out of here before I kill you!" id="2">
-      <dialogue option="2: Bye!" returnCode="0" nextNode="3"/>
+      <dialogue option="1: Veranito rico!" returnCode="0" nextNode="3"/>
     </node>
-    <node text="Young people don't have respect these days..." id="3"></node>    
+    <node text="Young people don@t have respect these days..." id="3"></node>    
   </NPC>
   
    <!-- Blacksmith -->

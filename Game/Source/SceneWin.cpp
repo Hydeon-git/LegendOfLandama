@@ -40,7 +40,7 @@ bool SceneWin::Start()
 	{
 		LOG("Loading background assets");
 		winText = app->tex->Load("Assets/Textures/scene_win.png");
-		char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
+		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
 		app->scene->player->active = false;
 		app->scene->enemy->active = false;

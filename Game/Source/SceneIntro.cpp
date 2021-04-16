@@ -50,7 +50,7 @@ bool SceneIntro::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = -555;
 
-	char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
+	char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 	whiteFont = app->font->Load("Assets/Textures/black_font_mini.png", lookupTable, 1);
 
 	btnStart = new GuiButton(1, { 50, 330, 45, 10 }, "START");

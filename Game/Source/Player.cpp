@@ -161,37 +161,40 @@ bool Player::Update(float dt)
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
 		{
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			if (!dialogeOn)
 			{
-				if (!ThereIsTopWall() && !ThereIsNPCUp())
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 				{
-					position.y -= speed;
-					currentAnimation = &upAnim;
-				}				
-			}
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			{
-				if (!ThereIsBottomWall() && !ThereIsNPCBelow())
-				{
-					position.y += speed;
-					currentAnimation = &leftAnim;
-				}				
-			}
-
-			if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
-			{
-				if (!ThereIsLeftWall() && !ThereIsNPCLeft())
-				{
-					position.x -= speed;
-					currentAnimation = &leftAnim;
+					if (!ThereIsTopWall() && !ThereIsNPCUp())
+					{
+						position.y -= speed;
+						currentAnimation = &upAnim;
+					}
 				}
-			}
-			else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
-			{
-				if (!ThereIsRightWall() && !ThereIsNPCRight())
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 				{
-					position.x += speed;
-					currentAnimation = &rightAnim;
+					if (!ThereIsBottomWall() && !ThereIsNPCBelow())
+					{
+						position.y += speed;
+						currentAnimation = &leftAnim;
+					}
+				}
+
+				if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+				{
+					if (!ThereIsLeftWall() && !ThereIsNPCLeft())
+					{
+						position.x -= speed;
+						currentAnimation = &leftAnim;
+					}
+				}
+				else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
+				{
+					if (!ThereIsRightWall() && !ThereIsNPCRight())
+					{
+						position.x += speed;
+						currentAnimation = &rightAnim;
+					}
 				}
 			}
 
@@ -201,8 +204,11 @@ bool Player::Update(float dt)
 				{
 					dialogeOn = true;
 				}
-			}else dialogeOn = false;
-
+			}
+			else
+			{
+				dialogeOn = false;
+			}
 
 
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)

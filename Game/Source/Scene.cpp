@@ -63,7 +63,7 @@ bool Scene::Start()
 		app->map->Enable();
 		player->spiked = false;
 
-		char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~"};
+		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 
 		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
@@ -138,13 +138,13 @@ bool Scene::Update(float dt)
 			{
 				//camera x
 
-				if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
+				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
 					if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall() && !player->ThereIsNPCLeft()) app->render->camera.x += 3.0f;
 					else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall() && !player->ThereIsNPCRight()) app->render->camera.x -= 3.0f;
 				}
 				//camera y
-				if ((app->render->counter == 0 || player->godModeEnabled) && !player->spiked && !paused)
+				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
 					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp()) app->render->camera.y += 3.0f;
 					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow()) app->render->camera.y -= 3.0f;
