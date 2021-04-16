@@ -26,12 +26,6 @@
     <ClCompile Include="Source\Window.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\NPC2.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\NPC1.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\FlyingEnemy.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -92,11 +86,17 @@
     <ClCompile Include="Source\Map.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NPC1.cpp">
+      <Filter>Entities\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NPC2.cpp">
+      <Filter>Entities\NPC</Filter>
+    </ClCompile>
     <ClCompile Include="Source\NPC3.cpp">
-      <Filter>Entities</Filter>
+      <Filter>Entities\NPC</Filter>
     </ClCompile>
     <ClCompile Include="Source\NPC4.cpp">
-      <Filter>Entities</Filter>
+      <Filter>Entities\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,12 +127,6 @@
     </ClInclude>
     <ClInclude Include="Source\Window.h">
       <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\NPC2.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\NPC1.h">
-      <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\FlyingEnemy.h">
       <Filter>Entities</Filter>
@@ -224,11 +218,17 @@
     <ClInclude Include="Source\Map.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Source\NPC1.h">
+      <Filter>Entities\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NPC2.h">
+      <Filter>Entities\NPC</Filter>
+    </ClInclude>
     <ClInclude Include="Source\NPC3.h">
-      <Filter>Entities</Filter>
+      <Filter>Entities\NPC</Filter>
     </ClInclude>
     <ClInclude Include="Source\NPC4.h">
-      <Filter>Entities</Filter>
+      <Filter>Entities\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +252,9 @@
     </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{98465649-de4c-4818-919e-6c42c91d6251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\NPC">
+      <UniqueIdentifier>{62704a8d-f082-40a7-8122-320a165b73ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

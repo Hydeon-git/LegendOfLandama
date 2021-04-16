@@ -12,11 +12,54 @@ Collision::Collision()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;	
 
-	matrix[ColliderType::COLLIDER_PLAYER][ColliderType::COLLIDER_PLAYER] = false;
-	matrix[ColliderType::COLLIDER_PLAYER][ColliderType::COLLIDER_ENEMY] = true;
+	// DECLARATION OF COLLISIONS INTERACTIONS
+	// Collider Player Interactions
+	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_NPC1] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_NPC2] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_NPC3] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_NPC4] = true;
 	
-	matrix[ColliderType::COLLIDER_ENEMY][ColliderType::COLLIDER_PLAYER] = true;
-	matrix[ColliderType::COLLIDER_ENEMY][ColliderType::COLLIDER_ENEMY] = false;
+	// Collider Enemy Interactions
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_NPC1] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_NPC2] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_NPC3] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_NPC4] = false;
+
+	// Collider NPC1 Interactions
+	matrix[COLLIDER_NPC1][COLLIDER_NPC1] = false;
+	matrix[COLLIDER_NPC1][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_NPC1][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_NPC1][COLLIDER_NPC2] = false;
+	matrix[COLLIDER_NPC1][COLLIDER_NPC3] = false;
+	matrix[COLLIDER_NPC1][COLLIDER_NPC4] = false;
+
+	// Collractions
+	matrix[COLLIDER_NPC2][COLLIDER_NPC2] = false;
+	matrix[COLLIDER_NPC2][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_NPC2][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_NPC2][COLLIDER_NPC1] = false;
+	matrix[COLLIDER_NPC2][COLLIDER_NPC3] = false;
+	matrix[COLLIDER_NPC2][COLLIDER_NPC4] = false;
+	
+	// Collractions
+	matrix[COLLIDER_NPC3][COLLIDER_NPC3] = false;
+	matrix[COLLIDER_NPC3][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_NPC3][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_NPC3][COLLIDER_NPC1] = false;
+	matrix[COLLIDER_NPC3][COLLIDER_NPC2] = false;
+	matrix[COLLIDER_NPC3][COLLIDER_NPC4] = false;
+	
+	// Collider NPC4 Interactions
+	matrix[COLLIDER_NPC4][COLLIDER_NPC4] = false;
+	matrix[COLLIDER_NPC4][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_NPC4][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_NPC4][COLLIDER_NPC1] = false;
+	matrix[COLLIDER_NPC4][COLLIDER_NPC2] = false;
+	matrix[COLLIDER_NPC4][COLLIDER_NPC3] = false;
 }
 
 // Destructor
@@ -61,8 +104,7 @@ bool Collision::PreUpdate()
 					c2->callback->OnCollision(c2, c1);
 			}
 		}
-	}
-	
+	}	
 	return true;
 }
 
@@ -82,14 +124,17 @@ void Collision::DebugDraw()
 
 		switch (colliders[i]->type)
 		{
-		case ColliderType::COLLIDER_NONE: // white
+		case COLLIDER_NONE: // white
 			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 			break;		
-		case ColliderType::COLLIDER_PLAYER: // green
+		case COLLIDER_PLAYER: // green
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
-		case ColliderType::COLLIDER_ENEMY: // red
+		case COLLIDER_ENEMY: // red
 			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
+			break;
+		case COLLIDER_NPC3: // lila
+			app->render->DrawRectangle(colliders[i]->rect, 120, 52, 212, alpha);
 			break;
 		}
 	}

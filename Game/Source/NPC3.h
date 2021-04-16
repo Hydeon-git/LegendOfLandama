@@ -12,9 +12,8 @@ class Collider;
 class NPC3 : public Entity
 {
 public:
-
+	// Constructor
 	NPC3();
-
 	// Destructor
 	virtual ~NPC3();
 
@@ -33,7 +32,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Collision Check
+	bool OnCollision(Collider* c1, Collider* c2);
 
+	// NPC3 InitialPosition
 	void NPC3InitialPosition();
 
 	//iPoint position;
@@ -48,9 +50,6 @@ public:
 	Animation rightAnim;
 	Animation leftAnim;
 
-
-
-
 private:
 	float speed = 1.0f;
 	uint enemyDeathFx = 0;
@@ -59,6 +58,10 @@ private:
 	int counter = 0;
 	bool prova;
 
+public:
+	// Player Collisions
+	Collider* npc3Collider;
+	SDL_Rect npc3Rect;
 };
 
 #endif // __NPC3_H__

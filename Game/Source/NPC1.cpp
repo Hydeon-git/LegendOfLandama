@@ -33,7 +33,6 @@ NPC1::NPC1() : Entity(EntityType::NPC1)
 	idlAnim.PushBack({ 33, 0, 15, 17 });
 	idlAnim.speed = 0.02f;
 
-
 	//move right
 	rightAnim.PushBack({ 1, 0, 15, 17 });
 	rightAnim.PushBack({ 33, 0, 15, 17});
@@ -59,19 +58,16 @@ NPC1::NPC1() : Entity(EntityType::NPC1)
 	leftAnim.speed = 0.1f;
 
 	currentAnimation = &idlAnim;
-
-
 }
 
 // Destructor
-NPC1::~NPC1()
-{}
+NPC1::~NPC1() {}
 
 bool NPC1::Awake()
 {
-	LOG("Loading NPC1");
-	bool ret = true;
+	LOG("Loading NPC1: Beach Girl");
 
+	bool ret = true;
 	return ret;
 }
 
@@ -80,7 +76,6 @@ bool NPC1::Start()
 	if (this->active == true)
 	{
 		texNPC1 = app->tex->Load("Assets/Textures/npc1_character.png");
-		//enemyDeathFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_death.wav");
 
 		currentAnimation = &idlAnim;
 	}
@@ -88,9 +83,7 @@ bool NPC1::Start()
 }
 
 bool NPC1::Update(float dt)
-{
-	
-	
+{	
 	if (!pause)
 	{
 		if (right)
@@ -113,6 +106,7 @@ bool NPC1::Update(float dt)
 			pause = true;
 		}
 	}
+
 	if(pause) counter++;
 	if (counter >= 50)
 	{
@@ -121,27 +115,12 @@ bool NPC1::Update(float dt)
 		prova = true;
 	}
 
-
-	currentAnimation->Update();
-
-
-	//if (app->entityManager->entityList.At(0)->data->position.x > position.x - 30 &&
-	//	app->entityManager->entityList.At(0)->data->position.x < position.x + 60 &&
-	//	app->entityManager->entityList.At(0)->data->position.y > position.y - 46 &&
-	//	app->entityManager->entityList.At(0)->data->position.y < position.y + 92)
-	//{
-	//	app->entityManager->entityList.At(0)->data->position.x = app->entityManager->entityList.At(0)->data->position.y;
-	//}
-
-
-
-	
+	currentAnimation->Update();	
 	return true;
 }
 
 bool NPC1::PostUpdate()
 {
-
 	if (this->active == true)
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
@@ -150,20 +129,12 @@ bool NPC1::PostUpdate()
 	return true;
 }
 
-
-
-
-
-
 bool NPC1::CleanUp()
 {
 	LOG("Freeing scene");
 	app->tex->UnLoad(texNPC1);
-	//app->entityManager->DestroyEntity(this);
 	return true;
 }
-
-
 
 void NPC1::NPC1InitialPosition()
 {

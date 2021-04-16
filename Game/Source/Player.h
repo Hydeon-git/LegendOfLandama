@@ -95,6 +95,7 @@ public:
 	bool house = false;
 	int door = 0;
 	int houseDoor = 0;
+
 private:
 	float speed = 1.0f;
 	float fireBallSpeed = 3.0f;
@@ -103,8 +104,9 @@ private:
 	bool isJumping = false;
 
 public:
+	// Player Collisions
 	Collider* playerCollider;
-	SDL_Rect rCollider;
+	SDL_Rect playerRect;
 
 private:
 	SDL_Texture* texFireBall;

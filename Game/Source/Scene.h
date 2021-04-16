@@ -125,7 +125,7 @@ private:
 	// Detecting house
 	// 0 - None
 	// 1 - House1
-	// 2 - Blacksith
+	// 2 - Blacksmith
 	// 3 - Inn
 	int house = 0;
 

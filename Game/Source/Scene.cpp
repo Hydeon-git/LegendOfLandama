@@ -57,25 +57,24 @@ bool Scene::Start()
 	// L12b: Create walkability map on map loading
 	if (this->active == true)
 	{
-
+		// Set Current Scene to TOWN
 		currentScene = GameScene::SCENE_TOWN;
 
+		// Loads entities
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);
-		npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
-		npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
+		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);		
 		npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
 
-		
+		// Starts entities that are on the TOWN
 		player->Start();
 		npc1->Start();
 		npc4->Start();
 
-		//player->active = true;
-
+		// Enables the Map
 		app->map->Enable();
 		player->spiked = false;
 
+		// Texture assignations for the scene
 		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
 
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
@@ -87,7 +86,7 @@ bool Scene::Start()
 
 		if(!app->sceneIntro->posContinue) timer = 0;
 
-		// L03: DONE: Load map
+		// Loads the map and creates walkability map
 
 		if (app->map->Load("town.tmx") == true)
 		{
@@ -98,8 +97,7 @@ bool Scene::Start()
 
 			RELEASE_ARRAY(data);
 		}
-
-		// Load music
+		// Loads music
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	}
 
@@ -119,7 +117,10 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
+		// Print colliders manually implemented
 		app->map->colliders = !app->map->colliders;
+
+		// Print colliders from Collision Modulet
 		app->debug = !app->debug;
 	}
 	//God Mode
@@ -147,11 +148,13 @@ bool Scene::Update(float dt)
 		app->scene->ChangeScene(GameScene::SCENE_TOWN);
 		player->houseDoor = 0;
 	}
+
+	// Current Scene Update()
 	switch (currentScene)
 	{
 		case GameScene::SCENE_TOWN:
 		{
-			//CAMERA
+			// Camera Settings
 			if (!app->scene->paused)
 			{
 				//camera x
@@ -189,8 +192,7 @@ bool Scene::Update(float dt)
 			// Request Load / Save when pressing F6/F5
 			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
 
-			if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
-			
+			if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();			
 
 			//SceneWin
 			if (player->win)
@@ -202,6 +204,7 @@ bool Scene::Update(float dt)
 				app->render->RestartValues();
 			}
 
+			// Pause Menu
 			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 			{
 				if (!pausedSettings)
@@ -235,19 +238,16 @@ bool Scene::Update(float dt)
 			sceneCounterHeart = player->counterHeart;
 			sceneCounterPuzzle = player->counterPuzzle;
 
-			if (app->sceneIntro->exit == true) return false;	
-			
-			npc3->CleanUp();
-			npc2->CleanUp();
+			if (app->sceneIntro->exit == true) return false;		
 
 		} break;
 		case GameScene::SCENE_HOUSE1:
 		{
-					npc3->Start();
+			
 		} break;
 		case GameScene::SCENE_BSMITH:
 		{
-					npc2->Start();
+			
 		} break;
 		case GameScene::SCENE_INN:
 		{
@@ -263,7 +263,6 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-
 	// Draw map
 	app->map->Draw();
 	app->map->DrawColliders();
@@ -276,7 +275,7 @@ bool Scene::PostUpdate()
 	if (app->debug) app->collision->DebugDraw();
 
 
-	//draw sign
+	// Draw Road Signal
 	if (player->ThereIsLimit())
 	{
 		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
@@ -292,8 +291,8 @@ bool Scene::PostUpdate()
 		app->font->DrawText(110, 205, whiteFont, " This house is closed.");
 		app->font->DrawText(110, 220, whiteFont, "There is no one inside.");
 	}
-	//menu pause
 
+	// Pause Menu
 	if (pausedSettings)
 	{
 		app->render->DrawRectangle({ -app->render->camera.x / 3, -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
@@ -328,6 +327,7 @@ bool Scene::PostUpdate()
 	else if (timer < 1000) app->font->DrawText(1174, 10, whiteFont, timerText);
 	else app->font->DrawText(1145, 10, whiteFont, timerText);
 
+	// GUI Colliders
 	if (guiColliders)
 	{
 		app->render->DrawRectangle({ -app->render->camera.x + 1100, -app->render->camera.y+10 ,40,35 }, 0, 0, 100, 100);
@@ -376,7 +376,6 @@ void Scene::ChangeScene(GameScene nextScene)
 	// Clearing Map
 	app->map->CleanUp();
 
-
 	switch (nextScene)
 	{
 		case GameScene::SCENE_NONE:
@@ -401,12 +400,21 @@ void Scene::ChangeScene(GameScene nextScene)
 			// Reposition her
 			switch (house)
 			{
+				// 0 - None
+				// 1 - House1
+				// 2 - Blacksmith
+				// 3 - Inn
 				case 1:
 				{
 					app->scene->player->position.x = 144;
 					app->scene->player->position.y = 99;
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+
+					npc3->CleanUp();
+					app->entityManager->DestroyEntity(npc3);
+					npc3 = nullptr;
+
 					house = 0;
 				} break;
 				case 2:
@@ -415,6 +423,9 @@ void Scene::ChangeScene(GameScene nextScene)
 					app->scene->player->position.y = 130;
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+
+					
+					app->entityManager->DestroyEntity(npc2);
 
 					house = 0;
 				} break;
@@ -431,7 +442,7 @@ void Scene::ChangeScene(GameScene nextScene)
 		}
 		break;
 		case GameScene::SCENE_HOUSE1:
-		{	
+		{
 			if (app->map->Load("house1.tmx") == true)
 			{
 				int w, h;
@@ -441,6 +452,10 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
+
+			// Creates Fisherman and starts it	
+			npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
+			npc3->Start();			
 
 			house = 1;
 			app->render->camera.x = 0;
@@ -462,11 +477,16 @@ void Scene::ChangeScene(GameScene nextScene)
 				RELEASE_ARRAY(data);
 			}
 
+			// Creates Blacksmith and Starts it
+			npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
+			npc2->Start();
+
 			house = 2;
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
 			app->scene->player->position.x = 201;
 			app->scene->player->position.y = 158;
+
 			currentScene = GameScene::SCENE_BSMITH;
 		} break;
 		case GameScene::SCENE_INN:

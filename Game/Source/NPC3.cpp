@@ -15,13 +15,6 @@
 #include "Defs.h"
 #include "Log.h"
 
-
-#define COLLIDER_GREEN 265
-#define COLLIDER_RED 266
-#define COLLIDER_BLUE 267
-#define COLLIDER_YELLOW 268
-
-
 NPC3::NPC3() : Entity(EntityType::NPC3)
 {
 	name.Create("NPC3");
@@ -32,7 +25,6 @@ NPC3::NPC3() : Entity(EntityType::NPC3)
 	idlAnim.PushBack({ 0, 0, 21, 25 });
 	idlAnim.PushBack({ 32, 0, 21, 25 });
 	idlAnim.speed = 0.02f;
-
 
 	//move right
 	rightAnim.PushBack({ 0, 0, 21, 25 });
@@ -59,17 +51,14 @@ NPC3::NPC3() : Entity(EntityType::NPC3)
 	leftAnim.speed = 0.1f;
 
 	currentAnimation = &idlAnim;
-
-
 }
 
 // Destructor
-NPC3::~NPC3()
-{}
+NPC3::~NPC3() {}
 
 bool NPC3::Awake()
 {
-	LOG("Loading NPC3");
+	LOG("Loading NPC3: Fisherman");
 	bool ret = true;
 
 	return ret;
@@ -80,71 +69,28 @@ bool NPC3::Start()
 	if (this->active == true)
 	{
 		texNPC3 = app->tex->Load("Assets/Textures/npc3_character.png");
-		//enemyDeathFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_death.wav");
-
 		currentAnimation = &idlAnim;
 	}
+
+	// Collider Load
+	npc3Rect = { position.x, position.y, 16, 16 };
+	if (npc3Collider == nullptr) npc3Collider = app->collision->AddCollider(npc3Rect, COLLIDER_NPC3, (Module*)this);
+
 	return true;
 }
 
 bool NPC3::Update(float dt)
 {
-
 	currentAnimation = &idlAnim;
-
-	/*if (!pause)
-	{
-		if (right)
-		{
-			position.x += speed;
-			currentAnimation = &rightAnim;
-		}
-		if (!right)
-		{
-			position.x -= speed;
-			currentAnimation = &leftAnim;
-		}
-*/
-/*if (position.x >= 254) right = false;
-if (position.x <= 171) right = true;
-
-if (position.x < 253 && position.x>170) prova = false;
-if ((position.x == 254 || position.x == 171) && !prova)
-{
-	pause = true;
-}
-}
-if (pause) counter++;
-if (counter >= 50)
-{
-	pause = false;
-	counter = 0;
-	prova = true;
-}*/
-
-
 	currentAnimation->Update();
 
-
-	//if (app->entityManager->entityList.At(0)->data->position.x > position.x - 30 &&
-	//	app->entityManager->entityList.At(0)->data->position.x < position.x + 60 &&
-	//	app->entityManager->entityList.At(0)->data->position.y > position.y - 46 &&
-	//	app->entityManager->entityList.At(0)->data->position.y < position.y + 92)
-	//{
-	//	app->entityManager->entityList.At(0)->data->position.x = app->entityManager->entityList.At(0)->data->position.y;
-	//}
-
-
-
-
+	// npc3Collider->SetPos(position.x, position.y);
 	return true;
 }
 
-
 bool NPC3::PostUpdate()
 {
-
-	if (this->active == true)
+	if ((this->active == true) && (app->scene->currentScene == GameScene::SCENE_HOUSE1))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC3, position.x, position.y, &rect);
@@ -152,17 +98,25 @@ bool NPC3::PostUpdate()
 	return true;
 }
 
-
-
-
-
-
 bool NPC3::CleanUp()
 {
 	LOG("Freeing scene");
 	app->tex->UnLoad(texNPC3);
-	//app->entityManager->DestroyEntity(this);
 	return true;
+}
+
+bool NPC3::OnCollision(Collider* c1, Collider* c2)
+{
+	bool ret = false;
+	if (!app->scene->player->godModeEnabled)
+	{
+		if (c1 == npc3Collider && c2->type == COLLIDER_PLAYER)
+		{
+			LOG("Hello Fisherman!");
+			ret = true;
+		}
+	}
+	return ret;
 }
 
 

@@ -62,8 +62,6 @@ NPC4::NPC4() : Entity(EntityType::NPC4)
 	leftAnim.speed = 0.1f;
 
 	currentAnimation = &idlAnim;
-
-
 }
 
 // Destructor
@@ -72,7 +70,7 @@ NPC4::~NPC4()
 
 bool NPC4::Awake()
 {
-	LOG("Loading NPC4");
+	LOG("Loading NPC4: Knight");
 	bool ret = true;
 
 	return ret;
@@ -83,8 +81,6 @@ bool NPC4::Start()
 	if (this->active == true)
 	{
 		texNPC4 = app->tex->Load("Assets/Textures/npc4_character.png");
-		//enemyDeathFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_death.wav");
-
 		currentAnimation = &idlAnim;
 	}
 	return true;
@@ -92,9 +88,6 @@ bool NPC4::Start()
 
 bool NPC4::Update(float dt)
 {
-
-	//currentAnimation = &idlAnim;
-
 	if (!pause)
 	{
 		if (right)
@@ -110,49 +103,33 @@ bool NPC4::Update(float dt)
 
 		if (position.x >= 250) right = false;
 		if (position.x <= 141) right = true;
-
 		if (position.x < 250 && position.x>140) prova = false;
+
 		if ((position.x == 249 || position.x == 141) && !prova)
 		{
 			pause = true;
 		}
-		}
+	}
 	if (pause)
 	{
 		counter++;
-		if(right) currentAnimation = &idlAnim;
-		if(!right) currentAnimation = &idlAnimLeft;
+		if (right) currentAnimation = &idlAnim;
+		if (!right) currentAnimation = &idlAnimLeft;
 	}
-		if (counter >= 50)
-		{
-			pause = false;
-			counter = 0;
-			prova = true;
+	if (counter >= 50)
+	{
+		pause = false;
+		counter = 0;
+		prova = true;
 
-		}
-
+	}
 
 	currentAnimation->Update();
-
-
-	//if (app->entityManager->entityList.At(0)->data->position.x > position.x - 30 &&
-	//	app->entityManager->entityList.At(0)->data->position.x < position.x + 60 &&
-	//	app->entityManager->entityList.At(0)->data->position.y > position.y - 46 &&
-	//	app->entityManager->entityList.At(0)->data->position.y < position.y + 92)
-	//{
-	//	app->entityManager->entityList.At(0)->data->position.x = app->entityManager->entityList.At(0)->data->position.y;
-	//}
-
-
-
-
 	return true;
 }
 
-
 bool NPC4::PostUpdate()
 {
-
 	if (this->active == true)
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
@@ -161,11 +138,6 @@ bool NPC4::PostUpdate()
 	return true;
 }
 
-
-
-
-
-
 bool NPC4::CleanUp()
 {
 	LOG("Freeing scene");
@@ -173,8 +145,6 @@ bool NPC4::CleanUp()
 	//app->entityManager->DestroyEntity(this);
 	return true;
 }
-
-
 
 void NPC4::NPC4InitialPosition()
 {

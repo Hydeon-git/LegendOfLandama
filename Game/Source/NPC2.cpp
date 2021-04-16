@@ -59,8 +59,6 @@ NPC2::NPC2() : Entity(EntityType::NPC2)
 	leftAnim.speed = 0.1f;
 
 	currentAnimation = &idlAnim;
-
-
 }
 
 // Destructor
@@ -69,7 +67,7 @@ NPC2::~NPC2()
 
 bool NPC2::Awake()
 {
-	LOG("Loading NPC2");
+	LOG("Loading NPC2: Blacksmith");
 	bool ret = true;
 
 	return ret;
@@ -80,7 +78,6 @@ bool NPC2::Start()
 	if (this->active == true)
 	{
 		texNPC2 = app->tex->Load("Assets/Textures/npc2_character.png");
-		//enemyDeathFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_death.wav");
 
 		currentAnimation = &idlAnim;
 	}
@@ -89,62 +86,14 @@ bool NPC2::Start()
 
 bool NPC2::Update(float dt)
 {
-
 	currentAnimation = &idlAnim;
-
-	/*if (!pause)
-	{
-		if (right)
-		{
-			position.x += speed;
-			currentAnimation = &rightAnim;
-		}
-		if (!right)
-		{
-			position.x -= speed;
-			currentAnimation = &leftAnim;
-		}
-*/
-		/*if (position.x >= 254) right = false;
-		if (position.x <= 171) right = true;
-
-		if (position.x < 253 && position.x>170) prova = false;
-		if ((position.x == 254 || position.x == 171) && !prova)
-		{
-			pause = true;
-		}
-	}
-	if (pause) counter++;
-	if (counter >= 50)
-	{
-		pause = false;
-		counter = 0;
-		prova = true;
-	}*/
-
-
-		currentAnimation->Update();
-
-
-		//if (app->entityManager->entityList.At(0)->data->position.x > position.x - 30 &&
-		//	app->entityManager->entityList.At(0)->data->position.x < position.x + 60 &&
-		//	app->entityManager->entityList.At(0)->data->position.y > position.y - 46 &&
-		//	app->entityManager->entityList.At(0)->data->position.y < position.y + 92)
-		//{
-		//	app->entityManager->entityList.At(0)->data->position.x = app->entityManager->entityList.At(0)->data->position.y;
-		//}
-
-
-
-
-		return true;
-	}
-
+	currentAnimation->Update();
+	return true;
+}
 
 bool NPC2::PostUpdate()
 {
-
-	if (this->active == true)
+	if ((this->active == true) && (app->scene->currentScene == GameScene::SCENE_BSMITH))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC2, position.x, position.y, &rect);
@@ -152,20 +101,12 @@ bool NPC2::PostUpdate()
 	return true;
 }
 
-
-
-
-
-
 bool NPC2::CleanUp()
 {
 	LOG("Freeing scene");
 	app->tex->UnLoad(texNPC2);
-	//app->entityManager->DestroyEntity(this);
 	return true;
 }
-
-
 
 void NPC2::NPC2InitialPosition()
 {

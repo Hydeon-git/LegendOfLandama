@@ -53,7 +53,6 @@ Player::Player() : Entity(EntityType::PLAYER)
 		{
 			loaded = true;
 		}
-
 	}
 
 	//idlanim
@@ -129,7 +128,6 @@ bool Player::Start()
 			counterHeart = app->scene->sceneCounterHeart;
 			counterPuzzle = app->scene->sceneCounterPuzzle;
 			lifes = app->scene->lifesScene;
-
 		}
 
 		// Texture & Animations Load
@@ -143,10 +141,9 @@ bool Player::Start()
 		currentAnimation = &idlAnim;
 
 		// Collider Load
-		rCollider = { app->scene->player->position.x, app->scene->player->position.y, 16, 16 };
-		if (playerCollider == nullptr) playerCollider = app->collision->AddCollider(rCollider, COLLIDER_PLAYER, (Module*)this);
+		playerRect = { position.x, position.y, 16, 16 };
+		if (playerCollider == nullptr) playerCollider = app->collision->AddCollider(playerRect, COLLIDER_PLAYER, (Module*)this);
 	}
-
 
 	return true;
 }
@@ -459,6 +456,7 @@ bool Player::ThereIsLimit()
 	}
 	return valid;
 }
+
 bool Player::ThereIsHouseClosed()
 {
 	bool valid = false;
@@ -483,7 +481,6 @@ bool Player::ThereIsHouseClosed()
 	}
 	return valid;
 }
-
 
 bool Player::ThereIsNPCBelow()
 {
@@ -552,9 +549,7 @@ bool Player::ThereIsNPCLeft()
 		}
 		layer = layer->next;
 	}
-
 	return valid;
-
 }
 
 bool Player::ThereIsNPCRight()
@@ -580,20 +575,6 @@ bool Player::ThereIsNPCRight()
 	
 	return valid;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 bool Player::ThereIsEnemy()
 {
@@ -730,8 +711,6 @@ bool Player::CleanUp()
 }
 
 bool Player::OnCollision(Collider* c1, Collider* c2)
-{
-	bool ret = false;
-
-	return ret;
+{	
+	return false;
 }
