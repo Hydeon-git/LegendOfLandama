@@ -67,6 +67,8 @@ bool Scene::Start()
 		app->map->Enable();
 		player->spiked = false;
 
+		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
+
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 
@@ -279,7 +281,7 @@ bool Scene::PostUpdate()
 
 	if (pausedSettings)
 	{
-		app->render->DrawTexture(creditText, -app->render->camera.x + 220, -app->render->camera.y + 150, NULL);
+		app->render->DrawRectangle({ -app->render->camera.x/3, -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
 		sliderMusicVolume->Draw();
 		sliderFxVolume->Draw();
 		checkBoxFullscreen->Draw();
@@ -288,7 +290,8 @@ bool Scene::PostUpdate()
 	}
 	else if (paused)
 	{
-		app->render->DrawTexture(pause, -app->render->camera.x + 391, -app->render->camera.y + 100);
+		//app->render->DrawRectangle({ -app->render->camera.x/3 , -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
+		app->render->DrawTexture(texMenu, -app->render->camera.x / 3, -app->render->camera.y / 3);
 		btnResume->Draw();
 		btnSettings->Draw();
 		btnBackIntro->Draw();
@@ -492,31 +495,31 @@ void Scene::Pause()
 	app->tex->UnLoad(app->scene->player->texPlayer);
 
 	//Buttons
-	btnResume = new GuiButton(1, { -app->render->camera.x+535, -app->render->camera.y+160, 210, 50 }, "Resume");
+	btnResume = new GuiButton(1, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 115, 70, 12 }, "RESUME");
 	btnResume->SetObserver(this);
 
-	btnSettings = new GuiButton(2, { -app->render->camera.x+505, -app->render->camera.y+263, 269, 51 }, "SETTINGS");
+	btnSettings = new GuiButton(2, { -app->render->camera.x / 3 + 170, -app->render->camera.y/3 + 135, 70, 12 }, "SETTINGS");
 	btnSettings->SetObserver(this);
 
-	btnBackIntro = new GuiButton(3, { -app->render->camera.x+485, -app->render->camera.y+368, 310, 50 }, "BACK MENU");
+	btnBackIntro = new GuiButton(3, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 }, "BACK MENU");
 	btnBackIntro->SetObserver(this);
 
-	btnExit = new GuiButton(4, { -app->render->camera.x+569, -app->render->camera.y+471, 145, 50 }, "EXIT");
+	btnExit = new GuiButton(4, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 175, 70, 12 }, "EXIT");
 	btnExit->SetObserver(this);
 
-	btnBack = new GuiButton(5, { -app->render->camera.x + 865, -app->render->camera.y + 510,145 ,50 }, "BACK");
+	btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 }, "BACK");
 	btnBack->SetObserver(this);
 
-	sliderMusicVolume = new GuiSlider(1, { -app->render->camera.x + 725, -app->render->camera.y + 220, 10, 28 }, "MUSIC VOLUME");
+	sliderMusicVolume = new GuiSlider(1, { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 }, "MUSIC VOLUME");
 	sliderMusicVolume->SetObserver(this);
 
-	sliderFxVolume = new GuiSlider(2, { -app->render->camera.x + 725, -app->render->camera.y + 300, 10, 28 }, " FX VOLUME");
+	sliderFxVolume = new GuiSlider(2, { -app->render->camera.x / 3, -app->render->camera.y / 3, 10, 28 }, " FX VOLUME");
 	sliderFxVolume->SetObserver(this);
 
-	checkBoxFullscreen = new GuiCheckBox(1, { -app->render->camera.x + 675, -app->render->camera.y + 380, 40, 40 }, "FULLSCREEN");
+	checkBoxFullscreen = new GuiCheckBox(1, { -app->render->camera.x / 3, -app->render->camera.y / 3, 40, 40 }, "FULLSCREEN");
 	checkBoxFullscreen->SetObserver(this);
 
-	checkBoxVSync = new GuiCheckBox(2, { -app->render->camera.x + 675, -app->render->camera.y + 460,40,40 }, "   VSYNC");
+	checkBoxVSync = new GuiCheckBox(2, { -app->render->camera.x / 3, -app->render->camera.y / 3,40,40 }, "   VSYNC");
 	checkBoxVSync->SetObserver(this);
 
 }
@@ -530,7 +533,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 1)
 		{
 			paused = false;
-			app->scene->player->texPlayer= app->tex->Load("Assets/Textures/player_textures.png");
+			app->scene->player->texPlayer= app->tex->Load("Assets/Textures/main_character.png");
 		}
 		else if (control->id == 2) pausedSettings = true;
 		else if (control->id == 3)

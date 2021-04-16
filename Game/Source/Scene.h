@@ -87,6 +87,8 @@ private:
 	// Textures & Anim
 	SDL_Texture* debugTex;
 	
+	SDL_Texture* texMenu;
+
 	SDL_Texture* pause;
 	SDL_Texture* creditText = nullptr;
 	SDL_Texture* no;

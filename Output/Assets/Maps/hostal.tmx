@@ -3,8 +3,8 @@
  <tileset firstgid="1" name="atlas_16x" tilewidth="16" tileheight="16" tilecount="768" columns="48">
   <image source="atlas_16x.png" width="768" height="256"/>
  </tileset>
- <tileset firstgid="769" name="colors" tilewidth="16" tileheight="16" tilecount="7" columns="7">
-  <image source="colors.png" width="124" height="16"/>
+ <tileset firstgid="769" name="colors" tilewidth="16" tileheight="16" tilecount="9" columns="9">
+  <image source="colors.png" width="154" height="16"/>
  </tileset>
  <layer id="2" name="floor" width="25" height="15">
   <properties>
