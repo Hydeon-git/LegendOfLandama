@@ -15,6 +15,7 @@ class Enemy;
 class FlyingEnemy;
 class ModuleParticles;
 class NPC1;
+class NPC2;
 
 enum class GameScene
 {
@@ -66,6 +67,7 @@ public:
 	FlyingEnemy* flyingEnemy;
 	ModuleParticles* particles;
 	NPC1* npc1;
+	NPC2* npc2;
 
 
 	bool LoadState(pugi::xml_node&);

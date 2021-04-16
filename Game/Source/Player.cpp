@@ -29,7 +29,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	if (app->sceneIntro->startClicked)
 	{
 		position.x = 200;
-		position.y = 450;
+		position.y = 100;
 		app->sceneIntro->startClicked = false;
 		app->sceneIntro->posContinue = false;
 		app->sceneWin->won = false;

@@ -29,32 +29,32 @@ NPC1::NPC1() : Entity(EntityType::NPC1)
 	position.y = 405;
 
 	//idlanim
-	idlAnim.PushBack({ 0, 0, 15, 17 });
-	idlAnim.PushBack({ 32, 1, 15, 16 });
+	idlAnim.PushBack({ 1, 0, 15, 17 });
+	idlAnim.PushBack({ 33, 0, 15, 17 });
 	idlAnim.speed = 0.02f;
 
 
 	//move right
-	rightAnim.PushBack({ 0, 0, 15, 17 });
-	rightAnim.PushBack({ 32, 1, 15, 16 });
-	rightAnim.PushBack({ 63, 2, 16, 15 });
-	rightAnim.PushBack({ 96, 1, 15, 16 });
-	rightAnim.PushBack({ 128, 3, 15, 14 });
-	rightAnim.PushBack({ 160, 0, 15, 17 });
-	rightAnim.PushBack({ 192, 1, 16, 16 });
-	rightAnim.PushBack({ 225, 4, 16, 13 });
+	rightAnim.PushBack({ 1, 0, 15, 17 });
+	rightAnim.PushBack({ 33, 0, 15, 17});
+	rightAnim.PushBack({ 64, 0, 16, 17});
+	rightAnim.PushBack({ 97, 0, 15, 17});
+	rightAnim.PushBack({ 129, 0, 15,17 });
+	rightAnim.PushBack({ 161, 0, 15,17 });
+	rightAnim.PushBack({ 193, 0, 16,17 });
+	rightAnim.PushBack({ 226, 0, 16,17 });
 
 	rightAnim.speed = 0.1f;
 
 	//move left
-	leftAnim.PushBack({ 0, 21, 16, 13 });
-	leftAnim.PushBack({ 33, 18, 16, 16 });
-	leftAnim.PushBack({ 66, 17, 15, 17 });
-	leftAnim.PushBack({ 98, 20, 15, 14 });
-	leftAnim.PushBack({ 130, 18, 15, 16 });
-	leftAnim.PushBack({ 162, 19, 16, 15 });
-	leftAnim.PushBack({ 194, 18, 15, 16 });
-	leftAnim.PushBack({ 226, 17, 15, 17 });
+	leftAnim.PushBack({ 243, 0,16, 17 });
+	leftAnim.PushBack({ 276, 0, 16,17 });
+	leftAnim.PushBack({ 309,0, 15, 17 });
+	leftAnim.PushBack({ 341,0, 15, 17 });
+	leftAnim.PushBack({ 373,0, 15, 17 });
+	leftAnim.PushBack({ 405,0, 16, 17 });
+	leftAnim.PushBack({ 437,0, 15, 17 });
+	leftAnim.PushBack({ 469,0, 15, 17 });
 
 	leftAnim.speed = 0.1f;
 

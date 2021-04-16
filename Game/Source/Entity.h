@@ -14,6 +14,7 @@ enum class EntityType
 	FLYING_ENEMY,
 	PARTICLE,
 	NPC1,
+	NPC2,
 	UNKNOWN
 };
 

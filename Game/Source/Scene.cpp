@@ -11,6 +11,7 @@
 #include "Font.h"
 #include "FlyingEnemy.h"
 #include "NPC1.h"
+#include "NPC2.h"
 #include "EntityManager.h"
 #include "FadeToBlack.h"
 #include "PathFinding.h"
@@ -60,10 +61,13 @@ bool Scene::Start()
 
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);
+		npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
 
 		
 		player->Start();
 		npc1->Start();
+		npc2->Start();
+
 		//player->active = true;
 
 		app->map->Enable();
@@ -348,6 +352,7 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(enemy);
 	app->entityManager->DestroyEntity(flyingEnemy);
 	app->entityManager->DestroyEntity(npc1);
+	app->entityManager->DestroyEntity(npc2);
 	app->entityManager->DestroyEntity(particles);
 
 	return true;

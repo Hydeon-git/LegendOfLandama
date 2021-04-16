@@ -85,6 +85,9 @@
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\ColliderManagement.cpp" />
+    <ClCompile Include="Source\NPC2.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -206,6 +209,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\ColliderManagement.h" />
+    <ClInclude Include="Source\NPC2.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
