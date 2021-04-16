@@ -10,14 +10,15 @@
 	<SceneWin />
 	<SceneLose />
 	<scene>
-		<positionPlayer x="604" y="336" />
+		<positionPlayer x="604" y="340" />
 	</scene>
 	<map />
+	<:anonymous />
 	<entitymanager />
 	<font />
 	<pathfinding />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-635" y="-707" />
+		<camera x="-640" y="-662" />
 	</renderer>
 </save_state>

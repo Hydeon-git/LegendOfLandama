@@ -62,17 +62,19 @@ bool DialogueSystem::PostUpdate()
 
 	if (app->scene->currentScene == GameScene::SCENE_TOWN && app->scene->player->dialogeOn)
 	{
+		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
 		char NPCdialogue[64] = { 0 };
 		sprintf_s(NPCdialogue, 64, currentNode->text.c_str(), 56);
-		app->font->DrawText(0, 0, whiteFont, NPCdialogue);
+		app->font->DrawText(20, 200, whiteFont, NPCdialogue);
 
 		char response[64] = { 0 };
 		for (int i = 0; i < currentNode->answersList.Count(); i++)
 		{
 			sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
-			app->font->DrawText(0, 20+20*i, whiteFont, response);
+			app->font->DrawText(190, 200+12*i, whiteFont, response);
 		}
-
 	}
 
 

@@ -163,7 +163,7 @@ bool Player::Update(float dt)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 			{
-				if (!ThereIsTopWall())
+				if (!ThereIsTopWall() && !ThereIsNPCUp())
 				{
 					position.y -= speed;
 					currentAnimation = &upAnim;
@@ -171,7 +171,7 @@ bool Player::Update(float dt)
 			}
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 			{
-				if (!ThereIsBottomWall())
+				if (!ThereIsBottomWall() && !ThereIsNPCBelow())
 				{
 					position.y += speed;
 					currentAnimation = &leftAnim;
@@ -180,7 +180,7 @@ bool Player::Update(float dt)
 
 			if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 			{
-				if (!ThereIsLeftWall())
+				if (!ThereIsLeftWall() && !ThereIsNPCLeft())
 				{
 					position.x -= speed;
 					currentAnimation = &leftAnim;
@@ -188,7 +188,7 @@ bool Player::Update(float dt)
 			}
 			else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
 			{
-				if (!ThereIsRightWall())
+				if (!ThereIsRightWall() && !ThereIsNPCRight())
 				{
 					position.x += speed;
 					currentAnimation = &rightAnim;
