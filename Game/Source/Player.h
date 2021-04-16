@@ -5,6 +5,7 @@
 #include "Point.h"
 #include "Animation.h"
 #include "Entity.h"
+#include "Collision.h"
 
 #define COLLIDER_GREEN 856
 #define COLLIDER_RED 857
@@ -43,6 +44,9 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	// Called On Collision
+	bool OnCollision(Collider* c1, Collider* c2);
 
 	bool ThereIsTopWall();
 	bool ThereIsBottomWall();
@@ -98,8 +102,11 @@ private:
 	int playerWidth = 16;
 	bool isJumping = false;
 
+public:
 	Collider* playerCollider;
+	SDL_Rect rCollider;
 
+private:
 	SDL_Texture* texFireBall;
 	uint playerDeathFx = 0;
 	uint itemTakenFx = 0;

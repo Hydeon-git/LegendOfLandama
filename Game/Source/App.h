@@ -20,6 +20,7 @@ class Audio;
 class Map;
 class PathFinding;
 class EntityManager;
+class Collision;
 class FadeToBlack;
 class Scene;
 class SceneIntro;
@@ -108,14 +109,15 @@ public:
 	SceneWin* sceneWin;
 	SceneLose* sceneLose;
 	EntityManager* entityManager;
+	Collision* collision;
 	Font* font;
 	DialogueSystem* dialogueSystem;
-	ColliderManagement* colliderManager;
 
 
 	bool capped = false;
 	bool loadGameRequested;
 	bool vSync = false;
+	bool debug = false;
 
 
 private:

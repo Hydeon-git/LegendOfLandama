@@ -84,9 +84,10 @@
     <ClCompile Include="Source\NPC1.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ColliderManagement.cpp" />
     <ClCompile Include="Source\NPC2.cpp">
       <Filter>Entities</Filter>
+    <ClCompile Include="Source\Collision.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,9 +209,10 @@
     <ClInclude Include="Source\NPC1.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ColliderManagement.h" />
     <ClInclude Include="Source\NPC2.h">
       <Filter>Entities</Filter>
+    <ClInclude Include="Source\Collision.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

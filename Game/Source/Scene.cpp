@@ -25,7 +25,6 @@
 #include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
-#include "ColliderManagement.h"
 
 
 
@@ -111,13 +110,13 @@ bool Scene::PreUpdate()
 
 // Called each loop iteration
 bool Scene::Update(float dt)
-{
+{	
 	//View Colliders
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
 		app->map->colliders = !app->map->colliders;
-		app->colliderManager->DrawColliders();
+		app->debug = !app->debug;
 	}
 	//God Mode
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) player->godModeEnabled = !player->godModeEnabled;
@@ -265,6 +264,9 @@ bool Scene::PostUpdate()
 	app->map->DrawPuzzle();
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();
+
+	// Draw Colliders from Collision.h
+	if (app->debug) app->collision->DebugDraw();
 
 
 	//draw sign

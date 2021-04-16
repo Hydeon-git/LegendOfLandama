@@ -7,6 +7,7 @@
 
 class App;
 class GuiControl;
+struct Collider;
 enum class GuiControlState;
 
 class Module
@@ -54,6 +55,12 @@ public:
 
 	// Called before quitting
 	virtual bool CleanUp()
+	{
+		return true;
+	}
+
+	// Check Collisions
+	virtual bool OnCollision(Collider* c1, Collider* c2)
 	{
 		return true;
 	}

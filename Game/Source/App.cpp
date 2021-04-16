@@ -18,7 +18,7 @@
 #include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
-#include "ColliderManagement.h"
+#include "Collision.h"
 
 #include <iostream>
 #include <sstream>
@@ -44,10 +44,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneWin = new SceneWin();
 	sceneLose = new SceneLose();
 	entityManager = new EntityManager();
+	collision = new Collision();
 	fadeToBlack = new FadeToBlack();
 	pathfinding = new PathFinding();
 	font = new Font();
-	colliderManager = new ColliderManagement();
 
 
 
@@ -64,6 +64,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map, false);
 	AddModule(dialogueSystem, true);
 	AddModule(entityManager, true);
+	AddModule(collision, true);
 	AddModule(font, true);
 	AddModule(pathfinding, true);
 	AddModule(fadeToBlack, true);

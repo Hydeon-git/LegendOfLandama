@@ -18,8 +18,6 @@
 #include "SceneIntro.h"
 #include "SceneWin.h"
 #include "DialogSystem.h"
-#include "ColliderManagement.h"
-
 
 
 Player::Player() : Entity(EntityType::PLAYER)
@@ -89,9 +87,6 @@ Player::Player() : Entity(EntityType::PLAYER)
 	deathAnim.PushBack({ 0, 1100, 64, 85 });
 	deathAnim.speed = 0.02f;
 	deathAnim.loop = false;
-
-	playerCollider = app->colliderManager->AddCollider({ (int)position.x + 12, (int)position.y + 30, 25, 51 }, Collider::PLAYER);
-
 }
 
 // Destructor
@@ -136,6 +131,8 @@ bool Player::Start()
 			lifes = app->scene->lifesScene;
 
 		}
+
+		// Texture & Animations Load
 		texPlayer = app->tex->Load("Assets/Textures/main_character.png");
 		playerDeathFx = app->audio->LoadFx("Assets/Audio/Fx/death_sound.wav");
 		itemTakenFx = app->audio->LoadFx("Assets/Audio/Fx/item.wav");
@@ -144,6 +141,10 @@ bool Player::Start()
 		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
 		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
 		currentAnimation = &idlAnim;
+
+		// Collider Load
+		rCollider = { app->scene->player->position.x, app->scene->player->position.y, 16, 16 };
+		if (playerCollider == nullptr) playerCollider = app->collision->AddCollider(rCollider, COLLIDER_PLAYER, (Module*)this);
 	}
 
 
@@ -277,6 +278,7 @@ bool Player::Update(float dt)
 		}
 	}
 
+	playerCollider->SetPos(position.x, position.y);
 	currentAnimation->Update();
 	return true;
 }
@@ -725,4 +727,11 @@ bool Player::CleanUp()
 	//app->entityManager->DestroyEntity(this);
 
 	return true;
+}
+
+bool Player::OnCollision(Collider* c1, Collider* c2)
+{
+	bool ret = false;
+
+	return ret;
 }

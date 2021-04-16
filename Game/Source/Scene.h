@@ -83,7 +83,7 @@ public:
 	int sceneCounterHeart;
 	int sceneCounterPuzzle;
 	bool restart = false;
-	uint timer = 0;
+	uint timer = 0;	
 private:
 
 	// Textures & Anim

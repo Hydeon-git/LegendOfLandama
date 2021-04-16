@@ -15,10 +15,11 @@
 	<map />
 	<:anonymous />
 	<entitymanager />
+	<collision />
 	<font />
 	<pathfinding />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-173" y="-556" />
+		<camera x="-554" y="-730" />
 	</renderer>
 </save_state>
