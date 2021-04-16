@@ -311,7 +311,7 @@ void Player::CheckHouseDoor()
 		{
 			for (int i = 0; i < 4; ++i)
 			{
-				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight/2);
 				houseDoor = layer->data->Get(tilePosition.x, tilePosition.y);
 			}
 		}
