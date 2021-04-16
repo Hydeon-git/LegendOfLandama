@@ -12,6 +12,8 @@
 #include "FlyingEnemy.h"
 #include "NPC1.h"
 #include "NPC2.h"
+#include "NPC3.h"
+#include "NPC4.h"
 #include "EntityManager.h"
 #include "FadeToBlack.h"
 #include "PathFinding.h"
@@ -61,11 +63,13 @@ bool Scene::Start()
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);
 		npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
+		npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
+		npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
 
 		
 		player->Start();
 		npc1->Start();
-		npc2->Start();
+		npc4->Start();
 
 		//player->active = true;
 
@@ -231,16 +235,19 @@ bool Scene::Update(float dt)
 			sceneCounterHeart = player->counterHeart;
 			sceneCounterPuzzle = player->counterPuzzle;
 
-			if (app->sceneIntro->exit == true) return false;
+			if (app->sceneIntro->exit == true) return false;	
+			
+			npc3->CleanUp();
+			npc2->CleanUp();
 
 		} break;
 		case GameScene::SCENE_HOUSE1:
 		{
-			
+					npc3->Start();
 		} break;
 		case GameScene::SCENE_BSMITH:
 		{
-			
+					npc2->Start();
 		} break;
 		case GameScene::SCENE_INN:
 		{
@@ -355,6 +362,8 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(flyingEnemy);
 	app->entityManager->DestroyEntity(npc1);
 	app->entityManager->DestroyEntity(npc2);
+	app->entityManager->DestroyEntity(npc3);
+	app->entityManager->DestroyEntity(npc4);
 	app->entityManager->DestroyEntity(particles);
 
 	return true;

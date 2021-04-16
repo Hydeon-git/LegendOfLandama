@@ -25,8 +25,8 @@
 NPC2::NPC2() : Entity(EntityType::NPC2)
 {
 	name.Create("NPC2");
-	position.x = 352;
-	position.y = 128;
+	position.x = 250;
+	position.y = 70;
 
 	//idlanim
 	idlAnim.PushBack({ 0, 0, 10, 19 });
@@ -169,6 +169,6 @@ bool NPC2::CleanUp()
 
 void NPC2::NPC2InitialPosition()
 {
-	position.x = 352;
-	position.y = 128;
+	position.x = 250;
+	position.y = 70;
 }

@@ -92,6 +92,12 @@
     <ClCompile Include="Source\Map.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NPC3.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NPC4.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -217,6 +223,12 @@
     </ClInclude>
     <ClInclude Include="Source\Map.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NPC3.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NPC4.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

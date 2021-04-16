@@ -15,6 +15,8 @@ enum class EntityType
 	PARTICLE,
 	NPC1,
 	NPC2,
+	NPC3,
+	NPC4,
 	UNKNOWN
 };
 
