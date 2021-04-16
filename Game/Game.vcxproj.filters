@@ -81,6 +81,10 @@
     <ClCompile Include="Source\DialogSystem.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NPC1.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ColliderManagement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -198,6 +202,10 @@
     <ClInclude Include="Source\DialogSystem.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Source\NPC1.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ColliderManagement.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

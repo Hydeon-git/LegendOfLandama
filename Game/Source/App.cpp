@@ -18,6 +18,7 @@
 #include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
+#include "ColliderManagement.h"
 
 #include <iostream>
 #include <sstream>
@@ -46,6 +47,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fadeToBlack = new FadeToBlack();
 	pathfinding = new PathFinding();
 	font = new Font();
+	colliderManager = new ColliderManagement();
+
 
 
 	// Ordered for awake / Start / Update

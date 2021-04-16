@@ -27,6 +27,8 @@ class SceneWin;
 class SceneLose;
 class Font;
 class DialogueSystem;
+class ColliderManagement;
+
 
 class App
 {
@@ -108,6 +110,8 @@ public:
 	EntityManager* entityManager;
 	Font* font;
 	DialogueSystem* dialogueSystem;
+	ColliderManagement* colliderManager;
+
 
 	bool capped = false;
 	bool loadGameRequested;

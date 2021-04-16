@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "FlyingEnemy.h"
+#include "NPC1.h"
 #include "ModuleParticles.h"
 #include "App.h"
 #include "Scene.h"
@@ -47,6 +48,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		case EntityType::ENEMY: ret = new Enemy();  break;
 		case EntityType::FLYING_ENEMY: ret = new FlyingEnemy();  break;
 		case EntityType::PARTICLE: ret = new ModuleParticles();  break;
+		case EntityType::NPC1: ret = new NPC1();  break;
 		//case EntityType::ITEM: ret = new Item();  break;
 		default: break;
 	}

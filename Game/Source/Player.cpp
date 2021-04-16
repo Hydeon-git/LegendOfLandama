@@ -18,6 +18,7 @@
 #include "SceneIntro.h"
 #include "SceneWin.h"
 #include "DialogSystem.h"
+#include "ColliderManagement.h"
 
 
 
@@ -28,7 +29,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	if (app->sceneIntro->startClicked)
 	{
 		position.x = 200;
-		position.y = 100;
+		position.y = 450;
 		app->sceneIntro->startClicked = false;
 		app->sceneIntro->posContinue = false;
 		app->sceneWin->won = false;
@@ -88,6 +89,9 @@ Player::Player() : Entity(EntityType::PLAYER)
 	deathAnim.PushBack({ 0, 1100, 64, 85 });
 	deathAnim.speed = 0.02f;
 	deathAnim.loop = false;
+
+	playerCollider = app->colliderManager->AddCollider({ (int)position.x + 12, (int)position.y + 30, 25, 51 }, Collider::PLAYER);
+
 }
 
 // Destructor

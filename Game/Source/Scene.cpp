@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "Font.h"
 #include "FlyingEnemy.h"
+#include "NPC1.h"
 #include "EntityManager.h"
 #include "FadeToBlack.h"
 #include "PathFinding.h"
@@ -23,6 +24,7 @@
 #include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
+#include "ColliderManagement.h"
 
 
 
@@ -55,9 +57,11 @@ bool Scene::Start()
 		currentScene = GameScene::SCENE_TOWN;
 
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);
 
 		
 		player->Start();
+		npc1->Start();
 		//player->active = true;
 
 		app->map->Enable();
@@ -102,8 +106,11 @@ bool Scene::Update(float dt)
 {
 	//View Colliders
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) app->map->colliders = !app->map->colliders;
-
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		app->map->colliders = !app->map->colliders;
+		app->colliderManager->DrawColliders();
+	}
 	//God Mode
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) player->godModeEnabled = !player->godModeEnabled;
 
@@ -335,6 +342,7 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(player);
 	app->entityManager->DestroyEntity(enemy);
 	app->entityManager->DestroyEntity(flyingEnemy);
+	app->entityManager->DestroyEntity(npc1);
 	app->entityManager->DestroyEntity(particles);
 
 	return true;

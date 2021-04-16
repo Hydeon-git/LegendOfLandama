@@ -18,7 +18,7 @@
 #define COLLIDER_RED_HOUSE 770
 #define COLLIDER_GREEN_HOUSE 769
 struct SDL_Texture;
-
+class Collider;
 
 class Player : public Entity
 {
@@ -98,6 +98,7 @@ private:
 	int playerWidth = 16;
 	bool isJumping = false;
 
+	Collider* playerCollider;
 
 	SDL_Texture* texFireBall;
 	uint playerDeathFx = 0;
