@@ -15,7 +15,8 @@ DialogueSystem::~DialogueSystem() {}
 bool DialogueSystem::Start()
 {
 	LoadDialogue("dialogue_tree.xml");
-	currentNode = dialogueTrees[Id]->dialogueNodes[0];
+	id = 1;
+	currentNode = dialogueTrees[id]->dialogueNodes[0];	
 	
 	char lookupTable[] = { "! #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 	whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
@@ -28,27 +29,27 @@ bool DialogueSystem::Update(float dt)
 	if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		playerInput = 0;
-		PerformDialogue(Id);
+		PerformDialogue(id);
 	}
 
 	if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
 		playerInput = 1;
-		PerformDialogue(Id);
+		PerformDialogue(id);
 	}
 
 	if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		playerInput = 2;
-		PerformDialogue(Id);
+		PerformDialogue(id);
 	}
 
 	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
-		Id = 0;
-		currentNode = dialogueTrees[Id]->dialogueNodes[0];
+		id = 0;
+		currentNode = dialogueTrees[id]->dialogueNodes[0];
 		playerInput = 9;
-		PerformDialogue(Id);
+		PerformDialogue(id);
 	}
 
 
@@ -124,9 +125,9 @@ bool DialogueSystem::LoadDialogue(const char* file)
 	}
 	else
 	{
-		pugi::xml_node n = dialogues.first_child().child("dialogueExample");
+		pugi::xml_node n = dialogues.first_child().child("NPC");
 
-		for (n; n != NULL; n = n.next_sibling("dialogueExample"))
+		for (n; n != NULL; n = n.next_sibling("NPC"))
 		{
 			DialogueTree* tree = new DialogueTree;
 			tree->treeId = n.attribute("Id").as_int();

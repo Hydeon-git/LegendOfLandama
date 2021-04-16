@@ -72,8 +72,8 @@ public:
 	void PerformDialogue(int treeId);
 	bool LoadDialogue(const char*);
 	bool LoadNodes(pugi::xml_node& trees, DialogueTree* oak);
-	bool LoadOptions(pugi::xml_node& text_node, DialogueNode* npc);
-	int Id = 0;
+	bool LoadOptions(pugi::xml_node& text_node, DialogueNode* NPC);
+	int id = 0;
 private:
 	int playerInput = 7;
 

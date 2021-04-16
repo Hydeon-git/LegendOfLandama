@@ -1,40 +1,38 @@
 <?xml version="1.0"?>
 
 <dialogueTree>
-  <dialogueExample Id="0">
-    <node text="Whats up bro?"  id="0">
-      <dialogue option="1: Go away bro" returnCode="0" nextNode="1"/>
-      <dialogue option="2: Yes nigga?" returnCode="0" nextNode="2"/>
-      <dialogue option="3: Do you like videogames?" returnCode="0" nextNode="8"/>
+  <!-- Fisherman -->
+  <NPC Id="0">
+    <node text="What are you doing?"  id="0">
+      <dialogue option="1: I'm a traveler!" returnCode="0" nextNode="1"/>
+      <dialogue option="2: I'm sorry!" returnCode="0" nextNode="5"/>
     </node>
-    <node text="Thats to bad bye"  id="1">
-      <dialogue option="1: Bye" returnCode="0" nextNode="100"/>
+    <node text="I'm calling the guards!"  id="1">
+      <dialogue option="1: Please don't!" returnCode="0" nextNode="3"/>
+      <dialogue option="2: Let's fight old man." returnCode="0" nextNode="2"/>
     </node>
-    <node text="I have a quest for you" id="2">
-      <dialogue option="1: Not interested" returnCode="0" nextNode="100"/>
-      <dialogue option="2: What do I have to do?" returnCode="0" nextNode="4"/>
-      <dialogue option="3: I dont work for free" returnCode="0" nextNode="3"/>
+    <node text="Get out of here before I kill you!" id="2">
+      <dialogue option="2: Bye!" returnCode="0" nextNode="3"/>
     </node>
-    <node text="I can pay you five gold coins" id="3">
-      <dialogue option="1: Then we have a deal whats the quest about?" returnCode="0" nextNode="4"/>
-      <dialogue option="2:Thats not enough bye" returnCode="0" nextNode="100"/>
+    <node text="Young people don't have respect these days..." id="3"></node>    
+  </NPC>
+  
+   <!-- Blacksmith -->
+  <NPC Id="1">
+    <node text="Hello adventurer!  What I can do for you?" id="0">
+      <dialogue option="1: Who are you?" returnCode="0" nextNode="1"/>
+      <dialogue option="2: I'm sorry!" returnCode="0" nextNode="5"/>
     </node>
-    <node text="Killing some giant rats" id="4">
-      <dialogue option="1: Lets do it already" returnCode="1" nextNode="101"/>
-      <dialogue option="2: Im scared of rats" returnCode="0" nextNode="100"/>
+    <node text="I'm the blacksmith of Landama! I can help you with anything related with your equipment."  id="1">
+      <dialogue option="1: That's great! I will return once I have money" returnCode="0" nextNode="3"/>
+      <dialogue option="2: I'm not really interested." returnCode="0" nextNode="2"/>
     </node>
-    <node text ="End of conversation R to talk again" id ="100">
+	<node text="If you need anything, come to see me." id="2">
+      <dialogue option="2: Bye!" returnCode="0" nextNode="4"/>
     </node>
-    <node text ="Mision accepted R to talk again" id ="101">
+    <node text="I will be waiting for you then!" id="3">
+      <dialogue option="2: Bye!" returnCode="0" nextNode="4"/>
     </node>
-    <node text="Yes and you" id="8">
-      <dialogue option="1: Yes" returnCode="1" nextNode="101"/>
-      <dialogue option="2: No" returnCode="0" nextNode="100"/>
-    </node>
-  </dialogueExample>
-
-  <DialogueExample Id="1">
-    <!-- TODO 1: Desing and write your own dialogue Tree -->
-  </DialogueExample>
-    
+    <node text="Goodbye! Take care." id="4"></node>    
+  </NPC>
 </dialogueTree>
