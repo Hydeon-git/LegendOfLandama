@@ -151,7 +151,7 @@ bool Scene::Update(float dt)
 				}
 			}			
 
-			if (player->position.y <= 100)
+			if (player->position.y <= 120)
 			{
 				app->render->camera.y = -2;
 			}
