@@ -4,13 +4,14 @@
 	<input />
 	<textures />
 	<audio>
-		<volume value="48" />
+		<volume value="50" />
 	</audio>
 	<:anonymous />
 	<SceneWin />
 	<SceneLose />
+	<:anonymous />
 	<scene>
-		<positionPlayer x="563" y="336" />
+		<positionPlayer x="201" y="130" />
 	</scene>
 	<map />
 	<:anonymous />
@@ -19,6 +20,6 @@
 	<pathfinding />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-640" y="-655" />
+		<camera x="0" y="0" />
 	</renderer>
 </save_state>

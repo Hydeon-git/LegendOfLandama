@@ -118,7 +118,6 @@ private:
 	GuiButton* btnSettings;
 	GuiButton* btnBackIntro;
 	GuiButton* btnExit;
-	GuiButton* btnBackSettings;
 
 	GuiButton* btnBack;
 

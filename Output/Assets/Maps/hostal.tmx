@@ -1722,9 +1722,9 @@
    <tile/>
    <tile gid="770"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="770"/>
+   <tile gid="770"/>
+   <tile gid="770"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1774,7 +1774,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="776"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1799,9 +1799,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="770"/>
+   <tile gid="776"/>
+   <tile gid="776"/>
+   <tile gid="776"/>
    <tile gid="770"/>
    <tile gid="770"/>
    <tile/>

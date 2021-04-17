@@ -66,7 +66,7 @@ bool SceneIntro::Start()
 	btnExit = new GuiButton(4, { 80, 390, 36, 10 }, "EXIT");
 	btnExit->SetObserver(this);
 	
-	btnBackOptions = new GuiButton(5, { 180, 400, 48, 16 }, "BACK");
+	/*btnBackOptions = new GuiButton(5, { 180, 400, 48, 16 }, "BACK");
 	btnBackOptions->SetObserver(this);
 
 	sliderMusicVolume = new GuiSlider(1, { 725, 950, 10, 28 }, "MUSIC VOLUME");
@@ -79,7 +79,7 @@ bool SceneIntro::Start()
 	checkBoxFullscreen->SetObserver(this);
 
 	checkBoxVSync = new GuiCheckBox(2, { 675,1105,40,40 }, "   VSYNC");
-	checkBoxVSync->SetObserver(this);
+	checkBoxVSync->SetObserver(this);*/
 	return ret;
 }
 
@@ -93,7 +93,7 @@ bool SceneIntro::Update(float dt)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
 
-		if (options == true)
+		/*if (options == true)
 		{
 			sliderMusicVolume->Update(dt);
 			sliderFxVolume->Update(dt);
@@ -101,7 +101,7 @@ bool SceneIntro::Update(float dt)
 			btnBackOptions->Update(dt);
 			checkBoxFullscreen->Update(dt);
 			checkBoxVSync->Update(dt);
-		}
+		}*/
 		else
 		{
 			btnStart->Update(dt);
@@ -125,7 +125,7 @@ bool SceneIntro::PostUpdate()
 	{
 		app->render->DrawTexture(introText, 0, 555, fullscreenRect, 3);
 
-		if (options == true)
+		/*if (options == true)
 		{
 			sliderMusicVolume->Draw();
 			sliderFxVolume->Draw();
@@ -133,16 +133,16 @@ bool SceneIntro::PostUpdate()
 			btnExit->Draw();
 			checkBoxFullscreen->Draw();
 			checkBoxVSync->Draw();
-		}
-		else
-		{
+		}*/
+		/*else
+		{*/
 			btnStart->Draw();
 			btnContinue->Draw();
 			if (!posContinue || app->sceneWin->won || app->sceneLose->lost) btnContinue->state = GuiControlState::DISABLED;
 			else if (posContinue) btnContinue->state = GuiControlState::NORMAL;
 			btnOptions->Draw();
 			btnExit->Draw();
-		}
+		//}
 	}
 
 	return ret;
@@ -161,10 +161,10 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else if (control->id == 2) app->fadeToBlack->FadeToBlk(this, app->scene, 30);
 
-		else if (control->id == 3)
+		/*else if (control->id == 3)
 		{
 			options = true;
-		}
+		}*/
 		else if (control->id == 4)
 		{
 			if (app->scene->player != nullptr)
@@ -181,7 +181,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 			options = false;
 		}
 	}
-	case GuiControlType::SLIDER:
+	/*case GuiControlType::SLIDER:
 	{
 		if (control->id == 1) app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
 		else if (control->id == 2) app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
@@ -196,7 +196,7 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else if (control->id == 2) app->vSync = !app->vSync;
 		break;
-	}
+	}*/
 	default: break;
 	}
 

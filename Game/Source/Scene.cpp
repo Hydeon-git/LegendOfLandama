@@ -124,10 +124,10 @@ bool Scene::Start()
 		btnExit = new GuiButton(4, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 175, 70, 12 }, "EXIT");
 		btnExit->SetObserver(this);
 
-		btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 }, "BACK");
-		btnBack->SetObserver(this);
+		/*btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 }, "BACK");
+		btnBack->SetObserver(this);*/
 
-		sliderMusicVolume = new GuiSlider(1, { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 }, "MUSIC VOLUME");
+		/*sliderMusicVolume = new GuiSlider(1, { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 }, "MUSIC VOLUME");
 		sliderMusicVolume->SetObserver(this);
 
 		sliderFxVolume = new GuiSlider(2, { -app->render->camera.x / 3, -app->render->camera.y / 3, 10, 28 }, " FX VOLUME");
@@ -137,7 +137,7 @@ bool Scene::Start()
 		checkBoxFullscreen->SetObserver(this);
 
 		checkBoxVSync = new GuiCheckBox(2, { -app->render->camera.x / 3, -app->render->camera.y / 3,40,40 }, "   VSYNC");
-		checkBoxVSync->SetObserver(this);
+		checkBoxVSync->SetObserver(this);*/
 	}
 
 	return true;
@@ -187,7 +187,65 @@ bool Scene::Update(float dt)
 		app->scene->ChangeScene(GameScene::SCENE_TOWN);
 		player->houseDoor = 0;
 	}
+	// Request Load / Save when pressing F6/F5
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
 
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
+
+
+
+	/*if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+	{
+		app->sceneBattle->battleOn = true;
+		app->fadeToBlack->FadeToBlk(this, app->sceneBattle, 30);
+	}*/
+
+
+	//SceneWin
+	if (player->win)
+	{
+		app->sceneWin->won = true;
+		player->win = true;
+		app->fadeToBlack->FadeToBlk(this, app->sceneWin, 30);
+
+		app->render->RestartValues();
+	}
+
+	// Pause Menu
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		if (!pausedSettings)
+		{
+			paused = true;
+			Pause();
+		}
+	}
+
+	/*if (paused && pausedSettings)
+	{
+		sliderMusicVolume->Update(dt);
+		sliderFxVolume->Update(dt);
+		checkBoxFullscreen->Update(dt);
+		checkBoxVSync->Update(dt);
+		btnBack->Update(dt);
+	}*/
+	else if (!pausedSettings && paused)
+	{
+		btnResume->Update(dt);
+		btnSettings->Update(dt);
+		btnBackIntro->Update(dt);
+		btnExit->Update(dt);
+	}
+
+	if (!paused) clockAnim.Update();
+
+	lifesScene = player->lifes;
+	sceneCounterKey = player->counterKey;
+	sceneCounterCheckpoint = player->counterCheckpoint;
+	sceneCounterHeart = player->counterHeart;
+	sceneCounterPuzzle = player->counterPuzzle;
+
+	if (app->sceneIntro->exit == true) return false;
 	// Current Scene Update()
 	switch (currentScene)
 	{
@@ -230,65 +288,7 @@ bool Scene::Update(float dt)
 				app->render->camera.x = -640;
 			}
 
-			// Request Load / Save when pressing F6/F5
-			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
-
-			if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();			
-
-
-
-			/*if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-			{
-				app->sceneBattle->battleOn = true;
-				app->fadeToBlack->FadeToBlk(this, app->sceneBattle, 30);
-			}*/
-
-
-			//SceneWin
-			if (player->win)
-			{
-				app->sceneWin->won = true;
-				player->win = true;
-				app->fadeToBlack->FadeToBlk(this, app->sceneWin, 30);
-
-				app->render->RestartValues();
-			}
-
-			// Pause Menu
-			if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-			{
-				if (!pausedSettings)
-				{
-					paused = true;
-					Pause();
-				}
-			}
-
-			if (paused && pausedSettings)
-			{
-				sliderMusicVolume->Update(dt);
-				sliderFxVolume->Update(dt);
-				checkBoxFullscreen->Update(dt);
-				checkBoxVSync->Update(dt);
-				btnBack->Update(dt);
-			}
-			else if (!pausedSettings && paused)
-			{
-				btnResume->Update(dt);
-				btnSettings->Update(dt);
-				btnBackIntro->Update(dt);
-				btnExit->Update(dt);
-			}
-
-			if (!paused) clockAnim.Update();
-
-			lifesScene = player->lifes;
-			sceneCounterKey = player->counterKey;
-			sceneCounterCheckpoint = player->counterCheckpoint;
-			sceneCounterHeart = player->counterHeart;
-			sceneCounterPuzzle = player->counterPuzzle;
-
-			if (app->sceneIntro->exit == true) return false;		
+			
 
 		} break;
 		case GameScene::SCENE_HOUSE1:
@@ -339,7 +339,7 @@ bool Scene::PostUpdate()
 	}
 
 	// Pause Menu
-	if (pausedSettings)
+	/*if (pausedSettings)
 	{
 		app->render->DrawRectangle({ -app->render->camera.x / 3, -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
 		sliderMusicVolume->Draw();
@@ -347,7 +347,7 @@ bool Scene::PostUpdate()
 		checkBoxFullscreen->Draw();
 		checkBoxVSync->Draw();
 		btnBack->Draw();
-	}
+	}*/
 	else if (paused)
 	{
 		//app->render->DrawRectangle({ -app->render->camera.x/3 , -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
@@ -420,12 +420,11 @@ bool Scene::CleanUp()
 	delete btnSettings;
 	delete btnBackIntro;
 	delete btnExit;
-	delete btnBackSettings;
-	delete btnBack;
-	delete sliderMusicVolume;
-	delete sliderFxVolume;
-	delete checkBoxFullscreen;
-	delete checkBoxVSync;
+	//delete btnBack;
+	//delete sliderMusicVolume;
+	//delete sliderFxVolume;
+	//delete checkBoxFullscreen;
+	//delete checkBoxVSync;
 
 
 	return true;
@@ -631,11 +630,11 @@ void Scene::Pause()
 	btnSettings->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 70, 12 };
 	btnBackIntro->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 };
 	btnExit->bounds = { -app->render->camera.x / 3 + 170,  -app->render->camera.y / 3 + 175, 70, 12 };
-	btnBack->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 };
-	sliderMusicVolume->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 };
+	//btnBack->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 };
+	/*sliderMusicVolume->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 };
 	sliderFxVolume->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 };
 	checkBoxFullscreen->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 40, 40 };
-	checkBoxVSync->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 40, 40 };
+	checkBoxVSync->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 40, 40 };*/
 }
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
@@ -650,7 +649,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			app->scene->player->texPlayer= app->tex->Load("Assets/Textures/main_character.png");
 			
 		}
-		else if (control->id == 2) pausedSettings = true;
+		//else if (control->id == 2) pausedSettings = true;
 		else if (control->id == 3)
 		{
 			app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
@@ -668,7 +667,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else if (control->id == 5) pausedSettings = false;
 	}
-	case GuiControlType::SLIDER:
+	/*case GuiControlType::SLIDER:
 	{
 		if (control->id == 1) app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
 		else if (control->id == 2) app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
@@ -683,7 +682,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else if (control->id == 2) app->vSync = !app->vSync;
 		break;
-	}
+	}*/
 	default: break;
 	}
 

@@ -25,11 +25,11 @@
   <NPC Id="1">
     <node text="Hello adventurer!  What I can do for you?" id="0">
       <dialogue option="1: Who are you?" returnCode="0" nextNode="1"/>
-      <dialogue option="2: I'm sorry!" returnCode="0" nextNode="5"/>
+      <dialogue option="2: Just looking. Thank you." returnCode="0" nextNode="4"/>
     </node>
     <node text="I@m the blacksmith of Landama!"  id="1">
-      <dialogue option="1: That's great! I will return once I have money" returnCode="0" nextNode="3"/>
-      <dialogue option="2: I'm not really interested." returnCode="0" nextNode="2"/>
+      <dialogue option="1: That@s great! Maybe I need you someday." returnCode="0" nextNode="3"/>
+      <dialogue option="2: I@m not really interested." returnCode="0" nextNode="2"/>
     </node>
 	<node text="If you need anything, come to see me." id="2">
       <dialogue option="1: Bye!" returnCode="0" nextNode="4"/>
