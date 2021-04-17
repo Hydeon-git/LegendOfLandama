@@ -14,6 +14,9 @@
 #include "NPC2.h"
 #include "NPC3.h"
 #include "NPC4.h"
+#include "Enemy1.h"
+#include "Enemy2.h"
+#include "Enemy3.h"
 #include "EntityManager.h"
 #include "FadeToBlack.h"
 #include "PathFinding.h"
@@ -61,11 +64,17 @@ bool Scene::Start()
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);		
 		npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
+		enemy1 = (Enemy1*)app->entityManager->CreateEntity(EntityType::Enemy1);
+		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
+		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
 
 		// Starts entities that are on the TOWN
 		player->Start();
 		npc1->Start();
 		npc4->Start();
+		enemy1->Start();
+		enemy2->Start();
+		enemy3->Start();
 
 		// Enables the Map
 		app->map->Enable();
@@ -385,6 +394,9 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(npc2);
 	app->entityManager->DestroyEntity(npc3);
 	app->entityManager->DestroyEntity(npc4);
+	app->entityManager->DestroyEntity(enemy1);
+	app->entityManager->DestroyEntity(enemy2);
+	app->entityManager->DestroyEntity(enemy3);
 	app->entityManager->DestroyEntity(particles);
 
 	delete btnResume;

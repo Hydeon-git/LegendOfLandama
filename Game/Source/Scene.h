@@ -18,6 +18,9 @@ class NPC1;
 class NPC2;
 class NPC3; 
 class NPC4;
+class Enemy1;
+class Enemy2;
+class Enemy3;
 enum class GameScene
 {
 	SCENE_NONE,
@@ -71,6 +74,9 @@ public:
 	NPC2* npc2;
 	NPC3* npc3;
 	NPC4* npc4;
+	Enemy1* enemy1;
+	Enemy2* enemy2;
+	Enemy3* enemy3;
 
 
 	bool LoadState(pugi::xml_node&);
@@ -87,6 +93,9 @@ public:
 	int sceneCounterPuzzle;
 	bool restart = false;
 	uint timer = 0;	
+	bool stop = false;
+	bool enemyMoving = false;
+
 private:
 
 	// Textures & Anim

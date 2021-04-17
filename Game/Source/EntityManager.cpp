@@ -7,6 +7,9 @@
 #include "NPC2.h"
 #include "NPC3.h"
 #include "NPC4.h"
+#include "Enemy1.h"
+#include "Enemy2.h"
+#include "Enemy3.h"
 #include "ModuleParticles.h"
 #include "App.h"
 #include "Scene.h"
@@ -55,6 +58,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		case EntityType::NPC2: ret = new NPC2();  break;
 		case EntityType::NPC3: ret = new NPC3();  break;
 		case EntityType::NPC4: ret = new NPC4();  break;
+		case EntityType::Enemy1: ret = new Enemy1();  break;
+		case EntityType::Enemy2: ret = new Enemy2();  break;
+		case EntityType::Enemy3: ret = new Enemy3();  break;
 
 		//case EntityType::ITEM: ret = new Item();  break;
 		default: break;

@@ -17,6 +17,9 @@ enum class EntityType
 	NPC2,
 	NPC3,
 	NPC4,
+	Enemy1,
+	Enemy2,
+	Enemy3,
 	UNKNOWN
 };
 

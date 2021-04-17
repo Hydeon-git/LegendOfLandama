@@ -95,6 +95,15 @@
     <ClCompile Include="Source\NPC4.cpp">
       <Filter>Entities\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy1.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy2.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy3.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -224,6 +233,15 @@
     <ClInclude Include="Source\NPC4.h">
       <Filter>Entities\NPC</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Enemy1.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy2.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy3.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -249,6 +267,9 @@
     </Filter>
     <Filter Include="Entities\NPC">
       <UniqueIdentifier>{62704a8d-f082-40a7-8122-320a165b73ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Enemies">
+      <UniqueIdentifier>{7bbf98e3-6944-4f25-a97c-b9b55475fd5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

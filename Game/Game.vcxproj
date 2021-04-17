@@ -91,6 +91,9 @@
   <ItemGroup>
     <ClCompile Include="Source\DialogSystem.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\Enemy1.cpp" />
+    <ClCompile Include="Source\Enemy2.cpp" />
+    <ClCompile Include="Source\Enemy3.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
     <ClCompile Include="Source\FlyingEnemy.cpp" />
@@ -122,6 +125,9 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\DialogSystem.h" />
     <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\Enemy1.h" />
+    <ClInclude Include="Source\Enemy2.h" />
+    <ClInclude Include="Source\Enemy3.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FadeToBlack.h" />
