@@ -3,7 +3,7 @@
 <dialogueTree>  
    <!-- Beach Girl -->
   <NPC Id="0">
-    <node text="Hello onii-chan!" id="0">
+    <node text="Hello stranger!" id="0">
       <dialogue option="1: What are you doing?" returnCode="0" nextNode="1"/>
       <dialogue option="2: Hello little girl!" returnCode="0" nextNode="4"/>
     </node>
