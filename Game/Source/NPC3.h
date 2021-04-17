@@ -2,9 +2,15 @@
 #define __NPC3_H__
 
 #include "Module.h"
-#include "Point.h"
+#include "Render.h"
+#include "Textures.h"
 #include "Animation.h"
+#include "Audio.h"
 #include "Entity.h"
+
+#include "Point.h"
+#include "Defs.h"
+#include "Log.h"
 
 struct SDL_Texture;
 class Collider;
@@ -30,10 +36,7 @@ public:
 	bool PostUpdate();
 
 	// Called before quitting
-	bool CleanUp();
-
-	// Collision Check
-	bool OnCollision(Collider* c1, Collider* c2);
+	bool CleanUp();	
 
 	// NPC3 InitialPosition
 	void NPC3InitialPosition();
@@ -57,11 +60,6 @@ private:
 	bool pause = false;
 	int counter = 0;
 	bool prova;
-
-public:
-	// Player Collisions
-	Collider* npc3Collider;
-	SDL_Rect npc3Rect;
 };
 
 #endif // __NPC3_H__

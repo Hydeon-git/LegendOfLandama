@@ -32,10 +32,7 @@
 
 Scene::Scene() : Module()
 {
-	name.Create("scene");
-
-	// Current Scene set to town
-	
+	name.Create("scene");	
 }
 
 // Destructor
@@ -271,10 +268,6 @@ bool Scene::PostUpdate()
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();
 
-	// Draw Colliders from Collision.h
-	if (app->debug) app->collision->DebugDraw();
-
-
 	// Draw Road Signal
 	if (player->ThereIsLimit())
 	{
@@ -397,7 +390,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			}
 			
 			// Deteting in which house the player was
-			// Reposition her
+			// Reposition the player
 			switch (house)
 			{
 				// 0 - None

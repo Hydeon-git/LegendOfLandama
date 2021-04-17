@@ -139,10 +139,6 @@ bool Player::Start()
 		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
 		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
 		currentAnimation = &idlAnim;
-
-		// Collider Load
-		playerRect = { position.x, position.y, 16, 16 };
-		if (playerCollider == nullptr) playerCollider = app->collision->AddCollider(playerRect, COLLIDER_PLAYER, (Module*)this);
 	}
 
 	return true;
@@ -243,11 +239,9 @@ bool Player::Update(float dt)
 		{
 			CheckHouseDoor();
 		}
-		
 
 		if (shotCountdown > 0) --shotCountdown;
-
-			
+		
 		if (TakeCheckpoint())
 		{
 			app->map->checkpointTaken = true;
@@ -274,8 +268,6 @@ bool Player::Update(float dt)
 			app->render->RestartValues();
 		}
 	}
-
-	playerCollider->SetPos(position.x, position.y);
 	currentAnimation->Update();
 	return true;
 }
@@ -657,7 +649,6 @@ bool Player::TakeCheckpoint()
 					valid = true;
 				}
 			}
-
 		}
 		layer = layer->next;
 	}
@@ -703,14 +694,12 @@ bool Player::LoseLifes()
 bool Player::CleanUp()
 {
 	LOG("Freeing scene");
-	app->tex->UnLoad(texPlayer);
-	app->tex->UnLoad(texFireBall);
-	//app->entityManager->DestroyEntity(this);
+	bool ret = true;
 
-	return true;
-}
-
-bool Player::OnCollision(Collider* c1, Collider* c2)
-{	
-	return false;
+	if (texPlayer != nullptr)
+	{
+		ret = app->tex->UnLoad(texPlayer);
+		texPlayer = nullptr;
+	}
+	return ret;
 }

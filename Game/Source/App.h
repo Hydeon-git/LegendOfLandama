@@ -20,7 +20,6 @@ class Audio;
 class Map;
 class PathFinding;
 class EntityManager;
-class Collision;
 class FadeToBlack;
 class Scene;
 class SceneIntro;
@@ -28,8 +27,6 @@ class SceneWin;
 class SceneLose;
 class Font;
 class DialogueSystem;
-class ColliderManagement;
-
 
 class App
 {
@@ -64,9 +61,7 @@ public:
 
 	// L02: DONE 1: Create methods to request Load / Save
 	void LoadGameRequest();
-	void SaveGameRequest() const;
-
-	 
+	void SaveGameRequest() const;	 
 
 private:
 
@@ -109,16 +104,13 @@ public:
 	SceneWin* sceneWin;
 	SceneLose* sceneLose;
 	EntityManager* entityManager;
-	Collision* collision;
 	Font* font;
 	DialogueSystem* dialogueSystem;
-
 
 	bool capped = false;
 	bool loadGameRequested;
 	bool vSync = false;
 	bool debug = false;
-
 
 private:
 

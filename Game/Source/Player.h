@@ -5,7 +5,6 @@
 #include "Point.h"
 #include "Animation.h"
 #include "Entity.h"
-#include "Collision.h"
 
 #define COLLIDER_GREEN 856
 #define COLLIDER_RED 857
@@ -102,11 +101,6 @@ private:
 	int playerHeight = 16;
 	int playerWidth = 16;
 	bool isJumping = false;
-
-public:
-	// Player Collisions
-	Collider* playerCollider;
-	SDL_Rect playerRect;
 
 private:
 	SDL_Texture* texFireBall;

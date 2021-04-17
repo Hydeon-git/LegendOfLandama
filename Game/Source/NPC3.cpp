@@ -1,19 +1,10 @@
 #include "App.h"
 #include "Input.h"
-#include "Textures.h"
-#include "Audio.h"
-#include "Render.h"
-#include "Window.h"
-#include "Map.h"
+
+#include "NPC3.h"
 #include "Scene.h"
 #include "Player.h"
-#include "NPC3.h"
-#include "ModuleParticles.h"
-#include "Pathfinding.h"
-#include "FadeToBlack.h"
 #include "EntityManager.h"
-#include "Defs.h"
-#include "Log.h"
 
 NPC3::NPC3() : Entity(EntityType::NPC3)
 {
@@ -72,10 +63,6 @@ bool NPC3::Start()
 		currentAnimation = &idlAnim;
 	}
 
-	// Collider Load
-	npc3Rect = { position.x, position.y, 16, 16 };
-	if (npc3Collider == nullptr) npc3Collider = app->collision->AddCollider(npc3Rect, COLLIDER_NPC3, (Module*)this);
-
 	return true;
 }
 
@@ -84,7 +71,6 @@ bool NPC3::Update(float dt)
 	currentAnimation = &idlAnim;
 	currentAnimation->Update();
 
-	// npc3Collider->SetPos(position.x, position.y);
 	return true;
 }
 
@@ -101,25 +87,10 @@ bool NPC3::PostUpdate()
 bool NPC3::CleanUp()
 {
 	LOG("Freeing scene");
-	app->tex->UnLoad(texNPC3);
+	app->tex->UnLoad(texNPC3);	
+
 	return true;
 }
-
-bool NPC3::OnCollision(Collider* c1, Collider* c2)
-{
-	bool ret = false;
-	if (!app->scene->player->godModeEnabled)
-	{
-		if (c1 == npc3Collider && c2->type == COLLIDER_PLAYER)
-		{
-			LOG("Hello Fisherman!");
-			ret = true;
-		}
-	}
-	return ret;
-}
-
-
 
 void NPC3::NPC3InitialPosition()
 {

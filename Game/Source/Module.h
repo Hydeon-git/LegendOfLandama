@@ -59,12 +59,6 @@ public:
 		return true;
 	}
 
-	// Check Collisions
-	virtual bool OnCollision(Collider* c1, Collider* c2)
-	{
-		return true;
-	}
-
 	// L02: DONE 2: Create new virtual methods to Load / Save state
 	virtual bool LoadState(pugi::xml_node&)
 	{
