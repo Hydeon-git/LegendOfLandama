@@ -96,6 +96,34 @@ bool Scene::Start()
 		}
 		// Loads music
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+
+		//Buttons
+		btnResume = new GuiButton(1, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 115, 70, 12 }, "RESUME");
+		btnResume->SetObserver(this);
+
+		btnSettings = new GuiButton(2, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 70, 12 }, "SETTINGS");
+		btnSettings->SetObserver(this);
+
+		btnBackIntro = new GuiButton(3, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 }, "BACK MENU");
+		btnBackIntro->SetObserver(this);
+
+		btnExit = new GuiButton(4, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 175, 70, 12 }, "EXIT");
+		btnExit->SetObserver(this);
+
+		btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 }, "BACK");
+		btnBack->SetObserver(this);
+
+		sliderMusicVolume = new GuiSlider(1, { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 }, "MUSIC VOLUME");
+		sliderMusicVolume->SetObserver(this);
+
+		sliderFxVolume = new GuiSlider(2, { -app->render->camera.x / 3, -app->render->camera.y / 3, 10, 28 }, " FX VOLUME");
+		sliderFxVolume->SetObserver(this);
+
+		checkBoxFullscreen = new GuiCheckBox(1, { -app->render->camera.x / 3, -app->render->camera.y / 3, 40, 40 }, "FULLSCREEN");
+		checkBoxFullscreen->SetObserver(this);
+
+		checkBoxVSync = new GuiCheckBox(2, { -app->render->camera.x / 3, -app->render->camera.y / 3,40,40 }, "   VSYNC");
+		checkBoxVSync->SetObserver(this);
 	}
 
 	return true;
@@ -165,7 +193,7 @@ bool Scene::Update(float dt)
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
 					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp()) app->render->camera.y += 3.0f;
-					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow()) app->render->camera.y -= 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() /*&& !player->ThereIsNPCBelow()*/) app->render->camera.y -= 3.0f;
 				}
 			}			
 
@@ -359,6 +387,18 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(npc4);
 	app->entityManager->DestroyEntity(particles);
 
+	delete btnResume;
+	delete btnSettings;
+	delete btnBackIntro;
+	delete btnExit;
+	delete btnBackSettings;
+	delete btnBack;
+	delete sliderMusicVolume;
+	delete sliderFxVolume;
+	delete checkBoxFullscreen;
+	delete checkBoxVSync;
+
+
 	return true;
 }
 
@@ -524,35 +564,15 @@ bool Scene::SaveState(pugi::xml_node& node) const
 void Scene::Pause()
 {
 	app->tex->UnLoad(app->scene->player->texPlayer);
-
-	//Buttons
-	btnResume = new GuiButton(1, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 115, 70, 12 }, "RESUME");
-	btnResume->SetObserver(this);
-
-	btnSettings = new GuiButton(2, { -app->render->camera.x / 3 + 170, -app->render->camera.y/3 + 135, 70, 12 }, "SETTINGS");
-	btnSettings->SetObserver(this);
-
-	btnBackIntro = new GuiButton(3, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 }, "BACK MENU");
-	btnBackIntro->SetObserver(this);
-
-	btnExit = new GuiButton(4, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 175, 70, 12 }, "EXIT");
-	btnExit->SetObserver(this);
-
-	btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 }, "BACK");
-	btnBack->SetObserver(this);
-
-	sliderMusicVolume = new GuiSlider(1, { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 }, "MUSIC VOLUME");
-	sliderMusicVolume->SetObserver(this);
-
-	sliderFxVolume = new GuiSlider(2, { -app->render->camera.x / 3, -app->render->camera.y / 3, 10, 28 }, " FX VOLUME");
-	sliderFxVolume->SetObserver(this);
-
-	checkBoxFullscreen = new GuiCheckBox(1, { -app->render->camera.x / 3, -app->render->camera.y / 3, 40, 40 }, "FULLSCREEN");
-	checkBoxFullscreen->SetObserver(this);
-
-	checkBoxVSync = new GuiCheckBox(2, { -app->render->camera.x / 3, -app->render->camera.y / 3,40,40 }, "   VSYNC");
-	checkBoxVSync->SetObserver(this);
-
+	btnResume->bounds = { -app->render->camera.x / 3 + 170,-app->render->camera.y / 3 + 115, 70, 12 };
+	btnSettings->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 70, 12 };
+	btnBackIntro->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 };
+	btnExit->bounds = { -app->render->camera.x / 3 + 170,  -app->render->camera.y / 3 + 175, 70, 12 };
+	btnBack->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 };
+	sliderMusicVolume->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 };
+	sliderFxVolume->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 };
+	checkBoxFullscreen->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 40, 40 };
+	checkBoxVSync->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 40, 40 };
 }
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
@@ -565,6 +585,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			paused = false;
 			app->scene->player->texPlayer= app->tex->Load("Assets/Textures/main_character.png");
+			
 		}
 		else if (control->id == 2) pausedSettings = true;
 		else if (control->id == 3)

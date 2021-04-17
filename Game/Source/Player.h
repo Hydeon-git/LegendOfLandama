@@ -45,13 +45,13 @@ public:
 	bool CleanUp();
 
 	// Called On Collision
-	bool OnCollision(Collider* c1, Collider* c2);
+	//bool OnCollision(Collider* c1, Collider* c2);
 
 	bool ThereIsTopWall();
 	bool ThereIsBottomWall();
 	bool ThereIsLeftWall();
 	bool ThereIsRightWall();
-	bool ThereIsNPCBelow();
+	//bool ThereIsNPC();
 	bool ThereIsNPCUp();
 	bool ThereIsNPCLeft();
 	bool ThereIsNPCRight();

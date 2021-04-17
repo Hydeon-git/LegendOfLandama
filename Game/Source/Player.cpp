@@ -171,7 +171,7 @@ bool Player::Update(float dt)
 				}
 				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 				{
-					if (!ThereIsBottomWall() && !ThereIsNPCBelow())
+					if (!ThereIsBottomWall()/* && !ThereIsNPCBelow()*/)
 					{
 						position.y += speed;
 						currentAnimation = &leftAnim;
@@ -196,7 +196,7 @@ bool Player::Update(float dt)
 				}
 			}
 
-			if (ThereIsNPCBelow() || ThereIsNPCUp() || ThereIsNPCLeft() || ThereIsNPCRight())
+			if (ThereIsNPCRight())
 			{
 				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 				{
@@ -474,9 +474,28 @@ bool Player::ThereIsHouseClosed()
 	return valid;
 }
 
-bool Player::ThereIsNPCBelow()
-{
-	bool valid = false;
+//bool Player::ThereIsNPC()
+//{
+//	bool valid = false;
+//	bool positionX = false;
+//	bool positionY = false;
+//
+//	if (!godModeEnabled)
+//	{
+//		for (int i = -16; i < 32; ++i)
+//		{
+//			if (app->scene->enemy->position.x == position.x + i) positionX = true;
+//		}
+//		for (int i = -16; i < 32; ++i)
+//		{
+//			if (app->scene->enemy->position.y == position.y + i) positionY = true;
+//		}
+//	}
+//	if (positionX || positionY) valid = true;
+//
+//	return valid;
+	
+	/*bool valid = false;
 
 	iPoint tilePosition;
 	ListItem<MapLayer*>* layer = app->map->data.layers.start;
@@ -495,8 +514,8 @@ bool Player::ThereIsNPCBelow()
 		layer = layer->next;
 	}
 	
-	return valid;
-}
+	return valid;*/
+//}
 
 bool Player::ThereIsNPCUp()
 {

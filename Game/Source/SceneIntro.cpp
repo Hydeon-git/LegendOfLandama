@@ -207,5 +207,16 @@ bool SceneIntro::CleanUp()
 	app->tex->UnLoad(introText);
 	app->tex->UnLoad(logoText);
 	app->font->UnLoad(whiteFont);
+
+	//delete btnStart;
+	//delete btnContinue;
+	//delete btnOptions;
+	//delete btnExit;
+	//delete btnBackOptions;
+	//delete sliderMusicVolume;
+	//delete sliderFxVolume;
+	//delete checkBoxFullscreen;
+	//delete checkBoxVSync;
+
 	return true;
 }
