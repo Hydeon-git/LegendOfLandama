@@ -111,6 +111,7 @@
     <ClCompile Include="Source\NPC2.cpp" />
     <ClCompile Include="Source\NPC3.cpp" />
     <ClCompile Include="Source\NPC4.cpp" />
+    <ClCompile Include="Source\NPC5.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Player.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Source\NPC2.h" />
     <ClInclude Include="Source\NPC3.h" />
     <ClInclude Include="Source\NPC4.h" />
+    <ClInclude Include="Source\NPC5.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Player.h" />

@@ -96,6 +96,14 @@ public:
 	bool house = false;
 	int door = 0;
 	int houseDoor = 0;
+
+
+	int lastPosX[25] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x};
+	int lastPosY[20] = { position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y };
+
+	int lastPositionX;
+	int lastPositionY;
+
 private:
 	float speed = 1.0f;
 	float fireBallSpeed = 3.0f;

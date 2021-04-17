@@ -14,6 +14,7 @@
 #include "NPC2.h"
 #include "NPC3.h"
 #include "NPC4.h"
+#include "NPC5.h"
 #include "Enemy1.h"
 #include "Enemy2.h"
 #include "Enemy3.h"
@@ -67,15 +68,20 @@ bool Scene::Start()
 		// Loads entities
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);		
-		npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
+		npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
 		enemy1 = (Enemy1*)app->entityManager->CreateEntity(EntityType::Enemy1);
 		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
 		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
 
+		npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
+		npc4->Start();
+
+
+
 		// Starts entities that are on the TOWN
 		player->Start();
 		npc1->Start();
-		npc4->Start();
+		npc5->Start();
 		enemy1->Start();
 		enemy2->Start();
 		enemy3->Start();
@@ -199,14 +205,16 @@ bool Scene::Update(float dt)
 
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
-					if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall() && !player->ThereIsNPCLeft()) app->render->camera.x += 3.0f;
-					else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall() && !player->ThereIsNPCRight()) app->render->camera.x -= 3.0f;
+					if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall() && !player->ThereIsNPCLeft() && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) app->render->camera.x += 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall() && !player->ThereIsNPCRight() && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) app->render->camera.x -= 3.0f;
 				}
 				//camera y
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
-					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp()) app->render->camera.y += 3.0f;
-					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow()) app->render->camera.y -= 3.0f;
+
+					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y += 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y -= 3.0f;
+
 				}
 			}			
 
@@ -407,6 +415,7 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(npc2);
 	app->entityManager->DestroyEntity(npc3);
 	app->entityManager->DestroyEntity(npc4);
+	app->entityManager->DestroyEntity(npc5);
 	app->entityManager->DestroyEntity(enemy1);
 	app->entityManager->DestroyEntity(enemy2);
 	app->entityManager->DestroyEntity(enemy3);
@@ -490,6 +499,7 @@ void Scene::ChangeScene(GameScene nextScene)
 
 					
 					app->entityManager->DestroyEntity(npc2);
+					//app->entityManager->DestroyEntity(npc4);
 
 					house = 0;
 				} break;
@@ -499,6 +509,7 @@ void Scene::ChangeScene(GameScene nextScene)
 					app->scene->player->position.y = 320;
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+					app->entityManager->DestroyEntity(npc4);
 					house = 0;
 				} break;			
 			}
@@ -550,6 +561,8 @@ void Scene::ChangeScene(GameScene nextScene)
 			// Creates Blacksmith and Starts it
 			npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
 			npc2->Start();
+			npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
+			npc4->Start();
 
 			// Setting dialogue to id 1 Blacksmith and restart dialog system
 			app->dialogueSystem->Disable();
@@ -582,6 +595,9 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->dialogueSystem->id = 3;
 			app->dialogueSystem->Enable();
 			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
+			
+			/*npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
+			npc4->Start();*/
 
 			house = 3;
 			app->render->camera.x = 0;

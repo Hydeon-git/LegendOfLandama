@@ -148,6 +148,10 @@ bool Player::Start()
 		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
 		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
 		currentAnimation = &idlAnim;
+
+		lastPositionX = position.x;
+		lastPositionY = position.y;
+		
 	}
 
 	return true;
@@ -170,37 +174,135 @@ bool Player::Update(float dt)
 		{
 			if (!dialogeOn && !onBattle)
 			{
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{
 					if (!ThereIsTopWall() && !ThereIsNPCUp())
 					{
 						position.y -= speed;
 						currentAnimation = &upAnim;
+						
+						for (int i = 0; i < 20; i++)
+						{
+							if (i == 19) {
+								lastPosY[0] = position.y;
+							}
+							else
+							{
+								lastPosY[19 - i] = lastPosY[18 - i];
+							}
+						}
+						if(lastPosY!=0) lastPositionY = lastPosY[19];
+
+						for (int i = 0; i < 25; i++)
+						{
+							if (i == 24) {
+								lastPosX[0] = position.x;
+							}
+							else
+							{
+								lastPosX[24 - i] = lastPosX[23 - i];
+							}
+						}
+						if (lastPosY != 0) lastPositionX = lastPosX[24];
+
 					}
 				}
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+				if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{
 					if (!ThereIsBottomWall() && !ThereIsNPCBelow())
 					{
 						position.y += speed;
 						currentAnimation = &leftAnim;
+						for (int i = 0; i < 20; i++)
+						{
+							if (i == 19) {
+								lastPosY[0] = position.y;
+							}
+							else
+							{
+								lastPosY[19 - i] = lastPosY[18 - i];
+							}
+						}
+						if (lastPosY != 0) lastPositionY = lastPosY[19];
+
+						for (int i = 0; i < 25; i++)
+						{
+							if (i == 24) {
+								lastPosX[0] = position.x;
+							}
+							else
+							{
+								lastPosX[24 - i] = lastPosX[23 - i];
+							}
+						}
+						
+						if (lastPosX != 0) lastPositionX = lastPosX[24];
+
 					}
 				}
 
-				if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+				if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 				{
 					if (!ThereIsLeftWall() && !ThereIsNPCLeft())
 					{
 						position.x -= speed;
 						currentAnimation = &leftAnim;
+						for (int i = 0; i < 20; i++)
+						{
+							if (i == 19) {
+								lastPosY[0] = position.y;
+							}
+							else
+							{
+								lastPosY[19 - i] = lastPosY[18 - i];
+							}
+						}
+						if (lastPosY != 0) lastPositionY = lastPosY[19];
+
+						for (int i = 0; i < 25; i++)
+						{
+							if (i == 24) {
+								lastPosX[0] = position.x;
+							}
+							else
+							{
+								lastPosX[24 - i] = lastPosX[23 - i];
+							}
+						}
+						if (lastPosX != 0) lastPositionX = lastPosX[24];
+
 					}
 				}
-				else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
+				else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 				{
 					if (!ThereIsRightWall() && !ThereIsNPCRight())
 					{
 						position.x += speed;
 						currentAnimation = &rightAnim;
+						for (int i = 0; i < 20; i++)
+						{
+							if (i == 19) {
+								lastPosY[0] = position.y;
+							}
+							else
+							{
+								lastPosY[19 - i] = lastPosY[18 - i];
+							}
+						}
+						if (lastPosY != 0) lastPositionY = lastPosY[19];
+
+						for (int i = 0; i < 25; i++)
+						{
+							if (i == 24) {
+								lastPosX[0] = position.x;
+							}
+							else
+							{
+								lastPosX[24 - i] = lastPosX[23 - i];
+							}
+						}
+						if (lastPosX != 0) lastPositionX = lastPosX[24];
+
 					}
 				}
 			}

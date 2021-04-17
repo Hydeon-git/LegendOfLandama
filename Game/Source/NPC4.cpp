@@ -25,8 +25,8 @@
 NPC4::NPC4() : Entity(EntityType::NPC4)
 {
 	name.Create("NPC4");
-	position.x = 141;
-	position.y = 350;
+	position.x = 98;
+	position.y = 154;
 
 	//idlanim
 	idlAnim.PushBack({ 0, 0, 12, 22 });
@@ -88,7 +88,11 @@ bool NPC4::Start()
 
 bool NPC4::Update(float dt)
 {
-	if (!pause && !app->scene->player->dialogeOn)
+
+	
+
+	/*if (!pause && !app->scene->player->dialogeOn)
+
 	{
 		if (right)
 		{
@@ -122,7 +126,7 @@ bool NPC4::Update(float dt)
 		counter = 0;
 		prova = true;
 
-	}
+	}*/
 
 	currentAnimation->Update();
 	return true;
@@ -148,7 +152,7 @@ bool NPC4::CleanUp()
 
 void NPC4::NPC4InitialPosition()
 {
-	position.x = 352;
-	position.y = 128;
+	position.x = 98;
+	position.y = 154;
 }
 
