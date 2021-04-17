@@ -10,6 +10,7 @@
 #include "SceneLose.h"
 #include "SceneBattle.h"
 #include "Enemy.h"
+#include "Enemy1.h"
 #include "NPC1.h"
 #include "NPC4.h"
 #include "ModuleParticles.h"
@@ -215,7 +216,11 @@ bool Player::Update(float dt)
 			{
 				dialogeOn = false;
 			}
-
+			if(ThereIsEnemy())
+			{
+				app->sceneBattle->battleOn = true;
+				app->fadeToBlack->FadeToBlk(app->scene, app->sceneBattle, 30);
+			}
 
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 			{
@@ -502,11 +507,11 @@ int Player::ThereIsNPC()
 		}
 		for (int i = -32; i < 32; ++i)
 		{
-			if (app->scene->npc4->position.x + i == position.x) positionX = true;
+			if (app->scene->npc4->position.x + i == position.x) positionX2 = true;
 		}
 		for (int i = -32; i < 32; ++i)
 		{
-			if (app->scene->npc4->position.y + i == position.y) positionY = true;
+			if (app->scene->npc4->position.y + i == position.y) positionY2 = true;
 		}
 	}
 	if (positionX && positionY) npc = 1;
@@ -621,21 +626,15 @@ bool Player::ThereIsEnemy()
 	bool positionX = false;
 	bool positionY = false;
 
-	if (!godModeEnabled && !app->scene->enemy->dead)
+	if (!godModeEnabled)
 	{
-		for (int i = 0; i < 30; ++i)
+		for (int i = -16; i < 16; ++i)
 		{
-			for (int j = 0; j < 30; ++j)
-			{
-				if (app->scene->enemy->position.x + 16 + i == position.x + 16 + j) positionX = true;
-			}
+			if (app->scene->enemy1->position.x + i == position.x) positionX = true;
 		}
-		for (int i = 0; i < 62; ++i)
+		for (int i = -16; i < 16; ++i)
 		{
-			for (int j = 0; j < 62; ++j)
-			{
-				if (app->scene->enemy->position.y + 22 + i == position.y + 22 + j) positionY = true;
-			}
+			if (app->scene->enemy1->position.y + i == position.y) positionY = true;
 		}
 	}
 	if (positionX && positionY) valid = true;

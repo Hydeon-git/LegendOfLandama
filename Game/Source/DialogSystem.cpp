@@ -48,7 +48,6 @@ bool DialogueSystem::Update(float dt)
 		currentNode = dialogueTrees[id]->dialogueNodes[0];
 		playerInput = 9;
 		app->scene->player->dialogeOn = false;
-		
 	}
 	return true;
 }

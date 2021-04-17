@@ -234,11 +234,11 @@ bool Scene::Update(float dt)
 
 
 
-			if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+			/*if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 			{
 				app->sceneBattle->battleOn = true;
 				app->fadeToBlack->FadeToBlk(this, app->sceneBattle, 30);
-			}
+			}*/
 
 
 			//SceneWin
