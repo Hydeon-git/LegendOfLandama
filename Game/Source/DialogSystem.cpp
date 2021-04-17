@@ -14,8 +14,7 @@ DialogueSystem::~DialogueSystem() {}
 
 bool DialogueSystem::Start()
 {
-	LoadDialogue("dialogue_tree.xml");
-	id = 0;
+	LoadDialogue("dialogue_tree.xml");	
 	currentNode = dialogueTrees[id]->dialogueNodes[0];	
 	
 	char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
@@ -45,15 +44,11 @@ bool DialogueSystem::Update(float dt)
 	}
 
 	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	{
-		id = 0;
+	{		
 		currentNode = dialogueTrees[id]->dialogueNodes[0];
 		playerInput = 9;
 		app->scene->player->dialogeOn = false;
 	}
-
-
-
 	return true;
 }
 
@@ -80,8 +75,6 @@ bool DialogueSystem::PostUpdate()
 			app->font->DrawText(15, 198+14*i, whiteFont, response);
 		}
 	}
-
-
 
 	return ret;
 }

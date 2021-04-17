@@ -60,6 +60,9 @@ bool Scene::Start()
 		// Set Current Scene to TOWN
 		currentScene = GameScene::SCENE_TOWN;
 
+		// Setting dialogue to id 0 - Beach Girl
+		app->dialogueSystem->id = 0;
+
 		// Loads entities
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);		
@@ -441,6 +444,12 @@ void Scene::ChangeScene(GameScene nextScene)
 				RELEASE_ARRAY(data);
 			}
 			
+			// Setting dialogue to id 0 Beach Girl and restart dialog system
+			app->dialogueSystem->Disable();
+			app->dialogueSystem->id = 0;
+			app->dialogueSystem->Enable();
+			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
+
 			// Deteting in which house the player was
 			// Reposition the player
 			switch (house)
@@ -500,7 +509,13 @@ void Scene::ChangeScene(GameScene nextScene)
 
 			// Creates Fisherman and starts it	
 			npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
-			npc3->Start();			
+			npc3->Start();
+
+			// Setting dialogue to id 2 Fisherman and restart dialog system
+			app->dialogueSystem->Disable();
+			app->dialogueSystem->id = 2;
+			app->dialogueSystem->Enable();
+			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 
 			house = 1;
 			app->render->camera.x = 0;
@@ -526,6 +541,12 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
 			npc2->Start();
 
+			// Setting dialogue to id 1 Blacksmith and restart dialog system
+			app->dialogueSystem->Disable();
+			app->dialogueSystem->id = 1;
+			app->dialogueSystem->Enable();
+			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
+
 			house = 2;
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
@@ -545,6 +566,12 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
+
+			// Setting dialogue to id 3 Posadera and restart dialog system
+			app->dialogueSystem->Disable();
+			app->dialogueSystem->id = 3;
+			app->dialogueSystem->Enable();
+			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 
 			house = 3;
 			app->render->camera.x = 0;

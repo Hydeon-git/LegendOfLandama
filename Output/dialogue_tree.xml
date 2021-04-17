@@ -7,27 +7,27 @@
       <dialogue option="1: What are you doing?" returnCode="0" nextNode="1"/>
       <dialogue option="2: Hello little girl!" returnCode="0" nextNode="4"/>
     </node>
-    <node text="I'm collecting shells from the beach."  id="1">
+    <node text="I@m collecting shells from the beach."  id="1">
       <dialogue option="1: What are those for?" returnCode="0" nextNode="2"/>
       <dialogue option="2: Losing time huh?" returnCode="0" nextNode="4"/>
     </node>
-	<node text="I'm making a necklace for mommy!" id="2">
+	<node text="I@m making a necklace for mommy!" id="2">
       <dialogue option="1: That@s very cool! She@ll love it!" returnCode="0" nextNode="3"/>
     </node>
-    <node text="I'm leaving now, see you!" id="3">
-      <dialogue option="2: Bye!" returnCode="0" nextNode="5"/>
+    <node text="I@m leaving now, see you!" id="3">
+      <dialogue option="1: Bye!" returnCode="0" nextNode="5"/>
     </node>
     <node text="Uh? I@m going home..." id="4"></node>    
     <node text="Bye!" id="5"></node>    
   </NPC>
   
   <!-- Blacksmith -->
-  <NPC Id="2">
+  <NPC Id="1">
     <node text="Hello adventurer!  What I can do for you?" id="0">
       <dialogue option="1: Who are you?" returnCode="0" nextNode="1"/>
       <dialogue option="2: I'm sorry!" returnCode="0" nextNode="5"/>
     </node>
-    <node text="I'm the blacksmith of Landama! I can help you with anything related with your equipment."  id="1">
+    <node text="I@m the blacksmith of Landama!"  id="1">
       <dialogue option="1: That's great! I will return once I have money" returnCode="0" nextNode="3"/>
       <dialogue option="2: I'm not really interested." returnCode="0" nextNode="2"/>
     </node>
@@ -41,9 +41,9 @@
   </NPC>
   
   <!-- Fisherman -->
-  <NPC Id="3">
+  <NPC Id="2">
     <node text="What are you doing on my house?"  id="0">
-      <dialogue option="1: I@m doing a research about Landama@s architecture!" returnCode="0" nextNode="1"/>
+      <dialogue option="1: I@m here to save Landama!" returnCode="0" nextNode="1"/>
       <dialogue option="2: I@m sorry!" returnCode="0" nextNode="2"/>
     </node>
     <node text="You what!? I@m calling the guards!"  id="1">
@@ -53,11 +53,11 @@
     <node text="Get out of here before I kill you!" id="2">
       <dialogue option="1: Bye!" returnCode="0" nextNode="3"/>
     </node>
-    <node text="Young people don@t have any respect these days..." id="3"></node>    
+    <node text="Young people don@t have any respect..." id="3"></node>    
   </NPC>
   
-  <!-- Tabernera -->
-  <NPC Id="4">
+  <!-- Posadera -->
+  <NPC Id="3">
     <node text="Greetings adventurer! What can I do for you?"  id="0">
       <dialogue option="1: I want to stay on night!" returnCode="0" nextNode="1"/>
       <dialogue option="2: Give me som information." returnCode="0" nextNode="2"/>

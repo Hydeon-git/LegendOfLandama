@@ -76,18 +76,16 @@ public:
 	int id = 0;
 	DialogueNode* currentNode;
 
-private:
+public:
 	int playerInput = 7;
-
-	std::vector <DialogueTree*> dialogueTrees;
-	
+	std::vector <DialogueTree*> dialogueTrees;	
 	pugi::xml_document	dialogues;
 
+private:
 	int whiteFont = -1;
 	Font* font;
 	Input* input;
 	Render* render;
 	Textures* tex;
-
 };
 #endif // __DIALOGSYSTEM_H__
