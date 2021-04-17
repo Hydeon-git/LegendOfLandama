@@ -703,5 +703,3 @@ bool Player::CleanUp()
 	}
 	return ret;
 }
-
-
