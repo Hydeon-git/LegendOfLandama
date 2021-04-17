@@ -22,6 +22,7 @@ class PathFinding;
 class EntityManager;
 class FadeToBlack;
 class Scene;
+class SceneBattle;
 class SceneIntro;
 class SceneWin;
 class SceneLose;
@@ -98,6 +99,7 @@ public:
 	Audio* audio;
 	PathFinding* pathfinding;
 	Scene* scene;
+	SceneBattle* sceneBattle;
 	Map* map;
 	FadeToBlack* fadeToBlack;
 	SceneIntro* sceneIntro;

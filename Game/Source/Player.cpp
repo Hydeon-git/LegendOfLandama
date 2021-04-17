@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Scene.h"
 #include "SceneLose.h"
+#include "SceneBattle.h"
 #include "Enemy.h"
 #include "NPC1.h"
 #include "NPC4.h"
@@ -47,6 +48,11 @@ Player::Player() : Entity(EntityType::PLAYER)
 		position.y = 875;
 		app->sceneWin->won = false;
 		app->sceneLose->lost = false;
+	}
+	else if (app->sceneBattle->battleOn)
+	{
+		position.x = 200;
+		position.y = 100;
 	}
 	else
 	{
@@ -148,7 +154,7 @@ bool Player::Start()
 
 bool Player::Update(float dt)
 {
-	if (app->scene->player->loaded)
+	if (loaded)
 	{
 		app->render->camera.x = -588;
 		app->render->camera.y = -99;
@@ -161,7 +167,7 @@ bool Player::Update(float dt)
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
 		{
-			if (!dialogeOn)
+			if (!dialogeOn && !onBattle)
 			{
 				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 				{

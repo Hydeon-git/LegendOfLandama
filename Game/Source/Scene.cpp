@@ -23,6 +23,7 @@
 #include "SceneIntro.h"
 #include "SceneLose.h"
 #include "SceneWin.h"
+#include "SceneBattle.h"
 #include "ModuleParticles.h"
 #include "GuiButton.h"
 #include "GuiSlider.h"
@@ -82,7 +83,7 @@ bool Scene::Start()
 		// Enables the Map
 		app->map->Enable();
 		player->spiked = false;
-
+		player->onBattle = false;
 		// Texture assignations for the scene
 		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
 
@@ -230,6 +231,15 @@ bool Scene::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
 
 			if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();			
+
+
+
+			if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+			{
+				app->sceneBattle->battleOn = true;
+				app->fadeToBlack->FadeToBlk(this, app->sceneBattle, 30);
+			}
+
 
 			//SceneWin
 			if (player->win)

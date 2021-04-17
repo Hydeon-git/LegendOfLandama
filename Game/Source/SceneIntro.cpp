@@ -11,6 +11,7 @@
 #include "FlyingEnemy.h"
 #include "SceneWin.h"
 #include "SceneLose.h"
+#include "SceneBattle.h"
 #include "FadeToBlack.h"
 #include "GuiButton.h"
 #include "GuiSlider.h"

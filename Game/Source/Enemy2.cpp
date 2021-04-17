@@ -14,7 +14,7 @@
 #include "EntityManager.h"
 #include "Defs.h"
 #include "Log.h"
-
+#include "SceneBattle.h"
 
 #define COLLIDER_GREEN 265
 #define COLLIDER_RED 266
@@ -76,7 +76,7 @@ bool Enemy2::Start()
 	if (this->active == true)
 	{
 		texEnemy2 = app->tex->Load("Assets/Textures/Enemy2_character.png");
-
+		Enemy2InitialPosition();
 		currentAnimation = &idlAnim;
 	}
 	return true;
@@ -117,16 +117,22 @@ bool Enemy2::Update(float dt)
 	//	prova = true;
 	//}
 
-
-	if (position.x <= 502) app->scene->stop = true;
-
-	if (!app->scene->stop)
+	if (app->scene->active == true)
 	{
-		if (app->scene->player->position.x >= 460) app->scene->enemyMoving = true;
-		if (app->scene->enemyMoving) position.x -= 2.0;
+		if (position.x <= 502) app->scene->stop = true;
 
+		if (!app->scene->stop)
+		{
+			if (app->scene->player->position.x >= 460) app->scene->enemyMoving = true;
+			if (app->scene->enemyMoving) position.x -= 2.0;
+
+		}
+		if (app->scene->stop)
+		{
+			currentAnimation = &idlAnim;
+		}
 	}
-	if (app->scene->stop)
+	if (app->sceneBattle->battleOn)
 	{
 		currentAnimation = &idlAnim;
 	}
@@ -154,6 +160,15 @@ bool Enemy2::CleanUp()
 
 void Enemy2::Enemy2InitialPosition()
 {
-	position.x = 660;
-	position.y = 352;
+	if (app->scene->active == true)
+	{
+		position.x = 660;
+		position.y = 352;
+	}
+	if (app->sceneBattle->battleOn && app->scene->active == false)
+	{
+		position.x = 315;
+		position.y = 80;
+	}
+
 }

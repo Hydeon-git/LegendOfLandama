@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneBattle.h"
 #include "Player.h"
 #include "Enemy1.h"
 #include "ModuleParticles.h"
@@ -76,7 +77,7 @@ bool Enemy1::Start()
 	if (this->active == true)
 	{
 		texEnemy1 = app->tex->Load("Assets/Textures/enemy1_character.png");
-
+		Enemy1InitialPosition();
 		currentAnimation = &idlAnim;
 	}
 	return true;
@@ -85,7 +86,7 @@ bool Enemy1::Start()
 bool Enemy1::Update(float dt)
 {
 	currentAnimation = &leftAnim;
-
+	
 	//if (!pause)
 	//{
 	//	if (right)
@@ -116,16 +117,22 @@ bool Enemy1::Update(float dt)
 	//	counter = 0;
 	//	prova = true;
 	//}
-	
-	if (position.x <= 502) app->scene->stop = true;
-	
-	if (!app->scene->stop)
+	if (app->scene->active == true)
 	{
-		if (app->scene->player->position.x >= 460) app->scene->enemyMoving = true;
-		if(app->scene->enemyMoving) position.x -= 2.0f;
+		if (position.x <= 502) app->scene->stop = true;
 
+		if (!app->scene->stop)
+		{
+			if (app->scene->player->position.x >= 460) app->scene->enemyMoving = true;
+			if (app->scene->enemyMoving) position.x -= 2.0f;
+
+		}
+		if (app->scene->stop)
+		{
+			currentAnimation = &idlAnim;
+		}
 	}
-	if (app->scene->stop)
+	if (app->sceneBattle->battleOn)
 	{
 		currentAnimation = &idlAnim;
 	}
@@ -155,6 +162,15 @@ bool Enemy1::CleanUp()
 
 void Enemy1::Enemy1InitialPosition()
 {
-	position.x = 643;
-	position.y = 343;
+	if (app->scene->active == true)
+	{
+		position.x = 643;
+		position.y = 343;
+	}
+	if (app->sceneBattle->battleOn && app->scene->active == false)
+	{
+		position.x = 300;
+		position.y = 100;
+	}
+
 }

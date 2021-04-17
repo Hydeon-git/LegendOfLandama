@@ -80,7 +80,7 @@ public:
 	bool win = false;
 	bool godModeEnabled = false;
 	bool dialogeOn = false;
-	
+	bool onBattle = false;
 	int lifes; //player lifes
 	bool spiked; //if player lose a life
 
