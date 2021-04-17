@@ -48,6 +48,7 @@ bool DialogueSystem::Update(float dt)
 		currentNode = dialogueTrees[id]->dialogueNodes[0];
 		playerInput = 9;
 		app->scene->player->dialogeOn = false;
+		app->scene->player->npc = 0;
 	}
 	return true;
 }
@@ -55,24 +56,30 @@ bool DialogueSystem::Update(float dt)
 bool DialogueSystem::PostUpdate()
 {
 	bool ret = true;
-
-	if (app->scene->currentScene == GameScene::SCENE_TOWN && app->scene->player->dialogeOn)
+	if(app->scene->player != nullptr)
 	{
-		app->render->DrawRectangle({ 0, 520, 1280, 60 }, 0, 0, 0, 220, true, false);
-		app->render->DrawRectangle({ 10, 530, 1260, 40 }, 100, 100, 200, 220, true, false);
-		
-		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
-		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
-
-		char NPCdialogue[64] = { 0 };
-		sprintf_s(NPCdialogue, 64, currentNode->text.c_str(), 56);
-		app->font->DrawText(15, 178, whiteFont, NPCdialogue);
-
-		char response[64] = { 0 };
-		for (int i = 0; i < currentNode->answersList.Count(); i++)
+		if (app->scene->player->dialogeOn)
 		{
-			sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
-			app->font->DrawText(15, 198+14*i, whiteFont, response);
+			//if (app->scene->player->ThereIsNPC() == 1) id = 1;
+			if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 2;
+			else if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 3;
+			else if (app->scene->currentScene == GameScene::SCENE_INN) id = 4;
+			app->render->DrawRectangle({ 0, 520, 1280, 60 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 530, 1260, 40 }, 100, 100, 200, 220, true, false);
+
+			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+			char NPCdialogue[64] = { 0 };
+			sprintf_s(NPCdialogue, 64, currentNode->text.c_str(), 56);
+			app->font->DrawText(15, 178, whiteFont, NPCdialogue);
+
+			char response[64] = { 0 };
+			for (int i = 0; i < currentNode->answersList.Count(); i++)
+			{
+				sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
+				app->font->DrawText(15, 198 + 14 * i, whiteFont, response);
+			}
 		}
 	}
 

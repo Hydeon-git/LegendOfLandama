@@ -9,8 +9,8 @@
 NPC3::NPC3() : Entity(EntityType::NPC3)
 {
 	name.Create("NPC3");
-	position.x = 200;
-	position.y = 100;
+	position.x = 92;
+	position.y = 70;
 
 	//idlanim
 	idlAnim.PushBack({ 0, 0, 21, 25 });
@@ -94,6 +94,6 @@ bool NPC3::CleanUp()
 
 void NPC3::NPC3InitialPosition()
 {
-	position.x = 200;
+	position.x = 100;
 	position.y = 100;
 }

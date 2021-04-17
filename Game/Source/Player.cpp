@@ -9,6 +9,8 @@
 #include "Scene.h"
 #include "SceneLose.h"
 #include "Enemy.h"
+#include "NPC1.h"
+#include "NPC4.h"
 #include "ModuleParticles.h"
 #include "FlyingEnemy.h"
 #include "FadeToBlack.h"
@@ -171,7 +173,7 @@ bool Player::Update(float dt)
 				}
 				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 				{
-					if (!ThereIsBottomWall()/* && !ThereIsNPCBelow()*/)
+					if (!ThereIsBottomWall() && !ThereIsNPCBelow())
 					{
 						position.y += speed;
 						currentAnimation = &leftAnim;
@@ -196,7 +198,7 @@ bool Player::Update(float dt)
 				}
 			}
 
-			if (ThereIsNPCRight())
+			if (ThereIsNPC()==1 || ThereIsNPC() == 4 || ThereIsNPCUp() ||ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight())
 			{
 				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 				{
@@ -474,91 +476,109 @@ bool Player::ThereIsHouseClosed()
 	return valid;
 }
 
-//bool Player::ThereIsNPC()
-//{
-//	bool valid = false;
-//	bool positionX = false;
-//	bool positionY = false;
-//
-//	if (!godModeEnabled)
-//	{
-//		for (int i = -16; i < 32; ++i)
-//		{
-//			if (app->scene->enemy->position.x == position.x + i) positionX = true;
-//		}
-//		for (int i = -16; i < 32; ++i)
-//		{
-//			if (app->scene->enemy->position.y == position.y + i) positionY = true;
-//		}
-//	}
-//	if (positionX || positionY) valid = true;
-//
-//	return valid;
-	
-	/*bool valid = false;
-
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int groundId;
-	while (layer != NULL)
+int Player::ThereIsNPC()
+{
+	bool valid = false;
+	bool positionX = false;
+	bool positionY = false;
+	bool positionX2 = false;
+	bool positionY2 = false;
+	int npc = 0;
+	if (!godModeEnabled)
 	{
-		if (layer->data->name == "colliders")
+		for (int i = -32; i < 32; ++i)
 		{
-			for (int i = 0; i < 4; ++i)
-			{
-				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
-				groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (groundId == COLLIDER_CIAN) valid = true;
-			}
+			if (app->scene->npc1->position.x + i == position.x) positionX = true;
 		}
-		layer = layer->next;
+		for (int i = -32; i < 32; ++i)
+		{
+			if (app->scene->npc1->position.y + i == position.y) positionY = true;
+		}
+		for (int i = -32; i < 32; ++i)
+		{
+			if (app->scene->npc4->position.x + i == position.x) positionX = true;
+		}
+		for (int i = -32; i < 32; ++i)
+		{
+			if (app->scene->npc4->position.y + i == position.y) positionY = true;
+		}
 	}
-	
-	return valid;*/
-//}
+	if (positionX && positionY) npc = 1;
+	if (positionX2 && positionY2) npc = 4;
+
+	return npc;
+}
+bool Player::ThereIsNPCBelow()
+{
+	bool valid = false;
+	if (!godModeEnabled)
+	{
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int groundId;
+		while (layer != NULL)
+		{
+			if (layer->data->name == "colliders")
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
+					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (groundId == COLLIDER_CIAN || groundId == COLLIDER_CIAN_HOUSE) valid = true;
+				}
+			}
+			layer = layer->next;
+		}
+	}
+	return valid;
+}
 
 bool Player::ThereIsNPCUp()
 {
 	bool valid = false;
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int rightWallId;
-	while (layer != NULL)
+	if (!godModeEnabled)
 	{
-		if (layer->data->name == "colliders")
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int rightWallId;
+		while (layer != NULL)
 		{
-			for (int i = 0; i < 4; ++i)
+			if (layer->data->name == "colliders")
 			{
-				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
-				rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (rightWallId == COLLIDER_CIAN) valid = true;
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y - 1);
+					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (rightWallId == COLLIDER_CIAN || rightWallId == COLLIDER_CIAN_HOUSE) valid = true;
+				}
 			}
+			layer = layer->next;
 		}
-		layer = layer->next;
 	}
-
 	return valid;
 }
 
 bool Player::ThereIsNPCLeft()
 {
 	bool valid = false;
-
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int leftWallId;
-	while (layer != NULL)
+	if (!godModeEnabled)
 	{
-		if (layer->data->name == "colliders")
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int leftWallId;
+		while (layer != NULL)
 		{
-			for (int i = 0; i < 4; ++i)
+			if (layer->data->name == "colliders")
 			{
-				tilePosition = app->map->WorldToMap(position.x, position.y + i * 4);
-				leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (leftWallId == COLLIDER_CIAN) valid = true;
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x - 1, position.y + i * 4);
+					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (leftWallId == COLLIDER_CIAN || leftWallId == COLLIDER_CIAN_HOUSE) valid = true;
+				}
 			}
+			layer = layer->next;
 		}
-		layer = layer->next;
 	}
 	return valid;
 }
@@ -566,24 +586,25 @@ bool Player::ThereIsNPCLeft()
 bool Player::ThereIsNPCRight()
 {
 	bool valid = false;
-
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int rightWallId;
-	while (layer != NULL)
+	if (!godModeEnabled)
 	{
-		if (layer->data->name == "colliders")
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int rightWallId;
+		while (layer != NULL)
 		{
-			for (int i = 0; i < 4; ++i)
+			if (layer->data->name == "colliders")
 			{
-				tilePosition = app->map->WorldToMap(position.x + playerWidth, position.y + i * 4);
-				rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (rightWallId == COLLIDER_CIAN) valid = true;
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + playerWidth + 1, position.y + i * 4);
+					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (rightWallId == COLLIDER_CIAN || rightWallId == COLLIDER_CIAN_HOUSE) valid = true;
+				}
 			}
+			layer = layer->next;
 		}
-		layer = layer->next;
 	}
-	
 	return valid;
 }
 

@@ -15,8 +15,9 @@
 #define COLLIDER_ORANGE 862
 #define COLLIDER_CIAN 863
 
-#define COLLIDER_RED_HOUSE 770
 #define COLLIDER_GREEN_HOUSE 769
+#define COLLIDER_RED_HOUSE 770
+#define COLLIDER_CIAN_HOUSE 776
 struct SDL_Texture;
 class Collider;
 
@@ -51,7 +52,8 @@ public:
 	bool ThereIsBottomWall();
 	bool ThereIsLeftWall();
 	bool ThereIsRightWall();
-	//bool ThereIsNPC();
+	int ThereIsNPC();
+	bool ThereIsNPCBelow();
 	bool ThereIsNPCUp();
 	bool ThereIsNPCLeft();
 	bool ThereIsNPCRight();
@@ -94,7 +96,6 @@ public:
 	bool house = false;
 	int door = 0;
 	int houseDoor = 0;
-
 private:
 	float speed = 1.0f;
 	float fireBallSpeed = 3.0f;

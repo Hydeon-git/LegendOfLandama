@@ -84,7 +84,7 @@ bool NPC1::Start()
 
 bool NPC1::Update(float dt)
 {	
-	if (!pause)
+	if (!pause && !app->scene->player->dialogeOn)
 	{
 		if (right)
 		{
