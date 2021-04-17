@@ -73,11 +73,6 @@ bool Scene::Start()
 		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
 		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
 
-		npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
-		npc4->Start();
-
-
-
 		// Starts entities that are on the TOWN
 		player->Start();
 		npc1->Start();
@@ -497,9 +492,9 @@ void Scene::ChangeScene(GameScene nextScene)
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 
-					
+					npc2->CleanUp();
 					app->entityManager->DestroyEntity(npc2);
-					//app->entityManager->DestroyEntity(npc4);
+					npc2 = nullptr;
 
 					house = 0;
 				} break;
@@ -509,7 +504,11 @@ void Scene::ChangeScene(GameScene nextScene)
 					app->scene->player->position.y = 320;
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+
+					npc4->CleanUp();
 					app->entityManager->DestroyEntity(npc4);
+					npc4 = nullptr;
+
 					house = 0;
 				} break;			
 			}
@@ -562,8 +561,6 @@ void Scene::ChangeScene(GameScene nextScene)
 			// Creates Blacksmith and Starts it
 			npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
 			npc2->Start();
-			npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
-			npc4->Start();
 
 			// Setting dialogue to id 1 Blacksmith and restart dialog system
 			app->dialogueSystem->CleanUp();
@@ -597,8 +594,8 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->dialogueSystem->Start();
 			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 			
-			/*npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
-			npc4->Start();*/
+			npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
+			npc4->Start();
 
 			house = 3;
 			app->render->camera.x = 0;

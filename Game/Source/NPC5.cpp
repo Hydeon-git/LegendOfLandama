@@ -82,7 +82,7 @@ NPC5::~NPC5() {}
 
 bool NPC5::Awake()
 {
-	LOG("Loading NPC5: Beach Girl");
+	LOG("Loading NPC5: Ustru Becari");
 
 	bool ret = true;
 	return ret;

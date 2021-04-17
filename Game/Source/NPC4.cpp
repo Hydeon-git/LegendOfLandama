@@ -88,53 +88,13 @@ bool NPC4::Start()
 
 bool NPC4::Update(float dt)
 {
-
-	
-
-	/*if (!pause && !app->scene->player->dialogeOn)
-
-	{
-		if (right)
-		{
-			position.x += speed;
-			currentAnimation = &rightAnim;
-		}
-		if (!right)
-		{
-			position.x -= speed;
-			currentAnimation = &leftAnim;
-		}
-
-		if (position.x >= 250) right = false;
-		if (position.x <= 141) right = true;
-		if (position.x < 250 && position.x>140) prova = false;
-
-		if ((position.x == 249 || position.x == 141) && !prova)
-		{
-			pause = true;
-		}
-	}
-	if (pause)
-	{
-		counter++;
-		if (right) currentAnimation = &idlAnim;
-		if (!right) currentAnimation = &idlAnimLeft;
-	}
-	if (counter >= 50)
-	{
-		pause = false;
-		counter = 0;
-		prova = true;
-
-	}*/
-
 	currentAnimation->Update();
 	return true;
 }
 
 bool NPC4::PostUpdate()
 {
-	if (this->active == true)
+	if ((this->active == true) && (app->scene->currentScene == GameScene::SCENE_INN))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC4, position.x, position.y, &rect);

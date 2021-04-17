@@ -107,6 +107,9 @@
     <ClCompile Include="Source\SceneBattle.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NPC5.cpp">
+      <Filter>Entities\NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="Source\SceneBattle.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NPC5.h">
+      <Filter>Entities\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
