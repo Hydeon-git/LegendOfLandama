@@ -464,9 +464,9 @@ void Scene::ChangeScene(GameScene nextScene)
 			}
 			
 			// Setting dialogue to id 0 Beach Girl and restart dialog system
-			app->dialogueSystem->Disable();
+			app->dialogueSystem->CleanUp();
 			app->dialogueSystem->id = 0;
-			app->dialogueSystem->Enable();
+			app->dialogueSystem->Start();
 			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 
 			// Deteting in which house the player was
@@ -533,9 +533,10 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc3->Start();
 
 			// Setting dialogue to id 2 Fisherman and restart dialog system
-			app->dialogueSystem->Disable();
+			
+			app->dialogueSystem->CleanUp();
 			app->dialogueSystem->id = 2;
-			app->dialogueSystem->Enable();
+			app->dialogueSystem->Start();
 			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 
 			house = 1;
@@ -565,9 +566,9 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc4->Start();
 
 			// Setting dialogue to id 1 Blacksmith and restart dialog system
-			app->dialogueSystem->Disable();
+			app->dialogueSystem->CleanUp();
 			app->dialogueSystem->id = 1;
-			app->dialogueSystem->Enable();
+			app->dialogueSystem->Start();
 			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 
 			house = 2;
@@ -591,9 +592,9 @@ void Scene::ChangeScene(GameScene nextScene)
 			}
 
 			// Setting dialogue to id 3 Posadera and restart dialog system
-			app->dialogueSystem->Disable();
+			app->dialogueSystem->CleanUp();
 			app->dialogueSystem->id = 3;
-			app->dialogueSystem->Enable();
+			app->dialogueSystem->Start();
 			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 			
 			/*npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);

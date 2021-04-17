@@ -59,18 +59,17 @@
   <!-- Posadera -->
   <NPC Id="3">
     <node text="Greetings adventurer! What can I do for you?"  id="0">
-      <dialogue option="1: I want to stay on night!" returnCode="0" nextNode="1"/>
-      <dialogue option="2: Give me som information." returnCode="0" nextNode="2"/>
-      <dialogue option="3: Bye" returnCode="0" nextNode="4"/>
+      <dialogue option="1: I want to stay one night!" returnCode="0" nextNode="1"/>
+      <dialogue option="2: Give me some information." returnCode="0" nextNode="2"/>
+      <dialogue option="3: Bye" returnCode="0" nextNode="3"/>
     </node>
 	<node text="Perfect! That will be 2 gold coins"  id="1">
       <dialogue option="1: Here. (Give her 2 gold coins)" returnCode="0" nextNode="3"/>
-      <dialogue option="2: You know, I think I@m gonna pass." returnCode="0" nextNode="4"/>
+      <dialogue option="2: You know, I think I@m gonna pass." returnCode="0" nextNode="3"/>
     </node>
-	<node text="If you are looking for work, the knights are searching for a mercenary."  id="2">
-      <dialogue option="1: That@s helpful, thanks." returnCode="0" nextNode="4"/>
-    </node>
-	<node text="Have a nice rest."  id="3"></node>
-	<node text="Okay, see you!"  id="4"></node>    
+	<node text="The knights are searching for a mercenary."  id="2">
+      <dialogue option="1: That@s helpful, thanks." returnCode="0" nextNode="3"/>
+    </node>	
+	<node text="Okay, see you!"  id="3"></node>
   </NPC>
 </dialogueTree>

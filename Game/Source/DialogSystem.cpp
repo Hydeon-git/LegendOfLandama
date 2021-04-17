@@ -27,24 +27,44 @@ bool DialogueSystem::Update(float dt)
 
 	if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
+		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
+		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
+		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
+		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
+		
 		playerInput = 0;
 		PerformDialogue(id);
 	}
 
 	if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
+		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
+		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
+		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
+		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
+
 		playerInput = 1;
 		PerformDialogue(id);
 	}
 
 	if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
+		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
+		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
+		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
+		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
+
 		playerInput = 2;
 		PerformDialogue(id);
 	}
 
 	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	{		
+	{	
+		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
+		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
+		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
+		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
+
 		currentNode = dialogueTrees[id]->dialogueNodes[0];
 		playerInput = 9;
 		app->scene->player->dialogeOn = false;
@@ -69,14 +89,14 @@ bool DialogueSystem::PostUpdate()
 			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
 			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 
-			char NPCdialogue[64] = { 0 };
-			sprintf_s(NPCdialogue, 64, currentNode->text.c_str(), 56);
+			char NPCdialogue[128] = { 0 };
+			sprintf_s(NPCdialogue, 128, currentNode->text.c_str(), 56);
 			app->font->DrawText(15, 178, whiteFont, NPCdialogue);
 
-			char response[64] = { 0 };
+			char response[128] = { 0 };
 			for (int i = 0; i < currentNode->answersList.Count(); i++)
 			{
-				sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
+				sprintf_s(response, 128, currentNode->answersList.At(i)->data.c_str(), 56);
 				app->font->DrawText(15, 198 + 14 * i, whiteFont, response);
 			}
 		}
