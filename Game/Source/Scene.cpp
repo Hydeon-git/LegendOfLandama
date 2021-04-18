@@ -102,6 +102,13 @@ bool Scene::Start()
 		app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 
 
+
+		app->sceneBattle->mageDead = false;
+		app->sceneBattle->playerDead = false;
+
+
+
+
 		if(!app->sceneIntro->posContinue) timer = 0;
 
 		// Loads the map and creates walkability map

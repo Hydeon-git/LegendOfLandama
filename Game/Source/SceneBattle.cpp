@@ -115,7 +115,7 @@ bool SceneBattle::Start()
 
 bool SceneBattle::Update(float dt)
 {
-	if (enemiesAlive == 0)
+	if (enemiesAlive == 0 || (playerDead && mageDead))
 	{
 		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
 		battleOn = false;
@@ -136,6 +136,18 @@ bool SceneBattle::Update(float dt)
 		btnEnemy3->Update(dt);
 	}
 
+	if (player->playerHealth <= 0)
+	{
+		player->playerHealth = 0;
+		playerDead = true;
+	}
+	if (npc5->mageHealth <= 0)
+	{
+		npc5->mageHealth = 0;
+		mageDead = true;
+	}
+	
+	
 
 	if (heroineCounter == 0 && mageCounter == 0)
 	{
@@ -205,9 +217,12 @@ bool SceneBattle::PostUpdate()
 	// Print Characters HP
 	app->font->DrawText(280, 180, goldFont, "HP");
 	// Heroine
+
 	sprintf_s(heroineHpText, 10, "%d/200", player->playerHealth);
 	app->font->DrawText(280, 200, whiteFont, heroineHpText);
+	
 	// Heroine
+
 	sprintf_s(mageHpText, 10, "%d/120", npc5->mageHealth);
 	app->font->DrawText(280, 220, whiteFont, mageHpText);
 	
@@ -258,14 +273,14 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
-		if ((control->id == 1) && (heroineCounter == 1))
+		if ((control->id == 1) && (heroineCounter == 1) && !playerDead)
 		{			
 			heroine = true;
 			mage = false;
 			btnHeroine->state = GuiControlState::DISABLED;
 			btnMage->state = GuiControlState::NORMAL;
 		}
-		else if ((control->id == 2) && (mageCounter == 1))
+		else if ((control->id == 2) && (mageCounter == 1) && !mageDead)
 		{
 			mage = true;
 			heroine = false;
@@ -577,4 +592,6 @@ void SceneBattle::EnemyAttack()
 		} break;
 	}
 	app->audio->PlayFx(hitEnemyFx, 0);
+
+
 }

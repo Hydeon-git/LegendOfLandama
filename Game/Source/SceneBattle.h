@@ -61,6 +61,8 @@ public:
 	bool enemy2Dead = false;
 	bool enemy3Dead = false;
 
+	bool playerDead = false;
+	bool mageDead = false;
 private:
 
 	SString name;
