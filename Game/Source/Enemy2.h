@@ -49,7 +49,7 @@ public:
 	Animation leftAnim;
 
 	// Player Stats
-	int enemy2Dmg = 120;
+	int enemy2Dmg = 12;
 	int enemy2Health = 150;
 
 private:

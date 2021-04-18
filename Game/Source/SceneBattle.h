@@ -63,6 +63,8 @@ public:
 
 	bool playerDead = false;
 	bool mageDead = false;
+	int enemiesAlive = 3;
+
 private:
 
 	SString name;
@@ -89,8 +91,7 @@ private:
 	bool hDefense = false;
 	bool mDefense = false;
 
-	int enemiesAlive = 3;
-
+	
 	int whiteFont = -1;
 
 	int goldFont = -1;

@@ -328,7 +328,7 @@ bool Player::Update(float dt)
 			{
 				dialogeOn = false;
 			}
-			if(ThereIsEnemy() && !app->sceneBattle->battleEnd)
+			if(ThereIsEnemy() && !app->sceneBattle->enemy1Dead && !app->sceneBattle->enemy2Dead && !app->sceneBattle->enemy3Dead)
 			{
 				app->sceneBattle->battleOn = true;
 

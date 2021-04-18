@@ -86,6 +86,7 @@ bool Scene::Start()
 		player->spiked = false;
 		player->onBattle = false;
 		app->sceneBattle->battleOn = false;
+		
 		// Texture assignations for the scene
 		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
 		doorOpenFx = app->audio->LoadFx("Assets/Audio/Fx/doorOpen.wav");

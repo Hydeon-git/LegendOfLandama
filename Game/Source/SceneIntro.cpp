@@ -159,6 +159,10 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
 			startClicked = true;
+			app->sceneBattle->enemy1Dead = false;
+			app->sceneBattle->enemy2Dead = false;
+			app->sceneBattle->enemy3Dead = false;
+			app->sceneBattle->enemiesAlive = 3;
 		}
 		else if (control->id == 2) app->fadeToBlack->FadeToBlk(this, app->scene, 30);
 
