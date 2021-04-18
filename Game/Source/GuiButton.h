@@ -15,6 +15,7 @@ public:
 
 	bool Update(float dt);
 	bool Draw();
+	//bool CleanUp();
 
 private:
 
@@ -25,7 +26,7 @@ private:
 	int guiButtonErrorFx = 0;
 	int guiButtonMoveFx = 0;
 	bool soundDone = false;
-	SDL_Texture* pointerText = nullptr;
+	//SDL_Texture* pointerText = nullptr;
 	SDL_Rect* fullscreenRect;
 };
 

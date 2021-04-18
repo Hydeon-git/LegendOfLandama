@@ -92,6 +92,8 @@ bool Scene::Start()
 		doorCloseFx = app->audio->LoadFx("Assets/Audio/Fx/doorClose.wav");
 		doorKnokFx = app->audio->LoadFx("Assets/Audio/Fx/doorKnok.wav");
 
+
+
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 
@@ -441,10 +443,10 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(enemy3);
 	app->entityManager->DestroyEntity(particles);
 
-	RELEASE(btnResume);
-	RELEASE(btnSettings);
-	RELEASE(btnBackIntro);
-	RELEASE(btnExit);
+	//RELEASE(btnResume);
+	//RELEASE(btnSettings);
+	//RELEASE(btnBackIntro);
+	//RELEASE(btnExit);
 	//RELEASE(btnBack);
 	//RELEASE(sliderMusicVolume);
 	//RELEASE(sliderFxVolume);

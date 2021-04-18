@@ -75,6 +75,7 @@ public:
 	bool LoadOptions(pugi::xml_node& text_node, DialogueNode* NPC);
 	int id = 0;
 	DialogueNode* currentNode;
+	SDL_Texture* pointerText = nullptr;
 
 public:
 	int playerInput = 7;

@@ -19,6 +19,10 @@ bool DialogueSystem::Start()
 	
 	char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 	whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
+
+	pointerText = app->tex->Load("Assets/Textures/pointer.png");
+
+
 	return true;
 }
 
@@ -116,6 +120,7 @@ bool DialogueSystem::CleanUp()
 	}
 	dialogueTrees.clear();
 	app->font->UnLoad(whiteFont);
+	app->tex->UnLoad(pointerText);
 	return true;
 }
 

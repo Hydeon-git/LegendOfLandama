@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "SceneWin.h"
 #include "Textures.h"
+#include "DialogSystem.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -15,7 +16,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	guiButtonFx = app->audio->LoadFx("Assets/Audio/Fx/gui_button_fx.wav");
 	guiButtonErrorFx = app->audio->LoadFx("Assets/Audio/Fx/gui_button_error.wav");
 	guiButtonMoveFx = app->audio->LoadFx("Assets/Audio/Fx/gui_button_move.wav");
-	pointerText = app->tex->Load("Assets/Textures/pointer.png");
+	//pointerText = app->tex->Load("Assets/Textures/pointer.png");
 }
 
 GuiButton::~GuiButton()
@@ -88,11 +89,11 @@ bool GuiButton::Draw()
 		break;
 	case GuiControlState::NORMAL: //app->render->DrawRectangle(bounds, 255, 255, 255, 255);
 		break;
-	case GuiControlState::FOCUSED: app->render->DrawTexture(pointerText, bounds.x - 20, bounds.y-2, fullscreenRect, 1);
+	case GuiControlState::FOCUSED: app->render->DrawTexture(app->dialogueSystem->pointerText, bounds.x - 20, bounds.y-2);
 		break;
 	case GuiControlState::PRESSED: 
 		app->render->DrawRectangle(bounds, 123, 104, 238, 255);
-		app->render->DrawTexture(pointerText, bounds.x - 20, bounds.y - 2, fullscreenRect, 1);
+		app->render->DrawTexture(app->dialogueSystem->pointerText, bounds.x - 20, bounds.y - 2);
 		break;
 	case GuiControlState::SELECTED: app->render->DrawRectangle(bounds, 0, 255, 0, 255);
 		break;
@@ -119,3 +120,15 @@ bool GuiButton::Draw()
 
 	return false;
 }
+
+
+//bool GuiButton::CleanUp()
+//{
+//	//LOG("Freeing scene");
+//	bool ret = true;
+//	
+//	ret = app->tex->UnLoad(pointerText);
+//	pointerText = nullptr;
+//
+//	return ret;
+//}
