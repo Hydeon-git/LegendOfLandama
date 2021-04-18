@@ -22,6 +22,7 @@
 #include "Enemy1.h"
 #include "Enemy2.h"
 #include "Enemy3.h"
+#include "NPC5.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -50,11 +51,13 @@ bool SceneBattle::Start()
 		LOG("Loading background assets");
 
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+		npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
 		enemy1 = (Enemy1*)app->entityManager->CreateEntity(EntityType::Enemy1);
 		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
 		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
 
 		player->Start();
+		npc5->Start();
 		enemy1->Start();
 		enemy2->Start();
 		enemy3->Start();
@@ -164,5 +167,6 @@ bool SceneBattle::CleanUp()
 	app->entityManager->DestroyEntity(enemy1);
 	app->entityManager->DestroyEntity(enemy2);
 	app->entityManager->DestroyEntity(enemy3);
+	app->entityManager->DestroyEntity(npc5);
 	return true;
 }

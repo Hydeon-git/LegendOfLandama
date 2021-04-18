@@ -433,15 +433,15 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(enemy3);
 	app->entityManager->DestroyEntity(particles);
 
-	delete btnResume;
-	delete btnSettings;
-	delete btnBackIntro;
-	delete btnExit;
-	//delete btnBack;
-	//delete sliderMusicVolume;
-	//delete sliderFxVolume;
-	//delete checkBoxFullscreen;
-	//delete checkBoxVSync;
+	RELEASE(btnResume);
+	RELEASE(btnSettings);
+	RELEASE(btnBackIntro);
+	RELEASE(btnExit);
+	//RELEASE(btnBack);
+	//RELEASE(sliderMusicVolume);
+	//RELEASE(sliderFxVolume);
+	//RELEASE(checkBoxFullscreen);
+	//RELEASE(checkBoxVSync);
 
 
 	return true;

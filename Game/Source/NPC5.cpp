@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneBattle.h"
 #include "Player.h"
 #include "NPC5.h"
 #include "ModuleParticles.h"
@@ -101,65 +102,74 @@ bool NPC5::Start()
 
 bool NPC5::Update(float dt)
 {
-	if (!app->scene->player->doorTakedX)
+	if (app->sceneBattle->battleOn)
 	{
-		if(app->scene->player->lastPositionX!=0) position.x = app->scene->player->lastPositionX;
-		//app->scene->player->doorTakedY = false;
-	}
-	if(!app->scene->player->doorTakedY)
-	{
-		if (app->scene->player->lastPositionY != 0) {
-			position.y = app->scene->player->lastPositionY - 5;
-		}
-		app->scene->player->doorTakedX = false;
+	position.x = 100;
+	position.y = 100;
 
 	}
-
-	if (app->scene->player->doorTakedX)
+	else
 	{
-		position.x = app->scene->player->lastPositionX2;	
-		if (app->scene->player->posMovedX >= 24)
+		if (!app->scene->player->doorTakedX)
 		{
-			app->scene->player->posMovedX = 0;
+			if (app->scene->player->lastPositionX != 0) position.x = app->scene->player->lastPositionX;
+			//app->scene->player->doorTakedY = false;
+		}
+		if (!app->scene->player->doorTakedY)
+		{
+			if (app->scene->player->lastPositionY != 0) {
+				position.y = app->scene->player->lastPositionY - 5;
+			}
 			app->scene->player->doorTakedX = false;
-		}
-	}
-	if (app->scene->player->doorTakedY)
-	{
-		position.y = app->scene->player->lastPositionY2 - 5;
-		if (app->scene->player->posMovedY >= 24)
-		{
-			app->scene->player->posMovedY = 0;
-			app->scene->player->doorTakedY = false;
-		}
-	}
-
-
-
-	if (!app->scene->player->doorTakedX || !app->scene->player->doorTakedY)
-	{
-		if (app->scene->player->lastPositionX < app->scene->player->lastPosX[23])
-		{
-			currentAnimation = &rightAnim;
-		}
-		else if (app->scene->player->lastPositionX > app->scene->player->lastPosX[23])
-		{
-			currentAnimation = &leftAnim;
-		}
-		else if (app->scene->player->lastPositionY > app->scene->player->lastPosY[23])
-		{
-			currentAnimation = &upAnim;
-		}
-		else if (app->scene->player->lastPositionY < app->scene->player->lastPosY[23])
-		{
-			currentAnimation = &rightAnim;
-		}
-		else
-		{
-			currentAnimation = &idlAnim;
 
 		}
 
+		if (app->scene->player->doorTakedX)
+		{
+			position.x = app->scene->player->lastPositionX2;
+			if (app->scene->player->posMovedX >= 24)
+			{
+				app->scene->player->posMovedX = 0;
+				app->scene->player->doorTakedX = false;
+			}
+		}
+		if (app->scene->player->doorTakedY)
+		{
+			position.y = app->scene->player->lastPositionY2 - 5;
+			if (app->scene->player->posMovedY >= 24)
+			{
+				app->scene->player->posMovedY = 0;
+				app->scene->player->doorTakedY = false;
+			}
+		}
+
+
+
+		if (!app->scene->player->doorTakedX || !app->scene->player->doorTakedY)
+		{
+			if (app->scene->player->lastPositionX < app->scene->player->lastPosX[23])
+			{
+				currentAnimation = &rightAnim;
+			}
+			else if (app->scene->player->lastPositionX > app->scene->player->lastPosX[23])
+			{
+				currentAnimation = &leftAnim;
+			}
+			else if (app->scene->player->lastPositionY > app->scene->player->lastPosY[23])
+			{
+				currentAnimation = &upAnim;
+			}
+			else if (app->scene->player->lastPositionY < app->scene->player->lastPosY[23])
+			{
+				currentAnimation = &rightAnim;
+			}
+			else
+			{
+				currentAnimation = &idlAnim;
+
+			}
+
+		}
 	}
 
 
@@ -186,6 +196,15 @@ bool NPC5::CleanUp()
 
 void NPC5::NPC5InitialPosition()
 {
-	position.x = app->scene->player->lastPositionX;
-	position.y = app->scene->player->lastPositionY-5;
+
+	if (app->sceneBattle->battleOn)
+	{
+		position.x = 100;
+		position.y = 100;
+	}
+	else 
+	{
+		position.x = app->scene->player->lastPositionX;
+		position.y = app->scene->player->lastPositionY - 5;
+	}
 }

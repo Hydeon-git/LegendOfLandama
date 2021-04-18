@@ -12,6 +12,7 @@ class Player;
 class Enemy1;
 class Enemy2;
 class Enemy3;
+class NPC5;
 
 class SceneBattle : public Module
 {
@@ -50,6 +51,7 @@ public:
 	Enemy1* enemy1;
 	Enemy2* enemy2;
 	Enemy3* enemy3;
+	NPC5* npc5;
 
 private:
 
