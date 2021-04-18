@@ -10,8 +10,8 @@ GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	this->bounds = bounds;
 	this->boundsSlider = this->bounds;
 	this->text = text;
-	this->minValue = boundsSlider.x - 48;
-	this->maxValue = this->minValue + 290;
+	this->minValue = boundsSlider.x - 16;
+	this->maxValue = this->minValue + 96;
 	ChangeValue();
 
 	guiButtonFx = app->audio->LoadFx("Assets/Audio/Fx/gui_button_fx.wav");
@@ -24,7 +24,7 @@ GuiSlider::~GuiSlider()
 bool GuiSlider::Update(float dt)
 {
 	this->minValue = bounds.x - (this->value);
-	this->maxValue = bounds.x + ((280 - this->value));
+	this->maxValue = bounds.x + ((93 - this->value));
 
 	if (state != GuiControlState::DISABLED)
 	{
@@ -60,12 +60,11 @@ bool GuiSlider::Update(float dt)
 
 bool GuiSlider::Draw()
 {
-	SDL_Rect rect = { boundsSlider.x - 50, boundsSlider.y - 1, 300, 30 };
+	SDL_Rect rect = { boundsSlider.x - 16, boundsSlider.y - 1, 100, 10 };
 	app->render->DrawRectangle({ rect.x - 2, rect.y - 2,rect.w + 4,rect.h + 4 }, 20, 20, 20);
 	app->render->DrawRectangle(rect, 0, 220, 120, 255);
 
-	app->font->DrawText((boundsSlider.x + (app->render->camera.x) - 450) / app->win->GetScale(), (boundsSlider.y + (app->render->camera.y) - 2) / app->win->GetScale(), 0, text.GetString());
-
+	
 	switch (state)
 	{
 	case GuiControlState::DISABLED: app->render->DrawRectangle(bounds, 100, 100, 100, 255);
@@ -81,6 +80,8 @@ bool GuiSlider::Draw()
 	default:
 		break;
 	}
+
+	app->font->DrawText((boundsSlider.x + (app->render->camera.x) - 150) / app->win->GetScale(), (boundsSlider.y + (app->render->camera.y) - 2) / app->win->GetScale(), 0, text.GetString());
 
 	if (app->scene->guiColliders && app->scene->pausedSettings)
 	{

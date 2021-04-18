@@ -33,7 +33,7 @@
 	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="6"/>
 	</node>
     <node text="Bye!" id="8">
-	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="6"/>
+	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="8"/>
 	</node>    
   </NPC>
   

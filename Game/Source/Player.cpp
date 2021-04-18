@@ -412,45 +412,49 @@ bool Player::PostUpdate()
 
 void Player::CheckDoor()
 {
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	door;
-	
-	while (layer != NULL)
+	if (!godModeEnabled)
 	{
-		if (layer->data->name == "colliders" && layer != NULL)
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
-				door = layer->data->Get(tilePosition.x, tilePosition.y);
-			}
-		}
-		layer = layer->next;
-	}
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		door;
 
+		while (layer != NULL)
+		{
+			if (layer->data->name == "colliders" && layer != NULL)
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
+					door = layer->data->Get(tilePosition.x, tilePosition.y);
+				}
+			}
+			layer = layer->next;
+		}
+	}
 
 }
 
 void Player::CheckHouseDoor()
 {
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	houseDoor;
-
-	while (layer != NULL)
+	if (!godModeEnabled)
 	{
-		if (layer->data->name == "colliders")
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight/2);
-				houseDoor = layer->data->Get(tilePosition.x, tilePosition.y);
-			}
-		}
-		layer = layer->next;
-	}
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		houseDoor;
 
+		while (layer != NULL)
+		{
+			if (layer->data->name == "colliders")
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight / 2);
+					houseDoor = layer->data->Get(tilePosition.x, tilePosition.y);
+				}
+			}
+			layer = layer->next;
+		}
+	}
 
 }
 
@@ -817,21 +821,25 @@ bool Player::TakeCheckpoint()
 bool Player::ThereIsDoor()
 {
 	bool valid = false;
-	iPoint tilePosition;
-	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int groundId;
-	while (layer != NULL)
+	if (!godModeEnabled)
 	{
-		if (layer->data->properties.GetProperty("Navigation") == 0)
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int groundId;
+
+		while (layer != NULL)
 		{
-			for (int i = 0; i < 4; ++i)
+			if (layer->data->properties.GetProperty("Navigation") == 0)
 			{
-				tilePosition = app->map->WorldToMap(position.x, position.y + 21 + i * 16);
-				groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (groundId == COLLIDER_GREEN) valid = true;
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x, position.y + 21 + i * 16);
+					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (groundId == COLLIDER_GREEN) valid = true;
+				}
 			}
+			layer = layer->next;
 		}
-		layer = layer->next;
 	}
 	return valid;
 

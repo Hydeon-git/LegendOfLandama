@@ -67,20 +67,21 @@ bool SceneIntro::Start()
 	btnExit = new GuiButton(4, { 80, 390, 36, 10 }, "EXIT");
 	btnExit->SetObserver(this);
 	
-	/*btnBackOptions = new GuiButton(5, { 180, 400, 48, 16 }, "BACK");
+	btnBackOptions = new GuiButton(5, { 120, 400, 36, 10 }, "BACK");
 	btnBackOptions->SetObserver(this);
 
-	sliderMusicVolume = new GuiSlider(1, { 725, 950, 10, 28 }, "MUSIC VOLUME");
-	sliderMusicVolume->SetObserver(this);
-	
-	sliderFxVolume = new GuiSlider(2, { 725, 1000, 10, 28 }, " FX VOLUME");
-	sliderFxVolume->SetObserver(this);
+	//sliderMusicVolume = new GuiSlider(1, { 200, 300, 2, 5 }, "MUSIC VOLUME");
+	//sliderMusicVolume->SetObserver(this);
 
-	checkBoxFullscreen = new GuiCheckBox(1, { 675, 1050, 40, 40 }, "FULLSCREEN");
+	//sliderFxVolume = new GuiSlider(2, { 200, 330, 2, 5 }, " FX VOLUME");
+	//sliderFxVolume->SetObserver(this);
+
+	checkBoxFullscreen = new GuiCheckBox(1, { 190, 340, 15, 15 }, "FULLSCREEN");
 	checkBoxFullscreen->SetObserver(this);
 
-	checkBoxVSync = new GuiCheckBox(2, { 675,1105,40,40 }, "   VSYNC");
+	/*checkBoxVSync = new GuiCheckBox(2, { 225,370,10,10 }, "   VSYNC");
 	checkBoxVSync->SetObserver(this);*/
+
 	return ret;
 }
 
@@ -94,19 +95,21 @@ bool SceneIntro::Update(float dt)
 	}
 	else if (count > 200)
 	{		
-		/*if (options == true)
+		if (options == true)
 		{
-			sliderMusicVolume->Update(dt);
-			sliderFxVolume->Update(dt);
-			btnExit->Update(dt);
+			//sliderMusicVolume->Update(dt);
+			//sliderFxVolume->Update(dt);
 			btnBackOptions->Update(dt);
 			checkBoxFullscreen->Update(dt);
-			checkBoxVSync->Update(dt);
-		}*/
-		btnStart->Update(dt);
-		btnContinue->Update(dt);
-		btnOptions->Update(dt);
-		btnExit->Update(dt);		
+			//checkBoxVSync->Update(dt);
+		}
+		else
+		{
+			btnStart->Update(dt);
+			btnContinue->Update(dt);
+			btnOptions->Update(dt);
+			btnExit->Update(dt);
+		}
 	}
 	return true;
 }
@@ -123,24 +126,24 @@ bool SceneIntro::PostUpdate()
 	{
 		app->render->DrawTexture(introText, 0, 555, fullscreenRect, 3);
 
-		/*if (options == true)
+		if (options == true)
 		{
-			sliderMusicVolume->Draw();
-			sliderFxVolume->Draw();
+			//sliderMusicVolume->Draw();
+			//sliderFxVolume->Draw();
 			btnBackOptions->Draw();
-			btnExit->Draw();
+			//btnExit->Draw();
 			checkBoxFullscreen->Draw();
-			checkBoxVSync->Draw();
-		}*/
-		/*else
-		{*/
+			//checkBoxVSync->Draw();
+		}
+		else
+		{
 			btnStart->Draw();
 			btnContinue->Draw();
 			if (!posContinue || app->sceneWin->won || app->sceneLose->lost) btnContinue->state = GuiControlState::DISABLED;
 			else if (posContinue) btnContinue->state = GuiControlState::NORMAL;
 			btnOptions->Draw();
 			btnExit->Draw();
-		//}
+		}
 	}
 
 	return ret;
@@ -159,10 +162,10 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else if (control->id == 2) app->fadeToBlack->FadeToBlk(this, app->scene, 30);
 
-		/*else if (control->id == 3)
+		else if (control->id == 3)
 		{
 			options = true;
-		}*/
+		}
 		else if (control->id == 4)
 		{
 			if (app->scene->player != nullptr)
@@ -178,13 +181,14 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 			btnOptions->state = GuiControlState::NORMAL;
 			options = false;
 		}
+		break;
 	}
 	/*case GuiControlType::SLIDER:
 	{
 		if (control->id == 1) app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
 		else if (control->id == 2) app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
 		break;
-	}
+	}*/
 	case GuiControlType::CHECKBOX:
 	{
 		if (control->id == 1)
@@ -192,9 +196,9 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 			app->win->fullScreen = !app->win->fullScreen;
 			app->win->ChangeScreenSize();
 		}
-		else if (control->id == 2) app->vSync = !app->vSync;
+		//else if (control->id == 2) app->vSync = !app->vSync;
 		break;
-	}*/
+	}
 	default: break;
 	}
 
