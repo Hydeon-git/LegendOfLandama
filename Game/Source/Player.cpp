@@ -328,7 +328,7 @@ bool Player::Update(float dt)
 			{
 				dialogeOn = false;
 			}
-			if(ThereIsEnemy())
+			if(ThereIsEnemy() || app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 			{
 				app->sceneBattle->battleOn = true;
 				app->fadeToBlack->FadeToBlk(app->scene, app->sceneBattle, 30);

@@ -75,6 +75,7 @@ bool SceneBattle::Start()
 		battleOn = true;
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
+		blackFont = app->font->Load("Assets/Textures/black_font_mini.png", lookupTable, 1);
 
 		btnAttack = new GuiButton(1, { 20, 180, 80, 15 }, "Heroine");
 		btnAttack->SetObserver(this);
@@ -107,6 +108,14 @@ bool SceneBattle::PostUpdate()
 	app->render->DrawTexture(battletext, 0, 0, fullscreenRect, 3);
 	app->render->DrawRectangle({ 0, 510, 1280, 210 }, 0, 0, 0, 220, true, false);
 	app->render->DrawRectangle({ 10, 520, 1260, 190 }, 100, 100, 200, 220, true, false);
+
+	app->font->DrawText(15, 180, blackFont, "NAME");
+
+	app->font->DrawText(110, 180, blackFont, "ACTION");
+
+	app->font->DrawText(280, 180, blackFont, "HP");
+
+
 
 	btnAttack->Draw();
 	btnDefense->Draw();

@@ -67,6 +67,8 @@ private:
 
 	int whiteFont = -1;
 
+	int blackFont = -1;
+
 	int count = 0;
 };
 
