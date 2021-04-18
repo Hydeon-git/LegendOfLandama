@@ -32,8 +32,10 @@ NPC5::NPC5() : Entity(EntityType::NPC5)
 		position.y = 110;
 	}
 	else {
-		position.x = app->scene->player->lastPositionX;
-		position.y = app->scene->player->lastPositionY - 5;
+		//position.x = app->scene->player->lastPositionX;
+		//position.y = app->scene->player->lastPositionY - 5;
+		position.x = 200-30;
+		position.y = 100;
 	}
 	//idlanim
 	idlAnim.PushBack({ 0, 0, 15, 23 });

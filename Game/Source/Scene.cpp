@@ -66,12 +66,12 @@ bool Scene::Start()
 		app->dialogueSystem->id = 0;
 
 		// Loads entities
-		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);		
 		npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
 		enemy1 = (Enemy1*)app->entityManager->CreateEntity(EntityType::Enemy1);
 		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
 		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
+		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 
 		// Starts entities that are on the TOWN
 		

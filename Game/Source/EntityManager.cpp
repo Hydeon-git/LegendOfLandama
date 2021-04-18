@@ -51,6 +51,8 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	switch (type)
 	{
 		// L13: Create the corresponding type entity
+		case EntityType::NPC5: ret = new NPC5();  break;
+
 		case EntityType::PLAYER: ret = new Player();  break;
 		case EntityType::ENEMY: ret = new Enemy();  break;
 		case EntityType::FLYING_ENEMY: ret = new FlyingEnemy();  break;
@@ -59,7 +61,6 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		case EntityType::NPC2: ret = new NPC2();  break;
 		case EntityType::NPC3: ret = new NPC3();  break;
 		case EntityType::NPC4: ret = new NPC4();  break;
-		case EntityType::NPC5: ret = new NPC5();  break;
 		case EntityType::Enemy1: ret = new Enemy1();  break;
 		case EntityType::Enemy2: ret = new Enemy2();  break;
 		case EntityType::Enemy3: ret = new Enemy3();  break;
