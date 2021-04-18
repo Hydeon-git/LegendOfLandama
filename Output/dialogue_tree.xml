@@ -9,16 +9,32 @@
     </node>
     <node text="I@m collecting shells from the beach."  id="1">
       <dialogue option="1: What are those for?" returnCode="0" nextNode="2"/>
-      <dialogue option="2: Losing time huh?" returnCode="0" nextNode="4"/>
+      <dialogue option="2: Losing time huh?" returnCode="0" nextNode="7"/>
     </node>
 	<node text="I@m making a necklace for mommy!" id="2">
       <dialogue option="1: That@s very cool! She@ll love it!" returnCode="0" nextNode="3"/>
     </node>
     <node text="I@m leaving now, see you!" id="3">
-      <dialogue option="1: Bye!" returnCode="0" nextNode="5"/>
+      <dialogue option="1: Bye!" returnCode="0" nextNode="8"/>
     </node>
-    <node text="Uh? I@m going home..." id="4"></node>    
-    <node text="Bye!" id="5"></node>    
+	<node text="Hello kind stranger." id="4">
+      <dialogue option="1: Do you know where the Inn is?" returnCode="0" nextNode="5"/>
+      <dialogue option="2: Do you know where the Blacksmith is?" returnCode="0" nextNode="6"/>
+    </node>
+	<node text="You can find the Inn at the town center." id="5">
+      <dialogue option="1: Thanks!" returnCode="0" nextNode="8"/>	  
+      <dialogue option="2: Do you know where is the Blacksmith?" returnCode="0" nextNode="6"/>
+    </node>
+	<node text="You can find it on the north-east." id="6">
+      <dialogue option="1: Thanks!" returnCode="0" nextNode="8"/>
+      <dialogue option="2: Do you know where is the Inn?" returnCode="0" nextNode="5"/>
+    </node>
+    <node text="Uh? *snif* I@m going home..." id="7">
+	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="6"/>
+	</node>
+    <node text="Bye!" id="8">
+	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="6"/>
+	</node>    
   </NPC>
   
   <!-- Blacksmith -->
@@ -28,7 +44,7 @@
       <dialogue option="2: Just looking. Thank you." returnCode="0" nextNode="4"/>
     </node>
     <node text="I@m the blacksmith of Landama!"  id="1">
-      <dialogue option="1: That@s great! Maybe I need you someday." returnCode="0" nextNode="3"/>
+      <dialogue option="1: Cool! Maybe I need you someday." returnCode="0" nextNode="3"/>
       <dialogue option="2: I@m not really interested." returnCode="0" nextNode="2"/>
     </node>
 	<node text="If you need anything, come to see me." id="2">
@@ -37,7 +53,9 @@
     <node text="I will be waiting for you then!" id="3">
       <dialogue option="1: Bye!" returnCode="0" nextNode="4"/>
     </node>
-    <node text="Goodbye! Take care." id="4"></node>    
+    <node text="Goodbye! Take care." id="4">
+	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
+	</node>    
   </NPC>
   
   <!-- Fisherman -->
@@ -53,7 +71,9 @@
     <node text="Get out of here before I kill you!" id="2">
       <dialogue option="1: Bye!" returnCode="0" nextNode="3"/>
     </node>
-    <node text="Young people don@t have any respect..." id="3"></node>    
+    <node text="Young people don@t have any respect..." id="3">
+	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
+	</node>    
   </NPC>
   
   <!-- Posadera -->
@@ -64,12 +84,17 @@
       <dialogue option="3: Bye" returnCode="0" nextNode="3"/>
     </node>
 	<node text="Perfect! That will be 2 gold coins"  id="1">
-      <dialogue option="1: Here. (Give her 2 gold coins)" returnCode="0" nextNode="3"/>
+      <dialogue option="1: Here. (Give her 2 gold coins)" returnCode="0" nextNode="4"/>
       <dialogue option="2: You know, I think I@m gonna pass." returnCode="0" nextNode="3"/>
     </node>
 	<node text="The knights are searching for a mercenary."  id="2">
       <dialogue option="1: That@s helpful, thanks." returnCode="0" nextNode="3"/>
     </node>	
-	<node text="Okay, see you!"  id="3"></node>
+	<node text="Okay, see you!"  id="3">
+	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
+	</node>
+	<node text="Have a nice rest."  id="4">
+	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
+	</node>	
   </NPC>
 </dialogueTree>
