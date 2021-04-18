@@ -68,6 +68,11 @@ public:
 	void CheckDoor();
 	void CheckHouseDoor();
 
+	bool doorTakedX = false;
+	bool doorTakedY = false;
+	int posMovedX = 0;
+	int posMovedY = 0;
+
 	Animation* currentAnimation = nullptr;
 
 	Animation idlAnim;
@@ -99,10 +104,12 @@ public:
 
 
 	int lastPosX[25] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x};
-	int lastPosY[20] = { position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y };
+	int lastPosY[25] = { position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y };
 
 	int lastPositionX;
-	int lastPositionY;
+	int lastPositionY;	
+	int lastPositionX2;
+	int lastPositionY2;
 
 private:
 	float speed = 1.0f;

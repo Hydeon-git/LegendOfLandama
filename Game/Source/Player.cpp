@@ -32,6 +32,10 @@ Player::Player() : Entity(EntityType::PLAYER)
 	{
 		position.x = 200;
 		position.y = 100;
+
+		lastPositionX2 = 200;
+		lastPositionY2 = 100;
+
 		app->sceneIntro->startClicked = false;
 		app->sceneIntro->posContinue = false;
 		app->sceneWin->won = false;
@@ -151,7 +155,8 @@ bool Player::Start()
 
 		lastPositionX = position.x;
 		lastPositionY = position.y;
-		
+		doorTakedX = true;
+		doorTakedY = true;
 	}
 
 	return true;
@@ -180,18 +185,19 @@ bool Player::Update(float dt)
 					{
 						position.y -= speed;
 						currentAnimation = &upAnim;
-						
-						for (int i = 0; i < 20; i++)
+						if (doorTakedY) posMovedY++;
+
+						for (int i = 0; i < 25; i++)
 						{
-							if (i == 19) {
+							if (i == 24) {
 								lastPosY[0] = position.y;
 							}
 							else
 							{
-								lastPosY[19 - i] = lastPosY[18 - i];
+								lastPosY[24 - i] = lastPosY[23 - i];
 							}
 						}
-						if(lastPosY!=0) lastPositionY = lastPosY[19];
+						if(lastPosY!=0) lastPositionY = lastPosY[24];
 
 						for (int i = 0; i < 25; i++)
 						{
@@ -213,17 +219,19 @@ bool Player::Update(float dt)
 					{
 						position.y += speed;
 						currentAnimation = &leftAnim;
-						for (int i = 0; i < 20; i++)
+						if (doorTakedY) posMovedY++;
+
+						for (int i = 0; i < 25; i++)
 						{
-							if (i == 19) {
+							if (i == 24) {
 								lastPosY[0] = position.y;
 							}
 							else
 							{
-								lastPosY[19 - i] = lastPosY[18 - i];
+								lastPosY[24 - i] = lastPosY[23 - i];
 							}
 						}
-						if (lastPosY != 0) lastPositionY = lastPosY[19];
+						if (lastPosY != 0) lastPositionY = lastPosY[24];
 
 						for (int i = 0; i < 25; i++)
 						{
@@ -247,17 +255,18 @@ bool Player::Update(float dt)
 					{
 						position.x -= speed;
 						currentAnimation = &leftAnim;
-						for (int i = 0; i < 20; i++)
+						if (doorTakedX) posMovedX++;
+						for (int i = 0; i < 25; i++)
 						{
-							if (i == 19) {
+							if (i == 24) {
 								lastPosY[0] = position.y;
 							}
 							else
 							{
-								lastPosY[19 - i] = lastPosY[18 - i];
+								lastPosY[24 - i] = lastPosY[23 - i];
 							}
 						}
-						if (lastPosY != 0) lastPositionY = lastPosY[19];
+						if (lastPosY != 0) lastPositionY = lastPosY[24];
 
 						for (int i = 0; i < 25; i++)
 						{
@@ -279,17 +288,18 @@ bool Player::Update(float dt)
 					{
 						position.x += speed;
 						currentAnimation = &rightAnim;
-						for (int i = 0; i < 20; i++)
+						if(doorTakedX) posMovedX++;
+						for (int i = 0; i < 25; i++)
 						{
-							if (i == 19) {
+							if (i == 24) {
 								lastPosY[0] = position.y;
 							}
 							else
 							{
-								lastPosY[19 - i] = lastPosY[18 - i];
+								lastPosY[24 - i] = lastPosY[23 - i];
 							}
 						}
-						if (lastPosY != 0) lastPositionY = lastPosY[19];
+						if (lastPosY != 0) lastPositionY = lastPosY[24];
 
 						for (int i = 0; i < 25; i++)
 						{
@@ -349,10 +359,12 @@ bool Player::Update(float dt)
 		if (app->scene->currentScene == GameScene::SCENE_TOWN)
 		{
 			CheckDoor();
+	
 		}
 		if (app->scene->currentScene == GameScene::SCENE_BSMITH ||app->scene->currentScene == GameScene::SCENE_HOUSE1 ||app->scene->currentScene == GameScene::SCENE_INN)
 		{
 			CheckHouseDoor();
+
 		}
 
 		if (shotCountdown > 0) --shotCountdown;
@@ -402,6 +414,7 @@ void Player::CheckDoor()
 	iPoint tilePosition;
 	ListItem<MapLayer*>* layer = app->map->data.layers.start;
 	door;
+	
 	while (layer != NULL)
 	{
 		if (layer->data->name == "colliders" && layer != NULL)
@@ -414,6 +427,8 @@ void Player::CheckDoor()
 		}
 		layer = layer->next;
 	}
+
+
 }
 
 void Player::CheckHouseDoor()
@@ -421,6 +436,7 @@ void Player::CheckHouseDoor()
 	iPoint tilePosition;
 	ListItem<MapLayer*>* layer = app->map->data.layers.start;
 	houseDoor;
+
 	while (layer != NULL)
 	{
 		if (layer->data->name == "colliders")
@@ -433,6 +449,8 @@ void Player::CheckHouseDoor()
 		}
 		layer = layer->next;
 	}
+
+
 }
 
 bool Player::ThereIsTopWall()
