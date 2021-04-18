@@ -158,8 +158,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {	
-	//View Colliders
-	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
+	//View Colliders	
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
 		// Print colliders manually implemented
@@ -205,21 +204,9 @@ bool Scene::Update(float dt)
 		houseClosed = true;
 	}
 
-
-
 	// Request Load / Save when pressing F6/F5
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
-
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
-
-
-
-	/*if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-	{
-		app->sceneBattle->battleOn = true;
-		app->fadeToBlack->FadeToBlk(this, app->sceneBattle, 30);
-	}*/
-
 
 	//SceneWin
 	if (player->win)
@@ -240,15 +227,6 @@ bool Scene::Update(float dt)
 			Pause();
 		}
 	}
-
-	/*if (paused && pausedSettings)
-	{
-		sliderMusicVolume->Update(dt);
-		sliderFxVolume->Update(dt);
-		checkBoxFullscreen->Update(dt);
-		checkBoxVSync->Update(dt);
-		btnBack->Update(dt);
-	}*/
 	else if (!pausedSettings && paused)
 	{
 		btnResume->Update(dt);
@@ -364,7 +342,6 @@ bool Scene::PostUpdate()
 		houseClosed = false;
 	}
 
-
 	// Pause Menu
 	/*if (pausedSettings)
 	{
@@ -384,42 +361,7 @@ bool Scene::PostUpdate()
 		btnBackIntro->Draw();
 		btnExit->Draw();
 	}
-
-	if (!paused)
-	{
-		seconds++;
-		if (seconds == 60) 
-		{
-			timer++;
-			seconds = 0;
-		}
-	}
-	sprintf_s(timerText, 10, "%d", timer);
-	if (timer < 10) app->font->DrawText(1236, 10, whiteFont, timerText);
-	else if (timer < 100) app->font->DrawText(1206, 10, whiteFont, timerText);
-	else if (timer < 1000) app->font->DrawText(1174, 10, whiteFont, timerText);
-	else app->font->DrawText(1145, 10, whiteFont, timerText);
-
-	// GUI Colliders
-	if (guiColliders)
-	{
-		app->render->DrawRectangle({ -app->render->camera.x + 1100, -app->render->camera.y+10 ,40,35 }, 0, 0, 100, 100);
-
-		if (timer < 10) app->render->DrawRectangle({ -app->render->camera.x + 1235, -app->render->camera.y + 10 ,35,35 }, 200, 100, 0, 100);
-		else if (timer < 100) app->render->DrawRectangle({ -app->render->camera.x + 1204, -app->render->camera.y + 10 ,70,35 }, 200, 100, 0, 100);
-		else if (timer < 1000) app->render->DrawRectangle({ -app->render->camera.x + 1170, -app->render->camera.y + 10 ,105,35 }, 200, 100, 0, 100);
-		else app->render->DrawRectangle({ -app->render->camera.x + 1137, -app->render->camera.y + 10 ,130,35 }, 200, 100, 0, 100);
-
-		if (player->lifes == 4) app->render->DrawRectangle({ -app->render->camera.x, -app->render->camera.y ,246,56 }, 0, 200, 0, 100);
-		if (player->lifes == 3) app->render->DrawRectangle({ -app->render->camera.x, -app->render->camera.y ,182,56 }, 0, 200, 0, 100);
-		if (player->lifes == 2) app->render->DrawRectangle({ -app->render->camera.x, -app->render->camera.y ,118,56 }, 0, 200, 0, 100);
-		if (player->lifes == 1) app->render->DrawRectangle({ -app->render->camera.x, -app->render->camera.y ,54,56 }, 0, 200, 0, 100);
-
-		if (app->map->keyTaken) app->render->DrawRectangle({ -app->render->camera.x + 10, -app->render->camera.y + 75,32,34 }, 255, 0, 255, 100);
-
-		if (app->map->puzzleTaken && !app->map->chestTaken) app->render->DrawRectangle({ -app->render->camera.x + 70, -app->render->camera.y + 71,40,37 }, 200, 200, 0, 100);
-		if (app->map->chestTaken) app->render->DrawRectangle({ -app->render->camera.x + 70, -app->render->camera.y + 71,40,43 }, 200, 100, 200, 100);
-	}
+	
 	return ret;
 }
 
@@ -452,7 +394,6 @@ bool Scene::CleanUp()
 	//RELEASE(sliderFxVolume);
 	//RELEASE(checkBoxFullscreen);
 	//RELEASE(checkBoxVSync);
-
 
 	return true;
 }

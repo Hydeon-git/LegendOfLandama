@@ -48,8 +48,9 @@ public:
 	Animation rightAnim;
 	Animation leftAnim;
 
-
-
+	// Player Stats
+	int enemy3Dmg = 20;
+	int enemy3Health = 50;
 
 private:
 	float speed = 1.0f;

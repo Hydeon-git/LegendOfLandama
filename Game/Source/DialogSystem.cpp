@@ -16,9 +16,6 @@ bool DialogueSystem::Start()
 {
 	LoadDialogue("dialogue_tree.xml");	
 	currentNode = dialogueTrees[id]->dialogueNodes[0];	
-	
-	char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
-	whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 
 	pointerText = app->tex->Load("Assets/Textures/pointer.png");
 
@@ -95,13 +92,13 @@ bool DialogueSystem::PostUpdate()
 
 			char NPCdialogue[128] = { 0 };
 			sprintf_s(NPCdialogue, 128, currentNode->text.c_str(), 56);
-			app->font->DrawText(15, 178, whiteFont, NPCdialogue);
+			app->font->DrawText(15, 178, app->scene->whiteFont, NPCdialogue);
 
 			char response[128] = { 0 };
 			for (int i = 0; i < currentNode->answersList.Count(); i++)
 			{
 				sprintf_s(response, 128, currentNode->answersList.At(i)->data.c_str(), 56);
-				app->font->DrawText(15, 198 + 14 * i, whiteFont, response);
+				app->font->DrawText(15, 198 + 14 * i, app->scene->whiteFont, response);
 			}
 		}
 	}
@@ -119,7 +116,6 @@ bool DialogueSystem::CleanUp()
 		delete dialogueTrees[i];
 	}
 	dialogueTrees.clear();
-	app->font->UnLoad(whiteFont);
 	app->tex->UnLoad(pointerText);
 	return true;
 }

@@ -62,7 +62,6 @@ bool SceneWin::Start()
 
 bool SceneWin::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
 	btnRestart->Update(dt);
 	btnExit->Update(dt);
 	return true;

@@ -115,6 +115,11 @@ public:
 	int lastPositionX2;
 	int lastPositionY2;
 
+	// Player Stats
+	int playerDmg = 25;
+	int playerHealth = 200;
+	int playerMagicDmg = 15;
+
 private:
 	float speed = 1.0f;
 	float fireBallSpeed = 3.0f;

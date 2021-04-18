@@ -80,6 +80,7 @@ public:
 	Enemy2* enemy2;
 	Enemy3* enemy3;
 
+	int whiteFont = -1;
 
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
@@ -144,9 +145,7 @@ private:
 	bool backIntroPause = false;
 	bool exitPause = false;
 	bool knokDone = false;
-
-
-	int whiteFont = -1;
+		
 	char timerText[10] = { "\0" };
 	
 	int seconds = 0;

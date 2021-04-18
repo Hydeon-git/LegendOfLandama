@@ -87,15 +87,13 @@ bool SceneIntro::Start()
 bool SceneIntro::Update(float dt)
 {
 
-	if (count <= 240) 
+	if (count <= 200) 
 	{
 		count++;
 		app->audio->PlayFx(logoFx, 0);
 	}
-	else if (count > 240)
-	{
-		if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) guiColliders = !guiColliders;
-
+	else if (count > 200)
+	{		
 		/*if (options == true)
 		{
 			sliderMusicVolume->Update(dt);
@@ -105,13 +103,10 @@ bool SceneIntro::Update(float dt)
 			checkBoxFullscreen->Update(dt);
 			checkBoxVSync->Update(dt);
 		}*/
-		else
-		{
-			btnStart->Update(dt);
-			btnContinue->Update(dt);
-			btnOptions->Update(dt);
-			btnExit->Update(dt);
-		}
+		btnStart->Update(dt);
+		btnContinue->Update(dt);
+		btnOptions->Update(dt);
+		btnExit->Update(dt);		
 	}
 	return true;
 }
@@ -122,9 +117,9 @@ bool SceneIntro::PostUpdate()
 	bool ret = true;
 	if (exit == true) ret = false;
 
-	if (count <= 240) app->render->DrawTexture(logoText, 0, 555, fullscreenRect, 3);
+	if (count <= 200) app->render->DrawTexture(logoText, 0, 555, fullscreenRect, 3);
 
-	else if (count > 240)
+	else if (count > 200)
 	{
 		app->render->DrawTexture(introText, 0, 555, fullscreenRect, 3);
 

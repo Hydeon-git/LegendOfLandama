@@ -49,8 +49,10 @@ public:
 	Animation leftAnim;
 	Animation upAnim;
 
-
-
+	// NPC5 Mage Stats
+	int mageDmg = 10;
+	int mageHealth = 120;
+	int mageMagicDmg = 40;
 
 private:
 	float speed = 1.0f;

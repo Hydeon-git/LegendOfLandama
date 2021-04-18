@@ -83,7 +83,6 @@ public:
 	pugi::xml_document	dialogues;
 
 private:
-	int whiteFont = -1;
 	Font* font;
 	Input* input;
 	Render* render;

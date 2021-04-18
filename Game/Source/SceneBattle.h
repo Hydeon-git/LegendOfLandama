@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 
+
 struct SDL_Texture;
 
 class GuiControl;
@@ -36,6 +37,9 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	bool CleanUp() override;
+
+	// Attack Functions
+	void EnemyAttack();
 
 	bool posContinue = false;
 	bool exit = false;
@@ -74,13 +78,32 @@ private:
 	bool mage = false;
 	bool attack = false;
 	bool magic = false;
+
 	bool defense = false;
+	bool hDefense = false;
+	bool mDefense = false;
 
 	int whiteFont = -1;
 
 	int goldFont = -1;
 
 	int count = 0;
+
+	// Enemy counter
+	int enemyCounter;
+
+	// Characters turns counters
+	int heroineCounter;
+	int mageCounter;
+
+	// Player HP display
+	char heroineHpText[10] = { "\0" };
+	char mageHpText[10] = { "\0" };
+
+	// Enemy HP display
+	char enemy1HpText[10] = { "\0" };
+	char enemy2HpText[10] = { "\0" };
+	char enemy3HpText[10] = { "\0" };
 };
 
 
