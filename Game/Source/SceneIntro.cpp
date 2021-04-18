@@ -48,6 +48,7 @@ bool SceneIntro::Start()
 	app->sceneLose->Disable();
 	app->sceneWin->Disable();
 	app->audio->PlayMusic("Assets/Audio/Music/start.ogg");
+	logoFx = app->audio->LoadFx("Assets/Audio/Fx/logoFx.wav");
 	app->render->camera.x = 0;
 	app->render->camera.y = -555;
 
@@ -85,9 +86,11 @@ bool SceneIntro::Start()
 
 bool SceneIntro::Update(float dt)
 {
+
 	if (count <= 240) 
 	{
 		count++;
+		app->audio->PlayFx(logoFx, 0);
 	}
 	else if (count > 240)
 	{

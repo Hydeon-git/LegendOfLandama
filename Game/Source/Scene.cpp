@@ -196,9 +196,10 @@ bool Scene::Update(float dt)
 		player->houseDoor = 0;
 	}
 
-	if (player->ThereIsHouseClosed())
+	if (player->ThereIsHouseClosed() && !knokDone)
 	{
 		app->audio->PlayFx(doorKnokFx, 0);
+		knokDone = true;
 	}
 
 
@@ -346,14 +347,15 @@ bool Scene::PostUpdate()
 		app->font->DrawText(90, 205, whiteFont, "This road is too dangerous.");
 		app->font->DrawText(90, 220, whiteFont, "  Go back to the village.");
 	}
+
 	if (player->ThereIsHouseClosed())
 	{
 		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
 		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 		app->font->DrawText(110, 205, whiteFont, " This house is closed.");
 		app->font->DrawText(110, 220, whiteFont, "There is no one inside.");
-
 	}
+	else knokDone = false;
 
 	// Pause Menu
 	/*if (pausedSettings)
@@ -365,7 +367,7 @@ bool Scene::PostUpdate()
 		checkBoxVSync->Draw();
 		btnBack->Draw();
 	}*/
-	else if (paused)
+	/*else*/ if (paused)
 	{
 		//app->render->DrawRectangle({ -app->render->camera.x/3 , -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
 		app->render->DrawTexture(texMenu, -app->render->camera.x, -app->render->camera.y, fullscreenRect, 3);

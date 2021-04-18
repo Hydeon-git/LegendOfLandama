@@ -143,6 +143,7 @@ private:
 	bool settingsPause = false;
 	bool backIntroPause = false;
 	bool exitPause = false;
+	bool knokDone = false;
 
 	int whiteFont = -1;
 	char timerText[10] = { "\0" };
@@ -152,6 +153,7 @@ private:
 	uint doorOpenFx = 0;
 	uint doorCloseFx = 0;
 	uint doorKnokFx = 0;
+
 };
 
 #endif // __SCENE_H__

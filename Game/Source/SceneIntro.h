@@ -62,6 +62,8 @@ private:
 
 	SDL_Rect* fullscreenRect;
 
+	uint logoFx = 0;
+
 	int whiteFont = -1;
 
 	int count = 0;
