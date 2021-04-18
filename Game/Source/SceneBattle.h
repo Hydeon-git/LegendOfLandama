@@ -57,6 +57,10 @@ public:
 	Enemy3* enemy3;
 	NPC5* npc5;
 
+	bool enemy1Dead = false;
+	bool enemy2Dead = false;
+	bool enemy3Dead = false;
+
 private:
 
 	SString name;
@@ -83,6 +87,8 @@ private:
 	bool hDefense = false;
 	bool mDefense = false;
 
+	int enemiesAlive = 3;
+
 	int whiteFont = -1;
 
 	int goldFont = -1;
@@ -104,6 +110,10 @@ private:
 	char enemy1HpText[10] = { "\0" };
 	char enemy2HpText[10] = { "\0" };
 	char enemy3HpText[10] = { "\0" };
+
+	uint hitEnemyFx = 0;
+	uint magicEnemyFx = 0;
+
 };
 
 

@@ -72,6 +72,8 @@ bool SceneBattle::Start()
 		heroineCounter = 1;
 		mageCounter = 1;
 
+		enemyCounter = 0;
+
 		//introText = app->tex->Load("Assets/Textures/portada.png");
 		app->audio->PlayMusic("Assets/Audio/Music/battle_theme.ogg");
 		battletext = app->tex->Load("Assets/Textures/battleback.png");
@@ -85,6 +87,9 @@ bool SceneBattle::Start()
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 		goldFont = app->font->Load("Assets/Textures/gold_font_mini.png", lookupTable, 1);
+		hitEnemyFx = app->audio->LoadFx("Assets/Audio/Fx/hitEnemy.wav");
+		magicEnemyFx = app->audio->LoadFx("Assets/Audio/Fx/magic.wav");
+
 
 		btnHeroine = new GuiButton(1, { 25, 200, 60, 15 }, "Heroine");
 		btnHeroine->SetObserver(this);
@@ -110,7 +115,7 @@ bool SceneBattle::Start()
 
 bool SceneBattle::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+	if (enemiesAlive == 0)
 	{
 		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
 		battleOn = false;
@@ -131,9 +136,54 @@ bool SceneBattle::Update(float dt)
 		btnEnemy3->Update(dt);
 	}
 
+
 	if (heroineCounter == 0 && mageCounter == 0)
 	{
-		EnemyAttack();
+		
+		enemyCounter++;
+		if (enemiesAlive == 3)
+		{
+			if (enemyCounter == 150)
+			{
+				EnemyAttack();
+			}
+			if (enemyCounter == 250)
+			{
+				EnemyAttack();
+			}
+			if (enemyCounter == 350)
+			{
+				EnemyAttack();
+				enemyCounter = 0;
+				heroineCounter = 1;
+				mageCounter = 1;
+			}
+		}
+		else if (enemiesAlive == 2)
+		{
+			if (enemyCounter == 150)
+			{
+				EnemyAttack();
+			}
+			if (enemyCounter == 250)
+			{
+				EnemyAttack();
+				enemyCounter = 0;
+				heroineCounter = 1;
+				mageCounter = 1;
+			}
+		}
+		else if (enemiesAlive == 1)
+		{
+			if (enemyCounter == 150)
+			{
+				EnemyAttack();
+				enemyCounter = 0;
+				heroineCounter = 1;
+				mageCounter = 1;
+			}
+		}
+		
 	}
 
 	return true;
@@ -159,21 +209,32 @@ bool SceneBattle::PostUpdate()
 	app->font->DrawText(280, 200, whiteFont, heroineHpText);
 	// Heroine
 	sprintf_s(mageHpText, 10, "%d/120", npc5->mageHealth);
-	app->font->DrawText(320, 220, whiteFont, mageHpText);
+	app->font->DrawText(280, 220, whiteFont, mageHpText);
 	
 	// Print Enemies HP
 	// Enemy Central
-	sprintf_s(enemy1HpText, 10, "%d/100", enemy1->enemy1Health);
-	app->font->DrawText(320, 100, whiteFont, enemy1HpText);
+	if (!enemy1Dead) 
+	{
+		sprintf_s(enemy1HpText, 10, "%d/100", enemy1->enemy1Health);
+		app->font->DrawText(320, 100, whiteFont, enemy1HpText);
+	}
+
 	// Enemy Up
-	sprintf_s(enemy2HpText, 10, "%d/150", enemy2->enemy2Health);
-	app->font->DrawText(335, 75, whiteFont, enemy2HpText);
+	if (!enemy2Dead)
+	{
+		sprintf_s(enemy2HpText, 10, "%d/150", enemy2->enemy2Health);
+		app->font->DrawText(335, 75, whiteFont, enemy2HpText);
+	}
+
 	// Enemy Down
-	sprintf_s(enemy3HpText, 10, "%d/50", enemy3->enemy3Health);
-	app->font->DrawText(335, 120, whiteFont, enemy3HpText);
+	if (!enemy3Dead)
+	{
+		sprintf_s(enemy3HpText, 10, "%d/50", enemy3->enemy3Health);
+		app->font->DrawText(335, 120, whiteFont, enemy3HpText);
+	}
+
 
 	
-
 	btnHeroine->Draw();
 	btnMage->Draw();
 	if (heroine || mage)
@@ -246,7 +307,7 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 			attack = false;
 			magic = false;
 		}
-		else if (control->id == 6)
+		else if (control->id == 6 && !enemy1Dead)
 		{
 			// Enemy Central
 			if (heroine)
@@ -255,12 +316,14 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					enemy1->enemy1Health -= player->playerDmg;
 					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
 					heroineCounter = 0;
 				}
 				else if (magic)
 				{
 					enemy1->enemy1Health -= player->playerMagicDmg;					
 					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
 					heroineCounter = 0;
 				}
 				heroine = false;
@@ -271,12 +334,14 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					enemy1->enemy1Health -= npc5->mageDmg;
 					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
 					mageCounter = 0;
 				}
 				else if (magic)
 				{
 					enemy1->enemy1Health -= npc5->mageMagicDmg;
 					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
 					mageCounter = 0;
 				}
 				mage = false;
@@ -289,9 +354,11 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 			if (enemy1->enemy1Health <= 0)
 			{
 				enemy1->enemy1Health = 0;
+				enemy1Dead = true;
+				enemiesAlive--;
 			}
 		}
-		else if (control->id == 7)
+		else if (control->id == 7 && !enemy2Dead)
 		{
 			// Enemy Up
 			if (heroine)
@@ -300,12 +367,14 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					enemy2->enemy2Health -= player->playerDmg;
 					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
 					heroineCounter = 0;
 				}
 				else if (magic)
 				{
 					enemy2->enemy2Health -= player->playerMagicDmg;
 					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
 					heroineCounter = 0;
 				}
 				heroine = false;
@@ -316,12 +385,14 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					enemy2->enemy2Health -= npc5->mageDmg;
 					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
 					mageCounter = 0;
 				}
 				else if (magic)
 				{
 					enemy2->enemy2Health -= npc5->mageMagicDmg;
 					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
 					mageCounter = 0;
 				}
 				mage = false;
@@ -334,9 +405,11 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 			if (enemy2->enemy2Health <= 0)
 			{
 				enemy2->enemy2Health = 0;
+				enemy2Dead = true;
+				enemiesAlive--;
 			}
 		}
-		else if (control->id == 8)
+		else if (control->id == 8 && !enemy3Dead)
 		{
 			// Enemy Down
 			if (heroine)
@@ -345,12 +418,14 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					enemy3->enemy3Health -= player->playerDmg;
 					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
 					heroineCounter = 0;
 				}
 				else if (magic)
 				{
 					enemy3->enemy3Health -= player->playerMagicDmg;
 					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
 					heroineCounter = 0;
 				}
 				heroine = false;
@@ -361,12 +436,14 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 				{
 					enemy3->enemy3Health -= npc5->mageDmg;
 					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
 					mageCounter = 0;
 				}
 				else if (magic)
 				{
 					enemy3->enemy3Health -= npc5->mageMagicDmg;
 					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
 					mageCounter = 0;
 				}			
 				mage = false;
@@ -378,6 +455,8 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 			if (enemy3->enemy3Health <= 0)
 			{
 				enemy3->enemy3Health = 0;
+				enemy3Dead = true;
+				enemiesAlive--;
 			}
 		}
 	}
@@ -402,7 +481,9 @@ bool SceneBattle::CleanUp()
 
 void SceneBattle::EnemyAttack()
 {	
+
 	int enemyPool = 1 + (rand() % 3);
+
 	int characterPool = 1 + (rand() % 2);
 
 	switch (enemyPool)
@@ -495,9 +576,5 @@ void SceneBattle::EnemyAttack()
 			}
 		} break;
 	}
-
-
-
-	heroineCounter = 1;
-	mageCounter = 1;
+	app->audio->PlayFx(hitEnemyFx, 0);
 }
