@@ -76,10 +76,10 @@ bool SceneBattle::Start()
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 
-		btnAttack = new GuiButton(1, { 20, 180, 80, 15 }, "ATTACK");
+		btnAttack = new GuiButton(1, { 20, 180, 80, 15 }, "Heroine");
 		btnAttack->SetObserver(this);
 
-		btnDefense = new GuiButton(2, { 20, 200, 80, 15 }, "DEFENSE");
+		btnDefense = new GuiButton(2, { 20, 200, 80, 15 }, "Mage");
 		btnDefense->SetObserver(this);
 	}
 	return ret;

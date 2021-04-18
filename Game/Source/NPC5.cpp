@@ -26,9 +26,15 @@
 NPC5::NPC5() : Entity(EntityType::NPC5)
 {
 	name.Create("NPC5");
-	position.x = app->scene->player->lastPositionX;
-	position.y = app->scene->player->lastPositionY-5;
-
+	if (app->sceneBattle->battleOn)
+	{
+		position.x = 100;
+		position.y = 100;
+	}
+	else {
+		position.x = app->scene->player->lastPositionX;
+		position.y = app->scene->player->lastPositionY - 5;
+	}
 	//idlanim
 	idlAnim.PushBack({ 0, 0, 15, 23 });
 	idlAnim.PushBack({ 16, 0, 15, 23 });
@@ -50,7 +56,7 @@ NPC5::NPC5() : Entity(EntityType::NPC5)
 	//move left
 	leftAnim.PushBack({ 145, 0, 15,23 });
 	leftAnim.PushBack({ 161,0, 15, 23 });
-	leftAnim.PushBack({ 176,0, 15, 23 });
+	leftAnim.PushBack({ 178,0, 15, 23 });
 	leftAnim.PushBack({ 193,0, 15, 23 });
 	leftAnim.PushBack({ 209,0, 15, 23 });
 	leftAnim.PushBack({ 225,0, 15, 23 });
@@ -102,13 +108,8 @@ bool NPC5::Start()
 
 bool NPC5::Update(float dt)
 {
-	if (app->sceneBattle->battleOn)
-	{
-	position.x = 100;
-	position.y = 100;
-
-	}
-	else
+	
+	if(!app->sceneBattle->battleOn)
 	{
 		if (!app->scene->player->doorTakedX)
 		{
