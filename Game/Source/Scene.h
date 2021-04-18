@@ -97,7 +97,7 @@ public:
 	uint timer = 0;	
 	bool stop = false;
 	bool enemyMoving = false;
-
+	bool houseClosed = false;
 private:
 
 	// Textures & Anim
@@ -144,6 +144,7 @@ private:
 	bool backIntroPause = false;
 	bool exitPause = false;
 	bool knokDone = false;
+
 
 	int whiteFont = -1;
 	char timerText[10] = { "\0" };

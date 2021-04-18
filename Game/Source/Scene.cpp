@@ -200,6 +200,7 @@ bool Scene::Update(float dt)
 	{
 		app->audio->PlayFx(doorKnokFx, 0);
 		knokDone = true;
+		houseClosed = true;
 	}
 
 
@@ -355,7 +356,12 @@ bool Scene::PostUpdate()
 		app->font->DrawText(110, 205, whiteFont, " This house is closed.");
 		app->font->DrawText(110, 220, whiteFont, "There is no one inside.");
 	}
-	else knokDone = false;
+	else
+	{
+		knokDone = false;
+		houseClosed = false;
+	}
+
 
 	// Pause Menu
 	/*if (pausedSettings)
