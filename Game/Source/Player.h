@@ -68,10 +68,14 @@ public:
 	void CheckDoor();
 	void CheckHouseDoor();
 
-	bool doorTakedX = false;
-	bool doorTakedY = false;
-	int posMovedX = 0;
-	int posMovedY = 0;
+	//bool doorTakedX = false;
+	//bool doorTakedY = false;
+	bool doorTaked;
+	bool doorTaked2;
+	//int posMovedX = 0;
+	//int posMovedY = 0;
+	int posMoved = 0;
+	bool doIt = false;
 
 	Animation* currentAnimation = nullptr;
 

@@ -154,8 +154,8 @@ bool Player::Start()
 
 		lastPositionX = position.x;
 		lastPositionY = position.y;
-		doorTakedX = true;
-		doorTakedY = true;
+		doorTaked = true;
+		//doorTakedY = true;
 	}
 
 	return true;
@@ -171,7 +171,7 @@ bool Player::Update(float dt)
 	}
 	if (!spiked && !dead)
 	{
-		currentAnimation = &idlAnim;
+		//currentAnimation = &idlAnim;
 
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
@@ -184,7 +184,7 @@ bool Player::Update(float dt)
 					{
 						position.y -= speed;
 						currentAnimation = &upAnim;
-						if (doorTakedY) posMovedY++;
+						if (doorTaked) posMoved++;
 
 						for (int i = 0; i < 25; i++)
 						{
@@ -218,7 +218,7 @@ bool Player::Update(float dt)
 					{
 						position.y += speed;
 						currentAnimation = &leftAnim;
-						if (doorTakedY) posMovedY++;
+						if (doorTaked) posMoved++;
 
 						for (int i = 0; i < 25; i++)
 						{
@@ -254,7 +254,7 @@ bool Player::Update(float dt)
 					{
 						position.x -= speed;
 						currentAnimation = &leftAnim;
-						if (doorTakedX) posMovedX++;
+						if (doorTaked) posMoved++;
 						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {
@@ -287,7 +287,7 @@ bool Player::Update(float dt)
 					{
 						position.x += speed;
 						currentAnimation = &rightAnim;
-						if(doorTakedX) posMovedX++;
+						if(doorTaked) posMoved++;
 						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {

@@ -74,13 +74,13 @@ bool Scene::Start()
 		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
 
 		// Starts entities that are on the TOWN
-		player->Start();
+		
 		npc1->Start();
 		npc5->Start();
 		enemy1->Start();
 		enemy2->Start();
 		enemy3->Start();
-
+		player->Start();
 		// Enables the Map
 		app->map->Enable();
 		player->spiked = false;
@@ -494,8 +494,15 @@ void Scene::ChangeScene(GameScene nextScene)
 				{
 					app->scene->player->position.x = 144;
 					app->scene->player->position.y = 99;
-					player->doorTakedX = true;
-					player->doorTakedY = true;
+					player->doorTaked = true;
+
+					if (player->doorTaked)
+					{
+						//player->posMoved = 0;
+						player->doorTaked2 = true;
+					}
+					//player->doorTaked = true;
+					//player->doorTakedY = true;
 					player->lastPositionX2=player->position.x;
 					player->lastPositionY2=player->position.y;
 					
@@ -512,8 +519,16 @@ void Scene::ChangeScene(GameScene nextScene)
 				{
 					app->scene->player->position.x = 544;
 					app->scene->player->position.y = 130;
-					player->doorTakedX = true;
-					player->doorTakedY = true;
+					player->doorTaked = true;
+
+					if (player->doorTaked)
+					{
+						//player->posMoved = 0;
+						player->doorTaked2 = true;
+
+					}
+					//player->doorTaked = true;
+					//player->doorTakedY = true;
 					player->lastPositionX2 = player->position.x;
 					player->lastPositionY2 = player->position.y;
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
@@ -529,8 +544,15 @@ void Scene::ChangeScene(GameScene nextScene)
 				{
 					app->scene->player->position.x = 401;
 					app->scene->player->position.y = 320;
-					player->doorTakedX = true;
-					player->doorTakedY = true;
+					player->doorTaked = true;
+
+					if (player->doorTaked)
+					{
+						//player->posMoved = 0;
+						player->doorTaked2 = true;
+
+					}
+					//player->doorTakedY = true;
 					player->lastPositionX2 = player->position.x;
 					player->lastPositionY2 = player->position.y;
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
@@ -575,8 +597,8 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->scene->player->position.x = 153;
 			app->scene->player->position.y = 156;
 
-			player->doorTakedX = true;
-			player->doorTakedY = true;
+			player->doorTaked = true;
+			//player->doorTakedY = true;
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;
 
@@ -610,8 +632,8 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->scene->player->position.x = 201;
 			app->scene->player->position.y = 158;
 
-			player->doorTakedX = true;
-			player->doorTakedY = true;
+			player->doorTaked = true;
+			//player->doorTakedY = true;
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;
 
@@ -644,8 +666,8 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->scene->player->position.x = 217;
 			app->scene->player->position.y = 174;
 
-			player->doorTakedX = true;
-			player->doorTakedY = true;
+			player->doorTaked = true;
+			//player->doorTakedY = true;
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;
 

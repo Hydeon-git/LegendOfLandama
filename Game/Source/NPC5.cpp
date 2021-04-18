@@ -111,42 +111,83 @@ bool NPC5::Update(float dt)
 	
 	if(!app->sceneBattle->battleOn)
 	{
-		if (!app->scene->player->doorTakedX)
-		{
-			if (app->scene->player->lastPositionX != 0) position.x = app->scene->player->lastPositionX;
-			//app->scene->player->doorTakedY = false;
-		}
-		if (!app->scene->player->doorTakedY)
-		{
-			if (app->scene->player->lastPositionY != 0) {
-				position.y = app->scene->player->lastPositionY - 5;
-			}
-			app->scene->player->doorTakedX = false;
 
+		if (app->scene->player->doorTaked2)
+		{
+			app->scene->player->posMoved = 0;
+			app->scene->player->doorTaked2 = false;
 		}
 
-		if (app->scene->player->doorTakedX)
-		{
-			position.x = app->scene->player->lastPositionX2;
-			if (app->scene->player->posMovedX >= 24)
+
+		//if ((position.y > app->scene->player->position.y + 24-5 || position.y < app->scene->player->position.y - 24-5))
+		//{
+		//	position.y = app->scene->player->position.y - 5;
+		//	app->scene->player->doorTaked = false;
+
+		//	//app->scene->player->doIt = true;
+		//}
+		//else
+		
+
+			if (app->scene->player->posMoved < 24)
 			{
-				app->scene->player->posMovedX = 0;
-				app->scene->player->doorTakedX = false;
+				if (app->scene->player->lastPositionX != 0) position.x = app->scene->player->lastPositionX;
+				if (app->scene->player->lastPositionY != 0) position.y = app->scene->player->lastPositionY - 5;
 			}
-		}
-		if (app->scene->player->doorTakedY)
-		{
-			position.y = app->scene->player->lastPositionY2 - 5;
-			if (app->scene->player->posMovedY >= 24)
+
+			if (app->scene->player->doorTaked)
 			{
-				app->scene->player->posMovedY = 0;
-				app->scene->player->doorTakedY = false;
+				position.x = app->scene->player->lastPositionX2;
+				position.y = app->scene->player->lastPositionY2 - 5;
+				if (app->scene->player->posMoved >= 24)
+				{
+					app->scene->player->posMoved = 0;
+					app->scene->player->doorTaked = false;
+				}
 			}
-		}
+
+
+			//if (!app->scene->player->doorTakedX)
+			//{
+			//	if (app->scene->player->lastPositionX != 0) position.x = app->scene->player->lastPositionX;
+			//	app->scene->player->doorTakedY = false;
+
+			//}
+			//if (!app->scene->player->doorTakedY)
+			//{
+			//	if (app->scene->player->lastPositionY != 0) {
+			//		position.y = app->scene->player->lastPositionY - 5;
+			//	}
+			//	app->scene->player->doorTakedX = false;
+
+			//}
+
+
+		
+
+		//if (app->scene->player->doorTakedX)
+		//{
+		//	position.x = app->scene->player->lastPositionX2;
+		//	if (app->scene->player->posMovedX >= 24)
+		//	{
+		//		app->scene->player->posMovedX = 0;
+		//		app->scene->player->doorTakedX = false;
+		//	}
+		//}
+		//if (app->scene->player->doorTakedY)
+		//{
+		//	position.y = app->scene->player->lastPositionY2 - 5;
+		//	if (app->scene->player->posMovedY >= 24)
+		//	{
+		//		app->scene->player->posMovedY = 0;
+		//		app->scene->player->doorTakedY = false;
+		//	}
+		//}
 
 
 
-		if (!app->scene->player->doorTakedX || !app->scene->player->doorTakedY)
+		//if (!app->scene->player->doorTakedX || !app->scene->player->doorTakedY)
+		if (!app->scene->player->doorTaked)
 		{
 			if (app->scene->player->lastPositionX < app->scene->player->lastPosX[23])
 			{
