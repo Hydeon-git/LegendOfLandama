@@ -86,37 +86,6 @@ bool Enemy3::Update(float dt)
 {
 	currentAnimation = &leftAnim;
 
-	//if (!pause)
-	//{
-	//	if (right)
-	//	{
-	//		position.x += speed;
-	//		currentAnimation = &rightAnim;
-	//	}
-	//	if (!right)
-	//	{
-	//		position.x -= speed;
-	//		currentAnimation = &leftAnim;
-	//	}
-
-	//	if (position.x >= 254) right = false;
-	//	if (position.x <= 171) right = true;
-
-	//	if (position.x < 253 && position.x>170) prova = false;
-	//	if ((position.x == 254 || position.x == 171) && !prova)
-	//	{
-	//		pause = true;
-	//	}
-	//}
-
-	//if (pause) counter++;
-	//if (counter >= 50)
-	//{
-	//	pause = false;
-	//	counter = 0;
-	//	prova = true;
-	//}
-
 	if (app->scene->active == true)
 	{
 		if (position.x <= 502) app->scene->stop = true;
@@ -143,7 +112,7 @@ bool Enemy3::Update(float dt)
 
 bool Enemy3::PostUpdate()
 {
-	if (this->active == true)
+	if ((this->active == true) && (!app->scene->paused))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texEnemy3, position.x, position.y, &rect);

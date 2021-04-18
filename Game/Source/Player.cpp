@@ -41,19 +41,6 @@ Player::Player() : Entity(EntityType::PLAYER)
 		app->sceneWin->won = false;
 		app->sceneLose->lost = false;
 	}
-	//else if (!app->sceneIntro->posContinue)
-	//{
-	//	position.x = 200;
-	//	position.y = 100;
-
-	//}
-	//else if (app->sceneWin->won||app->sceneLose->lost)
-	//{
-	//	position.x = 350;
-	//	position.y = 875;
-	//	app->sceneWin->won = false;
-	//	app->sceneLose->lost = false;
-	//}
 	else if (app->sceneBattle->battleOn)
 	{
 		position.x = 150;
@@ -414,7 +401,7 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-	if (this->active == true)
+	if ((this->active == true) && (!app->scene->paused))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texPlayer, position.x, position.y, &rect);

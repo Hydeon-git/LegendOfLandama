@@ -670,17 +670,11 @@ bool Scene::SaveState(pugi::xml_node& node) const
 }
 
 void Scene::Pause()
-{
-	app->tex->UnLoad(app->scene->player->texPlayer);
+{	
 	btnResume->bounds = { -app->render->camera.x / 3 + 170,-app->render->camera.y / 3 + 115, 70, 12 };
 	btnSettings->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 70, 12 };
 	btnBackIntro->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 };
 	btnExit->bounds = { -app->render->camera.x / 3 + 170,  -app->render->camera.y / 3 + 175, 70, 12 };
-	//btnBack->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 };
-	/*sliderMusicVolume->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 };
-	sliderFxVolume->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 10, 28 };
-	checkBoxFullscreen->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 40, 40 };
-	checkBoxVSync->bounds = { -app->render->camera.x / 3, -app->render->camera.y / 3 , 40, 40 };*/
 }
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
@@ -692,12 +686,15 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 1)
 		{
 			paused = false;
-			app->scene->player->texPlayer= app->tex->Load("Assets/Textures/main_character.png");
 			
 		}
-		//else if (control->id == 2) pausedSettings = true;
 		else if (control->id == 3)
 		{
+			app->map->CleanUp();
+			//if (currentScene != GameScene::SCENE_TOWN)
+			//{
+			//	currentScene = GameScene::SCENE_TOWN;
+			//}
 			app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
 			paused = false;
 		}

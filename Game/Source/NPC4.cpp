@@ -94,7 +94,7 @@ bool NPC4::Update(float dt)
 
 bool NPC4::PostUpdate()
 {
-	if ((this->active == true) && (app->scene->currentScene == GameScene::SCENE_INN))
+	if ((this->active == true) && (app->scene->currentScene == GameScene::SCENE_INN) && (!app->scene->paused))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC4, position.x, position.y, &rect);

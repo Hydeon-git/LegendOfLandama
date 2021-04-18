@@ -93,7 +93,7 @@ bool NPC2::Update(float dt)
 
 bool NPC2::PostUpdate()
 {
-	if ((this->active == true) && (app->scene->currentScene == GameScene::SCENE_BSMITH))
+	if ((this->active == true) && (app->scene->currentScene == GameScene::SCENE_BSMITH) && (!app->scene->paused))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC2, position.x, position.y, &rect);
