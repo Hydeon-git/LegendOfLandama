@@ -85,8 +85,12 @@ bool Scene::Start()
 		app->map->Enable();
 		player->spiked = false;
 		player->onBattle = false;
+		app->sceneBattle->battleOn = false;
 		// Texture assignations for the scene
 		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
+		doorOpenFx = app->audio->LoadFx("Assets/Audio/Fx/doorOpen.wav");
+		doorCloseFx = app->audio->LoadFx("Assets/Audio/Fx/doorClose.wav");
+		doorKnokFx = app->audio->LoadFx("Assets/Audio/Fx/doorKnok.wav");
 
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
@@ -109,7 +113,7 @@ bool Scene::Start()
 			RELEASE_ARRAY(data);
 		}
 		// Loads music
-		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+		app->audio->PlayMusic("Assets/Audio/Music/main_theme.ogg");
 
 		//Buttons
 		btnResume = new GuiButton(1, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 115, 70, 12 }, "RESUME");
@@ -170,23 +174,35 @@ bool Scene::Update(float dt)
 	if (player->door == COLLIDER_BLUE)
 	{
 		app->scene->ChangeScene(GameScene::SCENE_HOUSE1);
+		app->audio->PlayFx(doorCloseFx, 0);
 		player->door = 0;
 	}
 	else if (player->door == COLLIDER_GREY)
 	{
 		app->scene->ChangeScene(GameScene::SCENE_BSMITH);
+		app->audio->PlayFx(doorCloseFx, 0);
 		player->door = 0;
 	}
 	else if (player->door == COLLIDER_YELLOW)
 	{
 		app->scene->ChangeScene(GameScene::SCENE_INN);
+		app->audio->PlayFx(doorCloseFx, 0);
 		player->door = 0;
 	}
 	if (player->houseDoor == COLLIDER_GREEN || player->houseDoor == COLLIDER_GREEN_HOUSE)
 	{
 		app->scene->ChangeScene(GameScene::SCENE_TOWN);
+		app->audio->PlayFx(doorOpenFx, 0);
 		player->houseDoor = 0;
 	}
+
+	if (player->ThereIsHouseClosed())
+	{
+		app->audio->PlayFx(doorKnokFx, 0);
+	}
+
+
+
 	// Request Load / Save when pressing F6/F5
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !paused && !pausedSettings) app->LoadGameRequest();
 
@@ -336,6 +352,7 @@ bool Scene::PostUpdate()
 		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 		app->font->DrawText(110, 205, whiteFont, " This house is closed.");
 		app->font->DrawText(110, 220, whiteFont, "There is no one inside.");
+
 	}
 
 	// Pause Menu

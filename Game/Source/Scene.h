@@ -148,6 +148,10 @@ private:
 	char timerText[10] = { "\0" };
 	
 	int seconds = 0;
+
+	uint doorOpenFx = 0;
+	uint doorCloseFx = 0;
+	uint doorKnokFx = 0;
 };
 
 #endif // __SCENE_H__

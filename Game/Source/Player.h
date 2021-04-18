@@ -126,6 +126,9 @@ private:
 	uint chestFx = 0;
 	uint heartFx = 0;
 	uint fireFx = 0;
+
+	uint talkFx = 0;
+	
 };
 
 #endif // __PLAYER_H__

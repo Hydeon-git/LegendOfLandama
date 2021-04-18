@@ -11,7 +11,7 @@
 	<SceneLose />
 	<:anonymous />
 	<scene>
-		<positionPlayer x="350" y="875" />
+		<positionPlayer x="563" y="343" />
 	</scene>
 	<map />
 	<:anonymous />
@@ -20,6 +20,6 @@
 	<pathfinding />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-128" y="-847" />
+		<camera x="-640" y="-671" />
 	</renderer>
 </save_state>

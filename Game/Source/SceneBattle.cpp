@@ -61,6 +61,7 @@ bool SceneBattle::Start()
 
 		
 		//introText = app->tex->Load("Assets/Textures/portada.png");
+		app->audio->PlayMusic("Assets/Audio/Music/battle_theme.ogg");
 		battletext = app->tex->Load("Assets/Textures/battleback.png");
 		app->sceneBattle->player->onBattle = true;
 		app->sceneLose->Disable();
@@ -86,6 +87,8 @@ bool SceneBattle::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
 		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+		battleOn = false;
+		battleEnd = true;
 	}
 	btnAttack->Update(dt);
 	btnDefense->Update(dt);
@@ -117,9 +120,15 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 1)
 		{
 			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
-			startClicked = true;
+			battleOn = false;
+			battleEnd = true;
 		}
-		else if (control->id == 2) app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+		else if (control->id == 2)
+		{
+			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+			battleOn = false;
+			battleEnd = true;
+		}
 
 		else if (control->id == 3)
 		{

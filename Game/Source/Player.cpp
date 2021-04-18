@@ -41,23 +41,32 @@ Player::Player() : Entity(EntityType::PLAYER)
 		app->sceneWin->won = false;
 		app->sceneLose->lost = false;
 	}
-	else if (!app->sceneIntro->posContinue)
+	//else if (!app->sceneIntro->posContinue)
+	//{
+	//	position.x = 200;
+	//	position.y = 100;
+
+	//}
+	//else if (app->sceneWin->won||app->sceneLose->lost)
+	//{
+	//	position.x = 350;
+	//	position.y = 875;
+	//	app->sceneWin->won = false;
+	//	app->sceneLose->lost = false;
+	//}
+	else if (app->sceneBattle->battleOn)
 	{
-		position.x = 200;
+		position.x = 150;
 		position.y = 100;
 
 	}
-	else if (app->sceneWin->won||app->sceneLose->lost)
+	else if (app->sceneBattle->battleEnd)
 	{
-		position.x = 350;
-		position.y = 875;
-		app->sceneWin->won = false;
-		app->sceneLose->lost = false;
-	}
-	else if (app->sceneBattle->battleOn)
-	{
-		position.x = 200;
-		position.y = 100;
+		position.x = 484;
+		position.y = 344;
+
+		lastPositionX2 = 484;
+		lastPositionY2 = 344;
 	}
 	else
 	{
@@ -151,6 +160,9 @@ bool Player::Start()
 		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest.wav");
 		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
 		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
+		talkFx = app->audio->LoadFx("Assets/Audio/Fx/huh.wav");
+		
+
 		currentAnimation = &idlAnim;
 
 		lastPositionX = position.x;
@@ -322,6 +334,7 @@ bool Player::Update(float dt)
 				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 				{
 					dialogeOn = true;
+					app->audio->PlayFx(talkFx, 0);
 				}
 			}
 			else
@@ -364,7 +377,7 @@ bool Player::Update(float dt)
 		if (app->scene->currentScene == GameScene::SCENE_BSMITH ||app->scene->currentScene == GameScene::SCENE_HOUSE1 ||app->scene->currentScene == GameScene::SCENE_INN)
 		{
 			CheckHouseDoor();
-
+			
 		}
 
 		if (shotCountdown > 0) --shotCountdown;
@@ -372,7 +385,7 @@ bool Player::Update(float dt)
 		if (TakeCheckpoint())
 		{
 			app->map->checkpointTaken = true;
-			if (counterCheckpoint == 0) app->audio->PlayFx(checkpointFx, 0);
+			if (counterCheckpoint == 0) //app->audio->PlayFx(checkpointFx, 0);
 			counterCheckpoint = 1;
 		}		
 	}

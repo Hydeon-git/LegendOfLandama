@@ -47,7 +47,7 @@ bool SceneIntro::Start()
 	logoText = app->tex->Load("Assets/Textures/logo.png");
 	app->sceneLose->Disable();
 	app->sceneWin->Disable();
-	app->audio->PlayMusic("Assets/Audio/Music/intro_theme.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/start.ogg");
 	app->render->camera.x = 0;
 	app->render->camera.y = -555;
 

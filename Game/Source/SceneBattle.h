@@ -45,7 +45,7 @@ public:
 	bool options = false;
 
 	bool battleOn = false;
-
+	bool battleEnd = false;
 	Player* player;
 	Enemy1* enemy1;
 	Enemy2* enemy2;
