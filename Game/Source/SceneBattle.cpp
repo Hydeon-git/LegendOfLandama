@@ -75,7 +75,7 @@ bool SceneBattle::Start()
 		battleOn = true;
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
-		blackFont = app->font->Load("Assets/Textures/black_font_mini.png", lookupTable, 1);
+		goldFont = app->font->Load("Assets/Textures/gold_font_mini.png", lookupTable, 1);
 
 		btnHeroine = new GuiButton(1, { 25, 200, 60, 15 }, "Heroine");
 		btnHeroine->SetObserver(this);
@@ -87,6 +87,13 @@ bool SceneBattle::Start()
 		btnMagic->SetObserver(this);
 		btnDefense = new GuiButton(5, { 140, 220, 60, 15 }, "Defense");
 		btnDefense->SetObserver(this);
+		
+		btnEnemy1 = new GuiButton(6, { 300, 100, 16, 16 }, "");
+		btnEnemy1->SetObserver(this);
+		btnEnemy2 = new GuiButton(7, { 315, 80, 16, 16 }, "");
+		btnEnemy2->SetObserver(this);
+		btnEnemy3 = new GuiButton(8, { 315, 120, 16, 16 }, "");
+		btnEnemy3->SetObserver(this);
 
 	}
 	return ret;
@@ -108,6 +115,12 @@ bool SceneBattle::Update(float dt)
 		btnMagic->Update(dt);
 		btnDefense->Update(dt);
 	}
+	if (attack || magic)
+	{
+		btnEnemy1->Update(dt);
+		btnEnemy2->Update(dt);
+		btnEnemy3->Update(dt);
+	}
 	return true;
 }
 
@@ -124,13 +137,11 @@ bool SceneBattle::PostUpdate()
 	app->render->DrawRectangle({ 730, 520, 540, 190 }, 100, 100, 200, 220, true, false);
 
 
-	app->font->DrawText(15, 180, blackFont, "NAME");
+	app->font->DrawText(35, 180, goldFont, "NAME");
 
-	//app->font->DrawText(110, 180, blackFont, "ACTION");
+	//app->font->DrawText(110, 180, goldFont, "ACTION");
 
-	app->font->DrawText(280, 180, blackFont, "HP");
-
-
+	app->font->DrawText(280, 180, goldFont, "HP");
 
 
 	btnHeroine->Draw();
@@ -141,6 +152,13 @@ bool SceneBattle::PostUpdate()
 		btnMagic->Draw();
 		btnDefense->Draw();
 	}
+	if (attack || magic)
+	{
+		btnEnemy1->Draw();
+		btnEnemy2->Draw();
+		btnEnemy3->Draw();
+	}
+	
 	return ret;
 }
 
@@ -167,15 +185,43 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 
 		else if (control->id == 3)
 		{
-
+			attack = true;
+			magic = false;
+			defense = false;
+			btnAttack->state = GuiControlState::DISABLED;
+			btnMagic->state = GuiControlState::NORMAL;
+			btnDefense->state = GuiControlState::NORMAL;
 		}
 		else if (control->id == 4)
 		{
-			
+			magic = true;
+			attack = false;
+			defense = false;
+			btnAttack->state = GuiControlState::NORMAL;
+			btnMagic->state = GuiControlState::DISABLED;
+			btnDefense->state = GuiControlState::NORMAL;
 		}
 		else if (control->id == 5)
 		{
-			
+			defense = true;
+			attack = false;
+			magic = false;
+			btnAttack->state = GuiControlState::NORMAL;
+			btnMagic->state = GuiControlState::NORMAL;
+			btnDefense->state = GuiControlState::DISABLED;
+
+		}
+		else if (control->id == 6)
+		{
+			attack = true;
+		}
+		else if (control->id == 7)
+		{
+			magic = true;
+		}
+		else if (control->id == 8)
+		{
+			defense = true;
 		}
 	}
 	default: break;

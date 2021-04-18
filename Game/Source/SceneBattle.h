@@ -62,6 +62,9 @@ private:
 	GuiButton* btnAttack;
 	GuiButton* btnMagic;
 	GuiButton* btnDefense;
+	GuiButton* btnEnemy1;
+	GuiButton* btnEnemy2;
+	GuiButton* btnEnemy3;
 
 	SDL_Texture* battletext = nullptr;
 
@@ -69,10 +72,13 @@ private:
 
 	bool heroine = false;
 	bool mage = false;
+	bool attack = false;
+	bool magic = false;
+	bool defense = false;
 
 	int whiteFont = -1;
 
-	int blackFont = -1;
+	int goldFont = -1;
 
 	int count = 0;
 };
