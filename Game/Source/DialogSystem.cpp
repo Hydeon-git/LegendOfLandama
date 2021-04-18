@@ -115,7 +115,7 @@ bool DialogueSystem::CleanUp()
 		delete dialogueTrees[i];
 	}
 	dialogueTrees.clear();
-
+	app->font->UnLoad(whiteFont);
 	return true;
 }
 

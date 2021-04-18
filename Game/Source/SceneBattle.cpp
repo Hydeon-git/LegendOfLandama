@@ -234,6 +234,7 @@ bool SceneBattle::CleanUp()
 {
 	app->tex->UnLoad(battletext);
 	app->font->UnLoad(whiteFont);
+	app->font->UnLoad(goldFont);
 	app->entityManager->DestroyEntity(player);
 	app->entityManager->DestroyEntity(enemy1);
 	app->entityManager->DestroyEntity(enemy2);

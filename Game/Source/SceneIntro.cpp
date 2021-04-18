@@ -212,15 +212,15 @@ bool SceneIntro::CleanUp()
 	app->tex->UnLoad(logoText);
 	app->font->UnLoad(whiteFont);
 
-	RELEASE(btnStart);
-	RELEASE(btnContinue);
-	RELEASE(btnOptions);
-	RELEASE(btnExit);
-	RELEASE(btnBackOptions);
-	RELEASE(sliderMusicVolume);
-	RELEASE(sliderFxVolume);
-	RELEASE(checkBoxFullscreen);
-	RELEASE(checkBoxVSync);
+	//RELEASE(btnStart);
+	//RELEASE(btnContinue);
+	//RELEASE(btnOptions);
+	//RELEASE(btnExit);
+	//RELEASE(btnBackOptions);
+	//RELEASE(sliderMusicVolume);
+	//RELEASE(sliderFxVolume);
+	//RELEASE(checkBoxFullscreen);
+	//RELEASE(checkBoxVSync);
 
 	return true;
 }
