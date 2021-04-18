@@ -71,6 +71,8 @@ Go inside Landama's town and fight, make friends, save them from fear and become
 - Esc -> Menu Pause
 
  Debug keys:
+- F5 -> Save
+- F6 -> Load
 - F10 -> GOD mode: no-damage, fly-around mode, show bounds, visual debug info…
 
 

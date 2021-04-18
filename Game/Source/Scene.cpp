@@ -92,7 +92,8 @@ bool Scene::Start()
 		doorCloseFx = app->audio->LoadFx("Assets/Audio/Fx/doorClose.wav");
 		doorKnokFx = app->audio->LoadFx("Assets/Audio/Fx/doorKnok.wav");
 
-
+		enemyMoving = false;
+		stop = false;
 
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
@@ -220,7 +221,7 @@ bool Scene::Update(float dt)
 	}
 
 	// Pause Menu
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN&&!app->scene->player->dialogeOn)
 	{
 		if (!pausedSettings)
 		{
