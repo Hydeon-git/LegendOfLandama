@@ -43,8 +43,8 @@ Player::Player() : Entity(EntityType::PLAYER)
 	}
 	else if (app->sceneBattle->battleOn)
 	{
-		position.x = 150;
-		position.y = 100;
+		position.x = 140;
+		position.y = 90;
 
 	}
 	else if (app->sceneBattle->battleEnd)

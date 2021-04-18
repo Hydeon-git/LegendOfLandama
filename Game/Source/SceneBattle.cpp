@@ -77,11 +77,17 @@ bool SceneBattle::Start()
 		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 		blackFont = app->font->Load("Assets/Textures/black_font_mini.png", lookupTable, 1);
 
-		btnAttack = new GuiButton(1, { 20, 180, 80, 15 }, "Heroine");
+		btnHeroine = new GuiButton(1, { 25, 200, 60, 15 }, "Heroine");
+		btnHeroine->SetObserver(this);
+		btnMage = new GuiButton(2, { 25, 220, 60, 15 }, "Mage");
+		btnMage->SetObserver(this);
+		btnAttack = new GuiButton(3, { 140, 180, 60, 15 }, "Attack");
 		btnAttack->SetObserver(this);
-
-		btnDefense = new GuiButton(2, { 20, 200, 80, 15 }, "Mage");
+		btnMagic = new GuiButton(4, { 140, 200, 60, 15 }, "Magic");
+		btnMagic->SetObserver(this);
+		btnDefense = new GuiButton(5, { 140, 220, 60, 15 }, "Defense");
 		btnDefense->SetObserver(this);
+
 	}
 	return ret;
 }
@@ -94,8 +100,14 @@ bool SceneBattle::Update(float dt)
 		battleOn = false;
 		battleEnd = true;
 	}
-	btnAttack->Update(dt);
-	btnDefense->Update(dt);
+	btnHeroine->Update(dt);
+	btnMage->Update(dt);
+	if (heroine || mage)
+	{
+		btnAttack->Update(dt);
+		btnMagic->Update(dt);
+		btnDefense->Update(dt);
+	}
 	return true;
 }
 
@@ -107,19 +119,28 @@ bool SceneBattle::PostUpdate()
 
 	app->render->DrawTexture(battletext, 0, 0, fullscreenRect, 3);
 	app->render->DrawRectangle({ 0, 510, 1280, 210 }, 0, 0, 0, 220, true, false);
-	app->render->DrawRectangle({ 10, 520, 1260, 190 }, 100, 100, 200, 220, true, false);
+	app->render->DrawRectangle({ 10, 520, 330, 190 }, 100, 100, 200, 220, true, false);
+	app->render->DrawRectangle({ 350, 520, 370, 190 }, 100, 100, 200, 220, true, false);
+	app->render->DrawRectangle({ 730, 520, 540, 190 }, 100, 100, 200, 220, true, false);
+
 
 	app->font->DrawText(15, 180, blackFont, "NAME");
 
-	app->font->DrawText(110, 180, blackFont, "ACTION");
+	//app->font->DrawText(110, 180, blackFont, "ACTION");
 
 	app->font->DrawText(280, 180, blackFont, "HP");
 
 
 
-	btnAttack->Draw();
-	btnDefense->Draw();
 
+	btnHeroine->Draw();
+	btnMage->Draw();
+	if (heroine || mage)
+	{
+		btnAttack->Draw();
+		btnMagic->Draw();
+		btnDefense->Draw();
+	}
 	return ret;
 }
 
@@ -131,35 +152,30 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		if (control->id == 1)
 		{
-			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
-			battleOn = false;
-			battleEnd = true;
+			heroine = true;
+			mage = false;
+			btnHeroine->state = GuiControlState::DISABLED;
+			btnMage->state = GuiControlState::NORMAL;
 		}
 		else if (control->id == 2)
 		{
-			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
-			battleOn = false;
-			battleEnd = true;
+			mage = true;
+			heroine = false;
+			btnMage->state = GuiControlState::DISABLED;
+			btnHeroine->state = GuiControlState::NORMAL;
 		}
 
 		else if (control->id == 3)
 		{
-			options = true;
+
 		}
 		else if (control->id == 4)
 		{
-			if (app->scene->player != nullptr)
-			{
-				app->scene->player->position.x = 350;
-				app->scene->player->position.y = 875;
-				app->SaveGameRequest();
-			}
-			exit = true;
+			
 		}
 		else if (control->id == 5)
 		{
-			//btnOptions->state = GuiControlState::NORMAL;
-			options = false;
+			
 		}
 	}
 	default: break;

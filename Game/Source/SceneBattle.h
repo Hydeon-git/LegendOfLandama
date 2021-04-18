@@ -57,13 +57,18 @@ private:
 
 	SString name;
 
+	GuiButton* btnHeroine;
+	GuiButton* btnMage;
 	GuiButton* btnAttack;
+	GuiButton* btnMagic;
 	GuiButton* btnDefense;
-
 
 	SDL_Texture* battletext = nullptr;
 
 	SDL_Rect* fullscreenRect;
+
+	bool heroine = false;
+	bool mage = false;
 
 	int whiteFont = -1;
 
