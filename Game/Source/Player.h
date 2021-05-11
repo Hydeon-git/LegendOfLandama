@@ -68,13 +68,12 @@ public:
 	void CheckDoor();
 	void CheckHouseDoor();
 
-	//bool doorTakedX = false;
-	//bool doorTakedY = false;
+
 	bool doorTaked;
 	bool doorTaked2;
-	//int posMovedX = 0;
-	//int posMovedY = 0;
+
 	int posMoved = 0;
+	int kposMoved = 0;
 	bool doIt = false;
 
 	Animation* currentAnimation = nullptr;
@@ -110,10 +109,20 @@ public:
 	int lastPosX[25] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x};
 	int lastPosY[25] = { position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y };
 
+	int klastPosX[50] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x , position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x };
+	int klastPosY[50] = { position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y , position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y };
+
+
 	int lastPositionX;
 	int lastPositionY;	
 	int lastPositionX2;
 	int lastPositionY2;
+
+	int klastPositionX;
+	int klastPositionY;
+	int klastPositionX2;
+	int klastPositionY2;
+
 
 	// Player Stats
 	int playerDmg = 25;

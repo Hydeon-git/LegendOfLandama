@@ -186,8 +186,11 @@ bool Player::Update(float dt)
 					{
 						position.y -= speed;
 						currentAnimation = &upAnim;
-						if (doorTaked) posMoved++;
-
+						if (doorTaked)
+						{
+							posMoved++;
+							kposMoved++;
+						}
 						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {
@@ -212,6 +215,32 @@ bool Player::Update(float dt)
 						}
 						if (lastPosY != 0) lastPositionX = lastPosX[24];
 
+
+						for (int i = 0; i < 50; i++)
+						{
+							if (i == 49) {
+								klastPosY[0] = position.y;
+							}
+							else
+							{
+								klastPosY[49 - i] = klastPosY[48 - i];
+							}
+						}
+						if (klastPosY != 0) klastPositionY = klastPosY[49];
+
+						for (int i = 0; i < 50; i++)
+						{
+							if (i == 49) {
+								klastPosX[0] = position.x;
+							}
+							else
+							{
+								klastPosX[49 - i] = klastPosX[48 - i];
+							}
+						}
+						if (klastPosX != 0) klastPositionX = klastPosX[49];
+
+
 					}
 				}
 				if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
@@ -220,8 +249,11 @@ bool Player::Update(float dt)
 					{
 						position.y += speed;
 						currentAnimation = &leftAnim;
-						if (doorTaked) posMoved++;
-
+						if (doorTaked)
+						{
+							posMoved++;
+							kposMoved++;
+						}
 						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {
@@ -247,6 +279,32 @@ bool Player::Update(float dt)
 						
 						if (lastPosX != 0) lastPositionX = lastPosX[24];
 
+
+						for (int i = 0; i < 50; i++)
+						{
+							if (i == 49) {
+								klastPosY[0] = position.y;
+							}
+							else
+							{
+								klastPosY[49 - i] = klastPosY[48 - i];
+							}
+						}
+						if (klastPosY != 0) klastPositionY = klastPosY[49];
+
+						for (int i = 0; i < 50; i++)
+						{
+							if (i == 49) {
+								klastPosX[0] = position.x;
+							}
+							else
+							{
+								klastPosX[49 - i] = klastPosX[48 - i];
+							}
+						}
+						if (klastPosX != 0) klastPositionX = klastPosX[49];
+
+
 					}
 				}
 
@@ -256,8 +314,11 @@ bool Player::Update(float dt)
 					{
 						position.x -= speed;
 						currentAnimation = &leftAnim;
-						if (doorTaked) posMoved++;
-						for (int i = 0; i < 25; i++)
+						if (doorTaked)
+						{
+							posMoved++;
+							kposMoved++;
+						}						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {
 								lastPosY[0] = position.y;
@@ -280,6 +341,32 @@ bool Player::Update(float dt)
 							}
 						}
 						if (lastPosX != 0) lastPositionX = lastPosX[24];
+
+						for (int i = 0; i < 50; i++)
+						{
+							if (i == 49) {
+								klastPosY[0] = position.y;
+							}
+							else
+							{
+								klastPosY[49 - i] = klastPosY[48 - i];
+							}
+						}
+						if (klastPosY != 0) klastPositionY = klastPosY[49];
+
+						for (int i = 0; i < 50; i++)
+						{
+							if (i == 49) {
+								klastPosX[0] = position.x;
+							}
+							else
+							{
+								klastPosX[49 - i] = klastPosX[48 - i];
+							}
+						}
+						if (klastPosX != 0) klastPositionX = klastPosX[49];
+
+
 
 					}
 				}
@@ -289,7 +376,11 @@ bool Player::Update(float dt)
 					{
 						position.x += speed;
 						currentAnimation = &rightAnim;
-						if(doorTaked) posMoved++;
+						if (doorTaked)
+						{
+							posMoved++;
+							kposMoved++;
+						}
 						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {
@@ -313,6 +404,32 @@ bool Player::Update(float dt)
 							}
 						}
 						if (lastPosX != 0) lastPositionX = lastPosX[24];
+
+
+						for (int i = 0; i < 50; i++)
+						{
+							if (i == 49) {
+								klastPosY[0] = position.y;
+							}
+							else
+							{
+								klastPosY[49 - i] = klastPosY[48 - i];
+							}
+						}
+						if (klastPosY != 0) klastPositionY = klastPosY[49];
+
+						for (int i = 0; i < 50; i++)
+						{
+							if (i == 49) {
+								klastPosX[0] = position.x;
+							}
+							else
+							{
+								klastPosX[49 - i] = klastPosX[48 - i];
+							}
+						}
+						if (klastPosX != 0) klastPositionX = klastPosX[49];
+
 
 					}
 				}
@@ -403,9 +520,9 @@ bool Player::Update(float dt)
 
 
 	//Dumbledore (aixo es posara a true al dialeg del mago pop)
-	if (!app->scene->npc5->mageTkn&& position.y >= 150)app->scene->npc5->mageTkn = true;
+	if (!app->scene->npc5->mageTkn&& position.y >= 120)app->scene->npc5->mageTkn = true;
 	
-	if (!app->scene->npc7->knightTkn&& position.y >= 120)app->scene->npc7->knightTkn = true;
+	if (!app->scene->npc7->knightTkn&& position.y >= 150)app->scene->npc7->knightTkn = true;
 
 
 

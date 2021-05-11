@@ -137,10 +137,10 @@ bool NPC7::Update(float dt)
 
 
 				//movement
-			if (app->scene->player->posMoved < 24)
+			if (app->scene->player->kposMoved < 50)
 			{
-				if (app->scene->player->lastPositionX != 0) position.x = app->scene->player->lastPositionX-15;
-				if (app->scene->player->lastPositionY != 0) position.y = app->scene->player->lastPositionY - 5-15;
+				if (app->scene->player->klastPositionX != 0) position.x = app->scene->player->klastPositionX;
+				if (app->scene->player->klastPositionY != 0) position.y = app->scene->player->klastPositionY - 5;
 			}
 
 
@@ -148,11 +148,11 @@ bool NPC7::Update(float dt)
 
 			if (app->scene->player->doorTaked)
 			{
-				position.x = app->scene->player->lastPositionX2;
-				position.y = app->scene->player->lastPositionY2 - 5;
-				if (app->scene->player->posMoved >= 24)
+				position.x = app->scene->player->klastPositionX2;
+				position.y = app->scene->player->klastPositionY2 - 5;
+				if (app->scene->player->kposMoved >= 49)
 				{
-					app->scene->player->posMoved = 0;
+					app->scene->player->kposMoved = 0;
 					app->scene->player->doorTaked = false;
 				}
 			}
@@ -201,19 +201,19 @@ bool NPC7::Update(float dt)
 		//rotation
 			if (!app->scene->player->doorTaked)
 			{
-				if (app->scene->player->lastPositionX < app->scene->player->lastPosX[23])
+				if (app->scene->player->klastPositionX < app->scene->player->klastPosX[48])
 				{
 					currentAnimation = &rightAnim;
 				}
-				else if (app->scene->player->lastPositionX > app->scene->player->lastPosX[23])
+				else if (app->scene->player->klastPositionX > app->scene->player->klastPosX[48])
 				{
 					currentAnimation = &leftAnim;
 				}
-				else if (app->scene->player->lastPositionY > app->scene->player->lastPosY[23])
+				else if (app->scene->player->klastPositionY > app->scene->player->klastPosY[48])
 				{
 					currentAnimation = &upAnim;
 				}
-				else if (app->scene->player->lastPositionY < app->scene->player->lastPosY[23])
+				else if (app->scene->player->klastPositionY < app->scene->player->klastPosY[48])
 				{
 					currentAnimation = &rightAnim;
 				}
@@ -258,8 +258,8 @@ void NPC7::NPC7InitialPosition()
 	{
 		if (knightTkn)
 		{
-			position.x = app->scene->player->lastPositionX;
-			position.y = app->scene->player->lastPositionY - 5;
+			position.x = app->scene->player->klastPositionX;
+			position.y = app->scene->player->klastPositionY - 5;
 		}
 		else
 		{
