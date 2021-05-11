@@ -15,6 +15,7 @@
 #include "NPC3.h"
 #include "NPC4.h"
 #include "NPC5.h"
+#include "NPC7.h"
 #include "Enemy1.h"
 #include "Enemy2.h"
 #include "Enemy3.h"
@@ -68,6 +69,7 @@ bool Scene::Start()
 		// Loads entities
 		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);		
 		npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
+		npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 		enemy1 = (Enemy1*)app->entityManager->CreateEntity(EntityType::Enemy1);
 		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
 		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
@@ -77,6 +79,7 @@ bool Scene::Start()
 		
 		npc1->Start();
 		npc5->Start();
+		npc7->Start();
 		enemy1->Start();
 		enemy2->Start();
 		enemy3->Start();
@@ -399,6 +402,7 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(npc3);
 	app->entityManager->DestroyEntity(npc4);
 	app->entityManager->DestroyEntity(npc5);
+	app->entityManager->DestroyEntity(npc7);
 	app->entityManager->DestroyEntity(enemy1);
 	app->entityManager->DestroyEntity(enemy2);
 	app->entityManager->DestroyEntity(enemy3);

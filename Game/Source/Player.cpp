@@ -13,6 +13,8 @@
 #include "Enemy1.h"
 #include "NPC1.h"
 #include "NPC4.h"
+#include "NPC5.h"
+#include "NPC7.h"
 #include "ModuleParticles.h"
 #include "FlyingEnemy.h"
 #include "FadeToBlack.h"
@@ -396,6 +398,19 @@ bool Player::Update(float dt)
 			app->render->RestartValues();
 		}
 	}
+
+
+
+
+	//Dumbledore (aixo es posara a true al dialeg del mago pop)
+	if (!app->scene->npc5->mageTkn&& position.y >= 150)app->scene->npc5->mageTkn = true;
+	
+	if (!app->scene->npc7->knightTkn&& position.y >= 120)app->scene->npc7->knightTkn = true;
+
+
+
+
+
 	currentAnimation->Update();
 	return true;
 }

@@ -8,6 +8,7 @@
 #include "NPC3.h"
 #include "NPC4.h"
 #include "NPC5.h"
+#include "NPC7.h"
 #include "Enemy1.h"
 #include "Enemy2.h"
 #include "Enemy3.h"
@@ -52,6 +53,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	{
 		// L13: Create the corresponding type entity
 		case EntityType::NPC5: ret = new NPC5();  break;
+		case EntityType::NPC7: ret = new NPC7();  break;
 
 		case EntityType::PLAYER: ret = new Player();  break;
 		case EntityType::ENEMY: ret = new Enemy();  break;

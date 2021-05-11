@@ -1,5 +1,5 @@
-#ifndef __NPC5_H__
-#define __NPC5_H__
+#ifndef __NPC7_H__
+#define __NPC7_H__
 
 #include "Module.h"
 #include "Point.h"
@@ -9,14 +9,14 @@
 struct SDL_Texture;
 class Collider;
 
-class NPC5 : public Entity
+class NPC7 : public Entity
 {
 public:
 
-	NPC5();
+	NPC7();
 
 	// Destructor
-	virtual ~NPC5();
+	virtual ~NPC7();
 
 	// Called before render is available
 	bool Awake();
@@ -34,13 +34,13 @@ public:
 	bool CleanUp();
 
 
-	void NPC5InitialPosition();
+	void NPC7InitialPosition();
 
 	//iPoint position;
 	iPoint posOrigin;
 	iPoint posDestination;
 
-	SDL_Texture* texNPC5;
+	SDL_Texture* texNPC7;
 
 	Animation* currentAnimation = nullptr;
 
@@ -49,12 +49,12 @@ public:
 	Animation leftAnim;
 	Animation upAnim;
 
-	// NPC5 Mage Stats
-	int mageDmg = 10;
-	int mageHealth = 120;
-	int mageMagicDmg = 40;
+	// NPC7 Knight Stats
+	int knightDmg = 10;
+	int knightHealth = 120;
+	int knightMagicDmg = 40;
 
-	bool mageTkn = false;
+	bool knightTkn = false;
 
 private:
 	float speed = 1.0f;
@@ -66,4 +66,4 @@ private:
 
 };
 
-#endif // __NPC5_H__
+#endif // __NPC7_H__

@@ -19,6 +19,7 @@ class NPC2;
 class NPC3; 
 class NPC4;
 class NPC5;
+class NPC7;
 class Enemy1;
 class Enemy2;
 class Enemy3;
@@ -76,6 +77,7 @@ public:
 	NPC3* npc3;
 	NPC4* npc4;
 	NPC5* npc5;
+	NPC7* npc7;
 	Enemy1* enemy1;
 	Enemy2* enemy2;
 	Enemy3* enemy3;

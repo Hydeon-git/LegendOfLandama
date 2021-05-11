@@ -18,6 +18,7 @@ enum class EntityType
 	NPC3,
 	NPC4,
 	NPC5,
+	NPC7,
 	Enemy1,
 	Enemy2,
 	Enemy3,

@@ -112,6 +112,7 @@
     <ClCompile Include="Source\NPC3.cpp" />
     <ClCompile Include="Source\NPC4.cpp" />
     <ClCompile Include="Source\NPC5.cpp" />
+    <ClCompile Include="Source\NPC7.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Player.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Source\GuiSlider.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleParticles.h" />
+    <ClInclude Include="Source\NPC7.h" />
     <ClInclude Include="Source\NPC1.h" />
     <ClInclude Include="Source\NPC2.h" />
     <ClInclude Include="Source\NPC3.h" />
