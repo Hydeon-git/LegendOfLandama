@@ -13,6 +13,9 @@
 	<scene>
 		<positionPlayer x="350" y="875" />
 	</scene>
+	<sceneDungeon>
+		<positionPlayer x="350" y="875" />
+	</sceneDungeon>
 	<map />
 	<:anonymous />
 	<entitymanager />
@@ -20,6 +23,6 @@
 	<pathfinding />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-469" y="-680" />
+		<camera x="-640" y="-47" />
 	</renderer>
 </save_state>
