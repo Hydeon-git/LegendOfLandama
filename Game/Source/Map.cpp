@@ -55,7 +55,7 @@ void Map::Draw()
 	// L06: DONE 4: Make sure we draw all the layers and not just the first one	
 	while (layer != NULL)
 	{
-		if (layer->data->name == "floor" || layer->data->name == "walls" || layer->data->name == "furniture" || layer->data->name == "extra_furniture" || layer->data->name == "windows" || layer->data->name == "trees")
+		if (layer->data->name == "floor" || layer->data->name == "walls" || layer->data->name == "furniture" || layer->data->name == "extra_furniture" || layer->data->name == "windows" || layer->data->name == "trees" || layer->data->name == "walls2" || layer->data->name == "floor2")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
