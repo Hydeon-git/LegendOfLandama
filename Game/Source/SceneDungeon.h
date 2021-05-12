@@ -23,6 +23,7 @@ class NPC7;
 class Enemy1;
 class Enemy2;
 class Enemy3;
+
 enum class DungeonScene
 {
 	SCENE_NONE,
@@ -60,8 +61,8 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	// Change Scene
-	void ChangeScene(GameScene nextScene);	
-	GameScene currentScene;
+	void ChangeScene(DungeonScene nextScene);
+	DungeonScene currentScene;
 
 	// Called before quitting
 	bool CleanUp();

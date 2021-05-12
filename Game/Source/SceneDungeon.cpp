@@ -49,7 +49,7 @@ bool SceneDungeon::Start()
 	if (this->active == true)
 	{
 		// Set Current Scene to TOWN
-		
+		currentScene = DungeonScene::SCENE_HALL;
 
 		// Setting dialogue to id 0 - Beach Girl
 		
@@ -82,7 +82,7 @@ bool SceneDungeon::Start()
 
 		// Loads the map and creates walkability map
 
-		if (app->map->Load("town.tmx") == true)
+		if (app->map->Load("dungeonHall.tmx") == true)
 		{
 			int w, h;
 			uchar* data = NULL;
@@ -239,9 +239,188 @@ bool SceneDungeon::CleanUp()
 	return true;
 }
 
-void SceneDungeon::ChangeScene(GameScene nextScene)
+void SceneDungeon::ChangeScene(DungeonScene nextScene)
 {
-	
+	// Clearing Map
+	app->map->CleanUp();
+
+	switch (nextScene)
+	{
+	case DungeonScene::SCENE_NONE:
+	{
+		LOG("ERROR: Scene loaded was none so intro scene loaded instead.");
+		ChangeScene(DungeonScene::SCENE_HALL);
+		break;
+	}
+	case DungeonScene::SCENE_HALL:
+	{
+		if (app->map->Load("dungeonHall.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+
+			if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		}
+
+		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);
+		npc1->Start();
+
+		// Setting dialogue to id 0 Beach Girl and restart dialog system
+		/*app->dialogueSystem->CleanUp();
+		app->dialogueSystem->id = 0;
+		app->dialogueSystem->Start();
+		app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];*/
+
+		// Deteting in which house the player was
+		// Reposition the player
+		switch (house)
+		{
+			// 0 - None
+			// 1 - House1
+			// 2 - Blacksmith
+			// 3 - Inn
+			// 4 - Dungeon Entry
+		case 1:
+		{
+			app->scene->player->position.x = 144;
+			app->scene->player->position.y = 99;
+			player->doorTaked = true;
+
+			if (player->doorTaked)
+			{
+				//player->posMoved = 0;
+				player->doorTaked2 = true;
+			}
+			//player->doorTaked = true;
+			//player->doorTakedY = true;
+			player->lastPositionX2 = player->position.x;
+			player->lastPositionY2 = player->position.y;
+
+			app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+			app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+
+			npc3->CleanUp();
+			app->entityManager->DestroyEntity(npc3);
+			npc3 = nullptr;
+
+			house = 0;
+		} break;
+		case 2:
+		{
+			app->scene->player->position.x = 544;
+			app->scene->player->position.y = 130;
+			player->doorTaked = true;
+
+			if (player->doorTaked)
+			{
+				//player->posMoved = 0;
+				player->doorTaked2 = true;
+
+			}
+			//player->doorTaked = true;
+			//player->doorTakedY = true;
+			player->lastPositionX2 = player->position.x;
+			player->lastPositionY2 = player->position.y;
+			app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+			app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+
+			npc2->CleanUp();
+			app->entityManager->DestroyEntity(npc2);
+			npc2 = nullptr;
+
+			house = 0;
+		} break;
+		case 3:
+		{
+			app->scene->player->position.x = 401;
+			app->scene->player->position.y = 320;
+			player->doorTaked = true;
+
+			if (player->doorTaked)
+			{
+				//player->posMoved = 0;
+				player->doorTaked2 = true;
+
+			}
+			//player->doorTakedY = true;
+			player->lastPositionX2 = player->position.x;
+			player->lastPositionY2 = player->position.y;
+			app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+			app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+
+			npc4->CleanUp();
+			app->entityManager->DestroyEntity(npc4);
+			npc4 = nullptr;
+
+			house = 0;
+		} break;
+		case 4:
+		{
+			app->scene->player->position.x = 401;
+			app->scene->player->position.y = 320;
+			player->doorTaked = true;
+
+			if (player->doorTaked)
+			{
+				player->doorTaked2 = true;
+
+			}
+			player->lastPositionX2 = player->position.x;
+			player->lastPositionY2 = player->position.y;
+			app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+			app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+
+			house = 0;
+		}break;
+		}
+		currentScene = DungeonScene::SCENE_HALL;
+	}
+	break;
+	case DungeonScene::SCENE_MID:
+	{
+		if (app->map->Load("house1.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+
+			if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		}
+
+		// Unload Beach Girl
+		npc1->CleanUp();
+		app->entityManager->DestroyEntity(npc1);
+		npc1 = nullptr;
+
+		// Creates Fisherman and starts it	
+		npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
+		npc3->Start();
+
+		// Setting dialogue to id 2 Fisherman and restart dialog system
+
+		/*app->dialogueSystem->CleanUp();
+		app->dialogueSystem->id = 2;
+		app->dialogueSystem->Start();
+		app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];*/
+
+		house = 1;
+		app->render->camera.x = 0;
+		app->render->camera.y = 0;
+		app->scene->player->position.x = 153;
+		app->scene->player->position.y = 156;
+
+		player->doorTaked = true;
+		//player->doorTakedY = true;
+		player->lastPositionX2 = player->position.x;
+		player->lastPositionY2 = player->position.y;
+
+		currentScene = DungeonScene::SCENE_MID;
+	} break;
+
+	}
 }
 
 bool SceneDungeon::LoadState(pugi::xml_node& node)

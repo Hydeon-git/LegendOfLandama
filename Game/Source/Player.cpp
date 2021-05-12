@@ -481,7 +481,7 @@ bool Player::Update(float dt)
 			CheckDoor();
 	
 		}
-		if (app->scene->currentScene == GameScene::SCENE_BSMITH ||app->scene->currentScene == GameScene::SCENE_HOUSE1 ||app->scene->currentScene == GameScene::SCENE_INN)
+		if (app->scene->currentScene == GameScene::SCENE_BSMITH ||app->scene->currentScene == GameScene::SCENE_HOUSE1 || app->scene->currentScene == GameScene::SCENE_INN || app->scene->currentScene == GameScene::SCENE_ENTRYDUNGEON)
 		{
 			CheckHouseDoor();
 			

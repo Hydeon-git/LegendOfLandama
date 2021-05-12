@@ -212,7 +212,7 @@ bool Scene::Update(float dt)
 	}
 	if (player->houseDoor == COLLIDER_GREEN_FOREST)
 	{
-		app->fadeToBlack->FadeToBlk(this, app->sceneDungeon, 60.0f);
+		//app->fadeToBlack->FadeToBlk(this, app->sceneDungeon, 60.0f);
 	}
 	if (player->ThereIsHouseClosed() && !knokDone)
 	{
