@@ -119,6 +119,7 @@
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\SceneBattle.cpp" />
+    <ClCompile Include="Source\SceneDungeon.cpp" />
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\SceneWin.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
     <ClInclude Include="Source\SceneBattle.h" />
+    <ClInclude Include="Source\SceneDungeon.h" />
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\SceneWin.h" />

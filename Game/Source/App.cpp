@@ -14,6 +14,7 @@
 #include "SceneWin.h"
 #include "SceneLose.h"
 #include "SceneBattle.h"
+#include "SceneDungeon.h"
 #include "PathFinding.h"
 #include "Player.h"
 #include "DialogSystem.h"
@@ -40,6 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	dialogueSystem = new DialogueSystem(input, render, tex);
 	map = new Map();
 	scene = new Scene();
+	sceneDungeon = new SceneDungeon();
 	sceneBattle = new SceneBattle();
 	sceneIntro = new SceneIntro();
 	sceneWin = new SceneWin();
@@ -62,6 +64,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneLose, false);
 	AddModule(sceneBattle, false);
 	AddModule(scene, false);
+	AddModule(sceneDungeon, false);
 	AddModule(map, false);
 	AddModule(dialogueSystem, true);
 	AddModule(entityManager, true);

@@ -18,6 +18,10 @@
 #define COLLIDER_GREEN_HOUSE 769
 #define COLLIDER_RED_HOUSE 770
 #define COLLIDER_CIAN_HOUSE 776
+
+#define COLLIDER_GREEN_FOREST 1345
+#define COLLIDER_RED_FOREST 1346
+
 struct SDL_Texture;
 class Collider;
 

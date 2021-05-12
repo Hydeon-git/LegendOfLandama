@@ -26,6 +26,7 @@ class SceneBattle;
 class SceneIntro;
 class SceneWin;
 class SceneLose;
+class SceneDungeon;
 class Font;
 class DialogueSystem;
 
@@ -105,6 +106,7 @@ public:
 	SceneIntro* sceneIntro;
 	SceneWin* sceneWin;
 	SceneLose* sceneLose;
+	SceneDungeon* sceneDungeon;
 	EntityManager* entityManager;
 	Font* font;
 	DialogueSystem* dialogueSystem;

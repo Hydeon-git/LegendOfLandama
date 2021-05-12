@@ -606,7 +606,7 @@ bool Player::ThereIsTopWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y-1);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE) valid = true;
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST) valid = true;
 				}
 
 			}
@@ -633,7 +633,7 @@ bool Player::ThereIsBottomWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE) valid = true;
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST) valid = true;
 				}
 
 			}
@@ -660,7 +660,7 @@ bool Player::ThereIsLeftWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x-1, position.y + i * 4);
 					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE) valid = true;
+					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE || leftWallId == COLLIDER_RED_FOREST) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -685,7 +685,7 @@ bool Player::ThereIsRightWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth+1, position.y + i * 4);
 					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE) valid = true;
+					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE || rightWallId == COLLIDER_RED_FOREST) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -752,7 +752,7 @@ int Player::ThereIsNPC()
 	bool positionX2 = false;
 	bool positionY2 = false;
 	int npc = 0;
-	if (!godModeEnabled)
+	if (!godModeEnabled && app->scene->currentScene == GameScene::SCENE_TOWN)
 	{
 		for (int i = -32; i < 32; ++i)
 		{

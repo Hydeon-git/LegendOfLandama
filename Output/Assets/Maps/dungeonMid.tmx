@@ -969,7 +969,7 @@
    <tile gid="130"/>
    <tile gid="195"/>
    <tile gid="130"/>
-   <tile gid="130"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -3630,7 +3630,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="colliders" width="30" height="20">
+ <layer id="6" name="colliders" width="30" height="20" locked="1">
   <data>
    <tile/>
    <tile/>

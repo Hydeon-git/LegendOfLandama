@@ -26,6 +26,7 @@
 #include "SceneLose.h"
 #include "SceneWin.h"
 #include "SceneBattle.h"
+#include "SceneDungeon.h"
 #include "ModuleParticles.h"
 #include "GuiButton.h"
 #include "GuiSlider.h"
@@ -33,7 +34,6 @@
 #include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
-
 
 
 Scene::Scene() : Module()
@@ -105,13 +105,8 @@ bool Scene::Start()
 		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 		app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 
-
-
 		app->sceneBattle->mageDead = false;
 		app->sceneBattle->playerDead = false;
-
-
-
 
 		if(!app->sceneIntro->posContinue) timer = 0;
 
@@ -209,7 +204,16 @@ bool Scene::Update(float dt)
 		app->audio->PlayFx(doorOpenFx, 0);
 		player->houseDoor = 0;
 	}
-
+	if (player->door == COLLIDER_PINK)
+	{
+		app->scene->ChangeScene(GameScene::SCENE_ENTRYDUNGEON);
+		app->audio->PlayFx(doorCloseFx, 0);
+		player->door = 0;
+	}
+	if (player->houseDoor == COLLIDER_GREEN_FOREST)
+	{
+		app->fadeToBlack->FadeToBlk(this, app->sceneDungeon, 60.0f);
+	}
 	if (player->ThereIsHouseClosed() && !knokDone)
 	{
 		app->audio->PlayFx(doorKnokFx, 0);
@@ -307,22 +311,45 @@ bool Scene::Update(float dt)
 			{
 				app->render->camera.x = -640;
 			}
+		} break;
+		case GameScene::SCENE_ENTRYDUNGEON:
+		{
+			// Camera Settings
+			if (!app->scene->paused)
+			{
+				//camera x
 
-			
+				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
+				{
+					if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall() && !player->ThereIsNPCLeft() && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) app->render->camera.x += 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall() && !player->ThereIsNPCRight() && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) app->render->camera.x -= 3.0f;
+				}
+				//camera y
+				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
+				{
 
-		} break;
-		case GameScene::SCENE_HOUSE1:
-		{
-			
-		} break;
-		case GameScene::SCENE_BSMITH:
-		{
-			
-		} break;
-		case GameScene::SCENE_INN:
-		{
-			
-		} break;
+					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y += 3.0f;
+					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y -= 3.0f;
+				}
+			}
+
+			if (player->position.y <= 120)
+			{
+				app->render->camera.y = -2;
+			}
+			if (player->position.y >= 400)
+			{
+				app->render->camera.y = ((-2 - 409 * 3) + 1280 / 2) - 258;
+			}
+			if (player->position.x <= 220)
+			{
+				app->render->camera.x = -35;
+			}
+			if (player->position.x >= 420)
+			{
+				app->render->camera.x = -640;
+			}
+		} break;		
 	}
 	
 	return true;
@@ -448,6 +475,9 @@ void Scene::ChangeScene(GameScene nextScene)
 				RELEASE_ARRAY(data);
 			}
 			
+			npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);
+			npc1->Start();
+
 			// Setting dialogue to id 0 Beach Girl and restart dialog system
 			app->dialogueSystem->CleanUp();
 			app->dialogueSystem->id = 0;
@@ -462,6 +492,7 @@ void Scene::ChangeScene(GameScene nextScene)
 				// 1 - House1
 				// 2 - Blacksmith
 				// 3 - Inn
+				// 4 - Dungeon Entry
 				case 1:
 				{
 					app->scene->player->position.x = 144;
@@ -535,7 +566,25 @@ void Scene::ChangeScene(GameScene nextScene)
 					npc4 = nullptr;
 
 					house = 0;
-				} break;			
+				} break;
+				case 4: 
+				{
+					app->scene->player->position.x = 401;
+					app->scene->player->position.y = 320;
+					player->doorTaked = true;
+
+					if (player->doorTaked)
+					{
+						player->doorTaked2 = true;
+
+					}
+					player->lastPositionX2 = player->position.x;
+					player->lastPositionY2 = player->position.y;
+					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;										
+
+					house = 0;
+				}break;
 			}
 			currentScene = GameScene::SCENE_TOWN;
 		}
@@ -551,6 +600,11 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
+
+			// Unload Beach Girl
+			npc1->CleanUp();
+			app->entityManager->DestroyEntity(npc1);
+			npc1 = nullptr;
 
 			// Creates Fisherman and starts it	
 			npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
@@ -588,6 +642,11 @@ void Scene::ChangeScene(GameScene nextScene)
 				RELEASE_ARRAY(data);
 			}
 
+			// Unload Beach Girl
+			npc1->CleanUp();
+			app->entityManager->DestroyEntity(npc1);
+			npc1 = nullptr;
+
 			// Creates Blacksmith and Starts it
 			npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
 			npc2->Start();
@@ -622,6 +681,10 @@ void Scene::ChangeScene(GameScene nextScene)
 
 				RELEASE_ARRAY(data);
 			}
+			// Unload Beach Girl
+			npc1->CleanUp();
+			app->entityManager->DestroyEntity(npc1);
+			npc1 = nullptr;
 
 			// Setting dialogue to id 3 Posadera and restart dialog system
 			app->dialogueSystem->CleanUp();
@@ -645,6 +708,40 @@ void Scene::ChangeScene(GameScene nextScene)
 
 			currentScene = GameScene::SCENE_INN;
 		} break;
+		case GameScene::SCENE_ENTRYDUNGEON:
+		{
+			if (app->map->Load("dungeonEntry.tmx") == true)
+			{
+				int w, h;
+				uchar* data = NULL;
+
+				if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+				RELEASE_ARRAY(data);
+			}
+
+			// Unload Beach Girl
+			npc1->CleanUp();
+			app->entityManager->DestroyEntity(npc1);
+			npc1 = nullptr;
+
+			// Setting dialogue to id 0 None
+			app->dialogueSystem->CleanUp();
+			app->dialogueSystem->id = 0;
+			app->dialogueSystem->Start();
+			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
+			house = 4;
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
+
+			app->scene->player->position.x = 20;
+			app->scene->player->position.y = 53;
+
+			player->lastPositionX2 = player->position.x;
+			player->lastPositionY2 = player->position.y;
+
+			currentScene = GameScene::SCENE_ENTRYDUNGEON;
+		}break;
 	}
 }
 

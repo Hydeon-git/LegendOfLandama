@@ -12,7 +12,7 @@
  <tileset firstgid="1345" name="colors" tilewidth="16" tileheight="16" tilecount="9" columns="9">
   <image source="colors.png" width="154" height="16"/>
  </tileset>
- <layer id="1" name="Floor" width="40" height="20">
+ <layer id="1" name="floor" width="40" height="20">
   <data>
    <tile gid="31"/>
    <tile gid="31"/>
@@ -816,7 +816,7 @@
    <tile gid="73"/>
   </data>
  </layer>
- <layer id="5" name="Edges" width="40" height="20">
+ <layer id="5" name="walls" width="40" height="20">
   <data>
    <tile/>
    <tile/>
@@ -1620,7 +1620,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Trees" width="40" height="20">
+ <layer id="4" name="trees" width="40" height="20">
   <data>
    <tile/>
    <tile/>
@@ -2424,7 +2424,7 @@
    <tile gid="280"/>
   </data>
  </layer>
- <layer id="6" name="Colliders" width="40" height="20">
+ <layer id="6" name="colliders" width="40" height="20">
   <data>
    <tile gid="1346"/>
    <tile gid="1346"/>
@@ -2981,7 +2981,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1346"/>
    <tile gid="1346"/>
    <tile gid="1346"/>
    <tile gid="1346"/>

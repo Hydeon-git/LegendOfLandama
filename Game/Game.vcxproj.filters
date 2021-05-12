@@ -113,6 +113,9 @@
     <ClCompile Include="Source\NPC7.cpp">
       <Filter>Entities\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneDungeon.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -259,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="Source\NPC7.h">
       <Filter>Entities\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneDungeon.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

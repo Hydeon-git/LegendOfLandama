@@ -4526,7 +4526,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="DoorClose" width="30" height="30" visible="0">
+ <layer id="5" name="DoorClose" width="30" height="30">
   <data>
    <tile/>
    <tile/>

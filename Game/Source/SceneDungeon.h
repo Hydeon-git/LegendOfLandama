@@ -1,5 +1,5 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __SCENEDUNGEON_H__
+#define __SCENEDUNGEON_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -23,24 +23,23 @@ class NPC7;
 class Enemy1;
 class Enemy2;
 class Enemy3;
-enum class GameScene
+enum class DungeonScene
 {
 	SCENE_NONE,
-	SCENE_TOWN,
-	SCENE_HOUSE1,
-	SCENE_BSMITH,
-	SCENE_INN,
-	SCENE_ENTRYDUNGEON
+	SCENE_ENTRY,
+	SCENE_HALL,
+	SCENE_MID,
+	SCENE_INN
 };
 
-class Scene : public Module
+class SceneDungeon : public Module
 {
 public:
 
-	Scene();
+	SceneDungeon();
 
 	// Destructor
-	virtual ~Scene();
+	virtual ~SceneDungeon();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -159,4 +158,4 @@ private:
 
 };
 
-#endif // __SCENE_H__
+#endif // __SCENEDUNGEON_H__
