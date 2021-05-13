@@ -1,5 +1,6 @@
-#ifndef __ENTITY_H__
-#define __ENTITY_H__
+#ifndef __ITEM_H__
+#define __ITEM_H__
+
 
 #include "Point.h"
 #include "SString.h"
@@ -7,30 +8,17 @@
 #include "SDL/include/SDL.h"
 #include "PugiXml/src/pugixml.hpp"
 
-enum class EntityType
+enum class ItemType
 {
-	PLAYER,
-	ENEMY,
-	FLYING_ENEMY,
-	PARTICLE,
-	NPC1,
-	NPC2,
-	NPC3,
-	NPC4,
-	NPC5,
-	NPC7,
-	Enemy1,
-	Enemy2,
-	Enemy3,
 	Potion,
 	UNKNOWN
 };
 
-class Entity
+class Item
 {
 public:
 
-	Entity(EntityType type) : type(type), active(true) {}
+	Item(ItemType type) : type(type), active(true) {}
 
 	virtual bool PreUpdate()
 	{
@@ -48,7 +36,7 @@ public:
 
 public:
 
-	EntityType type;
+	ItemType type;
 	bool active = true;
 	SString name;
 
@@ -57,4 +45,4 @@ public:
 	SDL_Texture* texture;
 };
 
-#endif // __ENTITY_H__
+#endif	
