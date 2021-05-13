@@ -2414,7 +2414,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="door_open" width="30" height="40">
+ <layer id="3" name="door_final_open" width="30" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3618,7 +3618,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="door_close" width="30" height="40">
+ <layer id="4" name="door_final_close" width="30" height="40">
   <data>
    <tile/>
    <tile/>

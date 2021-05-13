@@ -33,7 +33,7 @@
 #define COLLIDER_BEIGE_DUNGEON 1033
 #define COLLIDER_GREENER_DUNGEON 1034
 #define COLLIDER_BLACK_DUNGEON 1035
-#define COLLIDER_BRAWN_DUNGEON 1036
+#define COLLIDER_BROWN_DUNGEON 1036
 
 struct SDL_Texture;
 class Collider;
@@ -82,6 +82,10 @@ public:
 	bool DungeonFloorUp();
 	bool ThereIsDoor();
 	bool OpenChest();
+	bool OpenLaver1();
+	bool OpenLaver2();
+	bool OpenLaver3();
+	bool OpenLaverFinal();
 	bool LoseLifes();
 
 	void CheckDoor();
@@ -126,6 +130,11 @@ public:
 	bool house = false;
 	int door = 0;
 	int houseDoor = 0;
+
+
+	bool spikes1Down = false;
+	bool spikes2Down = false;
+	bool spikes3Down = false;
 
 
 	int lastPosX[25] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x };

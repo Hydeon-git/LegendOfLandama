@@ -121,10 +121,15 @@ public:
 	// Called each loop iteration
 	void Draw();
 	void DrawDoor();
+	void DrawDoorMid();
 	void DrawWalls2Dungeon();
 	void DrawFloor2Dungeon();
+	void DrawLavers();
 	void DrawPuzzle();
 	void DrawChest();
+	void DrawSpikes1();
+	void DrawSpikes2();
+	void DrawSpikes3();
 	void DrawHeart();
 	void DrawColliders();
 
@@ -169,6 +174,12 @@ public:
 	bool puzzleTaken = false;
 	bool heartTaken = false;
 	bool chestTaken = false;
+
+	bool laver1Pressed = false;
+	bool laver2Pressed = false;
+	bool laver3Pressed = false;
+	bool laverFinalPressed = false;
+
 private:
 
 	pugi::xml_document mapFile;

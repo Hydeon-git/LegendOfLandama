@@ -183,7 +183,9 @@ bool SceneDungeon::PostUpdate()
 	app->map->Draw();
 
 	app->map->DrawDoor();
+	app->map->DrawDoorMid();
 	app->map->DrawChest();
+	app->map->DrawLavers();
 	if (!app->map->puzzle1DungeonDone)
 	{
 		app->map->DrawWalls2Dungeon();
@@ -192,6 +194,38 @@ bool SceneDungeon::PostUpdate()
 	{
 		app->map->DrawFloor2Dungeon();
 	}
+	
+	//spikes
+	if (!app->map->laver1Pressed && !app->map->laver2Pressed && !app->map->laver3Pressed && !app->map->laverFinalPressed)
+	{
+		app->map->DrawSpikes1();
+		app->map->DrawSpikes2();
+		app->map->DrawSpikes3();
+	}
+	else if (app->map->laver1Pressed && !app->map->laver2Pressed && !app->map->laver3Pressed && !app->map->laverFinalPressed)
+	{
+		//app->map->DrawSpikes1();
+		app->map->DrawSpikes2();
+		app->map->DrawSpikes3();
+	}
+	else if (app->map->laver1Pressed && app->map->laver2Pressed && !app->map->laver3Pressed && !app->map->laverFinalPressed)
+	{
+		app->map->DrawSpikes1();
+		//app->map->DrawSpikes2();
+		app->map->DrawSpikes3();
+	}
+	else if (app->map->laver1Pressed && app->map->laver2Pressed && app->map->laver3Pressed && !app->map->laverFinalPressed)
+	{
+		//app->map->DrawSpikes1();
+		//app->map->DrawSpikes2();
+		app->map->DrawSpikes3();
+	}
+	//else if ((!app->map->laver1Pressed && !app->map->laver2Pressed && !app->map->laver3Pressed && app->map->laverFinalPressed) || (app->map->laver1Pressed && !app->map->laver2Pressed && !app->map->laver3Pressed && app->map->laverFinalPressed))
+	//{
+	//	app->map->DrawSpikes1();
+	//	app->map->DrawSpikes2();
+	//	app->map->DrawSpikes3();
+	//}
 
 	app->map->DrawColliders();
 
