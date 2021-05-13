@@ -41,7 +41,7 @@ bool SceneLose::Start()
 		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
 		app->map->Disable();
 		app->audio->PlayMusic("Assets/Audio/Music/game_over.ogg");
-		app->map->checkpointTaken = false;
+		app->map->puzzle1DungeonDone = false;
 		app->render->camera.x = 0;
 		app->render->camera.y = -556;
 		btnRestart = new GuiButton(1, { 490, 1030, 300, 50 }, " RESTART");

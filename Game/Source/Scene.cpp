@@ -369,7 +369,7 @@ bool Scene::PostUpdate()
 	// Draw map
 	app->map->Draw();
 	app->map->DrawColliders();
-	app->map->DrawCheckpoint();
+	//app->map->DrawCheckpoint();
 	app->map->DrawPuzzle();
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();

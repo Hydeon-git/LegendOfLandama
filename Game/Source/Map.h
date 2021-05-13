@@ -120,8 +120,9 @@ public:
 
 	// Called each loop iteration
 	void Draw();
-	void DrawVillage();
-	void DrawCheckpoint();
+	void DrawDoor();
+	void DrawWalls2Dungeon();
+	void DrawFloor2Dungeon();
 	void DrawPuzzle();
 	void DrawChest();
 	void DrawHeart();
@@ -162,7 +163,9 @@ public:
 	MapData data;
 	bool colliders = false;
 	bool keyTaken = false;
-	bool checkpointTaken = false;
+	bool puzzle1DungeonDone = false;
+	bool buttonFloorPressed = false;
+	bool chestOpened = false;
 	bool puzzleTaken = false;
 	bool heartTaken = false;
 	bool chestTaken = false;

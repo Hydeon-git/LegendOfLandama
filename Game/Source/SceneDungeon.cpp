@@ -44,6 +44,7 @@ bool SceneDungeon::Start()
 	bool ret = true;
 	if (this->active == true)
 	{
+		currentScene = DungeonScene::SCENE_HALL;
 		LOG("Loading Scene Dungeon");
 		// Font
 		winText = app->tex->Load("Assets/Textures/scene_win.png");
@@ -66,6 +67,7 @@ bool SceneDungeon::Start()
 		npc7->Start();
 		player->Start();		
 
+
 		// Camera
 		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 		app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
@@ -86,6 +88,21 @@ bool SceneDungeon::Start()
 
 bool SceneDungeon::Update(float dt)
 {
+
+
+	if (currentScene == DungeonScene::SCENE_HALL && player->door == COLLIDER_GREEN_DUNGEON)
+	{
+		ChangeScene(DungeonScene::SCENE_MID);
+		//app->audio->PlayFx(doorCloseFx, 0);
+		player->door = 0;
+	}
+	else if (currentScene == DungeonScene::SCENE_MID && player->door == COLLIDER_GREEN_DUNGEON)
+	{
+		ChangeScene(DungeonScene::SCENE_BOSS);
+		//app->audio->PlayFx(doorCloseFx, 0);
+		player->door = 0;
+	}
+
 	if (!paused)
 	{
 		// Camera x
@@ -119,9 +136,26 @@ bool SceneDungeon::Update(float dt)
 		if ((app->render->counter == 0 || player->godModeEnabled))
 		{
 
-			if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y += 3.0f;
-			else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y -= 3.0f;
-
+			if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+				&& !player->ThereIsTopWall()
+				&& !player->ThereIsNPCUp()
+				&& !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+			{
+				app->render->camera.y += 3.0f;
+			}
+			else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+				&& !player->ThereIsBottomWall()
+				&& !player->ThereIsNPCBelow()
+				&& !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+			{
+				app->render->camera.y -= 3.0f;
+			}
 		}
 	}
 
@@ -147,8 +181,22 @@ bool SceneDungeon::PostUpdate()
 	if (exit == true) ret = false;
 
 	app->map->Draw();
+
+	app->map->DrawDoor();
+	app->map->DrawChest();
+	if (!app->map->puzzle1DungeonDone)
+	{
+		app->map->DrawWalls2Dungeon();
+	}
+	if (app->map->buttonFloorPressed)
+	{
+		app->map->DrawFloor2Dungeon();
+	}
+
 	app->map->DrawColliders();
-	
+
+
+
 	return ret;
 }
 
@@ -165,6 +213,76 @@ bool SceneDungeon::OnGuiMouseClickEvent(GuiControl* control)
 	}
 
 	return true;
+}
+
+
+void SceneDungeon::ChangeScene(DungeonScene nextScene)
+{
+	LOG("Changing scene");
+
+	// Clearing Map
+	app->map->CleanUp();
+
+	switch (nextScene)
+	{
+	case DungeonScene::SCENE_NONE:
+	{
+		LOG("ERROR: Scene loaded was none so intro scene loaded instead.");
+		ChangeScene(DungeonScene::SCENE_HALL);
+		break;
+	}
+	case DungeonScene::SCENE_HALL:
+	{
+		if (app->map->Load("dungeonHall.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+
+			if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		}
+
+		currentScene = DungeonScene::SCENE_HALL;
+	}
+	break;
+
+	case DungeonScene::SCENE_MID:
+	{
+		if (app->map->Load("dungeonMid.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+
+			if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		}
+		app->sceneDungeon->player->position.x = 72;
+		app->sceneDungeon->player->position.y = 287;
+		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+		app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+		currentScene = DungeonScene::SCENE_MID;
+	} break;
+
+	case DungeonScene::SCENE_BOSS:
+	{
+		if (app->map->Load("dungeonFinal.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+
+			if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		}
+		app->sceneDungeon->player->position.x = 248;
+		app->sceneDungeon->player->position.y = 573;
+		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+		app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+		currentScene = DungeonScene::SCENE_BOSS;
+	} break;
+	}
 }
 
 bool SceneDungeon::CleanUp()

@@ -111,7 +111,7 @@ void Render::RestartValues()
 {
 	if (app->scene->player != nullptr)
 	{
-		if (app->map->checkpointTaken && !app->sceneWin->won && !app->sceneLose->lost && !app->scene->restart)
+		if (app->map->puzzle1DungeonDone && !app->sceneWin->won && !app->sceneLose->lost && !app->scene->restart)
 		{
 			app->scene->player->position.x = 938;
 			app->scene->player->position.y = 171;
@@ -119,7 +119,7 @@ void Render::RestartValues()
 			app->render->camera.x = -588;
 			app->render->camera.y = -99;
 		}
-		if (!app->map->checkpointTaken)
+		if (!app->map->puzzle1DungeonDone)
 		{
 			app->scene->player->position.x = 350;
 			app->scene->player->position.y = 875;
@@ -139,7 +139,7 @@ void Render::RestartValues()
 			app->map->chestTaken = false;
 			app->map->heartTaken = false;
 			app->map->puzzleTaken = false;
-			app->map->checkpointTaken = false;
+			app->map->puzzle1DungeonDone = false;
 			app->scene->player->lifes = 3;
 			app->scene->player->counterKey = 0;
 			app->scene->player->counterCheckpoint = 0;

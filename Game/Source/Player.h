@@ -22,7 +22,18 @@
 #define COLLIDER_GREEN_FOREST 1345
 #define COLLIDER_RED_FOREST 1346
 
+#define COLLIDER_GREEN_DUNGEON 1025
 #define COLLIDER_RED_DUNGEON 1026
+#define COLLIDER_BLUE_DUNGEON 1027
+#define COLLIDER_YELLOW_DUNGEON 1028
+#define COLLIDER_PINK_DUNGEON 1029
+#define COLLIDER_GREY_DUNGEON 1030
+#define COLLIDER_ORANGE_DUNGEON 1031
+#define COLLIDER_CIAN_DUNGEON 1032
+#define COLLIDER_BEIGE_DUNGEON 1033
+#define COLLIDER_GREENER_DUNGEON 1034
+#define COLLIDER_BLACK_DUNGEON 1035
+#define COLLIDER_BRAWN_DUNGEON 1036
 
 struct SDL_Texture;
 class Collider;
@@ -67,8 +78,10 @@ public:
 	bool ThereIsHouseClosed();
 	bool ThereIsEnemy();
 	bool ThereIsFlyingEnemy();
-	bool TakeCheckpoint();
+	bool DungeonDoorOpen();
+	bool DungeonFloorUp();
 	bool ThereIsDoor();
+	bool OpenChest();
 	bool LoseLifes();
 
 	void CheckDoor();

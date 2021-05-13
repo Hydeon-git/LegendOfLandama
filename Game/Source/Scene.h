@@ -23,6 +23,7 @@ class NPC7;
 class Enemy1;
 class Enemy2;
 class Enemy3;
+
 enum class GameScene
 {
 	SCENE_NONE,

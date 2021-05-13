@@ -55,7 +55,7 @@ void Map::Draw()
 	// L06: DONE 4: Make sure we draw all the layers and not just the first one	
 	while (layer != NULL)
 	{
-		if (layer->data->name == "floor" || layer->data->name == "walls" || layer->data->name == "furniture" || layer->data->name == "extra_furniture" || layer->data->name == "windows" || layer->data->name == "trees" || layer->data->name == "walls2" || layer->data->name == "floor2")
+		if (layer->data->name == "floor" || layer->data->name == "walls" || layer->data->name == "furniture" || layer->data->name == "extra_furniture" || layer->data->name == "windows" || layer->data->name == "trees" || layer->data->name == "dungeon_walls" || layer->data->name == "dungeon_floor")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
@@ -107,6 +107,9 @@ void Map::DrawColliders()
 		layer = layer->next;
 	}
 }
+
+
+
 //
 //void Map::DrawVillage()
 //{
@@ -137,58 +140,175 @@ void Map::DrawColliders()
 //	}
 //}
 
-void Map::DrawCheckpoint()
+void Map::DrawDoor()
 {
 	if (mapLoaded == false) return;
 
-	ListItem<MapLayer*>* layerCheckpointTaken = data.layers.start;
-	ListItem<MapLayer*>* layerCheckpoint = data.layers.start;
+	ListItem<MapLayer*>* layerDoorOpen = data.layers.start;
+	ListItem<MapLayer*>* layerDoorClosed = data.layers.start;
 
-	while (layerCheckpointTaken != NULL)
+	while (layerDoorOpen != NULL)
 	{
 
-		if (layerCheckpointTaken->data->name == "checkpointTaken")
+		if (layerDoorOpen->data->name == "door_open")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = layerCheckpointTaken->data->Get(x, y);
+					int tileId = layerDoorOpen->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (checkpointTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (puzzle1DungeonDone) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		layerCheckpointTaken = layerCheckpointTaken->next;
+		layerDoorOpen = layerDoorOpen->next;
 	}
-	while (layerCheckpoint != NULL)
+	while (layerDoorClosed != NULL)
 	{
 
-		if (layerCheckpoint->data->name == "checkpoint")
+		if (layerDoorClosed->data->name == "door_close")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = layerCheckpoint->data->Get(x, y);
+					int tileId = layerDoorClosed->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (!checkpointTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (!puzzle1DungeonDone) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		layerCheckpoint = layerCheckpoint->next;
+		layerDoorClosed = layerDoorClosed->next;
 	}
 }
+
+void Map::DrawWalls2Dungeon()
+{
+	if (mapLoaded == false) return;
+
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* walls2 = data.layers.start;
+	// L06: DONE 4: Make sure we draw all the layers and not just the first one	
+	while (walls2 != NULL)
+	{
+		if (walls2->data->name == "dungeon_walls2")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = walls2->data->Get(x, y);
+					if (tileId > 0)
+					{
+						// L04: DONE 9: Complete the draw function
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		walls2 = walls2->next;
+	}
+}
+
+void Map::DrawFloor2Dungeon()
+{
+	if (mapLoaded == false) return;
+
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* floor2 = data.layers.start;
+	// L06: DONE 4: Make sure we draw all the layers and not just the first one	
+	while (floor2 != NULL)
+	{
+		if (floor2->data->name == "dungeon_floor2")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = floor2->data->Get(x, y);
+					if (tileId > 0)
+					{
+						// L04: DONE 9: Complete the draw function
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		floor2 = floor2->next;
+	}
+}
+
+
+void Map::DrawChest()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* layerChestOpen = data.layers.start;
+	ListItem<MapLayer*>* layerChestClosed = data.layers.start;
+
+	while (layerChestOpen != NULL)
+	{
+
+		if (layerChestOpen->data->name == "chest_open")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerChestOpen->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (chestOpened) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerChestOpen = layerChestOpen->next;
+	}
+	while (layerChestClosed != NULL)
+	{
+
+		if (layerChestClosed->data->name == "chest_closed")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerChestClosed->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (!chestOpened) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerChestClosed = layerChestClosed->next;
+	}
+}
+
 
 void Map::DrawPuzzle()
 {
@@ -273,35 +393,35 @@ void Map::DrawHeart()
 	}
 }
 
-void Map::DrawChest()
-{
-	if (mapLoaded == false) return;
-
-	ListItem<MapLayer*>* layerHeart = data.layers.start;
-
-	while (layerHeart != NULL)
-	{
-
-		if (layerHeart->data->name == "chest")
-		{
-			for (int y = 0; y < data.height; ++y)
-			{
-				for (int x = 0; x < data.width; ++x)
-				{
-					int tileId = layerHeart->data->Get(x, y);
-					if (tileId > 0)
-					{
-						TileSet* set = GetTilesetFromTileId(tileId);
-						SDL_Rect rect = set->GetTileRect(tileId);
-						iPoint pos = MapToWorld(x, y);
-						if (!heartTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
-					}
-				}
-			}
-		}
-		layerHeart = layerHeart->next;
-	}
-}
+//void Map::DrawChest()
+//{
+//	if (mapLoaded == false) return;
+//
+//	ListItem<MapLayer*>* layerHeart = data.layers.start;
+//
+//	while (layerHeart != NULL)
+//	{
+//
+//		if (layerHeart->data->name == "chest")
+//		{
+//			for (int y = 0; y < data.height; ++y)
+//			{
+//				for (int x = 0; x < data.width; ++x)
+//				{
+//					int tileId = layerHeart->data->Get(x, y);
+//					if (tileId > 0)
+//					{
+//						TileSet* set = GetTilesetFromTileId(tileId);
+//						SDL_Rect rect = set->GetTileRect(tileId);
+//						iPoint pos = MapToWorld(x, y);
+//						if (!heartTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+//					}
+//				}
+//			}
+//		}
+//		layerHeart = layerHeart->next;
+//	}
+//}
 
 // L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 iPoint Map::MapToWorld(int x, int y) const

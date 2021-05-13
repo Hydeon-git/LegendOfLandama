@@ -6,7 +6,7 @@
  <tileset firstgid="1025" name="colors" tilewidth="16" tileheight="16" tilecount="16" columns="16">
   <image source="colors.png" width="256" height="16"/>
  </tileset>
- <layer id="2" name="Floor" width="30" height="40">
+ <layer id="2" name="dungeon_floor" width="30" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1210,7 +1210,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="1" name="Wall" width="30" height="40" locked="1">
+ <layer id="1" name="dungeon_walls" width="30" height="40">
   <data>
    <tile/>
    <tile/>
@@ -2334,7 +2334,7 @@
    <tile/>
    <tile/>
    <tile gid="257"/>
-   <tile/>
+   <tile gid="2"/>
    <tile gid="3"/>
    <tile gid="450"/>
    <tile gid="451"/>
@@ -2414,7 +2414,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="DoorOpen" width="30" height="40">
+ <layer id="3" name="door_open" width="30" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3618,7 +3618,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="DoorClose" width="30" height="40">
+ <layer id="4" name="door_close" width="30" height="40">
   <data>
    <tile/>
    <tile/>
@@ -4822,7 +4822,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Colliders" width="30" height="40">
+ <layer id="5" name="colliders" width="30" height="40">
   <data>
    <tile/>
    <tile/>
@@ -5139,8 +5139,8 @@
    <tile gid="1026"/>
    <tile gid="1026"/>
    <tile gid="1026"/>
-   <tile gid="1027"/>
-   <tile gid="1027"/>
+   <tile gid="1032"/>
+   <tile gid="1032"/>
    <tile gid="1026"/>
    <tile gid="1026"/>
    <tile gid="1026"/>
@@ -5169,8 +5169,8 @@
    <tile gid="1026"/>
    <tile gid="1026"/>
    <tile gid="1026"/>
-   <tile gid="1027"/>
-   <tile gid="1027"/>
+   <tile gid="1032"/>
+   <tile gid="1032"/>
    <tile gid="1026"/>
    <tile gid="1026"/>
    <tile gid="1026"/>

@@ -6,7 +6,7 @@
  <tileset firstgid="1025" name="colors" tilewidth="16" tileheight="16" tilecount="16" columns="16">
   <image source="colors.png" width="256" height="16"/>
  </tileset>
- <layer id="2" name="Floor" width="30" height="21">
+ <layer id="2" name="dungeon_floor" width="30" height="21">
   <data>
    <tile/>
    <tile/>
@@ -640,7 +640,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Object" width="30" height="21">
+ <layer id="5" name="object" width="30" height="21">
   <data>
    <tile/>
    <tile/>
@@ -1274,7 +1274,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="Spikes Up1" width="30" height="21">
+ <layer id="9" name="spikes_up1" width="30" height="21">
   <data>
    <tile/>
    <tile/>
@@ -1908,7 +1908,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="10" name="Spikes Up2" width="30" height="21">
+ <layer id="10" name="spikes_up2" width="30" height="21">
   <data>
    <tile/>
    <tile/>
@@ -2542,7 +2542,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="11" name="Spikes Up3" width="30" height="21">
+ <layer id="11" name="spikes_up3" width="30" height="21">
   <data>
    <tile/>
    <tile/>
@@ -3176,7 +3176,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="1" name="Walls" width="30" height="21">
+ <layer id="1" name="dungeon_walls" width="30" height="21">
   <data>
    <tile/>
    <tile/>
@@ -3810,7 +3810,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="DoorOpen" width="30" height="21">
+ <layer id="7" name="door_open" width="30" height="21">
   <data>
    <tile/>
    <tile/>
@@ -4444,7 +4444,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="8" name="DoorClose" width="30" height="21">
+ <layer id="8" name="door_close" width="30" height="21">
   <data>
    <tile/>
    <tile/>
@@ -5191,8 +5191,8 @@
    <tile gid="1036"/>
    <tile/>
    <tile/>
-   <tile gid="1035"/>
-   <tile gid="1035"/>
+   <tile gid="1032"/>
+   <tile gid="1032"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5219,132 +5219,132 @@
    <tile gid="1036"/>
    <tile gid="1036"/>
    <tile gid="1036"/>
-   <tile/>
-   <tile/>
-   <tile gid="1035"/>
-   <tile gid="1035"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile gid="1029"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="1033"/>
-   <tile gid="1033"/>
-   <tile/>
-   <tile/>
-   <tile gid="1036"/>
-   <tile gid="1036"/>
-   <tile gid="1036"/>
-   <tile/>
-   <tile/>
-   <tile gid="1035"/>
-   <tile gid="1035"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile gid="1026"/>
-   <tile/>
-   <tile/>
-   <tile gid="1026"/>
    <tile/>
    <tile/>
    <tile gid="1032"/>
+   <tile gid="1032"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile gid="1027"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="1033"/>
+   <tile gid="1033"/>
+   <tile/>
+   <tile/>
+   <tile gid="1036"/>
+   <tile gid="1036"/>
+   <tile gid="1036"/>
+   <tile/>
+   <tile/>
+   <tile gid="1032"/>
+   <tile gid="1032"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile gid="1026"/>
+   <tile/>
+   <tile/>
+   <tile gid="1035"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5654,8 +5654,8 @@
    <tile gid="1026"/>
    <tile gid="1026"/>
    <tile gid="1026"/>
-   <tile gid="1027"/>
-   <tile gid="1027"/>
+   <tile gid="1029"/>
+   <tile gid="1029"/>
    <tile gid="1026"/>
    <tile gid="1026"/>
    <tile gid="1026"/>

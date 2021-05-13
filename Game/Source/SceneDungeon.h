@@ -47,6 +47,8 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 	bool CleanUp() override;
 
+	void ChangeScene(DungeonScene nextScene);
+
 	bool won = false;
 	bool guiColliders = false;
 

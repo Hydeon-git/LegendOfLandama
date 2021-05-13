@@ -64,7 +64,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 		klastPositionX2 = 484;
 		klastPositionY2 = 344;
 	}
-	else if (app->sceneDungeon->active)
+	else if (app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
 	{
 		position.x = 232;
 		position.y = 381;
@@ -137,7 +137,9 @@ bool Player::Start()
 			app->map->chestTaken = false;
 			app->map->heartTaken = false;
 			app->map->puzzleTaken = false;
-			app->map->checkpointTaken = false;
+			app->map->puzzle1DungeonDone = false;
+			app->map->buttonFloorPressed = false;
+			app->map->chestOpened = false;
 			lifes = 3;
 			counterKey = 0;
 			counterCheckpoint = 0;
@@ -158,10 +160,10 @@ bool Player::Start()
 		playerDeathFx = app->audio->LoadFx("Assets/Audio/Fx/death_sound.wav");
 		itemTakenFx = app->audio->LoadFx("Assets/Audio/Fx/item.wav");
 		checkpointFx = app->audio->LoadFx("Assets/Audio/Fx/checkpoint.wav");
-		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest.wav");
 		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
 		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
 		talkFx = app->audio->LoadFx("Assets/Audio/Fx/huh.wav");
+		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest_sound.wav");
 		
 
 		currentAnimation = &idlAnim;
@@ -483,7 +485,7 @@ bool Player::Update(float dt)
 				}				
 			}
 		}
-		if (app->scene->currentScene == GameScene::SCENE_TOWN)
+		if (app->scene->currentScene == GameScene::SCENE_TOWN || app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL || app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 		{
 			CheckDoor();
 	
@@ -496,12 +498,22 @@ bool Player::Update(float dt)
 
 		if (shotCountdown > 0) --shotCountdown;
 		
-		if (TakeCheckpoint())
+		if (DungeonDoorOpen())
 		{
-			app->map->checkpointTaken = true;
-			if (counterCheckpoint == 0) //app->audio->PlayFx(checkpointFx, 0);
-			counterCheckpoint = 1;
+			app->map->puzzle1DungeonDone = true;
 		}		
+		if (DungeonFloorUp())
+		{
+			app->map->buttonFloorPressed = true;
+		}
+		if (OpenChest())
+		{
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			{
+				app->audio->PlayFx(chestFx, 0);
+				app->map->chestOpened = true;
+			}
+		}
 	}
 	//restart when dies
 	if (spiked && !dead)
@@ -613,7 +625,7 @@ bool Player::ThereIsTopWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y-1);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON) valid = true;
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON || groundId == COLLIDER_BLACK_DUNGEON || (groundId == COLLIDER_CIAN_DUNGEON && !app->map->puzzle1DungeonDone) || (groundId == COLLIDER_ORANGE_DUNGEON && !app->map->buttonFloorPressed)) valid = true;
 				}
 
 			}
@@ -640,7 +652,7 @@ bool Player::ThereIsBottomWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON) valid = true;
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON || groundId == COLLIDER_BLACK_DUNGEON) valid = true;
 				}
 
 			}
@@ -667,7 +679,7 @@ bool Player::ThereIsLeftWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x-1, position.y + i * 4);
 					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE || leftWallId == COLLIDER_RED_FOREST || leftWallId == COLLIDER_RED_DUNGEON) valid = true;
+					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE || leftWallId == COLLIDER_RED_FOREST || leftWallId == COLLIDER_RED_DUNGEON || leftWallId == COLLIDER_BLACK_DUNGEON) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -692,7 +704,7 @@ bool Player::ThereIsRightWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth+1, position.y + i * 4);
 					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE || rightWallId == COLLIDER_RED_FOREST || rightWallId == COLLIDER_RED_DUNGEON) valid = true;
+					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE || rightWallId == COLLIDER_RED_FOREST || rightWallId == COLLIDER_RED_DUNGEON || rightWallId == COLLIDER_BLACK_DUNGEON) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -929,29 +941,93 @@ bool Player::ThereIsFlyingEnemy()
 	return valid;
 }
 
-bool Player::TakeCheckpoint()
+bool Player::DungeonDoorOpen()
 {
 	bool valid = false;
 	iPoint tilePosition;
 	ListItem<MapLayer*>* layer = app->map->data.layers.start;
-	int checkpoint;
+	int doorDungeon;
 	while (layer != NULL)
 	{
 		if (layer->data->properties.GetProperty("Navigation") == 0)
 		{
-			for (int i = 0; i < 3; ++i)
+			for (int i = 0; i < 4; ++i)
 			{
-				tilePosition = app->map->WorldToMap(position.x + 19 + i * 13, position.y + 21);
-				checkpoint = layer->data->Get(tilePosition.x, tilePosition.y);
-				if (checkpoint == COLLIDER_PINK)
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight/2);
+				doorDungeon = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (doorDungeon == COLLIDER_BLUE_DUNGEON)
 				{
-					app->SaveGameRequest();
 					//app->map->checkpointTaken = true;
 					valid = true;
 				}
 			}
 		}
 		layer = layer->next;
+	}
+	return valid;
+
+}
+
+bool Player::DungeonFloorUp()
+{
+	bool valid = false;
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int doorDungeon;
+	while (layer != NULL)
+	{
+		if (layer->data->properties.GetProperty("Navigation") == 0)
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight / 2);
+				doorDungeon = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (doorDungeon == COLLIDER_YELLOW_DUNGEON)
+				{
+					//app->map->checkpointTaken = true;
+					valid = true;
+				}
+			}
+		}
+		layer = layer->next;
+	}
+	return valid;
+
+}
+
+bool Player::OpenChest()
+{
+	bool valid = false;
+	if (!godModeEnabled)
+	{
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int chestId;
+		while (layer != NULL)
+		{
+			if (layer->data->name == "colliders")
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + playerWidth + 1, position.y + i * 4);
+					chestId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (chestId == COLLIDER_BLACK_DUNGEON) valid = true;
+				}
+				for (int j = 0; j < 4; ++j)
+				{
+					tilePosition = app->map->WorldToMap(position.x - 1, position.y + j * 4);
+					chestId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (chestId == COLLIDER_BLACK_DUNGEON) valid = true;
+				}
+				for (int k = 0; k < 4; ++k)
+				{
+					tilePosition = app->map->WorldToMap(position.x + k * 4, position.y - 1);
+					chestId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (chestId == COLLIDER_BLACK_DUNGEON) valid = true;
+				}
+			}
+			layer = layer->next;
+		}
 	}
 	return valid;
 
