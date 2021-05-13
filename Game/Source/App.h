@@ -30,7 +30,7 @@ class SceneDungeon;
 class Font;
 class DialogueSystem;
 class Shop;
-
+class HUD;
 
 class App
 {
@@ -113,7 +113,7 @@ public:
 	Font* font;
 	DialogueSystem* dialogueSystem;
 	Shop* shop;
-
+	HUD* hud;
 	bool capped = false;
 	bool loadGameRequested;
 	bool vSync = false;

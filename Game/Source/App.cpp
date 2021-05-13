@@ -21,7 +21,7 @@
 #include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
-
+#include "HUD.h"
 #include <iostream>
 #include <sstream>
 
@@ -52,7 +52,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding();
 	font = new Font();
 	shop = new Shop();
-
+	hud = new HUD();
 
 
 
@@ -75,7 +75,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding, true);
 	AddModule(fadeToBlack, true);
 	AddModule(shop, false);
-
+	AddModule(hud, false);
 	// Render last to swap buffer
 	AddModule(render, true);
 

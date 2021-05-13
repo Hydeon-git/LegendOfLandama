@@ -26,6 +26,7 @@
 #include "SceneIntro.h"
 #include "SceneWin.h"
 #include "DialogSystem.h"
+#include "HUD.h"
 
 
 Player::Player() : Entity(EntityType::PLAYER)
@@ -198,7 +199,7 @@ bool Player::Update(float dt)
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
 		{
-			if (!dialogeOn && !onBattle && !app->shop->staticPlayer) {
+			if (!dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen) {
 
 				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{

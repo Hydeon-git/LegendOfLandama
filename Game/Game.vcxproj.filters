@@ -116,11 +116,11 @@
     <ClCompile Include="Source\SceneDungeon.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Potion.cpp">
-      <Filter>Entities\Items</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Shop.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HUD.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,14 +272,11 @@
     <ClInclude Include="Source\SceneDungeon.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Potion.h">
-      <Filter>Entities\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Item.h">
-      <Filter>Entities\Items</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Shop.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HUD.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -309,9 +306,6 @@
     </Filter>
     <Filter Include="Entities\Enemies">
       <UniqueIdentifier>{7bbf98e3-6944-4f25-a97c-b9b55475fd5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entities\Items">
-      <UniqueIdentifier>{f0b86ac2-bb00-45cb-962a-82a9f390aafc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

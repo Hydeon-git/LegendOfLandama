@@ -64,9 +64,6 @@ bool Shop::Start()
 		shopX = 1;
 		shopY = 1;
 
-	/*	for (int i = 0; i < 15; i++) {
-			items[i].selected = false;
-		}*/
 
 	}
 	return ret;
@@ -112,7 +109,7 @@ bool Shop::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		staticPlayer = false;
 		open = false;
