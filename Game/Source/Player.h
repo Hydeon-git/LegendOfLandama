@@ -22,6 +22,8 @@
 #define COLLIDER_GREEN_FOREST 1345
 #define COLLIDER_RED_FOREST 1346
 
+#define COLLIDER_RED_DUNGEON 1026
+
 struct SDL_Texture;
 class Collider;
 

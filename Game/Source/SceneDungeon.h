@@ -11,26 +11,15 @@ class GuiButton;
 class GuiSlider;
 class GuiCheckBox;
 class Player;
-class Enemy;
-class FlyingEnemy;
-class ModuleParticles;
-class NPC1;
-class NPC2;
-class NPC3; 
-class NPC4;
 class NPC5;
 class NPC7;
-class Enemy1;
-class Enemy2;
-class Enemy3;
 
 enum class DungeonScene
 {
 	SCENE_NONE,
-	SCENE_ENTRY,
 	SCENE_HALL,
 	SCENE_MID,
-	SCENE_INN
+	SCENE_BOSS
 };
 
 class SceneDungeon : public Module
@@ -60,12 +49,28 @@ public:
 
 	bool won = false;
 	bool guiColliders = false;
+
+	DungeonScene currentScene;
+
 private:
 	GuiButton* btnRestart;
 	GuiButton* btnExit;
 	int whiteFont = -1;
 	SDL_Texture* winText = nullptr;
+
+	bool paused = false;
 	bool exit = false;
+
+	// Player
+	Player* player;
+	// NPCS
+	NPC5* npc5;
+	NPC7* npc7;
+	
+	// Textures
+	SDL_Texture* texMenu;
+
+	// GUI Buttons
 
 };
 

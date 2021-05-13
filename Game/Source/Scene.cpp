@@ -179,6 +179,11 @@ bool Scene::Update(float dt)
 		player->godModeEnabled = !player->godModeEnabled;
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	{
+		app->fadeToBlack->FadeToBlk(this, app->sceneDungeon, 30);
+	}
+
 	//Cap in-game FPS
 	//if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) app->capped = !app->capped;
 	if (player->door == COLLIDER_BLUE)
@@ -277,7 +282,7 @@ bool Scene::Update(float dt)
 		case GameScene::SCENE_TOWN:
 		{
 			// Camera Settings
-			if (!app->scene->paused)
+			if (!paused)
 			{
 				//camera x
 
@@ -435,6 +440,8 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(enemy2);
 	app->entityManager->DestroyEntity(enemy3);
 	app->entityManager->DestroyEntity(particles);
+
+	app->map->Disable();
 
 	//RELEASE(btnResume);
 	//RELEASE(btnSettings);

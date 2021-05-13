@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "Scene.h"
+#include "SceneDungeon.h"
 #include "SceneLose.h"
 #include "SceneBattle.h"
 #include "Enemy.h"
@@ -62,6 +63,11 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 		klastPositionX2 = 484;
 		klastPositionY2 = 344;
+	}
+	else if (app->sceneDungeon->active)
+	{
+		position.x = 232;
+		position.y = 381;
 	}
 	else
 	{
@@ -607,7 +613,7 @@ bool Player::ThereIsTopWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y-1);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST) valid = true;
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON) valid = true;
 				}
 
 			}
@@ -634,7 +640,7 @@ bool Player::ThereIsBottomWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST) valid = true;
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON) valid = true;
 				}
 
 			}
@@ -661,7 +667,7 @@ bool Player::ThereIsLeftWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x-1, position.y + i * 4);
 					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE || leftWallId == COLLIDER_RED_FOREST) valid = true;
+					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE || leftWallId == COLLIDER_RED_FOREST || leftWallId == COLLIDER_RED_DUNGEON) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -686,7 +692,7 @@ bool Player::ThereIsRightWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth+1, position.y + i * 4);
 					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE || rightWallId == COLLIDER_RED_FOREST) valid = true;
+					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE || rightWallId == COLLIDER_RED_FOREST || rightWallId == COLLIDER_RED_DUNGEON) valid = true;
 				}
 			}
 			layer = layer->next;

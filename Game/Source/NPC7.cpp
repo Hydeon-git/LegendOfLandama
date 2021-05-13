@@ -94,7 +94,7 @@ NPC7::~NPC7() {}
 
 bool NPC7::Awake()
 {
-	LOG("Loading NPC7: Ustru Becari");
+	LOG("Loading NPC7: Knight");
 
 	bool ret = true;
 	return ret;

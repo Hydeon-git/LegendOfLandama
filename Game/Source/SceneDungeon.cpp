@@ -44,23 +44,33 @@ bool SceneDungeon::Start()
 	bool ret = true;
 	if (this->active == true)
 	{
-		LOG("Loading background assets");
+		LOG("Loading Scene Dungeon");
+		// Font
 		winText = app->tex->Load("Assets/Textures/scene_win.png");
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
-		app->scene->player->active = false;
-		app->map->Disable();
-		app->audio->PlayMusic("Assets/Audio/Music/win.ogg");
-		app->map->checkpointTaken = false;
-		app->scene->player->dead = false;
-		app->render->camera.x = 0;
-		app->render->camera.y = -556;
-		btnRestart = new GuiButton(1, { 490, 1030, 300, 50 }, " RESTART");
-		btnRestart->SetObserver(this);
-		btnExit = new GuiButton(2, { 1113, 582, 145, 50 }, "EXIT");
-		btnExit->SetObserver(this);
-		won = true;
 
+		// Map
+		app->map->Enable();
+
+		// Music
+		app->audio->PlayMusic("Assets/Audio/Music/dungeon_music.ogg");
+
+		// Entities
+		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+		npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
+		npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+		app->scene->player->dead = false;
+
+		npc5->Start();
+		npc7->Start();
+		player->Start();		
+
+		// Camera
+		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
+		app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
+
+		// Map Load
 		if (app->map->Load("dungeonHall.tmx") == true)
 		{
 			int w, h;
@@ -76,8 +86,57 @@ bool SceneDungeon::Start()
 
 bool SceneDungeon::Update(float dt)
 {
-	btnRestart->Update(dt);
-	btnExit->Update(dt);
+	if (!paused)
+	{
+		// Camera x
+		if ((app->render->counter == 0 || player->godModeEnabled))
+		{
+			if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) 
+				&& !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
+				&& !(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+				&& !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+				&& !player->ThereIsLeftWall() 
+				&& !player->ThereIsNPCLeft())
+			{
+				app->render->camera.x += 3.0f;
+			}
+				
+
+			else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+				&& !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+				&& !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+				&& !player->ThereIsRightWall()
+				&& !player->ThereIsNPCRight())
+			{
+				app->render->camera.x -= 3.0f;
+			}
+				
+		}
+		// Camera y
+		if ((app->render->counter == 0 || player->godModeEnabled))
+		{
+
+			if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y += 3.0f;
+			else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y -= 3.0f;
+
+		}
+	}
+
+	//God Mode
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		// Print colliders manually implemented
+		app->map->colliders = !app->map->colliders;
+
+		// Print colliders from Collision Modulet
+		app->debug = !app->debug;
+
+		player->godModeEnabled = !player->godModeEnabled;
+	}
+
 	return true;
 }
 
@@ -89,10 +148,7 @@ bool SceneDungeon::PostUpdate()
 
 	app->map->Draw();
 	app->map->DrawColliders();
-	//app->render->DrawTexture(winText, 0, 555, NULL);
-	//app->render->DrawRectangle({ 0, 0, 3000, 3000 }, 100, 100, 200, 220, true, false);
-	btnRestart->Draw();
-	btnExit->Draw();
+	
 	return ret;
 }
 
