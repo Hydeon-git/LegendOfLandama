@@ -106,6 +106,7 @@ bool Scene::Start()
 		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 		app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 
+		app->sceneBattle->knightDead = false;
 		app->sceneBattle->mageDead = false;
 		app->sceneBattle->playerDead = false;
 

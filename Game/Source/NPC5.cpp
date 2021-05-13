@@ -28,8 +28,8 @@ NPC5::NPC5() : Entity(EntityType::NPC5)
 	name.Create("NPC5");
 	if (app->sceneBattle->battleOn)
 	{
-		position.x = 125;
-		position.y = 110;
+		position.x = 120;
+		position.y = 80;
 	}
 	else {
 		//position.x = app->scene->player->lastPositionX;
