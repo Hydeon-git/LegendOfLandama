@@ -206,7 +206,8 @@ void DialogueSystem::checkPurchase()
 		{
 			app->scene->player->dialogeOn = false;
 			app->shop->open = true;
-
+			app->shop->staticPlayer = true;
+			app->shop->selectorActive = true;
 		}
 	}
 

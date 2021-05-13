@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Player.h"
+#include "Shop.h"
 #include "Scene.h"
 #include "SceneDungeon.h"
 #include "SceneLose.h"
@@ -197,8 +198,8 @@ bool Player::Update(float dt)
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
 		{
-			if (!dialogeOn && !onBattle)
-			{
+			if (!dialogeOn && !onBattle && !app->shop->staticPlayer) {
+
 				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{
 					if (!ThereIsTopWall() && !ThereIsNPCUp())

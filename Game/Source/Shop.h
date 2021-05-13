@@ -8,7 +8,7 @@
 struct SDL_Texture;
 
 struct ItemsPrice {
-	bool selected = false;
+	bool selected;
 	int priceItem;
 };
 
@@ -48,6 +48,15 @@ public:
 
 public:
 	enum SHOP_SLOT : int {
+		
+		WOOD_SWORD, 
+		STEEL_SWORD,
+		GOLD_SWORD,
+		FIRE_SWORD,
+		WOOD_PROTECTION,
+		STEEL_PROTECTION,
+		GOLD_PROTECTION,
+		FIRE_PROTECTION,
 		WOOD_BOW,
 		STEEL_BOW,
 		GOLD_BOW,
@@ -56,22 +65,18 @@ public:
 		AMATIST_WAND,
 		RUBY_WAND,
 		DIAMOND_WAND,
-		WOOD_SWORD,
-		STEEL_SWORD,
-		GOLD_SWORD,
-		FIRE_SWORD,
-		WOOD_PROTECTION,
-		STEEL_PROTECTION,
-		GOLD_PROTECTION,
-		FIRE_PROTECTION,
 		EXIT,
 
 	};
+	
+	void getOwnedItems();
 
 	SDL_Texture* shopTex = nullptr;
 	SDL_Texture* selectorTex = nullptr;
-	int tiendaX = 0, tiendaY = 0;
-	int weaponsition = 0;
+	SDL_Texture* itemSold = nullptr;
+
+	int shopX = 0, shopY = 0;
+	int itemPos = 0;
 	uint OptionSelection = 0;
 	uint SelectItem = 0;
 	uint InsuficientMoney = 0;
@@ -80,7 +85,9 @@ public:
 	int shopFont = 0;
 
 	int selectedItem;
+	bool selectorActive;
 
+	bool staticPlayer;
 	bool begin = false;
 	bool shoploop;
 
@@ -88,7 +95,7 @@ public:
 
 	bool open = false;
 
-	ItemsPrice items[16];
+	ItemsPrice items[15];
 
 	char moneyText[10] = { "\0" };
 
