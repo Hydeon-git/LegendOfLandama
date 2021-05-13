@@ -29,6 +29,8 @@ class SceneLose;
 class SceneDungeon;
 class Font;
 class DialogueSystem;
+class Shop;
+
 
 class App
 {
@@ -110,6 +112,7 @@ public:
 	EntityManager* entityManager;
 	Font* font;
 	DialogueSystem* dialogueSystem;
+	Shop* shop;
 
 	bool capped = false;
 	bool loadGameRequested;

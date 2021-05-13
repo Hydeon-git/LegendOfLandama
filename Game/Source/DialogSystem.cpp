@@ -3,10 +3,14 @@
 #include "Input.h"
 #include "Render.h"
 #include "Textures.h"
+#include "Shop.h"
+
 #include "Font.h"
 #include "Scene.h"
 #include "SDL/include/SDL.h"
 #include "Player.h"
+
+#include <iostream>
 
 DialogueSystem::DialogueSystem() {}
 
@@ -33,6 +37,8 @@ bool DialogueSystem::Update(float dt)
 		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
 		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
 		
+		checkPurchase();
+
 		playerInput = 0;
 		PerformDialogue(id);
 	}
@@ -75,11 +81,14 @@ bool DialogueSystem::Update(float dt)
 
 bool DialogueSystem::PostUpdate()
 {
+
 	bool ret = true;
 	if(app->scene->player != nullptr)
 	{
 		if (app->scene->player->dialogeOn)
 		{
+
+			
 			//if (app->scene->player->ThereIsNPC() == 1) id = 1;
 			if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 2;
 			else if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 3;
@@ -187,4 +196,18 @@ bool DialogueSystem::LoadOptions(pugi::xml_node& response, DialogueNode* answers
 	}
 
 	return true;
+}
+
+void DialogueSystem::checkPurchase()
+{
+	for (int i = 0; i < currentNode->dialogueOptions.size(); ++i)
+	{
+		if (currentNode->dialogueOptions[i]->nextNode == 172)
+		{
+			app->scene->player->dialogeOn = false;
+			app->shop->open = true;
+
+		}
+	}
+
 }

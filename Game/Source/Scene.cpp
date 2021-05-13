@@ -32,6 +32,7 @@
 #include "GuiSlider.h"
 #include "GuiCheckBox.h"
 #include "DialogSystem.h"
+#include "Shop.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -632,6 +633,10 @@ void Scene::ChangeScene(GameScene nextScene)
 		} break;
 		case GameScene::SCENE_BSMITH:
 		{
+
+				app->shop->Enable();
+			
+
 			if (app->map->Load("herreria.tmx") == true)
 			{
 				int w, h;
@@ -651,6 +656,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
 			npc2->Start();
 
+			
 			// Setting dialogue to id 1 Blacksmith and restart dialog system
 			app->dialogueSystem->CleanUp();
 			app->dialogueSystem->id = 1;

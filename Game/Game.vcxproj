@@ -116,6 +116,7 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Potion.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\SceneBattle.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\SceneWin.cpp" />
+    <ClCompile Include="Source\Shop.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Window.cpp" />
@@ -141,6 +143,7 @@
     <ClInclude Include="Source\GuiCheckBox.h" />
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiSlider.h" />
+    <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleParticles.h" />
     <ClInclude Include="Source\NPC7.h" />
@@ -152,6 +155,7 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Potion.h" />
     <ClInclude Include="Source\PQueue.h" />
     <ClInclude Include="Source\Queue.h" />
     <ClInclude Include="Source\Scene.h" />
@@ -165,6 +169,7 @@
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\SceneWin.h" />
+    <ClInclude Include="Source\Shop.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Window.h" />

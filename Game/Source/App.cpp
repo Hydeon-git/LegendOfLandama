@@ -17,6 +17,7 @@
 #include "SceneDungeon.h"
 #include "PathFinding.h"
 #include "Player.h"
+#include "Shop.h"
 #include "DialogSystem.h"
 #include "Defs.h"
 #include "Log.h"
@@ -50,6 +51,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fadeToBlack = new FadeToBlack();
 	pathfinding = new PathFinding();
 	font = new Font();
+	shop = new Shop();
+
 
 
 
@@ -71,6 +74,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(font, true);
 	AddModule(pathfinding, true);
 	AddModule(fadeToBlack, true);
+	AddModule(shop, false);
 
 	// Render last to swap buffer
 	AddModule(render, true);

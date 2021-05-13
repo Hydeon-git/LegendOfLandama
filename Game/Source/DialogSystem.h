@@ -87,5 +87,6 @@ private:
 	Input* input;
 	Render* render;
 	Textures* tex;
+	void checkPurchase();
 };
 #endif // __DIALOGSYSTEM_H__
