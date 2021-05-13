@@ -14,6 +14,7 @@ class Enemy1;
 class Enemy2;
 class Enemy3;
 class NPC5;
+class NPC7;
 
 class SceneBattle : public Module
 {
@@ -56,6 +57,7 @@ public:
 	Enemy2* enemy2;
 	Enemy3* enemy3;
 	NPC5* npc5;
+	NPC7* npc7;
 
 	bool enemy1Dead = false;
 	bool enemy2Dead = false;
@@ -63,6 +65,7 @@ public:
 
 	bool playerDead = false;
 	bool mageDead = false;
+	bool knightDead = false;
 	int enemiesAlive = 3;
 
 private:
@@ -71,6 +74,7 @@ private:
 
 	GuiButton* btnHeroine;
 	GuiButton* btnMage;
+	GuiButton* btnKnight;
 	GuiButton* btnAttack;
 	GuiButton* btnMagic;
 	GuiButton* btnDefense;
@@ -84,14 +88,16 @@ private:
 
 	bool heroine = false;
 	bool mage = false;
+	bool knight = false;
 	bool attack = false;
 	bool magic = false;
 
 	bool defense = false;
 	bool hDefense = false;
 	bool mDefense = false;
+	bool kDefense = false;
 
-	
+
 	int whiteFont = -1;
 
 	int goldFont = -1;
@@ -104,10 +110,12 @@ private:
 	// Characters turns counters
 	int heroineCounter;
 	int mageCounter;
+	int knightCounter;
 
 	// Player HP display
 	char heroineHpText[10] = { "\0" };
 	char mageHpText[10] = { "\0" };
+	char knightHpText[10] = { "\0" };
 
 	// Enemy HP display
 	char enemy1HpText[10] = { "\0" };

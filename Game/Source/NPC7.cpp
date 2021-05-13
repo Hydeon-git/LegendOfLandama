@@ -28,13 +28,13 @@ NPC7::NPC7() : Entity(EntityType::NPC7)
 	name.Create("NPC7");
 	if (app->sceneBattle->battleOn)
 	{
-		position.x = 125;
-		position.y = 110;
+		position.x = 95;
+		position.y = 130;
 	}
 	else {
 		//position.x = app->scene->player->lastPositionX;
 		//position.y = app->scene->player->lastPositionY - 5;
-		position.x = 200-30;
+		position.x = 200 - 30;
 		position.y = 100;
 		//position.x = 200;
 		//position.y = 100;
@@ -42,7 +42,7 @@ NPC7::NPC7() : Entity(EntityType::NPC7)
 	}
 	//idlanim
 	idlAnim.PushBack({ 0, 0, 16, 27 });
-	idlAnim.PushBack({16, 0, 16,27 });
+	idlAnim.PushBack({ 16, 0, 16,27 });
 	idlAnim.speed = 0.02f;
 
 	//move right
@@ -119,10 +119,10 @@ bool NPC7::Update(float dt)
 		if (!app->sceneBattle->battleOn)
 		{
 
-			if (app->scene->player->doorTaked2)
+			if (app->scene->player->kDoorTaked2)
 			{
-				app->scene->player->posMoved = 0;
-				app->scene->player->doorTaked2 = false;
+				app->scene->player->kposMoved = 0;
+				app->scene->player->kDoorTaked2 = false;
 			}
 
 
@@ -137,7 +137,7 @@ bool NPC7::Update(float dt)
 
 
 				//movement
-			if (app->scene->player->kposMoved < 50)
+			if (app->scene->player->kposMoved < 49)
 			{
 				if (app->scene->player->klastPositionX != 0) position.x = app->scene->player->klastPositionX;
 				if (app->scene->player->klastPositionY != 0) position.y = app->scene->player->klastPositionY - 5;
@@ -146,14 +146,14 @@ bool NPC7::Update(float dt)
 
 
 
-			if (app->scene->player->doorTaked)
+			if (app->scene->player->kDoorTaked)
 			{
 				position.x = app->scene->player->klastPositionX2;
 				position.y = app->scene->player->klastPositionY2 - 5;
 				if (app->scene->player->kposMoved >= 49)
 				{
 					app->scene->player->kposMoved = 0;
-					app->scene->player->doorTaked = false;
+					app->scene->player->kDoorTaked = false;
 				}
 			}
 
@@ -199,7 +199,7 @@ bool NPC7::Update(float dt)
 
 		//if (!app->scene->player->doorTakedX || !app->scene->player->doorTakedY)
 		//rotation
-			if (!app->scene->player->doorTaked)
+			if (!app->scene->player->kDoorTaked)
 			{
 				if (app->scene->player->klastPositionX < app->scene->player->klastPosX[48])
 				{
@@ -231,7 +231,7 @@ bool NPC7::Update(float dt)
 
 bool NPC7::PostUpdate()
 {
-	if ((this->active == true) && (!app->scene->paused) && !app->sceneBattle->mageDead)
+	if ((this->active == true) && (!app->scene->paused) && !app->sceneBattle->knightDead)
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC7, position.x, position.y, &rect);
@@ -251,7 +251,7 @@ void NPC7::NPC7InitialPosition()
 
 	if (app->sceneBattle->battleOn)
 	{
-		position.x = 100;
+		position.x = 80;
 		position.y = 100;
 	}
 	else
@@ -263,8 +263,8 @@ void NPC7::NPC7InitialPosition()
 		}
 		else
 		{
-			//position.x = 2000;
-			//position.y = 1050;
+			position.x = 2000;
+			position.y = 1050;
 		}
 	}
 }

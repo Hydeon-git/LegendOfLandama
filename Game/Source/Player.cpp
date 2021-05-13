@@ -38,6 +38,9 @@ Player::Player() : Entity(EntityType::PLAYER)
 		lastPositionX2 = 200;
 		lastPositionY2 = 100;
 
+		klastPositionX2 = 200;
+		klastPositionY2 = 100;
+
 		app->sceneIntro->startClicked = false;
 		app->sceneIntro->posContinue = false;
 		app->sceneWin->won = false;
@@ -56,6 +59,9 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 		lastPositionX2 = 484;
 		lastPositionY2 = 344;
+
+		klastPositionX2 = 484;
+		klastPositionY2 = 344;
 	}
 	else
 	{
@@ -156,7 +162,12 @@ bool Player::Start()
 
 		lastPositionX = position.x;
 		lastPositionY = position.y;
+
+		klastPositionX = position.x;
+		klastPositionY = position.y;
+
 		doorTaked = true;
+		kDoorTaked = true;
 		//doorTakedY = true;
 	}
 
@@ -186,11 +197,9 @@ bool Player::Update(float dt)
 					{
 						position.y -= speed;
 						currentAnimation = &upAnim;
-						if (doorTaked)
-						{
-							posMoved++;
-							kposMoved++;
-						}
+						if (doorTaked) posMoved++;
+						if (kDoorTaked) kposMoved++;
+						
 						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {
@@ -249,11 +258,8 @@ bool Player::Update(float dt)
 					{
 						position.y += speed;
 						currentAnimation = &leftAnim;
-						if (doorTaked)
-						{
-							posMoved++;
-							kposMoved++;
-						}
+						if (doorTaked) posMoved++;
+						if (kDoorTaked) kposMoved++;
 						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {
@@ -314,11 +320,9 @@ bool Player::Update(float dt)
 					{
 						position.x -= speed;
 						currentAnimation = &leftAnim;
-						if (doorTaked)
-						{
-							posMoved++;
-							kposMoved++;
-						}						for (int i = 0; i < 25; i++)
+						if (doorTaked) posMoved++;
+						if (kDoorTaked) kposMoved++;
+						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {
 								lastPosY[0] = position.y;
@@ -376,11 +380,8 @@ bool Player::Update(float dt)
 					{
 						position.x += speed;
 						currentAnimation = &rightAnim;
-						if (doorTaked)
-						{
-							posMoved++;
-							kposMoved++;
-						}
+						if (doorTaked) posMoved++;
+						if (kDoorTaked) kposMoved++;
 						for (int i = 0; i < 25; i++)
 						{
 							if (i == 24) {

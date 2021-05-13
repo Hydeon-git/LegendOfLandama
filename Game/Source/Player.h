@@ -64,17 +64,20 @@ public:
 	bool ThereIsLimit();
 	bool ThereIsHouseClosed();
 	bool ThereIsEnemy();
-	bool ThereIsFlyingEnemy();	
-	bool TakeCheckpoint();	
+	bool ThereIsFlyingEnemy();
+	bool TakeCheckpoint();
 	bool ThereIsDoor();
 	bool LoseLifes();
-	
+
 	void CheckDoor();
 	void CheckHouseDoor();
 
 
 	bool doorTaked;
 	bool doorTaked2;
+
+	bool kDoorTaked;
+	bool kDoorTaked2;
 
 	int posMoved = 0;
 	int kposMoved = 0;
@@ -110,7 +113,7 @@ public:
 	int houseDoor = 0;
 
 
-	int lastPosX[25] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x};
+	int lastPosX[25] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x };
 	int lastPosY[25] = { position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y };
 
 	int klastPosX[50] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x , position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x };
@@ -118,7 +121,7 @@ public:
 
 
 	int lastPositionX;
-	int lastPositionY;	
+	int lastPositionY;
 	int lastPositionX2;
 	int lastPositionY2;
 
@@ -150,7 +153,7 @@ private:
 	uint fireFx = 0;
 
 	uint talkFx = 0;
-	
+
 };
 
 #endif // __PLAYER_H__

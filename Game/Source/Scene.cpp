@@ -499,16 +499,27 @@ void Scene::ChangeScene(GameScene nextScene)
 					app->scene->player->position.x = 144;
 					app->scene->player->position.y = 99;
 					player->doorTaked = true;
+					player->kDoorTaked = true;
+
 
 					if (player->doorTaked)
 					{
 						//player->posMoved = 0;
 						player->doorTaked2 = true;
 					}
+
+					if (player->kDoorTaked)
+					{
+						//player->posMoved = 0;
+						player->kDoorTaked2 = true;
+					}
 					//player->doorTaked = true;
 					//player->doorTakedY = true;
 					player->lastPositionX2=player->position.x;
 					player->lastPositionY2=player->position.y;
+
+					player->klastPositionX2 = player->position.x;
+					player->klastPositionY2 = player->position.y;
 					
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
@@ -524,6 +535,7 @@ void Scene::ChangeScene(GameScene nextScene)
 					app->scene->player->position.x = 544;
 					app->scene->player->position.y = 130;
 					player->doorTaked = true;
+					player->kDoorTaked = true;
 
 					if (player->doorTaked)
 					{
@@ -531,10 +543,18 @@ void Scene::ChangeScene(GameScene nextScene)
 						player->doorTaked2 = true;
 
 					}
+					if (player->kDoorTaked)
+					{
+						//player->posMoved = 0;
+						player->kDoorTaked2 = true;
+					}
 					//player->doorTaked = true;
 					//player->doorTakedY = true;
 					player->lastPositionX2 = player->position.x;
 					player->lastPositionY2 = player->position.y;
+					player->klastPositionX2 = player->position.x;
+					player->klastPositionY2 = player->position.y;
+
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 
@@ -549,16 +569,23 @@ void Scene::ChangeScene(GameScene nextScene)
 					app->scene->player->position.x = 401;
 					app->scene->player->position.y = 320;
 					player->doorTaked = true;
-
+					player->kDoorTaked = true;
 					if (player->doorTaked)
 					{
 						//player->posMoved = 0;
 						player->doorTaked2 = true;
 
 					}
+					if (player->kDoorTaked)
+					{
+						//player->posMoved = 0;
+						player->kDoorTaked2 = true;
+					}
 					//player->doorTakedY = true;
 					player->lastPositionX2 = player->position.x;
 					player->lastPositionY2 = player->position.y;
+					player->klastPositionX2 = player->position.x;
+					player->klastPositionY2 = player->position.y;
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;
 
@@ -573,14 +600,21 @@ void Scene::ChangeScene(GameScene nextScene)
 					app->scene->player->position.x = 401;
 					app->scene->player->position.y = 320;
 					player->doorTaked = true;
-
+					player->kDoorTaked = true;
 					if (player->doorTaked)
 					{
 						player->doorTaked2 = true;
 
 					}
+					if (player->kDoorTaked)
+					{
+						//player->posMoved = 0;
+						player->kDoorTaked2 = true;
+					}
 					player->lastPositionX2 = player->position.x;
 					player->lastPositionY2 = player->position.y;
+					player->klastPositionX2 = player->position.x;
+					player->klastPositionY2 = player->position.y;
 					app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
 					app->render->camera.y = (-2 - player->position.y * 3) + 720 / 2;										
 
@@ -625,9 +659,12 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->scene->player->position.y = 156;
 
 			player->doorTaked = true;
+			player->kDoorTaked = true;
 			//player->doorTakedY = true;
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;
+			player->klastPositionX2 = player->position.x;
+			player->klastPositionY2 = player->position.y;
 
 			currentScene = GameScene::SCENE_HOUSE1;
 		} break;
@@ -670,9 +707,12 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->scene->player->position.y = 158;
 
 			player->doorTaked = true;
+			player->kDoorTaked = true;
 			//player->doorTakedY = true;
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;
+			player->klastPositionX2 = player->position.x;
+			player->klastPositionY2 = player->position.y;
 
 			currentScene = GameScene::SCENE_BSMITH;
 		} break;
@@ -708,9 +748,12 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->scene->player->position.y = 174;
 
 			player->doorTaked = true;
+			player->kDoorTaked = true;
 			//player->doorTakedY = true;
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;
+			player->klastPositionX2 = player->position.x;
+			player->klastPositionY2 = player->position.y;
 
 			currentScene = GameScene::SCENE_INN;
 		} break;
@@ -745,6 +788,8 @@ void Scene::ChangeScene(GameScene nextScene)
 
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;
+			player->klastPositionX2 = player->position.x;
+			player->klastPositionY2 = player->position.y;
 
 			currentScene = GameScene::SCENE_ENTRYDUNGEON;
 		}break;
