@@ -694,82 +694,171 @@ void Player::addItemToIventory(Item * item)
 
 void Player::drawPlayerInventory()
 {
+	SDL_Rect screen;
+	screen.x = 0;
+	screen.y = 0;
+	screen.w = 1280;
+	screen.h = 720;
 
 	if (checkInventoryPos(0))
 	{
-		app->render->DrawTexture(inventory[0]->texture, 115, 47, NULL);
+		
+		SDL_Rect item;
+		item.x = 345;
+		item.y = 140;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[0]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[0]->texture, 115, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(1))
 	{
-		app->render->DrawTexture(inventory[1]->texture, 157, 47, NULL);
+		SDL_Rect item;
+		item.x = 471;
+		item.y = 140;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[1]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[1]->texture, 157, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(2))
 	{
-		app->render->DrawTexture(inventory[2]->texture, 199, 47, NULL);
+		SDL_Rect item;
+		item.x = 597;
+		item.y = 140;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[2]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[2]->texture, 199, 47, NULL);
+
 
 	}
 
 	if (checkInventoryPos(3))
 	{
-		app->render->DrawTexture(inventory[3]->texture, 241, 47, NULL);
+		SDL_Rect item;
+		item.x = 723;
+		item.y = 140;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[3]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[3]->texture, 241, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(4))
 	{
-		app->render->DrawTexture(inventory[4]->texture, 283, 47, NULL);
+		SDL_Rect item;
+		item.x = 849;
+		item.y = 140;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[4]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[4]->texture, 283, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(5))
 	{
-		app->render->DrawTexture(inventory[5]->texture, 115, 89, NULL);
+
+		SDL_Rect item;
+		item.x = 345;
+		item.y = 269;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[5]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[5]->texture, 115, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(6))
 	{
-		app->render->DrawTexture(inventory[6]->texture, 157, 89, NULL);
+		SDL_Rect item;
+		item.x = 471;
+		item.y = 269;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[6]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[6]->texture, 157, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(7))
 	{
-		app->render->DrawTexture(inventory[7]->texture, 199, 89, NULL);
+		SDL_Rect item;
+		item.x = 597;
+		item.y = 269;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[7]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[7]->texture, 199, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(8))
 	{
-		app->render->DrawTexture(inventory[8]->texture, 241, 89, NULL);
+		SDL_Rect item;
+		item.x = 723;
+		item.y = 269;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[8]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[8]->texture, 241, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(9))
 	{
-		app->render->DrawTexture(inventory[9]->texture, 283, 89, NULL);
+		SDL_Rect item;
+		item.x = 849;
+		item.y = 269;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[9]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[9]->texture, 283, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(10))
 	{
-		app->render->DrawTexture(inventory[10]->texture, 157, 131, NULL);
+
+		SDL_Rect item;
+		item.x = 471;
+		item.y = 398;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[10]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[10]->texture, 157, 131, NULL);
 
 	}
 
 	if (checkInventoryPos(11))
 	{
-		app->render->DrawTexture(inventory[11]->texture, 199, 131, NULL);
+
+		SDL_Rect item;
+		item.x = 597;
+		item.y = 398;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[11]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[11]->texture, 199, 131, NULL);
 
 	}
 
 	if (checkInventoryPos(12))
 	{
-		app->render->DrawTexture(inventory[12]->texture, 241, 131, NULL);
+
+		SDL_Rect item;
+		item.x = 723;
+		item.y = 398;
+		item.w = 102;
+		item.h = 102;
+		SDL_RenderCopy(app->render->renderer, inventory[12]->texture, &screen, &item);
+		//app->render->DrawTexture(inventory[12]->texture, 241, 131, NULL);
 
 	}
 
