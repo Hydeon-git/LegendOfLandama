@@ -685,79 +685,79 @@ void Player::drawPlayerInventory()
 
 	if (checkInventoryPos(0))
 	{
-		app->render->DrawTexture(inventory[0]->texture, 124, 47, NULL);
+		app->render->DrawTexture(inventory[0]->texture, 115, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(1))
 	{
-		app->render->DrawTexture(inventory[1]->texture, 166, 47, NULL);
+		app->render->DrawTexture(inventory[1]->texture, 157, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(2))
 	{
-		app->render->DrawTexture(inventory[2]->texture, 208, 47, NULL);
+		app->render->DrawTexture(inventory[2]->texture, 199, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(3))
 	{
-		app->render->DrawTexture(inventory[3]->texture, 250, 47, NULL);
+		app->render->DrawTexture(inventory[3]->texture, 241, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(4))
 	{
-		app->render->DrawTexture(inventory[4]->texture, 292, 47, NULL);
+		app->render->DrawTexture(inventory[4]->texture, 283, 47, NULL);
 
 	}
 
 	if (checkInventoryPos(5))
 	{
-		app->render->DrawTexture(inventory[5]->texture, 124, 89, NULL);
+		app->render->DrawTexture(inventory[5]->texture, 115, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(6))
 	{
-		app->render->DrawTexture(inventory[6]->texture, 166, 89, NULL);
+		app->render->DrawTexture(inventory[6]->texture, 157, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(7))
 	{
-		app->render->DrawTexture(inventory[7]->texture, 208, 89, NULL);
+		app->render->DrawTexture(inventory[7]->texture, 199, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(8))
 	{
-		app->render->DrawTexture(inventory[8]->texture, 250, 89, NULL);
+		app->render->DrawTexture(inventory[8]->texture, 241, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(9))
 	{
-		app->render->DrawTexture(inventory[9]->texture, 292, 89, NULL);
+		app->render->DrawTexture(inventory[9]->texture, 283, 89, NULL);
 
 	}
 
 	if (checkInventoryPos(10))
 	{
-		app->render->DrawTexture(inventory[10]->texture, 166, 131, NULL);
+		app->render->DrawTexture(inventory[10]->texture, 157, 131, NULL);
 
 	}
 
 	if (checkInventoryPos(11))
 	{
-		app->render->DrawTexture(inventory[11]->texture, 208, 131, NULL);
+		app->render->DrawTexture(inventory[11]->texture, 199, 131, NULL);
 
 	}
 
 	if (checkInventoryPos(12))
 	{
-		app->render->DrawTexture(inventory[12]->texture, 250, 131, NULL);
+		app->render->DrawTexture(inventory[12]->texture, 241, 131, NULL);
 
 	}
 
