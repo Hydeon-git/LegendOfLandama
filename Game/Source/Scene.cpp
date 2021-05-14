@@ -285,7 +285,7 @@ bool Scene::Update(float dt)
 		case GameScene::SCENE_TOWN:
 		{
 			// Camera Settings
-			if (!paused)
+			if (!paused && !app->hud->bagIsOpen)
 			{
 				//camera x
 
