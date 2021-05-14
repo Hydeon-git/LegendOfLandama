@@ -130,8 +130,19 @@ void HUD::openBackPack()
 	if (!bagIsOpen)
 		return;
 
-	app->render->DrawTexture(openbagTex, 8, 0, NULL,2);
+	SDL_Rect SrcR;
+	SDL_Rect DestR;
 
+	SrcR.x = 0;
+	SrcR.y = 0;
+	SrcR.w = 1280;
+	SrcR.h = 720;
+
+	DestR.x = 30;
+	DestR.y = 0;
+	DestR.w = 1280;
+	DestR.h = 720;
+	SDL_RenderCopy(app->render->renderer, openbagTex, &SrcR, &DestR);
 }
 
 
