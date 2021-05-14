@@ -469,28 +469,7 @@ bool Player::Update(float dt)
 
 				app->fadeToBlack->FadeToBlk(app->scene, app->sceneBattle, 30);
 			}
-
-			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-			{
-				if (currentAnimation == &leftAnim)
-				{
-					if (shotCountdown == 0)
-					{
-						Particle* newParticle = app->scene->particles->AddParticle(app->scene->particles->fireBallLeft, position.x, position.y + 50);
-						app->audio->PlayFx(fireFx, 0);
-						shotCountdown = shotMaxCountdown;
-					}
-				}
-				else
-				{
-					if (shotCountdown == 0)
-					{
-						Particle* newParticle = app->scene->particles->AddParticle(app->scene->particles->fireBallRight, position.x + 50, position.y + 50);
-						app->audio->PlayFx(fireFx, 0);
-						shotCountdown = shotMaxCountdown;
-					}
-				}				
-			}
+						
 		}
 		if (app->scene->currentScene == GameScene::SCENE_TOWN || app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL || app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 		{
@@ -513,7 +492,7 @@ bool Player::Update(float dt)
 		{
 			app->map->buttonFloorPressed = true;
 		}
-		if (OpenChest())
+		if (OpenChest() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
@@ -521,7 +500,7 @@ bool Player::Update(float dt)
 				app->map->chestOpened = true;
 			}
 		}
-		if (OpenLaver1())
+		if (OpenLaver1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
@@ -532,7 +511,7 @@ bool Player::Update(float dt)
 				spikes3Down = false;
 			}
 		}
-		if (OpenLaver2())
+		if (OpenLaver2() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
@@ -543,7 +522,7 @@ bool Player::Update(float dt)
 				spikes3Down = false;
 			}
 		}
-		if (OpenLaver3())
+		if (OpenLaver3() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
@@ -554,7 +533,7 @@ bool Player::Update(float dt)
 				spikes3Down = false;
 			}
 		}
-		if (OpenLaverFinal())
+		if (OpenLaverFinal() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->map->laver3Pressed && app->map->laver2Pressed && app->map->laver1Pressed)
 			{
@@ -585,20 +564,10 @@ bool Player::Update(float dt)
 			app->render->RestartValues();
 		}
 	}
-
-
-
-
-	//Dumbledore (aixo es posara a true al dialeg del mago pop)
-	//if (!mageTkn&& position.y >= 319) mageTkn = true;
-	//
-	//if (!knightTkn&& position.y <= 150) knightTkn = true;
+	
 	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) mageTkn = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) knightTkn = true;
-
-
-
 
 	currentAnimation->Update();
 	return true;
@@ -872,6 +841,7 @@ int Player::ThereIsNPC()
 
 	return npc;
 }
+
 bool Player::ThereIsNPCBelow()
 {
 	bool valid = false;

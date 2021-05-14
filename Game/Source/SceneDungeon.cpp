@@ -12,6 +12,9 @@
 #include "NPC4.h"
 #include "NPC5.h"
 #include "NPC7.h"
+#include "Enemy1.h"
+#include "Enemy2.h"
+#include "Enemy3.h"
 #include "EntityManager.h"
 #include "FadeToBlack.h"
 #include "PathFinding.h"
@@ -60,13 +63,23 @@ bool SceneDungeon::Start()
 
 		// Entities
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+
 		npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
 		npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+
+		enemy1 = (Enemy1*)app->entityManager->CreateEntity(EntityType::Enemy1);
+		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
+		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
+
 		app->scene->player->dead = false;
+		player->Start();
 
 		npc5->Start();
 		npc7->Start();
-		player->Start();		
+
+		enemy1->Start();
+		enemy2->Start();
+		enemy3->Start();		
 
 
 		// Camera
@@ -89,8 +102,6 @@ bool SceneDungeon::Start()
 
 bool SceneDungeon::Update(float dt)
 {
-
-
 	if (currentScene == DungeonScene::SCENE_HALL && player->door == COLLIDER_GREEN_DUNGEON)
 	{
 		ChangeScene(DungeonScene::SCENE_MID);

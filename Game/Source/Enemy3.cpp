@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneDungeon.h"
 #include "Player.h"
 #include "Enemy3.h"
 #include "ModuleParticles.h"
@@ -100,6 +101,12 @@ bool Enemy3::Update(float dt)
 		{
 			currentAnimation = &idlAnim;
 		}
+	}
+	else if (app->sceneDungeon->active == true)
+	{
+		currentAnimation = &idlAnim;
+		position.x = 71;
+		position.y = 224;
 	}
 	if (app->sceneBattle->battleOn)
 	{

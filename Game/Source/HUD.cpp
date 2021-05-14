@@ -70,10 +70,7 @@ bool HUD::Start()
 
 bool HUD::Update(float dt)
 {
-
-
-
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	{
 		bagIsOpen = true;
 		

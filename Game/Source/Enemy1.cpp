@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneDungeon.h"
 #include "SceneBattle.h"
 #include "Player.h"
 #include "Enemy1.h"
@@ -87,36 +88,6 @@ bool Enemy1::Update(float dt)
 {
 	currentAnimation = &leftAnim;
 	
-	//if (!pause)
-	//{
-	//	if (right)
-	//	{
-	//		position.x += speed;
-	//		currentAnimation = &rightAnim;
-	//	}
-	//	if (!right)
-	//	{
-	//		position.x -= speed;
-	//		currentAnimation = &leftAnim;
-	//	}
-
-	//	if (position.x >= 643) right = false;
-	//	if (position.x <= 171) right = true;
-
-	//	if (position.x < 342 && position.x>170) prova = false;
-	//	if ((position.x == 254 || position.x == 171) && !prova)
-	//	{
-	//		pause = true;
-	//	}
-	//}
-
-	//if (pause) counter++;
-	//if (counter >= 50)
-	//{
-	//	pause = false;
-	//	counter = 0;
-	//	prova = true;
-	//}
 	if (app->scene->active == true)
 	{
 		if (position.x <= 502) app->scene->stop = true;
@@ -132,6 +103,13 @@ bool Enemy1::Update(float dt)
 			currentAnimation = &idlAnim;
 		}
 	}
+	else if (app->sceneDungeon->active == true)
+	{
+		currentAnimation = &idlAnim;
+		position.x = 49;
+		position.y = 240;
+	}
+
 	if (app->sceneBattle->battleOn)
 	{
 		currentAnimation = &idlAnim;

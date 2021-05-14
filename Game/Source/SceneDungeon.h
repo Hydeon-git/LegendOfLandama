@@ -13,6 +13,9 @@ class GuiCheckBox;
 class Player;
 class NPC5;
 class NPC7;
+class Enemy1;
+class Enemy2;
+class Enemy3;
 
 enum class DungeonScene
 {
@@ -55,8 +58,6 @@ public:
 	DungeonScene currentScene;
 
 private:
-	GuiButton* btnRestart;
-	GuiButton* btnExit;
 	int whiteFont = -1;
 	SDL_Texture* winText = nullptr;
 
@@ -68,6 +69,10 @@ private:
 	// NPCS
 	NPC5* npc5;
 	NPC7* npc7;
+	// Enemy
+	Enemy1* enemy1;
+	Enemy2* enemy2;
+	Enemy3* enemy3;
 	
 	// Textures
 	SDL_Texture* texMenu;
