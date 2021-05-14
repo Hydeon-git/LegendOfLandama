@@ -40,7 +40,11 @@ SceneDungeon::~SceneDungeon()
 
 bool SceneDungeon::Awake(pugi::xml_node& node)
 {
-	return true;
+	LOG("Loading Scene");
+	scale = (int)app->win->GetScale();
+	fullscreenRect = new SDL_Rect{ 0, 0, 1280, 720 };
+	bool ret = true;
+	return ret;
 }
 
 bool SceneDungeon::Start()
@@ -53,7 +57,7 @@ bool SceneDungeon::Start()
 		// Font
 		winText = app->tex->Load("Assets/Textures/scene_win.png");
 		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
-		whiteFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
+		whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 
 		// Map
 		app->map->Enable();
@@ -81,6 +85,9 @@ bool SceneDungeon::Start()
 		enemy2->Start();
 		enemy3->Start();		
 
+		// Texture assignations for the scene dungeon
+		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
+
 
 		// Camera
 		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
@@ -96,6 +103,25 @@ bool SceneDungeon::Start()
 
 			RELEASE_ARRAY(data);
 		}
+
+		//Buttons
+		btnResume = new GuiButton(1, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 115, 70, 12 }, "RESUME");
+		btnResume->SetObserver(this);
+
+		btnSettings = new GuiButton(2, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 70, 12 }, "SETTINGS");
+		btnSettings->SetObserver(this);
+
+		btnBackIntro = new GuiButton(3, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 }, "BACK MENU");
+		btnBackIntro->SetObserver(this);
+
+		btnExit = new GuiButton(4, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 175, 70, 12 }, "EXIT");
+		btnExit->SetObserver(this);
+
+		btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 }, "BACK");
+		btnBack->SetObserver(this);
+
+		checkBoxFullscreen = new GuiCheckBox(1, { -app->render->camera.x / 3, -app->render->camera.y / 3, 40, 40 }, "FULLSCREEN");
+		checkBoxFullscreen->SetObserver(this);
 	}
 	return ret;
 }
@@ -183,6 +209,33 @@ bool SceneDungeon::Update(float dt)
 		player->godModeEnabled = !player->godModeEnabled;
 	}
 
+	// Pause Menu
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !app->scene->player->dialogeOn)
+	{
+		if (!pausedSettings)
+		{
+			paused = true;
+			Pause();
+		}
+	}
+
+	// Pause Menu
+	if (pausedSettings)
+	{
+		//sliderMusicVolume->Update(dt);
+		//sliderFxVolume->Update(dt);
+		checkBoxFullscreen->Update(dt);
+		//checkBoxVSync->Update(dt);
+		btnBack->Update(dt);
+	}
+	else if (!pausedSettings && paused)
+	{
+		btnResume->Update(dt);
+		btnSettings->Update(dt);
+		btnBackIntro->Update(dt);
+		btnExit->Update(dt);
+	}
+
 	return true;
 }
 
@@ -241,9 +294,37 @@ bool SceneDungeon::PostUpdate()
 
 	app->map->DrawColliders();
 
-
+	// Pause Menu
+	if (pausedSettings)
+	{
+		app->render->DrawTexture(texMenu, -app->render->camera.x, -app->render->camera.y, fullscreenRect, 3);
+		//sliderMusicVolume->Draw();
+		//sliderFxVolume->Draw();
+		checkBoxFullscreen->Draw();
+		//checkBoxVSync->Draw();
+		btnBack->Draw();
+	}
+	else if (paused)
+	{
+		//app->render->DrawRectangle({ -app->render->camera.x/3 , -app->render->camera.y / 3  ,500,500 }, 0, 0, 0, 120);
+		app->render->DrawTexture(texMenu, -app->render->camera.x, -app->render->camera.y, fullscreenRect, 3);
+		btnResume->Draw();
+		btnSettings->Draw();
+		btnBackIntro->Draw();
+		btnExit->Draw();
+	}
 
 	return ret;
+}
+
+void SceneDungeon::Pause()
+{
+	btnResume->bounds = { -app->render->camera.x / 3 + 170,-app->render->camera.y / 3 + 115, 70, 12 };
+	btnSettings->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 70, 12 };
+	btnBackIntro->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 };
+	btnExit->bounds = { -app->render->camera.x / 3 + 170,  -app->render->camera.y / 3 + 175, 70, 12 };
+	btnBack->bounds = { -app->render->camera.x / 3 + 190,  -app->render->camera.y / 3 + 175, 70, 12 };
+	checkBoxFullscreen->bounds = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 135, 15,15 };
 }
 
 bool SceneDungeon::OnGuiMouseClickEvent(GuiControl* control)
@@ -252,8 +333,50 @@ bool SceneDungeon::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
-		if (control->id == 1) app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
-		else if (control->id == 2) exit = true;
+		if (control->id == 1)
+		{
+			paused = false;
+
+		}
+		else if (control->id == 2) pausedSettings = true;
+		else if (control->id == 3)
+		{
+			app->map->CleanUp();
+			//if (currentScene != GameScene::SCENE_TOWN)
+			//{
+			//	currentScene = GameScene::SCENE_TOWN;
+			//}
+			app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
+			paused = false;
+		}
+		else if (control->id == 4)
+		{
+			if (app->scene->player != nullptr)
+			{
+				app->scene->player->position.x = 350;
+				app->scene->player->position.y = 875;
+				app->SaveGameRequest();
+			}
+			app->sceneIntro->exit = true;
+		}
+		else if (control->id == 5) pausedSettings = false;
+		break;
+	}
+	/*case GuiControlType::SLIDER:
+	{
+		if (control->id == 1) app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
+		else if (control->id == 2) app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
+		break;
+	}*/
+	case GuiControlType::CHECKBOX:
+	{
+		if (control->id == 1)
+		{
+			app->win->fullScreen = !app->win->fullScreen;
+			app->win->ChangeScreenSize();
+		}
+		//else if (control->id == 2) app->vSync = !app->vSync;
+		break;
 	}
 	default: break;
 	}

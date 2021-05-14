@@ -49,11 +49,13 @@ public:
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
 	bool CleanUp() override;
-
+	void Pause();
 	void ChangeScene(DungeonScene nextScene);
 
 	bool won = false;
 	bool guiColliders = false;
+
+	bool paused = false;
 
 	DungeonScene currentScene;
 
@@ -61,8 +63,22 @@ private:
 	int whiteFont = -1;
 	SDL_Texture* winText = nullptr;
 
-	bool paused = false;
+	
 	bool exit = false;
+	bool pausedSettings = false;
+
+
+	GuiButton* btnResume;
+	GuiButton* btnSettings;
+	GuiButton* btnBackIntro;
+	GuiButton* btnExit;
+
+	GuiButton* btnBack;
+
+	GuiCheckBox* checkBoxFullscreen;
+
+	SDL_Rect* fullscreenRect;
+	int scale;
 
 	// Player
 	Player* player;

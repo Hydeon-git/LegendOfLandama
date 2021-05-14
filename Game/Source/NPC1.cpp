@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneDungeon.h"
 #include "Player.h"
 #include "NPC1.h"
 #include "ModuleParticles.h"
@@ -121,7 +122,7 @@ bool NPC1::Update(float dt)
 
 bool NPC1::PostUpdate()
 {
-	if ((this->active == true) && (!app->scene->paused) && (!app->scene->houseClosed))
+	if ((this->active == true) && (!app->scene->paused) && (!app->sceneDungeon->paused) && (!app->scene->houseClosed))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC1, position.x, position.y, &rect);

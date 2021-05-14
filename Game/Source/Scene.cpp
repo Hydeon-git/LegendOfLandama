@@ -252,7 +252,7 @@ bool Scene::Update(float dt)
 	}
 
 	// Pause Menu
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN&&!app->scene->player->dialogeOn)
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !app->scene->player->dialogeOn)
 	{
 		if (!pausedSettings)
 		{

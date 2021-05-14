@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneDungeon.h"
 #include "SceneBattle.h"
 #include "Player.h"
 #include "NPC7.h"
@@ -237,7 +238,7 @@ bool NPC7::Update(float dt)
 
 bool NPC7::PostUpdate()
 {
-	if ((this->active == true) && (!app->scene->paused) && !app->sceneBattle->knightDead)
+	if ((this->active == true) && (!app->scene->paused) && (!app->sceneDungeon->paused) && !app->sceneBattle->knightDead)
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC7, position.x, position.y, &rect);

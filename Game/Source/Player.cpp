@@ -575,7 +575,7 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-	if ((this->active == true) && (!app->scene->paused) && !app->sceneBattle->playerDead)
+	if ((this->active == true) && (!app->scene->paused) && (!app->sceneDungeon->paused) && !app->sceneBattle->playerDead)
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texPlayer, position.x, position.y, &rect);
