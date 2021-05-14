@@ -31,13 +31,19 @@ NPC5::NPC5() : Entity(EntityType::NPC5)
 		position.x = 120;
 		position.y = 80;
 	}
+	else if (app->sceneBattle->mageRevive)
+	{
+		position.x = 128;
+		position.y = 134;
+		app->scene->player->mageTkn = false;
+	}
 	else {
 		//position.x = app->scene->player->lastPositionX;
 		//position.y = app->scene->player->lastPositionY - 5;
 		/*position.x = 200-30;
 		position.y = 100;*/
-		position.x = 260;
-		position.y = 150;
+		position.x = 265;
+		position.y = 319;
 
 	}
 	//idlanim
@@ -114,7 +120,7 @@ bool NPC5::Start()
 bool NPC5::Update(float dt)
 {
 	
-	if (mageTkn)
+	if (app->scene->player->mageTkn)
 	{
 		if (!app->sceneBattle->battleOn)
 		{
@@ -256,7 +262,7 @@ void NPC5::NPC5InitialPosition()
 	}
 	else 
 	{
-		if (mageTkn)
+		if (app->scene->player->mageTkn)
 		{
 			position.x = app->scene->player->lastPositionX;
 			position.y = app->scene->player->lastPositionY - 5;

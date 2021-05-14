@@ -51,10 +51,10 @@ public:
 
 	// NPC5 Mage Stats
 	int mageDmg = 10;
-	int mageHealth = 10;
+	int mageHealth = 50;
 	int mageMagicDmg = 40;
 
-	bool mageTkn = false;
+	
 
 private:
 	float speed = 1.0f;

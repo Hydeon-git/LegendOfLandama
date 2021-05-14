@@ -22,6 +22,7 @@
 #include "Log.h"
 #include "Font.h"
 #include "SceneDungeon.h"
+#include "HUD.h"
 
 
 SceneDungeon::SceneDungeon() : Module()
@@ -103,7 +104,7 @@ bool SceneDungeon::Update(float dt)
 		player->door = 0;
 	}
 
-	if (!paused)
+	if (!paused && !app->hud->bagIsOpen)
 	{
 		// Camera x
 		if ((app->render->counter == 0 || player->godModeEnabled))

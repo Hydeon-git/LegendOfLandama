@@ -81,7 +81,7 @@ bool Scene::Start()
 		
 		npc1->Start();
 		npc5->Start();
-		npc7->Start();
+		//npc7->Start();
 		enemy1->Start();
 		enemy2->Start();
 		enemy3->Start();
@@ -189,11 +189,18 @@ bool Scene::Update(float dt)
 
 	//Cap in-game FPS
 	//if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) app->capped = !app->capped;
+	if (app->sceneBattle->playerRevive)
+	{
+		app->scene->ChangeScene(GameScene::SCENE_INN);
+		app->sceneBattle->playerRevive = false;
+	}
+
 	if (player->door == COLLIDER_BLUE)
 	{
 		app->scene->ChangeScene(GameScene::SCENE_HOUSE1);
 		app->audio->PlayFx(doorCloseFx, 0);
 		player->door = 0;
+
 	}
 	else if (player->door == COLLIDER_GREY)
 	{
@@ -488,6 +495,22 @@ void Scene::ChangeScene(GameScene nextScene)
 			
 			npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);
 			npc1->Start();
+			//load mage
+			if (!app->scene->player->mageTkn && !app->sceneBattle->mageRevive)
+			{
+				npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
+				npc5->Start();
+			}
+
+			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			npc7->Start();
+			//unload knight
+			if (!app->scene->player->knightTkn)
+			{
+				npc7->CleanUp();
+				app->entityManager->DestroyEntity(npc7);
+				npc7 = nullptr;
+			}
 
 			// Setting dialogue to id 0 Beach Girl and restart dialog system
 			app->dialogueSystem->CleanUp();
@@ -650,6 +673,24 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc1->CleanUp();
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
+			//unload mage
+			if (!app->scene->player->mageTkn)
+			{
+				npc5->CleanUp();
+				app->entityManager->DestroyEntity(npc5);
+				npc5 = nullptr;
+			}
+			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			npc7->Start();
+			//unload knight
+			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			npc7->Start();
+			if (!app->scene->player->knightTkn)
+			{
+				npc7->CleanUp();
+				app->entityManager->DestroyEntity(npc7);
+				npc7 = nullptr;
+			}
 
 			// Creates Fisherman and starts it	
 			npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
@@ -698,6 +739,22 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc1->CleanUp();
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
+			//unload mage
+			if (!app->scene->player->mageTkn)
+			{
+				npc5->CleanUp();
+				app->entityManager->DestroyEntity(npc5);
+				npc5 = nullptr;
+			}
+			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			npc7->Start();
+			//unload knight
+			if (!app->scene->player->knightTkn)
+			{
+				npc7->CleanUp();
+				app->entityManager->DestroyEntity(npc7);
+				npc7 = nullptr;
+			}
 
 			// Creates Blacksmith and Starts it
 			npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
@@ -742,14 +799,46 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
 
+			//unload mage
+			if (!app->scene->player->mageTkn)
+			{
+				npc5->CleanUp();
+				app->entityManager->DestroyEntity(npc5);
+				npc5 = nullptr;
+			}
+			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			npc7->Start();
+			//unload knight
+			if (!app->scene->player->knightTkn)
+			{
+				npc7->CleanUp();
+				app->entityManager->DestroyEntity(npc7);
+				npc7 = nullptr;
+			}
+			//load mage
+			if (app->sceneBattle->mageRevive)
+			{
+				npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
+				npc5->Start();
+			}
+			//load knight
+			if (app->sceneBattle->knightRevive)
+			{
+				npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+				npc7->Start();
+			}
+
+			npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
+			npc4->Start();
+
+
 			// Setting dialogue to id 3 Posadera and restart dialog system
 			app->dialogueSystem->CleanUp();
 			app->dialogueSystem->id = 3;
 			app->dialogueSystem->Start();
 			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 			
-			npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
-			npc4->Start();
+
 
 			house = 3;
 			app->render->camera.x = 0;
@@ -783,6 +872,21 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc1->CleanUp();
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
+			// Unload mage
+			if (!app->scene->player->mageTkn)
+			{
+				npc5->CleanUp();
+				app->entityManager->DestroyEntity(npc5);
+				npc5 = nullptr;
+			}
+
+			//load knight
+			if (!app->scene->player->knightTkn)
+			{
+				npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+				npc7->Start();
+			}
+
 
 			// Setting dialogue to id 0 None
 			app->dialogueSystem->CleanUp();

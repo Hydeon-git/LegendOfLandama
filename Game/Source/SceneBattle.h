@@ -68,6 +68,10 @@ public:
 	bool knightDead = false;
 	int enemiesAlive = 3;
 
+	bool playerRevive = false;
+	bool mageRevive = false;
+	bool knightRevive = false;
+
 private:
 
 	SString name;

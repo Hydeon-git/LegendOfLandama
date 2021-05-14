@@ -154,10 +154,12 @@ public:
 	int klastPositionX2;
 	int klastPositionY2;
 
+	bool mageTkn = false;
+	bool knightTkn = false;
 
 	// Player Stats
 	int playerDmg = 25;
-	int playerHealth = 200;
+	int playerHealth = 20;
 	int playerMagicDmg = 15;
 
 private:

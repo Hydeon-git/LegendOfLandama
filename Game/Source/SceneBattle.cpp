@@ -52,7 +52,7 @@ bool SceneBattle::Start()
 	if (this->active == true)
 	{
 
-		if (app->scene->npc7->knightTkn)
+		if (app->scene->player->knightTkn)
 		{
 			LOG("Loading background assets");
 
@@ -189,7 +189,7 @@ bool SceneBattle::Start()
 bool SceneBattle::Update(float dt)
 {
 
-	if (app->scene->npc7->knightTkn)
+	if (app->scene->player->knightTkn)
 	{
 		if (enemiesAlive == 0 || (playerDead && mageDead && knightDead))
 		{
@@ -219,6 +219,7 @@ bool SceneBattle::Update(float dt)
 			player->playerHealth = 0;
 			heroineCounter = 0;
 			playerDead = true;
+			playerRevive = true;
 
 		}
 		if (npc5->mageHealth <= 0)
@@ -226,12 +227,14 @@ bool SceneBattle::Update(float dt)
 			npc5->mageHealth = 0;
 			mageCounter = 0;
 			mageDead = true;
+			mageRevive = true;
 		}
 		if (npc7->knightHealth <= 0)
 		{
 			npc7->knightHealth = 0;
 			knightCounter = 0;
 			knightDead = true;
+			knightRevive = true;
 		}
 
 
@@ -325,12 +328,14 @@ bool SceneBattle::Update(float dt)
 			player->playerHealth = 0;
 			heroineCounter = 0;
 			playerDead = true;
+			playerRevive = true;
 		}
 		if (npc5->mageHealth <= 0)
 		{
 			npc5->mageHealth = 0;
 			mageCounter = 0;
 			mageDead = true;
+			mageRevive = true;
 		}
 
 
@@ -399,7 +404,7 @@ bool SceneBattle::PostUpdate()
 	bool ret = true;
 	if (exit == true) ret = false;
 
-	if (app->scene->npc7->knightTkn)
+	if (app->scene->player->knightTkn)
 	{
 		app->render->DrawTexture(battletext, 0, 0, fullscreenRect, 3);
 		app->render->DrawRectangle({ 0, 480, 1280, 240 }, 0, 0, 0, 220, true, false);
@@ -534,7 +539,7 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
-		if (app->scene->npc7->knightTkn)
+		if (app->scene->player->knightTkn)
 		{
 			if ((control->id == 1) && (heroineCounter == 1) && !playerDead)
 			{
@@ -1038,7 +1043,7 @@ bool SceneBattle::CleanUp()
 
 void SceneBattle::EnemyAttack()
 {
-	if (app->scene->npc7->knightTkn)
+	if (app->scene->player->knightTkn)
 	{
 		srand(time(NULL));
 		int enemyPool = rand() % 3 + 1;

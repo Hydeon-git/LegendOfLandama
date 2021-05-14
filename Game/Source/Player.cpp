@@ -55,7 +55,12 @@ Player::Player() : Entity(EntityType::PLAYER)
 		position.y = 115;
 
 	}
-	else if (app->sceneBattle->battleEnd)
+	else if (app->sceneBattle->playerRevive)
+	{
+		position.x = 228;
+		position.y = 139;
+	}
+	else if (app->sceneBattle->battleEnd&& !app->sceneBattle->playerRevive)
 	{
 		position.x = 484;
 		position.y = 344;
@@ -585,10 +590,12 @@ bool Player::Update(float dt)
 
 
 	//Dumbledore (aixo es posara a true al dialeg del mago pop)
-	if (!app->scene->npc5->mageTkn&& position.y <= 120)app->scene->npc5->mageTkn = true;
-	
-	if (!app->scene->npc7->knightTkn&& position.y <= 150)app->scene->npc7->knightTkn = true;
+	//if (!mageTkn&& position.y >= 319) mageTkn = true;
+	//
+	//if (!knightTkn&& position.y <= 150) knightTkn = true;
+	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) mageTkn = true;
 
+	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) knightTkn = true;
 
 
 
