@@ -138,7 +138,7 @@ void HUD::openBackPack()
 	SrcR.w = 1280;
 	SrcR.h = 720;
 
-	DestR.x = 30;
+	DestR.x = 8;
 	DestR.y = 0;
 	DestR.w = 1280;
 	DestR.h = 720;
