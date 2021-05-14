@@ -28,6 +28,7 @@
 #include "DialogSystem.h"
 #include "HUD.h"
 
+#define INVENTORY_SIZE 13
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -35,8 +36,10 @@ Player::Player() : Entity(EntityType::PLAYER)
 	
 	if (app->sceneIntro->startClicked)
 	{
-		position.x = 200;
-		position.y = 100;
+		//position.x = 200;
+		//position.y = 100;
+		position.x = 548;
+		position.y = 129;
 
 		lastPositionX2 = 200;
 		lastPositionY2 = 100;
@@ -116,6 +119,12 @@ Player::Player() : Entity(EntityType::PLAYER)
 	deathAnim.PushBack({ 0, 1100, 64, 85 });
 	deathAnim.speed = 0.02f;
 	deathAnim.loop = false;
+
+	for (int i = 0; i < 15; ++i)
+	{
+		inventory[i] = nullptr;
+
+	}
 }
 
 // Destructor
@@ -651,6 +660,130 @@ void Player::CheckHouseDoor()
 		}
 	}
 
+}
+
+
+void Player::addItemToIventory(Item * item)
+{
+
+	for (int i = 0; i < INVENTORY_SIZE; ++i)
+	{
+
+		if (inventory[i] == nullptr)
+		{
+			inventory[i] = item;
+			break;
+		}
+
+	}
+
+}
+
+
+void Player::drawPlayerInventory()
+{
+
+	if (checkInventoryPos(0))
+	{
+		app->render->DrawTexture(inventory[0]->texture, 124, 47, NULL);
+
+	}
+
+	if (checkInventoryPos(1))
+	{
+		app->render->DrawTexture(inventory[1]->texture, 166, 47, NULL);
+
+	}
+
+	if (checkInventoryPos(2))
+	{
+		app->render->DrawTexture(inventory[2]->texture, 208, 47, NULL);
+
+	}
+
+	if (checkInventoryPos(3))
+	{
+		app->render->DrawTexture(inventory[3]->texture, 250, 47, NULL);
+
+	}
+
+	if (checkInventoryPos(4))
+	{
+		app->render->DrawTexture(inventory[4]->texture, 292, 47, NULL);
+
+	}
+
+	if (checkInventoryPos(5))
+	{
+		app->render->DrawTexture(inventory[5]->texture, 124, 89, NULL);
+
+	}
+
+	if (checkInventoryPos(6))
+	{
+		app->render->DrawTexture(inventory[6]->texture, 166, 89, NULL);
+
+	}
+
+	if (checkInventoryPos(7))
+	{
+		app->render->DrawTexture(inventory[7]->texture, 208, 89, NULL);
+
+	}
+
+	if (checkInventoryPos(8))
+	{
+		app->render->DrawTexture(inventory[8]->texture, 250, 89, NULL);
+
+	}
+
+	if (checkInventoryPos(9))
+	{
+		app->render->DrawTexture(inventory[9]->texture, 292, 89, NULL);
+
+	}
+
+	if (checkInventoryPos(10))
+	{
+		app->render->DrawTexture(inventory[10]->texture, 166, 131, NULL);
+
+	}
+
+	if (checkInventoryPos(11))
+	{
+		app->render->DrawTexture(inventory[11]->texture, 208, 131, NULL);
+
+	}
+
+	if (checkInventoryPos(12))
+	{
+		app->render->DrawTexture(inventory[12]->texture, 250, 131, NULL);
+
+	}
+
+
+}
+
+
+bool Player::checkInventoryPos(int pos)
+{
+
+	return inventory[pos] != nullptr;
+
+}
+
+bool Player::isItemInInventory(ItemType itemtype)
+{
+	for (int i = 0; i < INVENTORY_SIZE; ++i)
+	{
+		if (inventory[i] != nullptr)
+			if (inventory[i]->type == itemtype)
+				return true;
+
+	}
+
+
+	return false;
 }
 
 bool Player::ThereIsTopWall()

@@ -89,19 +89,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AmatistWand.cpp" />
+    <ClCompile Include="Source\Coin.cpp" />
     <ClCompile Include="Source\DialogSystem.cpp" />
+    <ClCompile Include="Source\DiamondBow.cpp" />
+    <ClCompile Include="Source\DiamondWand.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Enemy1.cpp" />
     <ClCompile Include="Source\Enemy2.cpp" />
     <ClCompile Include="Source\Enemy3.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
+    <ClCompile Include="Source\FireShield.cpp" />
+    <ClCompile Include="Source\FireSword.cpp" />
     <ClCompile Include="Source\FlyingEnemy.cpp" />
     <ClCompile Include="Source\Font.cpp" />
+    <ClCompile Include="Source\GoldBow.cpp" />
+    <ClCompile Include="Source\GoldShield.cpp" />
+    <ClCompile Include="Source\GoldSword.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\GuiCheckBox.cpp" />
     <ClCompile Include="Source\GuiSlider.cpp" />
     <ClCompile Include="Source\HUD.cpp" />
+    <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -117,6 +127,8 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Potion.cpp" />
+    <ClCompile Include="Source\RubyWand.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\SceneBattle.cpp" />
@@ -125,11 +137,22 @@
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\SceneWin.cpp" />
     <ClCompile Include="Source\Shop.cpp" />
+    <ClCompile Include="Source\SteelBow.cpp" />
+    <ClCompile Include="Source\SteelShield.cpp" />
+    <ClCompile Include="Source\SteelSword.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Window.cpp" />
+    <ClCompile Include="Source\WoodBow.cpp" />
+    <ClCompile Include="Source\WoodShield.cpp" />
+    <ClCompile Include="Source\WoodSword.cpp" />
+    <ClCompile Include="Source\WoodWand.cpp" />
+    <ClInclude Include="Source\AmatistWand.h" />
     <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\DialogSystem.h" />
+    <ClInclude Include="Source\DiamondBow.h" />
+    <ClInclude Include="Source\DiamondWand.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Enemy1.h" />
     <ClInclude Include="Source\Enemy2.h" />
@@ -137,13 +160,19 @@
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FadeToBlack.h" />
+    <ClInclude Include="Source\FireShield.h" />
+    <ClInclude Include="Source\FireSword.h" />
     <ClInclude Include="Source\FlyingEnemy.h" />
     <ClInclude Include="Source\Font.h" />
+    <ClInclude Include="Source\GoldBow.h" />
+    <ClInclude Include="Source\GoldShield.h" />
+    <ClInclude Include="Source\GoldSword.h" />
     <ClInclude Include="Source\GuiButton.h" />
     <ClInclude Include="Source\GuiCheckBox.h" />
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiSlider.h" />
     <ClInclude Include="Source\HUD.h" />
+    <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleParticles.h" />
     <ClInclude Include="Source\NPC7.h" />
@@ -155,8 +184,10 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Potion.h" />
     <ClInclude Include="Source\PQueue.h" />
     <ClInclude Include="Source\Queue.h" />
+    <ClInclude Include="Source\RubyWand.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Audio.h" />
     <ClInclude Include="Source\Input.h" />
@@ -169,6 +200,9 @@
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\SceneWin.h" />
     <ClInclude Include="Source\Shop.h" />
+    <ClInclude Include="Source\SteelBow.h" />
+    <ClInclude Include="Source\SteelShield.h" />
+    <ClInclude Include="Source\SteelSword.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Window.h" />
@@ -182,6 +216,10 @@
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
+    <ClInclude Include="Source\WoodBow.h" />
+    <ClInclude Include="Source\WoodShield.h" />
+    <ClInclude Include="Source\WoodSword.h" />
+    <ClInclude Include="Source\WoodWand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

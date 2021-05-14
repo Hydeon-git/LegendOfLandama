@@ -7,7 +7,7 @@
 #include "Map.h"
 #include "Scene.h"
 #include "Player.h"
-#include "Potion.h"
+#include "WoodWand.h"
 #include "ModuleParticles.h"
 #include "Pathfinding.h"
 #include "FadeToBlack.h"
@@ -22,17 +22,17 @@
 #define COLLIDER_YELLOW 268
 
 
-Potion::Potion() : Item(ItemType::Potion)
+WoodWand::WoodWand() : Item(ItemType::Wood_Wand)
 {
-	texture = app->tex->Load("Assets/Textures/life_potion.png");
+	texture = app->tex->Load("Assets/Textures/wood_wand.png");
 
 
 }
 
 // Destructor
-Potion::~Potion() {}
+WoodWand::~WoodWand() {}
 
-bool Potion::Awake()
+bool WoodWand::Awake()
 {
 	LOG("Loading Potion: Life Potion");
 
@@ -40,32 +40,33 @@ bool Potion::Awake()
 	return ret;
 }
 
-bool Potion::Start()
+bool WoodWand::Start()
 {
 	if (this->active == true)
 	{
-	
+
 	}
 	return true;
 }
 
-bool Potion::Update(float dt)
+bool WoodWand::Update(float dt)
 {
-	
+
 	return true;
 }
 
-bool Potion::PostUpdate()
+bool WoodWand::PostUpdate()
 {
-	
-	
+
+
 	return true;
 }
 
-bool Potion::CleanUp()
+bool WoodWand::CleanUp()
 {
 	LOG("Freeing scene");
 	app->tex->UnLoad(texture);
 	return true;
 }
+
 

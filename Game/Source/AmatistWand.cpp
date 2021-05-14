@@ -7,7 +7,7 @@
 #include "Map.h"
 #include "Scene.h"
 #include "Player.h"
-#include "Potion.h"
+#include "AmatistWand.h"
 #include "ModuleParticles.h"
 #include "Pathfinding.h"
 #include "FadeToBlack.h"
@@ -22,17 +22,17 @@
 #define COLLIDER_YELLOW 268
 
 
-Potion::Potion() : Item(ItemType::Potion)
+AmatistWand::AmatistWand() : Item(ItemType::Amatist_Wand)
 {
-	texture = app->tex->Load("Assets/Textures/life_potion.png");
+	texture = app->tex->Load("Assets/Textures/amatist_wand.png");
 
 
 }
 
 // Destructor
-Potion::~Potion() {}
+AmatistWand::~AmatistWand() {}
 
-bool Potion::Awake()
+bool AmatistWand::Awake()
 {
 	LOG("Loading Potion: Life Potion");
 
@@ -40,32 +40,33 @@ bool Potion::Awake()
 	return ret;
 }
 
-bool Potion::Start()
+bool AmatistWand::Start()
 {
 	if (this->active == true)
 	{
-	
+
 	}
 	return true;
 }
 
-bool Potion::Update(float dt)
+bool AmatistWand::Update(float dt)
 {
-	
+
 	return true;
 }
 
-bool Potion::PostUpdate()
+bool AmatistWand::PostUpdate()
 {
-	
-	
+
+
 	return true;
 }
 
-bool Potion::CleanUp()
+bool AmatistWand::CleanUp()
 {
 	LOG("Freeing scene");
 	app->tex->UnLoad(texture);
 	return true;
 }
+
 

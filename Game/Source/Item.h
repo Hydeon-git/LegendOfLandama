@@ -11,6 +11,23 @@
 enum class ItemType
 {
 	Potion,
+	Coin,
+	Wood_Sword,
+	Steel_Sword,
+	Gold_Sword,
+	Fire_Sword,
+	Wood_Shield,
+	Steel_Shield,
+	Gold_Shield,
+	Fire_Shield,
+	Wood_Bow,
+	Steel_Bow,
+	Gold_Bow,
+	Diamond_Bow,
+	Wood_Wand,
+	Amatist_Wand,
+	Ruby_Wand,
+	Diamond_Wand,
 	UNKNOWN
 };
 
@@ -34,12 +51,18 @@ public:
 		return true;
 	}
 
+	virtual void useItem();
+
+	virtual void damagedItem();
+
+
 public:
 
 	ItemType type;
 	bool active = true;
 	SString name;
 
+	int price;
 	iPoint position;
 	bool renderable = false;
 	SDL_Texture* texture;

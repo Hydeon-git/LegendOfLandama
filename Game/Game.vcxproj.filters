@@ -122,6 +122,61 @@
     <ClCompile Include="Source\HUD.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\Potion.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Coin.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WoodSword.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SteelSword.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GoldSword.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FireSword.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WoodShield.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SteelShield.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GoldShield.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FireShield.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WoodBow.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SteelBow.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GoldBow.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DiamondBow.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WoodWand.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AmatistWand.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RubyWand.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DiamondWand.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -278,6 +333,63 @@
     <ClInclude Include="Source\HUD.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Potion.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Coin.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WoodSword.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SteelSword.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GoldSword.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FireSword.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WoodShield.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SteelShield.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GoldShield.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FireShield.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WoodBow.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SteelBow.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GoldBow.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DiamondBow.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WoodWand.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AmatistWand.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RubyWand.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DiamondWand.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -306,6 +418,9 @@
     </Filter>
     <Filter Include="Entities\Enemies">
       <UniqueIdentifier>{7bbf98e3-6944-4f25-a97c-b9b55475fd5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Items">
+      <UniqueIdentifier>{7c8e3ce0-14cb-443a-a799-9c7764d0d8a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

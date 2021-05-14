@@ -5,6 +5,7 @@
 #include "Point.h"
 #include "Animation.h"
 #include "Entity.h"
+#include "Item.h"	
 
 #define COLLIDER_GREEN 856
 #define COLLIDER_RED 857
@@ -140,6 +141,12 @@ public:
 	bool spikes2Down = false;
 	bool spikes3Down = false;
 
+	//inventory
+	Item* inventory[13];
+	void addItemToIventory(Item* item);
+	void drawPlayerInventory();
+	bool checkInventoryPos(int pos);
+	bool isItemInInventory(ItemType itemtype);
 
 	int lastPosX[25] = { position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x,position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x, position.x };
 	int lastPosY[25] = { position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y,position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y, position.y };

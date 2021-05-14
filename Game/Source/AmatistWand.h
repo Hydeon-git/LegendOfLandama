@@ -1,5 +1,5 @@
-#ifndef __POTION_H__
-#define __POTION_H__
+#ifndef __AMATISTWAND_H__
+#define __AMATISTWAND_H__
 
 #include "Module.h"
 #include "Point.h"
@@ -9,14 +9,14 @@
 struct SDL_Texture;
 class Collider;
 
-class Potion : public Item
+class AmatistWand : public Item
 {
 public:
 
-	Potion();
+	AmatistWand();
 
 	// Destructor
-	~Potion();
+	~AmatistWand();
 
 	// Called before render is available
 	bool Awake();
@@ -35,8 +35,9 @@ public:
 
 
 
+
 private:
 
 };
 
-#endif // __Potion_H__
+#endif // __AmatistWand_H__

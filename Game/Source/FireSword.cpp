@@ -7,7 +7,7 @@
 #include "Map.h"
 #include "Scene.h"
 #include "Player.h"
-#include "Potion.h"
+#include "FireSword.h"
 #include "ModuleParticles.h"
 #include "Pathfinding.h"
 #include "FadeToBlack.h"
@@ -22,17 +22,17 @@
 #define COLLIDER_YELLOW 268
 
 
-Potion::Potion() : Item(ItemType::Potion)
+FireSword::FireSword() : Item(ItemType::Fire_Sword)
 {
-	texture = app->tex->Load("Assets/Textures/life_potion.png");
+	texture = app->tex->Load("Assets/Textures/fire_sword.png");
 
 
 }
 
 // Destructor
-Potion::~Potion() {}
+FireSword::~FireSword() {}
 
-bool Potion::Awake()
+bool FireSword::Awake()
 {
 	LOG("Loading Potion: Life Potion");
 
@@ -40,29 +40,29 @@ bool Potion::Awake()
 	return ret;
 }
 
-bool Potion::Start()
+bool FireSword::Start()
 {
 	if (this->active == true)
 	{
-	
+
 	}
 	return true;
 }
 
-bool Potion::Update(float dt)
+bool FireSword::Update(float dt)
 {
-	
+
 	return true;
 }
 
-bool Potion::PostUpdate()
+bool FireSword::PostUpdate()
 {
-	
-	
+
+
 	return true;
 }
 
-bool Potion::CleanUp()
+bool FireSword::CleanUp()
 {
 	LOG("Freeing scene");
 	app->tex->UnLoad(texture);

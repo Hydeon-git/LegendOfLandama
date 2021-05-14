@@ -10,7 +10,22 @@
 #include <SDL_mixer\include\SDL_mixer.h>
 #include <SDL\include\SDL_keyboard.h>
 #include "stdio.h"
-
+#include "SteelSword.h"
+#include "GoldSword.h"
+#include "FireSword.h"
+#include "WoodShield.h"
+#include "SteelShield.h"
+#include "GoldShield.h"
+#include "FireShield.h"
+#include "WoodSword.h"
+#include "WoodBow.h"
+#include "SteelBow.h"
+#include "GoldBow.h"
+#include "DiamondBow.h"
+#include "WoodWand.h"
+#include "AmatistWand.h"
+#include "RubyWand.h"
+#include "DiamondWand.h"
 #include "App.h"
 #include "Audio.h"
 #include "Input.h"
@@ -175,66 +190,174 @@ void Shop::select()
 	switch (itemPos) 
 	{
 	case WOOD_SWORD:
+	{	
 		items[WOOD_SWORD].selected = true;
-		break;
+		if (!app->scene->player->isItemInInventory(ItemType::Wood_Sword))
+		{
+			WoodSword* woodsword = new WoodSword();
+			app->scene->player->addItemToIventory(woodsword);
+		}
+	}
+	break;
 	case STEEL_SWORD:
+	{
 		items[STEEL_SWORD].selected = true;
-
+		if (!app->scene->player->isItemInInventory(ItemType::Steel_Sword))
+		{
+			SteelSword* steelsword = new SteelSword();
+			app->scene->player->addItemToIventory(steelsword);
+		}
+	}
 		break;
 	case GOLD_SWORD:
+	{
 		items[GOLD_SWORD].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Gold_Sword))
+		{
+			GoldSword* goldsword = new GoldSword();
+			app->scene->player->addItemToIventory(goldsword);
+		}
 
+	}
 		break;
 	case FIRE_SWORD:
+	{
 		items[FIRE_SWORD].selected = true;
-
+		if (!app->scene->player->isItemInInventory(ItemType::Fire_Sword))
+		{
+			FireSword* firesword = new FireSword();
+			app->scene->player->addItemToIventory(firesword);
+		}
+	}
 		break;
 	case WOOD_PROTECTION:
+	{
 		items[WOOD_PROTECTION].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Wood_Shield))
+		{
+			WoodShield* woodshield = new WoodShield();
+			app->scene->player->addItemToIventory(woodshield);
+		}
 
+	}
 		break;
 	case STEEL_PROTECTION:
+	{
 		items[STEEL_PROTECTION].selected = true;
-
+		if (!app->scene->player->isItemInInventory(ItemType::Steel_Shield))
+		{
+			SteelShield* steelshield = new SteelShield();
+			app->scene->player->addItemToIventory(steelshield);
+		}
+	}
 		break;
 	case GOLD_PROTECTION:
+	{
 		items[GOLD_PROTECTION].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Gold_Shield))
+		{
+			GoldShield* goldshield = new GoldShield();
+			app->scene->player->addItemToIventory(goldshield);
+		}
+	}
 
 		break;
-	case FIRE_PROTECTION:		
+	case FIRE_PROTECTION:	
+	{
 		items[FIRE_PROTECTION].selected = true;
-
+		if (!app->scene->player->isItemInInventory(ItemType::Fire_Shield))
+		{
+			FireShield* fireshield = new FireShield();
+			app->scene->player->addItemToIventory(fireshield);
+		}
+	}
 		break;
 	case WOOD_BOW:
+	{
 		items[WOOD_BOW].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Wood_Bow))
+		{
+			WoodBow* woodbow = new WoodBow();
+			app->scene->player->addItemToIventory(woodbow);
+		}
+	}
 
 		break;
 	case STEEL_BOW:
+	{
 		items[STEEL_BOW].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Steel_Bow))
+		{
+			SteelBow* steelbow = new SteelBow();
+			app->scene->player->addItemToIventory(steelbow);
+		}
+	}
 
 		break;
 	case GOLD_BOW:
+	{
 		items[GOLD_BOW].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Gold_Bow))
+		{
+			GoldBow* goldbow = new GoldBow();
+			app->scene->player->addItemToIventory(goldbow);
+		}
+	}
 
 		break;
 	case DIAMOND_BOW:
+	{
 		items[DIAMOND_BOW].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Diamond_Bow))
+		{
+			DiamondBow* diamondbow = new DiamondBow();
+			app->scene->player->addItemToIventory(diamondbow);
+		}
+	}
 
 		break;
 	case WOOD_WAND:
+	{
 		items[WOOD_WAND].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Wood_Wand))
+		{
+			WoodWand* woodwand = new WoodWand();
+			app->scene->player->addItemToIventory(woodwand);
+		}
+	}
 
 		break;
 	case AMATIST_WAND:
+	{
 		items[AMATIST_WAND].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Amatist_Wand))
+		{
+			AmatistWand* amatistwand = new AmatistWand();
+			app->scene->player->addItemToIventory(amatistwand);
+		}
+	}
 
 		break;
 	case RUBY_WAND:
+	{
 		items[RUBY_WAND].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Ruby_Wand))
+		{
+			RubyWand* rubywand = new RubyWand();
+			app->scene->player->addItemToIventory(rubywand);
+		}
+	}
 
 		break;
 	case DIAMOND_WAND:
+	{
 		items[DIAMOND_WAND].selected = true;
+		if (!app->scene->player->isItemInInventory(ItemType::Diamond_Wand))
+		{
+			DiamondWand* diamondwand = new DiamondWand();
+			app->scene->player->addItemToIventory(diamondwand);
+		}
+	}
 
 		break;
 	}

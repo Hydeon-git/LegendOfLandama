@@ -1,5 +1,5 @@
-#ifndef __POTION_H__
-#define __POTION_H__
+#ifndef __FIRESWORD_H__
+#define __FIRESWORD_H__
 
 #include "Module.h"
 #include "Point.h"
@@ -9,14 +9,14 @@
 struct SDL_Texture;
 class Collider;
 
-class Potion : public Item
+class FireSword : public Item
 {
 public:
 
-	Potion();
+	FireSword();
 
 	// Destructor
-	~Potion();
+	~FireSword();
 
 	// Called before render is available
 	bool Awake();
@@ -39,4 +39,4 @@ private:
 
 };
 
-#endif // __Potion_H__
+#endif // __FireSWORD_H__
