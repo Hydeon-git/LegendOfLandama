@@ -492,6 +492,7 @@ bool Player::Update(float dt)
 		{
 			app->map->buttonFloorPressed = true;
 		}
+
 		if (OpenChest() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
@@ -543,6 +544,27 @@ bool Player::Update(float dt)
 				spikes2Down = true;
 				spikes3Down = true;
 			}
+		}
+
+
+		if (TakeBlueKey())
+		{
+			app->map->blueKeyTaken = true;
+		}
+
+		if (TakeRedKey())
+		{
+			app->map->redKeyTaken = true;
+		}
+
+		if (TakeGreenKey())
+		{
+			app->map->greenKeyTaken = true;
+		}
+
+		if (TakeYellowKey())
+		{
+			app->map->yellowKeyTaken = true;
 		}
 	}
 	//restart when dies
@@ -649,12 +671,16 @@ bool Player::ThereIsTopWall()
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
 
 					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE 
-						|| groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON || groundId == COLLIDER_BLACK_DUNGEON 
+						|| groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON || (groundId == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
+						|| (groundId == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 						|| (groundId == COLLIDER_CIAN_DUNGEON && !app->map->puzzle1DungeonDone && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL) 
 						|| (groundId == COLLIDER_ORANGE_DUNGEON && !app->map->buttonFloorPressed)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_BLUE_DUNGEON) 
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_ORANGE_DUNGEON) 
-						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_YELLOW_DUNGEON))
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_YELLOW_DUNGEON)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_BEIGE_DUNGEON && !app->map->redKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_BROWN_DUNGEON && !app->map->blueKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_GREENER_DUNGEON && !app->map->greenKeyTaken))
 					{
 						valid = true;
 					}
@@ -684,10 +710,14 @@ bool Player::ThereIsBottomWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON || groundId == COLLIDER_BLACK_DUNGEON 
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON 
+						|| (groundId == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
+						|| (groundId == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_BLUE_DUNGEON) 
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_ORANGE_DUNGEON)
-						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_YELLOW_DUNGEON))
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_YELLOW_DUNGEON)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_YELLOW_DUNGEON && !app->map->yellowKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken))
 					{
 						valid = true;
 					}
@@ -718,13 +748,16 @@ bool Player::ThereIsLeftWall()
 					tilePosition = app->map->WorldToMap(position.x-1, position.y + i * 4);
 					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
 					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE || leftWallId == COLLIDER_RED_FOREST 
-						|| leftWallId == COLLIDER_RED_DUNGEON || leftWallId == COLLIDER_BLACK_DUNGEON
+						|| leftWallId == COLLIDER_RED_DUNGEON || (leftWallId == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
+						|| (leftWallId == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_BLUE_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_ORANGE_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_YELLOW_DUNGEON) 
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_BEIGE_DUNGEON && !spikes1Down)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_BROWN_DUNGEON && !spikes2Down)
-						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_CIAN_DUNGEON && !spikes3Down))
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_CIAN_DUNGEON && !spikes3Down)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && leftWallId == COLLIDER_YELLOW_DUNGEON && !app->map->yellowKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && leftWallId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken))
 					{
 						valid = true;
 					}
@@ -752,13 +785,17 @@ bool Player::ThereIsRightWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth+1, position.y + i * 4);
 					rightWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE || rightWallId == COLLIDER_RED_FOREST || rightWallId == COLLIDER_RED_DUNGEON || rightWallId == COLLIDER_BLACK_DUNGEON
+					if (rightWallId == COLLIDER_RED || rightWallId == COLLIDER_RED_HOUSE || rightWallId == COLLIDER_RED_FOREST || rightWallId == COLLIDER_RED_DUNGEON 
+						|| (rightWallId == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
+						|| (rightWallId == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_BLUE_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_ORANGE_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_YELLOW_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_BEIGE_DUNGEON && !spikes1Down)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_BROWN_DUNGEON && !spikes2Down)
-						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_CIAN_DUNGEON && !spikes3Down))
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_CIAN_DUNGEON && !spikes3Down)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && rightWallId == COLLIDER_YELLOW_DUNGEON && !app->map->yellowKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && rightWallId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken))
 					{
 						valid = true;
 					}
@@ -1242,6 +1279,117 @@ bool Player::OpenLaverFinal()
 	return valid;
 
 }
+
+
+bool Player::TakeBlueKey()
+{
+	bool valid = false;
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int blueKey;
+	while (layer != NULL)
+	{
+		if (layer->data->properties.GetProperty("Navigation") == 0)
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight / 2);
+				blueKey = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (blueKey == COLLIDER_PINK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS)
+				{
+					//app->map->checkpointTaken = true;
+					valid = true;
+				}
+			}
+		}
+		layer = layer->next;
+	}
+	return valid;
+
+}
+
+bool Player::TakeRedKey()
+{
+	bool valid = false;
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int redKey;
+	while (layer != NULL)
+	{
+		if (layer->data->properties.GetProperty("Navigation") == 0)
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight / 2);
+				redKey = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (redKey == COLLIDER_BLACK_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS)
+				{
+					//app->map->checkpointTaken = true;
+					valid = true;
+				}
+			}
+		}
+		layer = layer->next;
+	}
+	return valid;
+
+}
+
+bool Player::TakeGreenKey()
+{
+	bool valid = false;
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int greenKey;
+	while (layer != NULL)
+	{
+		if (layer->data->properties.GetProperty("Navigation") == 0)
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight / 2);
+				greenKey = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (greenKey == COLLIDER_BLUE_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS)
+				{
+					//app->map->checkpointTaken = true;
+					valid = true;
+				}
+			}
+		}
+		layer = layer->next;
+	}
+	return valid;
+
+}
+
+
+bool Player::TakeYellowKey()
+{
+	bool valid = false;
+	iPoint tilePosition;
+	ListItem<MapLayer*>* layer = app->map->data.layers.start;
+	int yellowKey;
+	while (layer != NULL)
+	{
+		if (layer->data->properties.GetProperty("Navigation") == 0)
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				tilePosition = app->map->WorldToMap(position.x + i * 4, position.y + playerHeight / 2);
+				yellowKey = layer->data->Get(tilePosition.x, tilePosition.y);
+				if (yellowKey == COLLIDER_CIAN_DUNGEON && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS)
+				{
+					//app->map->checkpointTaken = true;
+					valid = true;
+				}
+			}
+		}
+		layer = layer->next;
+	}
+	return valid;
+
+}
+
 
 bool Player::ThereIsDoor()
 {

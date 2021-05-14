@@ -86,6 +86,10 @@ public:
 	bool OpenLaver2();
 	bool OpenLaver3();
 	bool OpenLaverFinal();
+	bool TakeBlueKey();
+	bool TakeRedKey();
+	bool TakeGreenKey();
+	bool TakeYellowKey();
 	bool LoseLifes();
 
 	void CheckDoor();

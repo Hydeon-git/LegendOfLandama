@@ -21,7 +21,8 @@
 	<pathfinding />
 	<fadeToBlack />
 	<Shop />
+	<HUD />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-142" y="-56" />
 	</renderer>
 </save_state>

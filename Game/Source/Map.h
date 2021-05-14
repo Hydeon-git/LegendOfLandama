@@ -122,6 +122,11 @@ public:
 	void Draw();
 	void DrawDoor();
 	void DrawDoorMid();
+	void DrawDoorRed();
+	void DrawDoorBlue1();
+	void DrawDoorBlue2();
+	void DrawDoorYellow();
+	void DrawDoorGreen();
 	void DrawWalls2Dungeon();
 	void DrawFloor2Dungeon();
 	void DrawLavers();
@@ -130,6 +135,10 @@ public:
 	void DrawSpikes1();
 	void DrawSpikes2();
 	void DrawSpikes3();
+	void DrawKeyBlue();
+	void DrawKeyRed();
+	void DrawKeyGreen();
+	void DrawKeyYellow();
 	void DrawHeart();
 	void DrawColliders();
 
@@ -180,6 +189,10 @@ public:
 	bool laver3Pressed = false;
 	bool laverFinalPressed = false;
 
+	bool blueKeyTaken = false;
+	bool redKeyTaken = false;
+	bool greenKeyTaken = false;
+	bool yellowKeyTaken = false;
 private:
 
 	pugi::xml_document mapFile;

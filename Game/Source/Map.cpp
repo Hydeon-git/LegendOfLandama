@@ -55,7 +55,7 @@ void Map::Draw()
 	// L06: DONE 4: Make sure we draw all the layers and not just the first one	
 	while (layer != NULL)
 	{
-		if (layer->data->name == "floor" || layer->data->name == "walls" || layer->data->name == "furniture" || layer->data->name == "extra_furniture" || layer->data->name == "windows" || layer->data->name == "trees" || layer->data->name == "dungeon_walls" || layer->data->name == "dungeon_floor")
+		if (layer->data->name == "floor" || layer->data->name == "walls" || layer->data->name == "furniture" || layer->data->name == "extra_furniture" || layer->data->name == "windows" || layer->data->name == "trees" || layer->data->name == "dungeon_walls" || layer->data->name == "dungeon_floor" || layer->data->name == "columns")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
@@ -245,6 +245,274 @@ void Map::DrawDoorMid()
 		layerDoorMidClosed = layerDoorMidClosed->next;
 	}
 }
+
+void Map::DrawDoorRed()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* layerDoorRedOpen = data.layers.start;
+	ListItem<MapLayer*>* layerDoorRedClosed = data.layers.start;
+
+	while (layerDoorRedOpen != NULL)
+	{
+
+		if (layerDoorRedOpen->data->name == "door_red_open")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorRedOpen->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (redKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorRedOpen = layerDoorRedOpen->next;
+	}
+	while (layerDoorRedClosed != NULL)
+	{
+
+		if (layerDoorRedClosed->data->name == "door_red_close")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorRedClosed->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (!redKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorRedClosed = layerDoorRedClosed->next;
+	}
+}
+
+void Map::DrawDoorBlue1()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* layerDoorBlue1Open = data.layers.start;
+	ListItem<MapLayer*>* layerDoorBlue1Cosed = data.layers.start;
+
+	while (layerDoorBlue1Open != NULL)
+	{
+
+		if (layerDoorBlue1Open->data->name == "door_blue1_open")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorBlue1Open->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (blueKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorBlue1Open = layerDoorBlue1Open->next;
+	}
+	while (layerDoorBlue1Cosed != NULL)
+	{
+
+		if (layerDoorBlue1Cosed->data->name == "door_blue1_close")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorBlue1Cosed->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (!blueKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorBlue1Cosed = layerDoorBlue1Cosed->next;
+	}
+}
+
+void Map::DrawDoorGreen()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* layerDoorGreenOpen = data.layers.start;
+	ListItem<MapLayer*>* layerDoorGreenCosed = data.layers.start;
+
+	while (layerDoorGreenOpen != NULL)
+	{
+
+		if (layerDoorGreenOpen->data->name == "door_green_open")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorGreenOpen->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (greenKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorGreenOpen = layerDoorGreenOpen->next;
+	}
+	while (layerDoorGreenCosed != NULL)
+	{
+
+		if (layerDoorGreenCosed->data->name == "door_green_close")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorGreenCosed->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (!greenKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorGreenCosed = layerDoorGreenCosed->next;
+	}
+}
+
+void Map::DrawDoorYellow()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* layerDoorYellowOpen = data.layers.start;
+	ListItem<MapLayer*>* layerDoorYellowCosed = data.layers.start;
+
+	while (layerDoorYellowOpen != NULL)
+	{
+
+		if (layerDoorYellowOpen->data->name == "door_yellow_open")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorYellowOpen->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (yellowKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorYellowOpen = layerDoorYellowOpen->next;
+	}
+	while (layerDoorYellowCosed != NULL)
+	{
+
+		if (layerDoorYellowCosed->data->name == "door_yellow_close")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorYellowCosed->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (!yellowKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorYellowCosed = layerDoorYellowCosed->next;
+	}
+}
+
+
+void Map::DrawDoorBlue2()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* layerDoorBlue2Open = data.layers.start;
+	ListItem<MapLayer*>* layerDoorBlue2Cosed = data.layers.start;
+
+	while (layerDoorBlue2Open != NULL)
+	{
+
+		if (layerDoorBlue2Open->data->name == "door_blue2_open")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorBlue2Open->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (blueKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorBlue2Open = layerDoorBlue2Open->next;
+	}
+	while (layerDoorBlue2Cosed != NULL)
+	{
+
+		if (layerDoorBlue2Cosed->data->name == "door_blue2_close")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = layerDoorBlue2Cosed->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (!blueKeyTaken) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		layerDoorBlue2Cosed = layerDoorBlue2Cosed->next;
+	}
+}
+
+
 
 
 void Map::DrawWalls2Dungeon()
@@ -659,6 +927,126 @@ void Map::DrawSpikes3()
 			}
 		}
 		spikes3 = spikes3->next;
+	}
+}
+
+void Map::DrawKeyBlue()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* keyBlue = data.layers.start;
+	//spikes3
+	while (keyBlue != NULL)
+	{
+		if (keyBlue->data->name == "key_blue")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = keyBlue->data->Get(x, y);
+					if (tileId > 0)
+					{
+						// L04: DONE 9: Complete the draw function
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		keyBlue = keyBlue->next;
+	}
+}
+
+void Map::DrawKeyRed()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* keyRed = data.layers.start;
+	//spikes3
+	while (keyRed != NULL)
+	{
+		if (keyRed->data->name == "key_red")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = keyRed->data->Get(x, y);
+					if (tileId > 0)
+					{
+						// L04: DONE 9: Complete the draw function
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		keyRed = keyRed->next;
+	}
+}
+
+void Map::DrawKeyGreen()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* keyGreen = data.layers.start;
+	//spikes3
+	while (keyGreen != NULL)
+	{
+		if (keyGreen->data->name == "key_green")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = keyGreen->data->Get(x, y);
+					if (tileId > 0)
+					{
+						// L04: DONE 9: Complete the draw function
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		keyGreen = keyGreen->next;
+	}
+}
+
+void Map::DrawKeyYellow()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* keyYellow = data.layers.start;
+	//spikes3
+	while (keyYellow != NULL)
+	{
+		if (keyYellow->data->name == "key_yellow")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = keyYellow->data->Get(x, y);
+					if (tileId > 0)
+					{
+						// L04: DONE 9: Complete the draw function
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		keyYellow = keyYellow->next;
 	}
 }
 

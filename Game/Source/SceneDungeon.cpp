@@ -292,6 +292,30 @@ bool SceneDungeon::PostUpdate()
 	//	app->map->DrawSpikes3();
 	//}
 
+	if (!app->map->blueKeyTaken)
+	{
+		app->map->DrawKeyBlue();
+	}
+	if (!app->map->redKeyTaken)
+	{
+		app->map->DrawKeyRed();
+	}
+	if (!app->map->greenKeyTaken)
+	{
+		app->map->DrawKeyGreen();
+	}
+	if (!app->map->yellowKeyTaken)
+	{
+		app->map->DrawKeyYellow();
+	}
+
+	app->map->DrawDoorRed();
+	app->map->DrawDoorBlue1();
+	app->map->DrawDoorBlue2();
+	app->map->DrawDoorGreen();
+	app->map->DrawDoorYellow();
+
+
 	app->map->DrawColliders();
 
 	// Pause Menu
