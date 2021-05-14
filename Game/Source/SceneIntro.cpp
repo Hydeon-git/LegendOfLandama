@@ -45,7 +45,11 @@ bool SceneIntro::Start()
 	bool ret = true;
 
 	introText = app->tex->Load("Assets/Textures/portada.png");
-	logoText = app->tex->Load("Assets/Textures/logo.png");
+	logoBackText = app->tex->Load("Assets/Textures/logoBack.png");
+	logoRightText = app->tex->Load("Assets/Textures/logoRight.png");
+	logoMidText = app->tex->Load("Assets/Textures/logoMid.png");
+	logoLeftText = app->tex->Load("Assets/Textures/logoLeft.png");
+
 	app->sceneLose->Disable();
 	app->sceneWin->Disable();
 	app->audio->PlayMusic("Assets/Audio/Music/start.ogg");
@@ -121,7 +125,41 @@ bool SceneIntro::PostUpdate()
 	bool ret = true;
 	if (exit == true) ret = false;
 
-	if (count <= 200) app->render->DrawTexture(logoText, 0, 555, fullscreenRect, 3);
+	app->render->DrawTexture(logoBackText, 0, 555, NULL, 3);
+	if (count > 0 && count <= 200) app->render->DrawTexture(logoMidText, 450, 555, NULL, 3);
+
+	if (count > 5) app->render->DrawTexture(logoRightText, 1200, 555, NULL, 3);
+	if (count > 10) app->render->DrawTexture(logoRightText, 1175, 555, NULL, 3);
+	if (count > 15) app->render->DrawTexture(logoRightText, 1150, 555, NULL, 3);
+	if (count > 20) app->render->DrawTexture(logoRightText, 1125, 555, NULL, 3);
+	if (count > 25) app->render->DrawTexture(logoRightText, 1100, 555, NULL, 3);
+	if (count > 30) app->render->DrawTexture(logoRightText, 1075, 555, NULL, 3);
+	if (count > 35) app->render->DrawTexture(logoRightText, 1050, 555, NULL, 3);
+	if (count > 40) app->render->DrawTexture(logoRightText, 1025, 555, NULL, 3);
+	if (count > 45) app->render->DrawTexture(logoRightText, 1000, 555, NULL, 3);
+	if (count > 50) app->render->DrawTexture(logoRightText, 975, 555, NULL, 3);
+	if (count > 55) app->render->DrawTexture(logoRightText, 950, 555, NULL, 3);
+	if (count > 60) app->render->DrawTexture(logoRightText, 925, 555, NULL, 3);
+	if (count > 65) app->render->DrawTexture(logoRightText, 900, 555, NULL, 3);
+	if (count > 70) app->render->DrawTexture(logoRightText, 875, 555, NULL, 3);
+	if (count > 75 && count <= 200) app->render->DrawTexture(logoRightText, 850, 555, NULL, 3);
+
+
+	if (count > 5) app->render->DrawTexture(logoLeftText, -350, 555, NULL, 3);
+	if (count > 10) app->render->DrawTexture(logoLeftText, -325, 555, NULL, 3);
+	if (count > 15) app->render->DrawTexture(logoLeftText, -300, 555, NULL, 3);
+	if (count > 20) app->render->DrawTexture(logoLeftText, -275, 555, NULL, 3);
+	if (count > 25) app->render->DrawTexture(logoLeftText, -250, 555, NULL, 3);
+	if (count > 30) app->render->DrawTexture(logoLeftText, -225, 555, NULL, 3);
+	if (count > 35) app->render->DrawTexture(logoLeftText, -200, 555, NULL, 3);
+	if (count > 40) app->render->DrawTexture(logoLeftText, -175, 555, NULL, 3);
+	if (count > 45) app->render->DrawTexture(logoLeftText, -150, 555, NULL, 3);
+	if (count > 50) app->render->DrawTexture(logoLeftText, -125, 555, NULL, 3);
+	if (count > 55) app->render->DrawTexture(logoLeftText, -100, 555, NULL, 3);
+	if (count > 60) app->render->DrawTexture(logoLeftText, -75, 555, NULL, 3);
+	if (count > 65) app->render->DrawTexture(logoLeftText, -50, 555, NULL, 3);
+	if (count > 70) app->render->DrawTexture(logoLeftText, -25, 555, NULL, 3);
+	if (count > 75 && count <= 200) app->render->DrawTexture(logoLeftText, 0, 555, NULL, 3);
 
 	else if (count > 200)
 	{
@@ -213,7 +251,10 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 bool SceneIntro::CleanUp()
 {
 	app->tex->UnLoad(introText);
-	app->tex->UnLoad(logoText);
+	app->tex->UnLoad(logoBackText);
+	app->tex->UnLoad(logoMidText);
+	app->tex->UnLoad(logoRightText);
+	app->tex->UnLoad(logoLeftText);
 	app->font->UnLoad(whiteFont);
 
 	//RELEASE(btnStart);

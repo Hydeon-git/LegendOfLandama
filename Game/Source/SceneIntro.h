@@ -43,6 +43,9 @@ public:
 	bool options = false;
 
 private:
+
+	int posLogoRight = 1150;
+
 	bool active = true;
 	SString name;
 	GuiButton* btnStart;
@@ -58,7 +61,11 @@ private:
 	GuiCheckBox* checkBoxVSync;
 
 	SDL_Texture* introText = nullptr;
-	SDL_Texture* logoText = nullptr;
+
+	SDL_Texture* logoBackText = nullptr;
+	SDL_Texture* logoRightText = nullptr;
+	SDL_Texture* logoMidText = nullptr;
+	SDL_Texture * logoLeftText = nullptr;
 
 	SDL_Rect* fullscreenRect;
 
