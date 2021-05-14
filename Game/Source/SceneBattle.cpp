@@ -398,7 +398,7 @@ bool SceneBattle::Update(float dt)
 			}
 
 		}
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN&&(heroineCounter == 0 && mageCounter == 0)) { select(); }
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { select(); }
 
 		if (posX == 0)
 		{
