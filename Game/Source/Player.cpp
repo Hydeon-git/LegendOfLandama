@@ -648,8 +648,10 @@ bool Player::ThereIsTopWall()
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y-1);
 					groundId = layer->data->Get(tilePosition.x, tilePosition.y);
 
-					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE || groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON || groundId == COLLIDER_BLACK_DUNGEON 
-						|| (groundId == COLLIDER_CIAN_DUNGEON && !app->map->puzzle1DungeonDone) || (groundId == COLLIDER_ORANGE_DUNGEON && !app->map->buttonFloorPressed) 
+					if (groundId == COLLIDER_RED || groundId == COLLIDER_RED_HOUSE 
+						|| groundId == COLLIDER_RED_FOREST || groundId == COLLIDER_RED_DUNGEON || groundId == COLLIDER_BLACK_DUNGEON 
+						|| (groundId == COLLIDER_CIAN_DUNGEON && !app->map->puzzle1DungeonDone && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL) 
+						|| (groundId == COLLIDER_ORANGE_DUNGEON && !app->map->buttonFloorPressed)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_BLUE_DUNGEON) 
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_ORANGE_DUNGEON) 
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_YELLOW_DUNGEON))
@@ -715,7 +717,8 @@ bool Player::ThereIsLeftWall()
 				{
 					tilePosition = app->map->WorldToMap(position.x-1, position.y + i * 4);
 					leftWallId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE || leftWallId == COLLIDER_RED_FOREST || leftWallId == COLLIDER_RED_DUNGEON || leftWallId == COLLIDER_BLACK_DUNGEON
+					if (leftWallId == COLLIDER_RED || leftWallId == COLLIDER_RED_HOUSE || leftWallId == COLLIDER_RED_FOREST 
+						|| leftWallId == COLLIDER_RED_DUNGEON || leftWallId == COLLIDER_BLACK_DUNGEON
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_BLUE_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_ORANGE_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_YELLOW_DUNGEON) 
