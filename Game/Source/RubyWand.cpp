@@ -24,7 +24,7 @@
 
 RubyWand::RubyWand() : Item(ItemType::Ruby_Wand)
 {
-	texture = app->tex->Load("Assets/Textures/ruby_wand.png");
+	texture = app->tex->Load("Assets/Textures/rubi_wand.png");
 
 
 }

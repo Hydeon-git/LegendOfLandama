@@ -73,7 +73,7 @@ bool HUD::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	{
 		bagIsOpen = true;
-		
+		app->shop->open = false;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
