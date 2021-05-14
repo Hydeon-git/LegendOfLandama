@@ -36,10 +36,10 @@ Player::Player() : Entity(EntityType::PLAYER)
 	
 	if (app->sceneIntro->startClicked)
 	{
-		//position.x = 200;
-		//position.y = 100;
-		position.x = 548;
-		position.y = 129;
+		position.x = 200;
+		position.y = 100;
+		//position.x = 548;
+		//position.y = 129;
 
 		lastPositionX2 = 200;
 		lastPositionY2 = 100;
@@ -73,6 +73,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 		klastPositionX2 = 484;
 		klastPositionY2 = 344;
+		app->sceneBattle->battleEnd = false;
 	}
 	else if (app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
 	{
@@ -595,10 +596,21 @@ bool Player::Update(float dt)
 			app->render->RestartValues();
 		}
 	}
-	
-	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) mageTkn = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) knightTkn = true;
+
+
+	//Dumbledore (aixo es posara a true al dialeg del mago pop)
+	//if (!mageTkn&& position.y >= 319) mageTkn = true;
+	//
+	//if (!knightTkn&& position.y <= 150) knightTkn = true;
+	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) app->scene->mageTkn = true;
+
+	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->scene->knightTkn = true;
+
+	if (battleDoneMage && !app->sceneBattle->mageRevive) app->scene->mageTkn = true;
+	if (battleDoneKnight && !app->sceneBattle->knightRevive) app->scene->knightTkn = true;
+	
+
 
 	currentAnimation->Update();
 	return true;

@@ -72,6 +72,14 @@ public:
 	bool mageRevive = false;
 	bool knightRevive = false;
 
+	int pos = 0;
+
+	void select();
+
+
+
+	bool Keyboard(GuiControl* control);
+
 private:
 
 	SString name;
@@ -87,6 +95,8 @@ private:
 	GuiButton* btnEnemy3;
 
 	SDL_Texture* battletext = nullptr;
+	SDL_Texture* selectorTex = nullptr;
+
 
 	SDL_Rect* fullscreenRect;
 
@@ -101,6 +111,10 @@ private:
 	bool mDefense = false;
 	bool kDefense = false;
 
+	int posY = 0, posX = 0;
+	int posScaleY = 0, posScaleX = 0;
+
+	bool clicked = false;
 
 	int whiteFont = -1;
 

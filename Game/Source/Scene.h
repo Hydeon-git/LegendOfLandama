@@ -103,6 +103,10 @@ public:
 	bool stop = false;
 	bool enemyMoving = false;
 	bool houseClosed = false;
+	
+	bool mageTkn = false;
+	bool knightTkn = false;
+
 private:
 
 	// Textures & Anim

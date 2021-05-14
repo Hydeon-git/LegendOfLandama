@@ -496,7 +496,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);
 			npc1->Start();
 			//load mage
-			if (!app->scene->player->mageTkn && !app->sceneBattle->mageRevive)
+			if (!mageTkn && !app->sceneBattle->mageRevive)
 			{
 				npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
 				npc5->Start();
@@ -505,7 +505,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 			npc7->Start();
 			//unload knight
-			if (!app->scene->player->knightTkn)
+			if (!app->scene->knightTkn)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
@@ -674,7 +674,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
 			//unload mage
-			if (!app->scene->player->mageTkn)
+			if (!mageTkn)
 			{
 				npc5->CleanUp();
 				app->entityManager->DestroyEntity(npc5);
@@ -685,7 +685,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			//unload knight
 			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 			npc7->Start();
-			if (!app->scene->player->knightTkn)
+			if (!app->scene->knightTkn)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
@@ -740,7 +740,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
 			//unload mage
-			if (!app->scene->player->mageTkn)
+			if (!mageTkn)
 			{
 				npc5->CleanUp();
 				app->entityManager->DestroyEntity(npc5);
@@ -749,7 +749,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 			npc7->Start();
 			//unload knight
-			if (!app->scene->player->knightTkn)
+			if (!app->scene->knightTkn)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
@@ -800,7 +800,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc1 = nullptr;
 
 			//unload mage
-			if (!app->scene->player->mageTkn)
+			if (!mageTkn)
 			{
 				npc5->CleanUp();
 				app->entityManager->DestroyEntity(npc5);
@@ -809,7 +809,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 			npc7->Start();
 			//unload knight
-			if (!app->scene->player->knightTkn)
+			if (!app->scene->knightTkn)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
@@ -873,7 +873,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
 			// Unload mage
-			if (!app->scene->player->mageTkn)
+			if (!mageTkn)
 			{
 				npc5->CleanUp();
 				app->entityManager->DestroyEntity(npc5);
@@ -881,7 +881,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			}
 
 			//load knight
-			if (!app->scene->player->knightTkn)
+			if (!app->scene->knightTkn)
 			{
 				npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 				npc7->Start();

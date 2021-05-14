@@ -51,8 +51,9 @@ bool SceneBattle::Start()
 	bool ret = true;
 	if (this->active == true)
 	{
-
-		if (app->scene->player->knightTkn)
+		app->scene->player->battleDoneMage = true;
+		app->scene->player->battleDoneKnight = true;
+		if (app->scene->knightTkn)
 		{
 			LOG("Loading background assets");
 
@@ -94,6 +95,7 @@ bool SceneBattle::Start()
 			char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 			whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 			goldFont = app->font->Load("Assets/Textures/gold_font_mini.png", lookupTable, 1);
+			selectorTex = app->tex->Load("Assets/Textures/pointer.png");
 			hitEnemyFx = app->audio->LoadFx("Assets/Audio/Fx/hitEnemy.wav");
 			magicEnemyFx = app->audio->LoadFx("Assets/Audio/Fx/magic.wav");
 
@@ -157,6 +159,8 @@ bool SceneBattle::Start()
 			char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
 			whiteFont = app->font->Load("Assets/Textures/white_font_mini.png", lookupTable, 1);
 			goldFont = app->font->Load("Assets/Textures/gold_font_mini.png", lookupTable, 1);
+			selectorTex = app->tex->Load("Assets/Textures/pointer.png");
+
 			hitEnemyFx = app->audio->LoadFx("Assets/Audio/Fx/hitEnemy.wav");
 			magicEnemyFx = app->audio->LoadFx("Assets/Audio/Fx/magic.wav");
 
@@ -189,7 +193,7 @@ bool SceneBattle::Start()
 bool SceneBattle::Update(float dt)
 {
 
-	if (app->scene->player->knightTkn)
+	if (app->scene->knightTkn)
 	{
 		if (enemiesAlive == 0 || (playerDead && mageDead && knightDead))
 		{
@@ -394,6 +398,54 @@ bool SceneBattle::Update(float dt)
 			}
 
 		}
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN&&(heroineCounter == 0 && mageCounter == 0)) { select(); }
+
+		if (posX == 0)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			{
+				posY--;
+				if (posY < 0) posY = 1;
+			}
+
+
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			{
+				posY++;
+				if (posY > 1) posY = 0;
+			}
+		}
+		else if (posX == 1)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			{
+				posY--;
+				if (posY < 0) posY = 2;
+			}
+
+
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			{
+				posY++;
+				if (posY > 2) posY = 0;
+			}
+		}
+		else if (posX == 2)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			{
+				posY--;
+				if (posY < 0) posY = 2;
+
+			}
+
+
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			{
+				posY++;
+				if (posY > 2) posY = 0;
+			}
+		}
 	}
 	return true;
 }
@@ -404,7 +456,7 @@ bool SceneBattle::PostUpdate()
 	bool ret = true;
 	if (exit == true) ret = false;
 
-	if (app->scene->player->knightTkn)
+	if (app->scene->knightTkn)
 	{
 		app->render->DrawTexture(battletext, 0, 0, fullscreenRect, 3);
 		app->render->DrawRectangle({ 0, 480, 1280, 240 }, 0, 0, 0, 220, true, false);
@@ -527,9 +579,291 @@ bool SceneBattle::PostUpdate()
 			btnEnemy2->Draw();
 			btnEnemy3->Draw();
 		}
+
+		if (posX == 0 && posY == 0)
+		{
+			posScaleX = 5;
+			posScaleY = 198;
+
+		}
+		if (posX == 0 && posY == 1)
+		{
+			posScaleX = 5;
+			posScaleY = 218;
+		}
+
+		if (posX == 1 && posY == 0)
+		{
+			posScaleX = 120;
+			posScaleY = 178;
+		}
+		if (posX == 1 && posY == 1)
+		{
+			posScaleX = 120;
+			posScaleY = 198;
+		}
+		if (posX == 1 && posY == 2)
+		{
+			posScaleX = 120;
+			posScaleY = 218;
+		}
+
+		if (posX == 2 && posY == 0)
+		{
+			posScaleX = 295;
+			posScaleY = 78;
+		}
+		if (posX == 2 && posY == 1)
+		{
+			posScaleX = 280;
+			posScaleY = 98;
+		}
+		if (posX == 2 && posY == 2)
+		{
+			posScaleX = 295;
+			posScaleY = 118;
+		}
+
+
 	}
+
+	app->render->DrawTexture(selectorTex, posScaleX, posScaleY, NULL);
+
 	return ret;
 }
+
+
+void SceneBattle::select()
+{
+	if (posX == 0)
+	{
+		if (posY == 0 && heroineCounter == 1 && !playerDead)
+		{
+			heroine = true;
+			mage = false;
+			knight = false;
+			btnHeroine->state = GuiControlState::DISABLED;
+			btnMage->state = GuiControlState::NORMAL;
+		}
+		if (posY == 1 && mageCounter == 1 && !mageDead)
+		{
+			mage = true;
+			heroine = false;
+			knight = false;
+			btnMage->state = GuiControlState::DISABLED;
+			btnHeroine->state = GuiControlState::NORMAL;
+		}
+		posX = 1;
+	}
+	else if (posX == 1)
+	{
+		if (posY == 0)
+		{
+			attack = true;
+			magic = false;
+			btnAttack->state = GuiControlState::DISABLED;
+			btnMagic->state = GuiControlState::NORMAL;
+			btnDefense->state = GuiControlState::NORMAL;
+		}
+		if (posY == 1)
+		{
+			magic = true;
+			attack = false;
+			btnAttack->state = GuiControlState::NORMAL;
+			btnMagic->state = GuiControlState::DISABLED;
+			btnDefense->state = GuiControlState::NORMAL;
+		}
+		if (posY == 2)
+		{
+			if (heroine)
+			{
+				hDefense = true;
+				heroineCounter = 0;
+			}
+			else if (mage)
+			{
+				mDefense = true;
+				mageCounter = 0;
+			}
+
+
+			heroine = false;
+			mage = false;
+			knight = false;
+			attack = false;
+			magic = false;
+		}
+
+		posX = 2;
+
+	}
+	else if (posX == 2)
+	{
+
+		if (posY==1 && !enemy1Dead)
+		{
+			// Enemy Central
+			if (heroine)
+			{
+				if (attack)
+				{
+					enemy1->enemy1Health -= player->playerDmg;
+					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
+					heroineCounter = 0;
+				}
+				else if (magic)
+				{
+					enemy1->enemy1Health -= player->playerMagicDmg;
+					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
+					heroineCounter = 0;
+				}
+				heroine = false;
+			}
+			else if (mage)
+			{
+				if (attack)
+				{
+					enemy1->enemy1Health -= npc5->mageDmg;
+					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
+					mageCounter = 0;
+				}
+				else if (magic)
+				{
+					enemy1->enemy1Health -= npc5->mageMagicDmg;
+					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
+					mageCounter = 0;
+				}
+				mage = false;
+				
+			}
+
+			// Resetting button states
+			btnAttack->state = GuiControlState::NORMAL;
+			btnMagic->state = GuiControlState::NORMAL;
+			posX = 0;
+			if (enemy1->enemy1Health <= 0)
+			{
+				enemy1->enemy1Health = 0;
+				enemy1Dead = true;
+				enemiesAlive--;
+			}
+		}
+		else if (posY == 0 && !enemy2Dead)
+		{
+			// Enemy Up
+			if (heroine)
+			{
+				if (attack)
+				{
+					enemy2->enemy2Health -= player->playerDmg;
+					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
+					heroineCounter = 0;
+				}
+				else if (magic)
+				{
+					enemy2->enemy2Health -= player->playerMagicDmg;
+					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
+					heroineCounter = 0;
+				}
+				heroine = false;
+
+			}
+			else if (mage)
+			{
+				if (attack)
+				{
+					enemy2->enemy2Health -= npc5->mageDmg;
+					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
+					mageCounter = 0;
+				}
+				else if (magic)
+				{
+					enemy2->enemy2Health -= npc5->mageMagicDmg;
+					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
+					mageCounter = 0;
+				}
+				mage = false;
+			}
+
+			// Resetting button states
+			btnAttack->state = GuiControlState::NORMAL;
+			btnMagic->state = GuiControlState::NORMAL;
+			posX = 0;
+			if (enemy2->enemy2Health <= 0)
+			{
+				enemy2->enemy2Health = 0;
+				enemy2Dead = true;
+				enemiesAlive--;
+			}
+		}
+		else if (posY == 2 && !enemy3Dead)
+		{
+			// Enemy Down
+			if (heroine)
+			{
+				if (attack)
+				{
+					enemy3->enemy3Health -= player->playerDmg;
+					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
+					heroineCounter = 0;
+				}
+				else if (magic)
+				{
+					enemy3->enemy3Health -= player->playerMagicDmg;
+					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
+					heroineCounter = 0;
+				}
+				heroine = false;
+			}
+			else if (mage)
+			{
+				if (attack)
+				{
+					enemy3->enemy3Health -= npc5->mageDmg;
+					attack = false;
+					app->audio->PlayFx(hitEnemyFx, 0);
+					mageCounter = 0;
+				}
+				else if (magic)
+				{
+					enemy3->enemy3Health -= npc5->mageMagicDmg;
+					magic = false;
+					app->audio->PlayFx(magicEnemyFx, 0);
+					mageCounter = 0;
+				}
+				mage = false;
+			}
+			// Resetting button states
+			btnAttack->state = GuiControlState::NORMAL;
+			btnMagic->state = GuiControlState::NORMAL;
+			posX = 0;
+			if (enemy3->enemy3Health <= 0)
+			{
+				enemy3->enemy3Health = 0;
+				enemy3Dead = true;
+				enemiesAlive--;
+			}
+		}
+	}
+}
+
+
+	
+
+
+
+
+
 
 bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -539,7 +873,7 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
-		if (app->scene->player->knightTkn)
+		if (app->scene->knightTkn)
 		{
 			if ((control->id == 1) && (heroineCounter == 1) && !playerDead)
 			{
@@ -1027,6 +1361,508 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
+
+
+
+
+bool SceneBattle::Keyboard(GuiControl* control)
+{
+
+
+	switch (control->type)
+	{
+	case GuiControlType::BUTTON:
+	{
+		if (app->scene->knightTkn)
+		{
+			if ((control->id == 1) && (heroineCounter == 1) && !playerDead)
+			{
+				heroine = true;
+				mage = false;
+				knight = false;
+				btnHeroine->state = GuiControlState::DISABLED;
+				btnMage->state = GuiControlState::NORMAL;
+				btnKnight->state = GuiControlState::NORMAL;
+			}
+			else if ((control->id == 2) && (mageCounter == 1) && !mageDead)
+			{
+				mage = true;
+				heroine = false;
+				knight = false;
+				btnMage->state = GuiControlState::DISABLED;
+				btnHeroine->state = GuiControlState::NORMAL;
+				btnKnight->state = GuiControlState::NORMAL;
+			}
+			else if ((control->id == 9) && (knightCounter == 1) && !knightDead)
+			{
+				mage = false;
+				heroine = false;
+				knight = true;
+				btnMage->state = GuiControlState::NORMAL;
+				btnHeroine->state = GuiControlState::NORMAL;
+				btnKnight->state = GuiControlState::DISABLED;
+			}
+			else if (control->id == 3)
+			{
+				attack = true;
+				magic = false;
+				btnAttack->state = GuiControlState::DISABLED;
+				btnMagic->state = GuiControlState::NORMAL;
+				btnDefense->state = GuiControlState::NORMAL;
+			}
+			else if (control->id == 4)
+			{
+				magic = true;
+				attack = false;
+				btnAttack->state = GuiControlState::NORMAL;
+				btnMagic->state = GuiControlState::DISABLED;
+				btnDefense->state = GuiControlState::NORMAL;
+			}
+			else if (control->id == 5)
+			{
+				if (heroine)
+				{
+					hDefense = true;
+					heroineCounter = 0;
+				}
+				else if (mage)
+				{
+					mDefense = true;
+					mageCounter = 0;
+				}
+				else if (knight)
+				{
+					kDefense = true;
+					knightCounter = 0;
+				}
+
+				heroine = false;
+				mage = false;
+				knight = false;
+				attack = false;
+				magic = false;
+			}
+			else if (control->id == 6 && !enemy1Dead)
+			{
+				// Enemy Central
+				if (heroine)
+				{
+					if (attack)
+					{
+						enemy1->enemy1Health -= player->playerDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy1->enemy1Health -= player->playerMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					heroine = false;
+				}
+				else if (mage)
+				{
+					if (attack)
+					{
+						enemy1->enemy1Health -= npc5->mageDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						mageCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy1->enemy1Health -= npc5->mageMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						mageCounter = 0;
+					}
+					mage = false;
+				}
+				else if (knight)
+				{
+					if (attack)
+					{
+						enemy1->enemy1Health -= npc7->knightDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						knightCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy1->enemy1Health -= npc7->knightMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						knightCounter = 0;
+					}
+					knight = false;
+				}
+
+				// Resetting button states
+				btnAttack->state = GuiControlState::NORMAL;
+				btnMagic->state = GuiControlState::NORMAL;
+
+				if (enemy1->enemy1Health <= 0)
+				{
+					enemy1->enemy1Health = 0;
+					enemy1Dead = true;
+					enemiesAlive--;
+				}
+			}
+			else if (control->id == 7 && !enemy2Dead)
+			{
+				// Enemy Up
+				if (heroine)
+				{
+					if (attack)
+					{
+						enemy2->enemy2Health -= player->playerDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy2->enemy2Health -= player->playerMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					heroine = false;
+				}
+				else if (mage)
+				{
+					if (attack)
+					{
+						enemy2->enemy2Health -= npc5->mageDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						mageCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy2->enemy2Health -= npc5->mageMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						mageCounter = 0;
+					}
+					mage = false;
+				}
+				else if (knight)
+				{
+					if (attack)
+					{
+						enemy2->enemy2Health -= npc7->knightDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						knightCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy2->enemy2Health -= npc7->knightMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						knightCounter = 0;
+					}
+					knight = false;
+				}
+
+				// Resetting button states
+				btnAttack->state = GuiControlState::NORMAL;
+				btnMagic->state = GuiControlState::NORMAL;
+
+				if (enemy2->enemy2Health <= 0)
+				{
+					enemy2->enemy2Health = 0;
+					enemy2Dead = true;
+					enemiesAlive--;
+				}
+			}
+			else if (control->id == 8 && !enemy3Dead)
+			{
+				// Enemy Down
+				if (heroine)
+				{
+					if (attack)
+					{
+						enemy3->enemy3Health -= player->playerDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy3->enemy3Health -= player->playerMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					heroine = false;
+				}
+				else if (mage)
+				{
+					if (attack)
+					{
+						enemy3->enemy3Health -= npc5->mageDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						mageCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy3->enemy3Health -= npc5->mageMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						mageCounter = 0;
+					}
+					mage = false;
+				}
+				else if (knight)
+				{
+					if (attack)
+					{
+						enemy3->enemy3Health -= npc7->knightDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						knightCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy3->enemy3Health -= npc7->knightMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						knightCounter = 0;
+					}
+					knight = false;
+				}
+
+				// Resetting button states
+				btnAttack->state = GuiControlState::NORMAL;
+				btnMagic->state = GuiControlState::NORMAL;
+
+				if (enemy3->enemy3Health <= 0)
+				{
+					enemy3->enemy3Health = 0;
+					enemy3Dead = true;
+					enemiesAlive--;
+				}
+			}
+		}
+		else // Heroine and Mage vs 3
+		{
+			if ((control->id == 1) && (heroineCounter == 1) && !playerDead)
+			{
+				heroine = true;
+				mage = false;
+				btnHeroine->state = GuiControlState::DISABLED;
+				btnMage->state = GuiControlState::NORMAL;
+			}
+			else if ((control->id == 2) && (mageCounter == 1) && !mageDead)
+			{
+				mage = true;
+				heroine = false;
+				btnMage->state = GuiControlState::DISABLED;
+				btnHeroine->state = GuiControlState::NORMAL;
+			}
+
+			else if (control->id == 3)
+			{
+				attack = true;
+				magic = false;
+				btnAttack->state = GuiControlState::DISABLED;
+				btnMagic->state = GuiControlState::NORMAL;
+				btnDefense->state = GuiControlState::NORMAL;
+			}
+			else if (control->id == 4)
+			{
+				magic = true;
+				attack = false;
+				btnAttack->state = GuiControlState::NORMAL;
+				btnMagic->state = GuiControlState::DISABLED;
+				btnDefense->state = GuiControlState::NORMAL;
+			}
+			else if (control->id == 5)
+			{
+				if (heroine)
+				{
+					hDefense = true;
+					heroineCounter = 0;
+				}
+				else if (mage)
+				{
+					mDefense = true;
+					mageCounter = 0;
+				}
+
+				heroine = false;
+				mage = false;
+				attack = false;
+				magic = false;
+			}
+			else if (control->id == 6 && !enemy1Dead)
+			{
+				// Enemy Central
+				if (heroine)
+				{
+					if (attack)
+					{
+						enemy1->enemy1Health -= player->playerDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy1->enemy1Health -= player->playerMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					heroine = false;
+				}
+				else if (mage)
+				{
+					if (attack)
+					{
+						enemy1->enemy1Health -= npc5->mageDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						mageCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy1->enemy1Health -= npc5->mageMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						mageCounter = 0;
+					}
+					mage = false;
+				}
+
+				// Resetting button states
+				btnAttack->state = GuiControlState::NORMAL;
+				btnMagic->state = GuiControlState::NORMAL;
+
+				if (enemy1->enemy1Health <= 0)
+				{
+					enemy1->enemy1Health = 0;
+					enemy1Dead = true;
+					enemiesAlive--;
+				}
+			}
+			else if (control->id == 7 && !enemy2Dead)
+			{
+				// Enemy Up
+				if (heroine)
+				{
+					if (attack)
+					{
+						enemy2->enemy2Health -= player->playerDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy2->enemy2Health -= player->playerMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					heroine = false;
+				}
+				else if (mage)
+				{
+					if (attack)
+					{
+						enemy2->enemy2Health -= npc5->mageDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						mageCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy2->enemy2Health -= npc5->mageMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						mageCounter = 0;
+					}
+					mage = false;
+				}
+
+				// Resetting button states
+				btnAttack->state = GuiControlState::NORMAL;
+				btnMagic->state = GuiControlState::NORMAL;
+
+				if (enemy2->enemy2Health <= 0)
+				{
+					enemy2->enemy2Health = 0;
+					enemy2Dead = true;
+					enemiesAlive--;
+				}
+			}
+			else if (control->id == 8 && !enemy3Dead)
+			{
+				// Enemy Down
+				if (heroine)
+				{
+					if (attack)
+					{
+						enemy3->enemy3Health -= player->playerDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy3->enemy3Health -= player->playerMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						heroineCounter = 0;
+					}
+					heroine = false;
+				}
+				else if (mage)
+				{
+					if (attack)
+					{
+						enemy3->enemy3Health -= npc5->mageDmg;
+						attack = false;
+						app->audio->PlayFx(hitEnemyFx, 0);
+						mageCounter = 0;
+					}
+					else if (magic)
+					{
+						enemy3->enemy3Health -= npc5->mageMagicDmg;
+						magic = false;
+						app->audio->PlayFx(magicEnemyFx, 0);
+						mageCounter = 0;
+					}
+					mage = false;
+				}
+				// Resetting button states
+				btnAttack->state = GuiControlState::NORMAL;
+				btnMagic->state = GuiControlState::NORMAL;
+
+				if (enemy3->enemy3Health <= 0)
+				{
+					enemy3->enemy3Health = 0;
+					enemy3Dead = true;
+					enemiesAlive--;
+				}
+			}
+		}
+	}
+	default: break;
+	}
+
+	return true;
+}
+
+
+
 bool SceneBattle::CleanUp()
 {
 	app->tex->UnLoad(battletext);
@@ -1043,7 +1879,7 @@ bool SceneBattle::CleanUp()
 
 void SceneBattle::EnemyAttack()
 {
-	if (app->scene->player->knightTkn)
+	if (app->scene->knightTkn)
 	{
 		srand(time(NULL));
 		int enemyPool = rand() % 3 + 1;

@@ -165,13 +165,15 @@ public:
 	int klastPositionX2;
 	int klastPositionY2;
 
-	bool mageTkn = false;
-	bool knightTkn = false;
+	
 
 	// Player Stats
-	int playerDmg = 25;
-	int playerHealth = 20;
+	int playerDmg = 250;
+	int playerHealth = 200;
 	int playerMagicDmg = 15;
+
+	bool battleDoneMage = false;
+	bool battleDoneKnight = false;
 
 private:
 	float speed = 1.0f;

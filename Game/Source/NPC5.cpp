@@ -34,9 +34,11 @@ NPC5::NPC5() : Entity(EntityType::NPC5)
 	}
 	else if (app->sceneBattle->mageRevive)
 	{
+		app->scene->player->battleDoneMage = false;
+		app->scene->mageTkn = false;
 		position.x = 128;
 		position.y = 134;
-		app->scene->player->mageTkn = false;
+		
 	}
 	else {
 		//position.x = app->scene->player->lastPositionX;
@@ -121,7 +123,7 @@ bool NPC5::Start()
 bool NPC5::Update(float dt)
 {
 	
-	if (app->scene->player->mageTkn)
+	if (app->scene->mageTkn)
 	{
 		if (!app->sceneBattle->battleOn)
 		{
@@ -263,7 +265,7 @@ void NPC5::NPC5InitialPosition()
 	}
 	else 
 	{
-		if (app->scene->player->mageTkn)
+		if (app->scene->mageTkn)
 		{
 			position.x = app->scene->player->lastPositionX;
 			position.y = app->scene->player->lastPositionY - 5;

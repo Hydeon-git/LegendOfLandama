@@ -34,9 +34,11 @@ NPC7::NPC7() : Entity(EntityType::NPC7)
 	}
 	else if(app->sceneBattle->knightRevive)
 	{
+		app->scene->player->battleDoneKnight = false;
+		app->scene->knightTkn = false;
 		position.x = 128;
 		position.y = 139;
-		app->scene->player->knightTkn = false;
+		
 	}
 	else {
 		//position.x = app->scene->player->lastPositionX;
@@ -121,7 +123,7 @@ bool NPC7::Start()
 bool NPC7::Update(float dt)
 {
 
-	if (app->scene->player->knightTkn)
+	if (app->scene->knightTkn)
 	{
 		if (!app->sceneBattle->battleOn)
 		{
@@ -263,7 +265,7 @@ void NPC7::NPC7InitialPosition()
 	}
 	else
 	{
-		if (app->scene->player->knightTkn)
+		if (app->scene->knightTkn)
 		{
 			position.x = app->scene->player->klastPositionX;
 			position.y = app->scene->player->klastPositionY - 5;
