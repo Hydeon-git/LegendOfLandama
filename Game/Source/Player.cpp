@@ -175,15 +175,18 @@ bool Player::Start()
 
 		// Texture & Animations Load
 		texPlayer = app->tex->Load("Assets/Textures/main_character.png");
+
 		playerDeathFx = app->audio->LoadFx("Assets/Audio/Fx/death_sound.wav");
 		itemTakenFx = app->audio->LoadFx("Assets/Audio/Fx/item.wav");
-		checkpointFx = app->audio->LoadFx("Assets/Audio/Fx/checkpoint.wav");
+		keyTakeFx = app->audio->LoadFx("Assets/Audio/Fx/key.wav");
 		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
 		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
 		talkFx = app->audio->LoadFx("Assets/Audio/Fx/huh.wav");
 		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest_sound.wav");
-		
-
+		laverFx = app->audio->LoadFx("Assets/Audio/Fx/lever_open.wav");
+		laverErrorFx = app->audio->LoadFx("Assets/Audio/Fx/laver_error.wav");
+		buttonFx = app->audio->LoadFx("Assets/Audio/Fx/button_press.wav");
+		puzzleSolvedFx = app->audio->LoadFx("Assets/Audio/Fx/puzzle_solved.wav");
 		currentAnimation = &idlAnim;
 
 		lastPositionX = position.x;
@@ -495,13 +498,19 @@ bool Player::Update(float dt)
 
 		if (shotCountdown > 0) --shotCountdown;
 		
-		if (DungeonDoorOpen())
+		if (DungeonDoorOpen() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !button2Done)
 		{
 			app->map->puzzle1DungeonDone = true;
+			
+			app->audio->PlayFx(buttonFx, 0);
+			app->audio->PlayFx(puzzleSolvedFx, 0);
+			button2Done = true;
 		}		
-		if (DungeonFloorUp())
+		if (DungeonFloorUp() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !button1Done)
 		{
 			app->map->buttonFloorPressed = true;
+			app->audio->PlayFx(buttonFx, 0);
+			button1Done = true;
 		}
 
 		if (OpenChest() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
@@ -512,72 +521,87 @@ bool Player::Update(float dt)
 				app->map->chestOpened = true;
 			}
 		}
-		if (OpenLaver1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
+		if (OpenLaver1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !laver1Done)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
-				//app->audio->PlayFx(chestFx, 0);
+				app->audio->PlayFx(laverFx, 0);
 				app->map->laver1Pressed = true;
 				spikes1Down  =  true;
 				spikes2Down = false;
 				spikes3Down = false;
+				laver1Done = true;
 			}
 		}
-		if (OpenLaver2() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
+		if (OpenLaver2() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !laver2Done)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
-				//app->audio->PlayFx(chestFx, 0);
+				app->audio->PlayFx(laverFx, 0);
 				app->map->laver2Pressed = true;
 				spikes1Down = false;
 				spikes2Down = true;
 				spikes3Down = false;
+				laver2Done = true;
 			}
 		}
-		if (OpenLaver3() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
+		if (OpenLaver3() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !laver3Done)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
-				//app->audio->PlayFx(chestFx, 0);
+				app->audio->PlayFx(laverFx, 0);
 				app->map->laver3Pressed = true;
 				spikes1Down = true;
 				spikes2Down = true;
 				spikes3Down = false;
+				laver3Done = true;
 			}
 		}
-		if (OpenLaverFinal() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
+		if (OpenLaverFinal() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !laverFinalDone)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && app->map->laver3Pressed && app->map->laver2Pressed && app->map->laver1Pressed)
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
-				//app->audio->PlayFx(chestFx, 0);
-				app->map->laverFinalPressed = true;
-				spikes1Down = true;
-				spikes2Down = true;
-				spikes3Down = true;
+				if (app->map->laver3Pressed && app->map->laver2Pressed && app->map->laver1Pressed)
+				{
+					app->audio->PlayFx(laverFx, 0);
+					app->audio->PlayFx(puzzleSolvedFx, 0);
+					app->map->laverFinalPressed = true;
+					spikes1Down = true;
+					spikes2Down = true;
+					spikes3Down = true;
+					laverFinalDone = true;
+				}else app->audio->PlayFx(laverErrorFx, 0);
 			}
 		}
 
 
-		if (TakeBlueKey())
+		if (TakeBlueKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyBlueDone)
 		{
 			app->map->blueKeyTaken = true;
+			app->audio->PlayFx(keyTakeFx, 0);
+			keyBlueDone = true;
 		}
-
-		if (TakeRedKey())
+		if (TakeRedKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyRedDone)
 		{
 			app->map->redKeyTaken = true;
+			app->audio->PlayFx(keyTakeFx, 0);
+			keyRedDone = true;
 		}
-
-		if (TakeGreenKey())
-		{
-			app->map->greenKeyTaken = true;
-		}
-
-		if (TakeYellowKey())
+		if (TakeYellowKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyYellowDone)
 		{
 			app->map->yellowKeyTaken = true;
+			app->audio->PlayFx(keyTakeFx, 0);
+			keyYellowDone = true;
+		}
+		if (TakeGreenKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyGreenDone)
+		{
+			app->map->greenKeyTaken = true;
+			app->audio->PlayFx(keyTakeFx, 0);
+			app->audio->PlayFx(puzzleSolvedFx, 0);
+			keyGreenDone = true;
 		}
 	}
+
 	//restart when dies
 	if (spiked && !dead)
 	{
@@ -1322,6 +1346,7 @@ bool Player::DungeonFloorUp()
 		}
 		layer = layer->next;
 	}
+	
 	return valid;
 
 }

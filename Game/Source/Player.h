@@ -176,6 +176,17 @@ public:
 	bool battleDoneMage = false;
 	bool battleDoneKnight = false;
 
+	bool button1Done = false;
+	bool button2Done = false;
+	bool laver1Done = false;
+	bool laver2Done = false;
+	bool laver3Done = false;
+	bool laverFinalDone = false;
+	bool keyRedDone = false;
+	bool keyBlueDone = false;
+	bool keyGreenDone = false;
+	bool keyYellowDone = false;
+
 private:
 	float speed = 1.0f;
 	float fireBallSpeed = 3.0f;
@@ -187,11 +198,15 @@ private:
 	SDL_Texture* texFireBall;
 	uint playerDeathFx = 0;
 	uint itemTakenFx = 0;
-	uint checkpointFx = 0;
+	uint keyTakeFx = 0;
 	uint chestFx = 0;
 	uint heartFx = 0;
 	uint fireFx = 0;
 
+	uint laverFx = 0;
+	uint laverErrorFx = 0;
+	uint puzzleSolvedFx = 0;
+	uint buttonFx = 0;
 	uint talkFx = 0;
 
 };
