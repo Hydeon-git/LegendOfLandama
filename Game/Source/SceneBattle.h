@@ -35,7 +35,7 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	bool PostUpdate();
 
-	bool OnGuiMouseClickEvent(GuiControl* control);
+	//bool OnGuiMouseClickEvent(GuiControl* control);
 
 	bool CleanUp() override;
 
@@ -44,7 +44,6 @@ public:
 
 	bool posContinue = false;
 	bool exit = false;
-	bool startClicked = false;
 
 	bool guiColliders = false;
 
@@ -78,7 +77,6 @@ public:
 
 
 
-	bool Keyboard(GuiControl* control);
 
 private:
 
@@ -121,6 +119,7 @@ private:
 	int goldFont = -1;
 
 	int count = 0;
+	bool changed = false;
 
 	// Enemy counter
 	int enemyCounter;
