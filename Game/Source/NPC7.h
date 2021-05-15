@@ -51,7 +51,7 @@ public:
 
 	// NPC7 Knight Stats
 	int knightDmg = 10;
-	int knightHealth = 10;
+	int knightHealth = 100;
 	int knightMagicDmg = 40;
 
 	

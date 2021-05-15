@@ -44,7 +44,6 @@ public:
 
 	bool posContinue = false;
 	bool exit = false;
-	bool startClicked = false;
 
 	bool guiColliders = false;
 
@@ -78,7 +77,6 @@ public:
 
 
 
-	bool Keyboard(GuiControl* control);
 
 private:
 
@@ -121,6 +119,7 @@ private:
 	int goldFont = -1;
 
 	int count = 0;
+	bool changed = false;
 
 	// Enemy counter
 	int enemyCounter;
