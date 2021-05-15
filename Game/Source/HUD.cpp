@@ -27,6 +27,7 @@
 #include "FadeToBlack.h"
 #include "Shop.h"
 #include "HUD.h"
+#include "Quests.h"
 
 #include "SceneIntro.h"
 #include "GuiButton.h"
@@ -83,6 +84,12 @@ bool HUD::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.b == true)
 	{
 		 bagIsOpen= false;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+	{
+		app->quests->questsIsOpen = true;
+		bagIsOpen = false;
 	}
 
 	return true;

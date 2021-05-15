@@ -96,7 +96,10 @@ bool Shop::Update(float dt)
 	
 	itemPos = (shopX + (4 * (shopY - 1)))-1;
 
-
+	if (open == true) 
+	{
+		app->scene->player->dialogeOn = false;
+	}
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a) { select(); }
 	
 

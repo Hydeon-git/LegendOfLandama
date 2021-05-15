@@ -125,6 +125,12 @@ bool Quests::Update(float dt)
 	}
 
 
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+	{
+		questsIsOpen = false;
+		app->hud->bagIsOpen = true;
+	}
+
 	return true;
 }
 
