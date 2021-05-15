@@ -91,7 +91,8 @@ bool Quests::Update(float dt)
 	{
 		quest1Done = true;
 	}
-	
+
+
 	if (app->sceneDungeon->active)
 	{
 		if (app->sceneDungeon->player->keyGreenDone)
@@ -133,15 +134,15 @@ bool Quests::PostUpdate()
 		//questsTake
 		if (quest1Taken)
 		{
-			app->font->DrawText(35, 45, app->scene->whiteFont, "Kill 3 goblins");
+			app->font->DrawText(145, 76, app->scene->whiteFont, "Kill 3 goblins");
 		}
 		if (quest2Taken)
 		{
-			app->font->DrawText(35, 70, app->scene->whiteFont, "Buy a Weapon");
+			app->font->DrawText(145, 111, app->scene->whiteFont, "Buy a Weapon");
 		}
 		if (quest3Taken)
 		{
-			app->font->DrawText(35, 95, app->scene->whiteFont, "Finish the Dungeon");
+			app->font->DrawText(145, 147, app->scene->whiteFont, "Finish the Dungeon");
 		}
 
 		//questsDone
@@ -184,8 +185,8 @@ void Quests::openBackPack()
 	SrcR.w = 1280;
 	SrcR.h = 720;
 
-	DestR.x = 8;
-	DestR.y = 0;
+	DestR.x = 340;
+	DestR.y = 100;
 	DestR.w = 600;
 	DestR.h = 467;
 	SDL_RenderCopy(app->render->renderer, questsTex, &SrcR, &DestR);
@@ -207,10 +208,10 @@ void Quests::drawMark1()
 	SrcR.w = 1280;
 	SrcR.h = 720;
 
-	DestR.x = 66;
-	DestR.y = 142;
-	DestR.w = 27;
-	DestR.h = 24;
+	DestR.x = 400;
+	DestR.y = 220;
+	DestR.w = 40;
+	DestR.h = 40;
 	SDL_RenderCopy(app->render->renderer, markTex, &SrcR, &DestR);
 
 }
@@ -230,10 +231,10 @@ void Quests::drawMark2()
 	SrcR.w = 1280;
 	SrcR.h = 720;
 
-	DestR.x = 66;
-	DestR.y = 210;
-	DestR.w = 27;
-	DestR.h = 24;
+	DestR.x = 400;
+	DestR.y = 326;
+	DestR.w = 40;
+	DestR.h = 40;
 	SDL_RenderCopy(app->render->renderer, markTex, &SrcR, &DestR);
 
 }
@@ -253,10 +254,10 @@ void Quests::drawMark3()
 	SrcR.w = 1280;
 	SrcR.h = 720;
 
-	DestR.x = 66;
-	DestR.y = 280;
-	DestR.w = 27;
-	DestR.h = 24;
+	DestR.x = 400;
+	DestR.y = 435;
+	DestR.w = 40;
+	DestR.h = 40;
 	SDL_RenderCopy(app->render->renderer, markTex, &SrcR, &DestR);
 
 }
