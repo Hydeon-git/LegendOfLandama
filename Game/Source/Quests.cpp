@@ -95,7 +95,10 @@ bool Quests::Update(float dt)
 	}
 	if (app->sceneDungeon->active)
 	{
-		if(app->sceneDungeon->player->keyGreenDone) quest3Done = true;
+		if (app->sceneDungeon->player->keyGreenDone)
+		{
+			quest3Done = true;
+		}
 	}
 
 	return true;
