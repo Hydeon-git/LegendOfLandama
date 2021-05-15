@@ -128,6 +128,7 @@
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Potion.cpp" />
+    <ClCompile Include="Source\Quests.cpp" />
     <ClCompile Include="Source\RubyWand.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Potion.h" />
     <ClInclude Include="Source\PQueue.h" />
+    <ClInclude Include="Source\Quests.h" />
     <ClInclude Include="Source\Queue.h" />
     <ClInclude Include="Source\RubyWand.h" />
     <ClInclude Include="Source\Scene.h" />

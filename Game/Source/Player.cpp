@@ -27,6 +27,8 @@
 #include "SceneWin.h"
 #include "DialogSystem.h"
 #include "HUD.h"
+#include "Quests.h"
+
 
 #define INVENTORY_SIZE 13
 
@@ -220,8 +222,8 @@ bool Player::Update(float dt)
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
 		{
-			if (!app->scene->paused && !app->sceneDungeon->paused && !dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen) {
-
+			if (!app->scene->paused && !app->sceneDungeon->paused && !dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen && !app->quests->questsIsOpen) 
+			{
 				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{
 					if (!ThereIsTopWall() && !ThereIsNPCUp())
@@ -485,6 +487,7 @@ bool Player::Update(float dt)
 
 				app->fadeToBlack->FadeToBlk(app->scene, app->sceneBattle, 30);
 			}
+
 						
 		}
 		if (app->scene->currentScene == GameScene::SCENE_TOWN || app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL || app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
@@ -496,6 +499,19 @@ bool Player::Update(float dt)
 		{
 			CheckHouseDoor();
 			
+		}
+
+		if (app->scene->currentScene == GameScene::SCENE_HOUSE1 && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
+		{
+			app->quests->quest1Taken = true;
+		}
+		if (app->scene->currentScene == GameScene::SCENE_INN && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
+		{
+			app->quests->quest2Taken = true;
+		}
+		if (app->scene->currentScene == GameScene::SCENE_BSMITH && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
+		{
+			app->quests->quest3Taken = true;
 		}
 
 		if (shotCountdown > 0) --shotCountdown;

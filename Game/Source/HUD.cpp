@@ -174,5 +174,3 @@ void HUD::drawCoins()
 	SDL_RenderCopy(app->render->renderer, coinTex, &SrcR, &DestR);
 
 }
-
-

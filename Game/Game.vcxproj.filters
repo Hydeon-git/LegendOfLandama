@@ -177,6 +177,9 @@
     <ClCompile Include="Source\DiamondWand.cpp">
       <Filter>Entities\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Quests.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -389,6 +392,9 @@
     </ClInclude>
     <ClInclude Include="Source\DiamondWand.h">
       <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Quests.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

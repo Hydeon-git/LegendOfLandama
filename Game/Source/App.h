@@ -31,6 +31,7 @@ class Font;
 class DialogueSystem;
 class Shop;
 class HUD;
+class Quests;
 
 class App
 {
@@ -114,6 +115,8 @@ public:
 	DialogueSystem* dialogueSystem;
 	Shop* shop;
 	HUD* hud;
+	Quests* quests;
+
 	bool capped = false;
 	bool loadGameRequested;
 	bool vSync = false;

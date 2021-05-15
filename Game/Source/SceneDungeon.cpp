@@ -26,7 +26,7 @@
 #include "Font.h"
 #include "SceneDungeon.h"
 #include "HUD.h"
-
+#include "Quests.h"
 
 SceneDungeon::SceneDungeon() : Module()
 {
@@ -152,7 +152,7 @@ bool SceneDungeon::Update(float dt)
 		player->door = 0;
 	}
 
-	if (!paused && !app->hud->bagIsOpen)
+	if (!paused && !app->hud->bagIsOpen && !app->quests->questsIsOpen)
 	{
 		// Camera x
 		if ((app->render->counter == 0 || player->godModeEnabled))

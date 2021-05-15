@@ -36,6 +36,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "HUD.h"
+#include "Quests.h"
 
 
 Scene::Scene() : Module()
@@ -88,6 +89,7 @@ bool Scene::Start()
 		// Enables the Map
 		app->map->Enable();
 		app->hud->Enable();
+		app->quests->Enable();
 		player->spiked = false;
 		player->onBattle = false;
 		app->sceneBattle->battleOn = false;
@@ -302,7 +304,7 @@ bool Scene::Update(float dt)
 		case GameScene::SCENE_TOWN:
 		{
 			// Camera Settings
-			if (!paused && !app->hud->bagIsOpen)
+			if (!paused && !app->hud->bagIsOpen && !app->quests->questsIsOpen)
 			{
 				//camera x
 
@@ -341,7 +343,7 @@ bool Scene::Update(float dt)
 		case GameScene::SCENE_ENTRYDUNGEON:
 		{
 			// Camera Settings
-			if (!app->scene->paused && !app->hud->bagIsOpen)
+			if (!app->scene->paused && !app->hud->bagIsOpen && !app->quests->questsIsOpen)
 			{
 				//camera x
 
