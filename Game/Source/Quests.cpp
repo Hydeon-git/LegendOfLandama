@@ -39,6 +39,7 @@
 #include "Defs.h"
 #include "Log.h"
 
+#define JOURNAL_TILE_SIZE 124
 
 Quests::Quests() : Module()
 {
@@ -64,7 +65,7 @@ bool Quests::Start()
 		LOG("Loading background assets");
 		questsTex = app->tex->Load("Assets/Textures/quests.png");
 		markTex = app->tex->Load("Assets/Textures/quest_done.png");
-
+		journalTex = app->tex->Load("Assets/Textures/tasks.png");
 		questsIsOpen = false;
 
 	}
@@ -104,6 +105,23 @@ bool Quests::Update(float dt)
 bool Quests::PostUpdate()
 {
 	bool ret = true;
+
+
+	SDL_Rect SrcR;
+	SDL_Rect DestR;
+
+	SrcR.x = 0;
+	SrcR.y = 0;
+	SrcR.w = JOURNAL_TILE_SIZE;
+	SrcR.h = JOURNAL_TILE_SIZE;
+
+	DestR.x = 1150;
+	DestR.y = 80;
+	DestR.w = JOURNAL_TILE_SIZE;
+	DestR.h = JOURNAL_TILE_SIZE;
+	if (!questsIsOpen)
+		SDL_RenderCopy(app->render->renderer, journalTex, &SrcR, &DestR);
+
 
 	openBackPack();
 

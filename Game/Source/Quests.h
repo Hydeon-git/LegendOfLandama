@@ -53,7 +53,7 @@ private:
 
 	SDL_Texture* questsTex = nullptr;
 	SDL_Texture* markTex = nullptr;
-
+	SDL_Texture* journalTex = nullptr;
 
 	void drawMark1();
 	void drawMark2();
