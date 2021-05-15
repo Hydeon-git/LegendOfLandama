@@ -91,10 +91,7 @@ bool Quests::Update(float dt)
 	{
 		quest1Done = true;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-	{
-		quest2Done = true;
-	}
+	
 	if (app->sceneDungeon->active)
 	{
 		if (app->sceneDungeon->player->keyGreenDone)

@@ -46,6 +46,7 @@
 #include "GuiButton.h"
 #include <string>
 #include <stdio.h>
+#include "Quests.h"
 
 
 #include <iostream>
@@ -394,12 +395,14 @@ void Shop::getOwnedItems()
 
 void Shop::buyItem(ItemType itemType, Item *item)
 {
-	if (!app->scene->player->isItemInInventory(itemType))
+	if (!app->scene->player->isItemInInventory(itemType) )
 	{
 		if (app->scene->player->coins >= item->price)
 		{
 			items[itemType].selected = true;
 			app->scene->player->addItemToIventory(item);
+			if (app->quests->quest2Taken)
+			app->quests->quest2Done = true;
 		}
 	}
 }
