@@ -74,7 +74,7 @@ public:
 
 	int pos = 0;
 
-	void select();
+	void Select();
 
 
 
