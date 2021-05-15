@@ -63,5 +63,7 @@ private:
 	int counterQuest2 = 0;
 	int counterQuest3 = 0;
 
+	uint questFx = 0;
+	uint questDoneFx = 0;
 };
 #endif // !_QUESTS_H_
