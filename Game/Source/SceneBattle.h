@@ -35,7 +35,7 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	bool PostUpdate();
 
-	bool OnGuiMouseClickEvent(GuiControl* control);
+	//bool OnGuiMouseClickEvent(GuiControl* control);
 
 	bool CleanUp() override;
 
