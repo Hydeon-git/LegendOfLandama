@@ -312,15 +312,19 @@ bool Scene::Update(float dt)
 
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
-					if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) || !pad.right) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall() && !player->ThereIsNPCLeft() && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down)) app->render->camera.x += 3.0f;
-					else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right) && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) || !pad.left) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall() && !player->ThereIsNPCRight() && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down)) app->render->camera.x -= 3.0f;
+					if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left) && !mageTxt2 && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) || !pad.right) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall() && !player->ThereIsNPCLeft() && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down)) app->render->camera.x += 3.0f;
+					else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right) && !mageTxt2 && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) || !pad.left) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall() && !player->ThereIsNPCRight() && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down)) app->render->camera.x -= 3.0f;
 				}
 				//camera y
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
 
-					if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) || !pad.down) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp() && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right)) app->render->camera.y += 3.0f;
-					else if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down) && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) || !pad.up) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow() && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right)) app->render->camera.y -= 3.0f;
+					if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up) && !mageTxt2 && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) || !pad.down) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp() && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right))
+					{
+						app->render->camera.y += 3.0f;
+						app->scene->mageTxt = false;
+					}
+					else if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down) && !mageTxt2 && !app->scene->mageTxt && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) || !pad.up) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow() && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right)) app->render->camera.y -= 3.0f;
 
 				}
 			}			
@@ -418,6 +422,18 @@ bool Scene::Update(float dt)
 	{
 		count++;
 	}
+	if (mageTxt2&&count2 <= 301)
+	{
+		count2++;
+		if (count2 == 301) mageTxt2 = false;
+	}
+
+	if (player->position.y > 306&&!mageTkn&&!mageTxt) mageTxt = true;
+	if (mageTxt && !mageTkn && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	{
+		mageTxt2 = true;
+	}
+
 	return true;
 }
 
@@ -433,6 +449,20 @@ bool Scene::PostUpdate()
 	app->map->DrawPuzzle();
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();
+
+	if (mageTxt2)
+	{
+
+		if (count2 < 300)
+		{
+			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+			app->font->DrawText(15, 205, whiteFont, "Me quieren ver partir a Tirpa");
+		}
+		mageTkn = true;
+		mageTxt = false;
+	}
 
 	if (count < 300)
 	{
@@ -827,8 +857,7 @@ void Scene::ChangeScene(GameScene nextScene)
 				app->entityManager->DestroyEntity(npc5);
 				npc5 = nullptr;
 			}
-			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
-			npc7->Start();
+
 			//unload knight
 			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 			npc7->Start();
