@@ -113,7 +113,7 @@ bool NPC7::Start()
 {
 	if (this->active == true)
 	{
-		texNPC7 = app->tex->Load("Assets/Textures/NPC7_character.png");
+		texNPC7 = app->tex->Load("Assets/Textures/npc7_character.png");
 
 		currentAnimation = &idlAnim;
 	}
@@ -133,27 +133,12 @@ bool NPC7::Update(float dt)
 				app->scene->player->kposMoved = 0;
 				app->scene->player->kDoorTaked2 = false;
 			}
-
-
-			//if ((position.y > app->scene->player->position.y + 24-5 || position.y < app->scene->player->position.y - 24-5))
-			//{
-			//	position.y = app->scene->player->position.y - 5;
-			//	app->scene->player->doorTaked = false;
-
-			//	//app->scene->player->doIt = true;
-			//}
-			//else
-
-
-				//movement
+			// Movement
 			if (app->scene->player->kposMoved < 49)
 			{
 				if (app->scene->player->klastPositionX != 0) position.x = app->scene->player->klastPositionX;
 				if (app->scene->player->klastPositionY != 0) position.y = app->scene->player->klastPositionY - 5;
 			}
-
-
-
 
 			if (app->scene->player->kDoorTaked)
 			{
@@ -165,49 +150,7 @@ bool NPC7::Update(float dt)
 					app->scene->player->kDoorTaked = false;
 				}
 			}
-
-
-			//if (!app->scene->player->doorTakedX)
-			//{
-			//	if (app->scene->player->lastPositionX != 0) position.x = app->scene->player->lastPositionX;
-			//	app->scene->player->doorTakedY = false;
-
-			//}
-			//if (!app->scene->player->doorTakedY)
-			//{
-			//	if (app->scene->player->lastPositionY != 0) {
-			//		position.y = app->scene->player->lastPositionY - 5;
-			//	}
-			//	app->scene->player->doorTakedX = false;
-
-			//}
-
-
-
-
-		//if (app->scene->player->doorTakedX)
-		//{
-		//	position.x = app->scene->player->lastPositionX2;
-		//	if (app->scene->player->posMovedX >= 24)
-		//	{
-		//		app->scene->player->posMovedX = 0;
-		//		app->scene->player->doorTakedX = false;
-		//	}
-		//}
-		//if (app->scene->player->doorTakedY)
-		//{
-		//	position.y = app->scene->player->lastPositionY2 - 5;
-		//	if (app->scene->player->posMovedY >= 24)
-		//	{
-		//		app->scene->player->posMovedY = 0;
-		//		app->scene->player->doorTakedY = false;
-		//	}
-		//}
-
-
-
-		//if (!app->scene->player->doorTakedX || !app->scene->player->doorTakedY)
-		//rotation
+			
 			if (!app->scene->player->kDoorTaked)
 			{
 				if (app->scene->player->klastPositionX < app->scene->player->klastPosX[48])
@@ -243,7 +186,7 @@ bool NPC7::PostUpdate()
 	if ((this->active == true) && (!app->scene->paused) && (!app->sceneDungeon->paused) && !app->sceneBattle->knightDead)
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texNPC7, position.x, position.y, &rect);
+		// app->render->DrawTexture(texNPC7, position.x, position.y, &rect);
 	}
 	return true;
 }

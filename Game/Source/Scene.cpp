@@ -78,7 +78,6 @@ bool Scene::Start()
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 
 		// Starts entities that are on the TOWN
-		
 		npc1->Start();
 		npc5->Start();
 		//npc7->Start();
@@ -171,6 +170,10 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {	
+	if (fromDungeon)
+	{
+		ChangeScene(GameScene::SCENE_ENTRYDUNGEON);		
+	}
 	//View Colliders
 	//God Mode
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -201,9 +204,8 @@ bool Scene::Update(float dt)
 	{
 		app->scene->ChangeScene(GameScene::SCENE_HOUSE1);
 		app->audio->PlayFx(doorCloseFx, 0);
-		player->door = 0;
-
-	}
+		player->door = 0;	
+	}	
 	else if (player->door == COLLIDER_GREY)
 	{
 		app->scene->ChangeScene(GameScene::SCENE_BSMITH);
@@ -232,6 +234,12 @@ bool Scene::Update(float dt)
 	{
 		app->fadeToBlack->FadeToBlk(this, app->sceneDungeon, 30);
 	}
+	if (player->houseDoor == COLLIDER_BLUE_FOREST)
+	{
+		app->scene->ChangeScene(GameScene::SCENE_TOWN);
+		player->houseDoor = 0;
+	}
+
 	if (player->ThereIsHouseClosed() && !knokDone)
 	{
 		app->audio->PlayFx(doorKnokFx, 0);
@@ -575,6 +583,7 @@ bool Scene::CleanUp()
 	return true;
 }
 
+// Change Internal Scene
 void Scene::ChangeScene(GameScene nextScene)
 {
 	LOG("Changing scene");
@@ -739,8 +748,8 @@ void Scene::ChangeScene(GameScene nextScene)
 				} break;
 				case 4: 
 				{
-					app->scene->player->position.x = 401;
-					app->scene->player->position.y = 320;
+					app->scene->player->position.x = 588;
+					app->scene->player->position.y = 340;
 					player->doorTaked = true;
 					player->kDoorTaked = true;
 					if (player->doorTaked)
@@ -981,6 +990,7 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc1->CleanUp();
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
+
 			// Unload mage
 			if (!mageTkn)
 			{
@@ -989,13 +999,12 @@ void Scene::ChangeScene(GameScene nextScene)
 				npc5 = nullptr;
 			}
 
-			//load knight
+			// Load knight
 			if (!app->scene->knightTkn)
 			{
 				npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 				npc7->Start();
 			}
-
 
 			// Setting dialogue to id 0 None
 			app->dialogueSystem->CleanUp();
@@ -1006,8 +1015,17 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
 
-			app->scene->player->position.x = 20;
-			app->scene->player->position.y = 53;
+			if (!fromDungeon)
+			{
+				app->scene->player->position.x = 20;
+				app->scene->player->position.y = 53;
+			}
+			else
+			{
+				app->scene->player->position.x = 536;
+				app->scene->player->position.y = 81;
+				fromDungeon = false;
+			}			
 
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;

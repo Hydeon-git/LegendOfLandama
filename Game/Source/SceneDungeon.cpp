@@ -262,13 +262,21 @@ bool SceneDungeon::Update(float dt)
 			pos--;
 			if (pos < 0) pos = 3;
 		}
-
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		{
 			pos++;
 			if (pos > 3) pos = 0;
 		}
 	}
+
+	// Collision Detection
+	if (player->door == COLLIDER_PINK_DUNGEON)
+	{
+		player->door = 0;
+		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+		app->scene->fromDungeon = true;
+	}
+
 	return true;
 }
 
@@ -405,6 +413,25 @@ bool SceneDungeon::PostUpdate()
 
 	if (paused || pausedSettings) app->render->DrawTexture(selectorTex, posScaleX, posScaleY, NULL);
 	return ret;
+}
+
+bool SceneDungeon::CleanUp()
+{
+	app->font->UnLoad(whiteFont);
+	app->tex->UnLoad(winText);	
+	app->font->UnLoad(whiteFont);
+	app->tex->UnLoad(selectorTex);
+
+	app->entityManager->DestroyEntity(player);	
+	app->entityManager->DestroyEntity(npc5);
+	app->entityManager->DestroyEntity(npc7);
+	app->entityManager->DestroyEntity(enemy1);
+	app->entityManager->DestroyEntity(enemy2);
+	app->entityManager->DestroyEntity(enemy3);
+
+	app->map->Disable();
+
+	return true;
 }
 
 void SceneDungeon::Pause()
@@ -579,12 +606,4 @@ void SceneDungeon::ChangeScene(DungeonScene nextScene)
 		currentScene = DungeonScene::SCENE_BOSS;
 	} break;
 	}
-}
-
-bool SceneDungeon::CleanUp()
-{
-	app->font->UnLoad(whiteFont);
-	app->tex->UnLoad(winText);
-	app->tex->UnLoad(selectorTex);
-	return true;
 }

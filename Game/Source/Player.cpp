@@ -182,9 +182,11 @@ bool Player::Start()
 		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
 		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
 		talkFx = app->audio->LoadFx("Assets/Audio/Fx/huh.wav");
-		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest_sound.wav");
+
+		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest_sound.ogg");
 		leverFx = app->audio->LoadFx("Assets/Audio/Fx/lever_open.wav");
 		leverErrorFx = app->audio->LoadFx("Assets/Audio/Fx/lever_error.wav");
+
 		buttonFx = app->audio->LoadFx("Assets/Audio/Fx/button_press.wav");
 		puzzleSolvedFx = app->audio->LoadFx("Assets/Audio/Fx/puzzle_solved.wav");
 		currentAnimation = &idlAnim;
@@ -1083,7 +1085,7 @@ bool Player::ThereIsLimit()
 				{
 					tilePosition = app->map->WorldToMap(position.x + i * 4, position.y);
 					limitId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (limitId == COLLIDER_PINK) valid = true;
+					if (limitId == COLLIDER_BEIGE) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -1622,7 +1624,6 @@ bool Player::TakeGreenKey()
 	return valid;
 
 }
-
 
 bool Player::TakeYellowKey()
 {

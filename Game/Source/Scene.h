@@ -108,6 +108,7 @@ public:
 	
 	bool mageTkn = false;
 	bool knightTkn = false;
+	bool fromDungeon = false;
 
 private:
 
@@ -156,7 +157,7 @@ private:
 	bool settingsPause = false;
 	bool backIntroPause = false;
 	bool exitPause = false;
-	bool knokDone = false;
+	bool knokDone = false;	
 		
 	char timerText[10] = { "\0" };
 	
@@ -166,7 +167,6 @@ private:
 	uint doorOpenFx = 0;
 	uint doorCloseFx = 0;
 	uint doorKnokFx = 0;
-
 };
 
 #endif // __SCENE_H__
