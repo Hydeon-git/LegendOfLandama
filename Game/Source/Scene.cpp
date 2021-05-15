@@ -99,6 +99,8 @@ bool Scene::Start()
 		doorCloseFx = app->audio->LoadFx("Assets/Audio/Fx/doorClose.wav");
 		doorKnokFx = app->audio->LoadFx("Assets/Audio/Fx/doorKnok.wav");
 
+		selectorTex = app->tex->Load("Assets/Textures/pointer.png");
+
 		enemyMoving = false;
 		stop = false;
 
@@ -367,7 +369,39 @@ bool Scene::Update(float dt)
 			}
 		} break;		
 	}
+	if (paused || pausedSettings)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { Select(); }
+	}
 	
+	if (pausedSettings)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			pos--;
+			if (pos < 4) pos = 5;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			pos++;
+			if (pos > 5) pos = 4;
+		}
+	}
+	else if (paused)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			pos--;
+			if (pos < 0) pos = 3;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			pos++;
+			if (pos > 3) pos = 0;
+		}
+	}
 	return true;
 }
 
@@ -426,8 +460,82 @@ bool Scene::PostUpdate()
 		btnBackIntro->Draw();
 		btnExit->Draw();
 	}
-	
+	if (pos == 0)
+	{
+		posScaleX = btnResume->bounds.x - 20;
+		posScaleY = btnResume->bounds.y - 2;
+	}
+	if (pos == 1)
+	{
+		posScaleX = btnSettings->bounds.x - 20;
+		posScaleY = btnSettings->bounds.y - 2;
+	}
+	if (pos == 2)
+	{
+		posScaleX = btnBackIntro->bounds.x - 20;
+		posScaleY = btnBackIntro->bounds.y - 2;
+	}
+	if (pos == 3)
+	{
+		posScaleX = btnExit->bounds.x - 20;
+		posScaleY = btnExit->bounds.y - 2;
+	}
+	if (pos == 4)
+	{
+		posScaleX = btnBack->bounds.x - 20;
+		posScaleY = btnBack->bounds.y - 2;
+	}
+	if (pos == 5)
+	{
+		posScaleX = checkBoxFullscreen->bounds.x - 125;
+		posScaleY = checkBoxFullscreen->bounds.y + 1;
+	}
+
+
+	if(paused || pausedSettings) app->render->DrawTexture(selectorTex, posScaleX, posScaleY, NULL);
 	return ret;
+}
+
+void Scene::Select()
+{
+	if (pos == 0)
+	{
+		paused = false;
+	}
+	else if (pos == 1)
+	{
+		pausedSettings = true;
+		pos = 5;
+	}
+
+	else if (pos == 2)
+	{
+		app->map->CleanUp();
+		app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
+		paused = false;
+		
+	}
+	else if (pos == 3)
+	{
+		if (app->scene->player != nullptr)
+		{
+			app->scene->player->position.x = 350;
+			app->scene->player->position.y = 875;
+			app->SaveGameRequest();
+		}
+		app->sceneIntro->exit = true;
+	}
+	else if (pos == 4)
+	{
+		pausedSettings = false;
+		pos = 0;
+	}
+	else if (pos == 5)
+	{
+		app->win->fullScreen = !app->win->fullScreen;
+		app->win->ChangeScreenSize();
+	}
+
 }
 
 // Called before quitting
@@ -436,6 +544,7 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	app->tex->UnLoad(pause);
 	app->tex->UnLoad(creditText);
+	app->tex->UnLoad(selectorTex);
 	app->font->UnLoad(whiteFont);
 	app->entityManager->DestroyEntity(player);
 	app->entityManager->DestroyEntity(enemy);

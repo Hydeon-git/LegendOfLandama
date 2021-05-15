@@ -178,13 +178,13 @@ bool Player::Start()
 
 		playerDeathFx = app->audio->LoadFx("Assets/Audio/Fx/death_sound.wav");
 		itemTakenFx = app->audio->LoadFx("Assets/Audio/Fx/item.wav");
-		keyTakeFx = app->audio->LoadFx("Assets/Audio/Fx/key.wav");
+		keyTakenFx = app->audio->LoadFx("Assets/Audio/Fx/key.wav");
 		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
 		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
 		talkFx = app->audio->LoadFx("Assets/Audio/Fx/huh.wav");
 		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest_sound.wav");
-		laverFx = app->audio->LoadFx("Assets/Audio/Fx/lever_open.wav");
-		laverErrorFx = app->audio->LoadFx("Assets/Audio/Fx/laver_error.wav");
+		leverFx = app->audio->LoadFx("Assets/Audio/Fx/lever_open.wav");
+		leverErrorFx = app->audio->LoadFx("Assets/Audio/Fx/lever_error.wav");
 		buttonFx = app->audio->LoadFx("Assets/Audio/Fx/button_press.wav");
 		puzzleSolvedFx = app->audio->LoadFx("Assets/Audio/Fx/puzzle_solved.wav");
 		currentAnimation = &idlAnim;
@@ -218,7 +218,7 @@ bool Player::Update(float dt)
 		if (ThereIsDoor() && app->map->keyTaken) win = true;
 		else
 		{
-			if (!dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen) {
+			if (!app->scene->paused && !app->sceneDungeon->paused && !dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen) {
 
 				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{
@@ -521,56 +521,56 @@ bool Player::Update(float dt)
 				app->map->chestOpened = true;
 			}
 		}
-		if (OpenLaver1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !laver1Done)
+		if (OpenLever1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever1Done)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
-				app->audio->PlayFx(laverFx, 0);
-				app->map->laver1Pressed = true;
+				app->audio->PlayFx(leverFx, 0);
+				app->map->lever1Pressed = true;
 				spikes1Down  =  true;
 				spikes2Down = false;
 				spikes3Down = false;
-				laver1Done = true;
+				lever1Done = true;
 			}
 		}
-		if (OpenLaver2() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !laver2Done)
+		if (OpenLever2() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever2Done)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
-				app->audio->PlayFx(laverFx, 0);
-				app->map->laver2Pressed = true;
+				app->audio->PlayFx(leverFx, 0);
+				app->map->lever2Pressed = true;
 				spikes1Down = false;
 				spikes2Down = true;
 				spikes3Down = false;
-				laver2Done = true;
+				lever2Done = true;
 			}
 		}
-		if (OpenLaver3() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !laver3Done)
+		if (OpenLever3() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever3Done)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
-				app->audio->PlayFx(laverFx, 0);
-				app->map->laver3Pressed = true;
+				app->audio->PlayFx(leverFx, 0);
+				app->map->lever3Pressed = true;
 				spikes1Down = true;
 				spikes2Down = true;
 				spikes3Down = false;
-				laver3Done = true;
+				lever3Done = true;
 			}
 		}
-		if (OpenLaverFinal() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !laverFinalDone)
+		if (OpenLeverFinal() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !leverFinalDone)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 			{
-				if (app->map->laver3Pressed && app->map->laver2Pressed && app->map->laver1Pressed)
+				if (app->map->lever3Pressed && app->map->lever2Pressed && app->map->lever1Pressed)
 				{
-					app->audio->PlayFx(laverFx, 0);
+					app->audio->PlayFx(leverFx, 0);
 					app->audio->PlayFx(puzzleSolvedFx, 0);
-					app->map->laverFinalPressed = true;
+					app->map->leverFinalPressed = true;
 					spikes1Down = true;
 					spikes2Down = true;
 					spikes3Down = true;
-					laverFinalDone = true;
-				}else app->audio->PlayFx(laverErrorFx, 0);
+					leverFinalDone = true;
+				}else app->audio->PlayFx(leverErrorFx, 0);
 			}
 		}
 
@@ -578,25 +578,25 @@ bool Player::Update(float dt)
 		if (TakeBlueKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyBlueDone)
 		{
 			app->map->blueKeyTaken = true;
-			app->audio->PlayFx(keyTakeFx, 0);
+			app->audio->PlayFx(keyTakenFx, 0);
 			keyBlueDone = true;
 		}
 		if (TakeRedKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyRedDone)
 		{
 			app->map->redKeyTaken = true;
-			app->audio->PlayFx(keyTakeFx, 0);
+			app->audio->PlayFx(keyTakenFx, 0);
 			keyRedDone = true;
 		}
 		if (TakeYellowKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyYellowDone)
 		{
 			app->map->yellowKeyTaken = true;
-			app->audio->PlayFx(keyTakeFx, 0);
+			app->audio->PlayFx(keyTakenFx, 0);
 			keyYellowDone = true;
 		}
 		if (TakeGreenKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyGreenDone)
 		{
 			app->map->greenKeyTaken = true;
-			app->audio->PlayFx(keyTakeFx, 0);
+			app->audio->PlayFx(keyTakenFx, 0);
 			app->audio->PlayFx(puzzleSolvedFx, 0);
 			keyGreenDone = true;
 		}
@@ -1389,14 +1389,14 @@ bool Player::OpenChest()
 
 }
 
-bool Player::OpenLaver1()
+bool Player::OpenLever1()
 {
 	bool valid = false;
 	if (!godModeEnabled)
 	{
 		iPoint tilePosition;
 		ListItem<MapLayer*>* layer = app->map->data.layers.start;
-		int laver1Id;
+		int lever1Id;
 		while (layer != NULL)
 		{
 			if (layer->data->name == "colliders")
@@ -1404,20 +1404,20 @@ bool Player::OpenLaver1()
 				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth + 1, position.y + i * 4);
-					laver1Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver1Id == COLLIDER_BLUE_DUNGEON) valid = true;
+					lever1Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever1Id == COLLIDER_BLUE_DUNGEON) valid = true;
 				}
 				for (int j = 0; j < 4; ++j)
 				{
 					tilePosition = app->map->WorldToMap(position.x - 1, position.y + j * 4);
-					laver1Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver1Id == COLLIDER_BLUE_DUNGEON) valid = true;
+					lever1Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever1Id == COLLIDER_BLUE_DUNGEON) valid = true;
 				}
 				for (int k = 0; k < 4; ++k)
 				{
 					tilePosition = app->map->WorldToMap(position.x + k * 4, position.y - 1);
-					laver1Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver1Id == COLLIDER_BLUE_DUNGEON) valid = true;
+					lever1Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever1Id == COLLIDER_BLUE_DUNGEON) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -1427,14 +1427,14 @@ bool Player::OpenLaver1()
 
 }
 
-bool Player::OpenLaver2()
+bool Player::OpenLever2()
 {
 	bool valid = false;
 	if (!godModeEnabled)
 	{
 		iPoint tilePosition;
 		ListItem<MapLayer*>* layer = app->map->data.layers.start;
-		int laver2Id;
+		int lever2Id;
 		while (layer != NULL)
 		{
 			if (layer->data->name == "colliders")
@@ -1442,20 +1442,20 @@ bool Player::OpenLaver2()
 				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth + 1, position.y + i * 4);
-					laver2Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver2Id == COLLIDER_ORANGE_DUNGEON) valid = true;
+					lever2Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever2Id == COLLIDER_ORANGE_DUNGEON) valid = true;
 				}
 				for (int j = 0; j < 4; ++j)
 				{
 					tilePosition = app->map->WorldToMap(position.x - 1, position.y + j * 4);
-					laver2Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver2Id == COLLIDER_ORANGE_DUNGEON) valid = true;
+					lever2Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever2Id == COLLIDER_ORANGE_DUNGEON) valid = true;
 				}
 				for (int k = 0; k < 4; ++k)
 				{
 					tilePosition = app->map->WorldToMap(position.x + k * 4, position.y - 1);
-					laver2Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver2Id == COLLIDER_ORANGE_DUNGEON) valid = true;
+					lever2Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever2Id == COLLIDER_ORANGE_DUNGEON) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -1465,14 +1465,14 @@ bool Player::OpenLaver2()
 
 }
 
-bool Player::OpenLaver3()
+bool Player::OpenLever3()
 {
 	bool valid = false;
 	if (!godModeEnabled)
 	{
 		iPoint tilePosition;
 		ListItem<MapLayer*>* layer = app->map->data.layers.start;
-		int laver3Id;
+		int lever3Id;
 		while (layer != NULL)
 		{
 			if (layer->data->name == "colliders")
@@ -1480,20 +1480,20 @@ bool Player::OpenLaver3()
 				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth + 1, position.y + i * 4);
-					laver3Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver3Id == COLLIDER_BLACK_DUNGEON) valid = true;
+					lever3Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever3Id == COLLIDER_BLACK_DUNGEON) valid = true;
 				}
 				for (int j = 0; j < 4; ++j)
 				{
 					tilePosition = app->map->WorldToMap(position.x - 1, position.y + j * 4);
-					laver3Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver3Id == COLLIDER_BLACK_DUNGEON) valid = true;
+					lever3Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever3Id == COLLIDER_BLACK_DUNGEON) valid = true;
 				}
 				for (int k = 0; k < 4; ++k)
 				{
 					tilePosition = app->map->WorldToMap(position.x + k * 4, position.y - 1);
-					laver3Id = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laver3Id == COLLIDER_BLACK_DUNGEON) valid = true;
+					lever3Id = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (lever3Id == COLLIDER_BLACK_DUNGEON) valid = true;
 				}
 			}
 			layer = layer->next;
@@ -1503,14 +1503,14 @@ bool Player::OpenLaver3()
 
 }
 
-bool Player::OpenLaverFinal()
+bool Player::OpenLeverFinal()
 {
 	bool valid = false;
 	if (!godModeEnabled)
 	{
 		iPoint tilePosition;
 		ListItem<MapLayer*>* layer = app->map->data.layers.start;
-		int laverFinalId;
+		int leverFinalId;
 		while (layer != NULL)
 		{
 			if (layer->data->name == "colliders")
@@ -1518,20 +1518,20 @@ bool Player::OpenLaverFinal()
 				for (int i = 0; i < 4; ++i)
 				{
 					tilePosition = app->map->WorldToMap(position.x + playerWidth + 1, position.y + i * 4);
-					laverFinalId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laverFinalId == COLLIDER_YELLOW_DUNGEON) valid = true;
+					leverFinalId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (leverFinalId == COLLIDER_YELLOW_DUNGEON) valid = true;
 				}
 				for (int j = 0; j < 4; ++j)
 				{
 					tilePosition = app->map->WorldToMap(position.x - 1, position.y + j * 4);
-					laverFinalId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laverFinalId == COLLIDER_YELLOW_DUNGEON) valid = true;
+					leverFinalId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (leverFinalId == COLLIDER_YELLOW_DUNGEON) valid = true;
 				}
 				for (int k = 0; k < 4; ++k)
 				{
 					tilePosition = app->map->WorldToMap(position.x + k * 4, position.y - 1);
-					laverFinalId = layer->data->Get(tilePosition.x, tilePosition.y);
-					if (laverFinalId == COLLIDER_YELLOW_DUNGEON) valid = true;
+					leverFinalId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (leverFinalId == COLLIDER_YELLOW_DUNGEON) valid = true;
 				}
 			}
 			layer = layer->next;

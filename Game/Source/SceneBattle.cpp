@@ -2521,6 +2521,7 @@ bool SceneBattle::Keyboard(GuiControl* control)
 bool SceneBattle::CleanUp()
 {
 	app->tex->UnLoad(battletext);
+	app->tex->UnLoad(selectorTex);
 	app->font->UnLoad(whiteFont);
 	app->font->UnLoad(goldFont);
 	app->entityManager->DestroyEntity(player);

@@ -83,10 +83,10 @@ public:
 	bool DungeonFloorUp();
 	bool ThereIsDoor();
 	bool OpenChest();
-	bool OpenLaver1();
-	bool OpenLaver2();
-	bool OpenLaver3();
-	bool OpenLaverFinal();
+	bool OpenLever1();
+	bool OpenLever2();
+	bool OpenLever3();
+	bool OpenLeverFinal();
 	bool TakeBlueKey();
 	bool TakeRedKey();
 	bool TakeGreenKey();
@@ -178,10 +178,10 @@ public:
 
 	bool button1Done = false;
 	bool button2Done = false;
-	bool laver1Done = false;
-	bool laver2Done = false;
-	bool laver3Done = false;
-	bool laverFinalDone = false;
+	bool lever1Done = false;
+	bool lever2Done = false;
+	bool lever3Done = false;
+	bool leverFinalDone = false;
 	bool keyRedDone = false;
 	bool keyBlueDone = false;
 	bool keyGreenDone = false;
@@ -198,13 +198,13 @@ private:
 	SDL_Texture* texFireBall;
 	uint playerDeathFx = 0;
 	uint itemTakenFx = 0;
-	uint keyTakeFx = 0;
+	uint keyTakenFx = 0;
 	uint chestFx = 0;
 	uint heartFx = 0;
 	uint fireFx = 0;
 
-	uint laverFx = 0;
-	uint laverErrorFx = 0;
+	uint leverFx = 0;
+	uint leverErrorFx = 0;
 	uint puzzleSolvedFx = 0;
 	uint buttonFx = 0;
 	uint talkFx = 0;

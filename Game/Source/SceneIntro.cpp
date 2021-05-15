@@ -366,6 +366,7 @@ bool SceneIntro::CleanUp()
 	app->tex->UnLoad(logoMidText);
 	app->tex->UnLoad(logoRightText);
 	app->tex->UnLoad(logoLeftText);
+	app->tex->UnLoad(selectorTex);
 	app->font->UnLoad(whiteFont);
 
 	//RELEASE(btnStart);

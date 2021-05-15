@@ -215,7 +215,7 @@ void Map::DrawDoorMid()
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (laverFinalPressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (leverFinalPressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
@@ -237,7 +237,7 @@ void Map::DrawDoorMid()
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (!laverFinalPressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (!leverFinalPressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
@@ -632,207 +632,207 @@ void Map::DrawChest()
 }
 
 
-void Map::DrawLavers()
+void Map::DrawLevers()
 {
 	if (mapLoaded == false) return;
 
-	ListItem<MapLayer*>* laver1Open = data.layers.start;
-	ListItem<MapLayer*>* laver1Closed = data.layers.start;
+	ListItem<MapLayer*>* lever1Open = data.layers.start;
+	ListItem<MapLayer*>* lever1Closed = data.layers.start;
 
-	ListItem<MapLayer*>* laver2Open = data.layers.start;
-	ListItem<MapLayer*>* laver2Closed = data.layers.start;
+	ListItem<MapLayer*>* lever2Open = data.layers.start;
+	ListItem<MapLayer*>* lever2Closed = data.layers.start;
 
-	ListItem<MapLayer*>* laver3Open = data.layers.start;
-	ListItem<MapLayer*>* laver3Closed = data.layers.start;
+	ListItem<MapLayer*>* lever3Open = data.layers.start;
+	ListItem<MapLayer*>* lever3Closed = data.layers.start;
 
-	ListItem<MapLayer*>* laverFinalOpen = data.layers.start;
-	ListItem<MapLayer*>* laverFinalClosed = data.layers.start;
+	ListItem<MapLayer*>* leverFinalOpen = data.layers.start;
+	ListItem<MapLayer*>* leverFinalClosed = data.layers.start;
 
-	//laver1
-	while (laver1Open != NULL)
+	//lever1
+	while (lever1Open != NULL)
 	{
 
-		if (laver1Open->data->name == "lever1_open")
+		if (lever1Open->data->name == "lever1_open")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = laver1Open->data->Get(x, y);
+					int tileId = lever1Open->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (laver1Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (lever1Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		laver1Open = laver1Open->next;
+		lever1Open = lever1Open->next;
 	}
-	while (laver1Closed != NULL)
+	while (lever1Closed != NULL)
 	{
 
-		if (laver1Closed->data->name == "lever1_close")
+		if (lever1Closed->data->name == "lever1_close")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = laver1Closed->data->Get(x, y);
+					int tileId = lever1Closed->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (!laver1Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (!lever1Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		laver1Closed = laver1Closed->next;
-	}
-
-	//laver2
-	while (laver2Open != NULL)
-	{
-
-		if (laver2Open->data->name == "lever2_open")
-		{
-			for (int y = 0; y < data.height; ++y)
-			{
-				for (int x = 0; x < data.width; ++x)
-				{
-					int tileId = laver2Open->data->Get(x, y);
-					if (tileId > 0)
-					{
-						TileSet* set = GetTilesetFromTileId(tileId);
-						SDL_Rect rect = set->GetTileRect(tileId);
-						iPoint pos = MapToWorld(x, y);
-						if (laver2Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
-					}
-				}
-			}
-		}
-		laver2Open = laver2Open->next;
-	}
-	while (laver2Closed != NULL)
-	{
-
-		if (laver2Closed->data->name == "lever2_close")
-		{
-			for (int y = 0; y < data.height; ++y)
-			{
-				for (int x = 0; x < data.width; ++x)
-				{
-					int tileId = laver2Closed->data->Get(x, y);
-					if (tileId > 0)
-					{
-						TileSet* set = GetTilesetFromTileId(tileId);
-						SDL_Rect rect = set->GetTileRect(tileId);
-						iPoint pos = MapToWorld(x, y);
-						if (!laver2Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
-					}
-				}
-			}
-		}
-		laver2Closed = laver2Closed->next;
+		lever1Closed = lever1Closed->next;
 	}
 
-
-	//laver3
-	while (laver3Open != NULL)
+	//lever2
+	while (lever2Open != NULL)
 	{
 
-		if (laver3Open->data->name == "lever3_open")
+		if (lever2Open->data->name == "lever2_open")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = laver3Open->data->Get(x, y);
+					int tileId = lever2Open->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (laver3Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (lever2Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		laver3Open = laver3Open->next;
+		lever2Open = lever2Open->next;
 	}
-	while (laver3Closed != NULL)
+	while (lever2Closed != NULL)
 	{
 
-		if (laver3Closed->data->name == "lever3_close")
+		if (lever2Closed->data->name == "lever2_close")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = laver3Closed->data->Get(x, y);
+					int tileId = lever2Closed->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (!laver3Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (!lever2Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		laver3Closed = laver3Closed->next;
+		lever2Closed = lever2Closed->next;
 	}
 
 
-
-	//laver Final
-	while (laverFinalOpen != NULL)
+	//lever3
+	while (lever3Open != NULL)
 	{
 
-		if (laverFinalOpen->data->name == "leverFinal_open")
+		if (lever3Open->data->name == "lever3_open")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = laverFinalOpen->data->Get(x, y);
+					int tileId = lever3Open->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (laverFinalPressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (lever3Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		laverFinalOpen = laverFinalOpen->next;
+		lever3Open = lever3Open->next;
 	}
-	while (laverFinalClosed != NULL)
+	while (lever3Closed != NULL)
 	{
 
-		if (laverFinalClosed->data->name == "leverFinal_close")
+		if (lever3Closed->data->name == "lever3_close")
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
 				for (int x = 0; x < data.width; ++x)
 				{
-					int tileId = laverFinalClosed->data->Get(x, y);
+					int tileId = lever3Closed->data->Get(x, y);
 					if (tileId > 0)
 					{
 						TileSet* set = GetTilesetFromTileId(tileId);
 						SDL_Rect rect = set->GetTileRect(tileId);
 						iPoint pos = MapToWorld(x, y);
-						if (!laverFinalPressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+						if (!lever3Pressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
 					}
 				}
 			}
 		}
-		laverFinalClosed = laverFinalClosed->next;
+		lever3Closed = lever3Closed->next;
+	}
+
+
+
+	//lever Final
+	while (leverFinalOpen != NULL)
+	{
+
+		if (leverFinalOpen->data->name == "leverFinal_open")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = leverFinalOpen->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (leverFinalPressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		leverFinalOpen = leverFinalOpen->next;
+	}
+	while (leverFinalClosed != NULL)
+	{
+
+		if (leverFinalClosed->data->name == "leverFinal_close")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = leverFinalClosed->data->Get(x, y);
+					if (tileId > 0)
+					{
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						if (!leverFinalPressed) app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		leverFinalClosed = leverFinalClosed->next;
 	}
 
 

@@ -88,6 +88,7 @@ bool SceneDungeon::Start()
 		// Texture assignations for the scene dungeon
 		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
 
+		selectorTex = app->tex->Load("Assets/Textures/pointer.png");
 
 		// Camera
 		app->render->camera.x = (-20 - player->position.x * 3) + 1280 / 2;
@@ -235,7 +236,39 @@ bool SceneDungeon::Update(float dt)
 		btnBackIntro->Update(dt);
 		btnExit->Update(dt);
 	}
+	if (paused || pausedSettings)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { Select(); }
+	}
 
+	if (pausedSettings)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			pos--;
+			if (pos < 4) pos = 5;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			pos++;
+			if (pos > 5) pos = 4;
+		}
+	}
+	else if (paused)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			pos--;
+			if (pos < 0) pos = 3;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			pos++;
+			if (pos > 3) pos = 0;
+		}
+	}
 	return true;
 }
 
@@ -250,7 +283,7 @@ bool SceneDungeon::PostUpdate()
 	app->map->DrawDoor();
 	app->map->DrawDoorMid();
 	app->map->DrawChest();
-	app->map->DrawLavers();
+	app->map->DrawLevers();
 	if (!app->map->puzzle1DungeonDone)
 	{
 		app->map->DrawWalls2Dungeon();
@@ -261,31 +294,31 @@ bool SceneDungeon::PostUpdate()
 	}
 	
 	//spikes
-	if (!app->map->laver1Pressed && !app->map->laver2Pressed && !app->map->laver3Pressed && !app->map->laverFinalPressed)
+	if (!app->map->lever1Pressed && !app->map->lever2Pressed && !app->map->lever3Pressed && !app->map->leverFinalPressed)
 	{
 		app->map->DrawSpikes1();
 		app->map->DrawSpikes2();
 		app->map->DrawSpikes3();
 	}
-	else if (app->map->laver1Pressed && !app->map->laver2Pressed && !app->map->laver3Pressed && !app->map->laverFinalPressed)
+	else if (app->map->lever1Pressed && !app->map->lever2Pressed && !app->map->lever3Pressed && !app->map->leverFinalPressed)
 	{
 		//app->map->DrawSpikes1();
 		app->map->DrawSpikes2();
 		app->map->DrawSpikes3();
 	}
-	else if (app->map->laver1Pressed && app->map->laver2Pressed && !app->map->laver3Pressed && !app->map->laverFinalPressed)
+	else if (app->map->lever1Pressed && app->map->lever2Pressed && !app->map->lever3Pressed && !app->map->leverFinalPressed)
 	{
 		app->map->DrawSpikes1();
 		//app->map->DrawSpikes2();
 		app->map->DrawSpikes3();
 	}
-	else if (app->map->laver1Pressed && app->map->laver2Pressed && app->map->laver3Pressed && !app->map->laverFinalPressed)
+	else if (app->map->lever1Pressed && app->map->lever2Pressed && app->map->lever3Pressed && !app->map->leverFinalPressed)
 	{
 		//app->map->DrawSpikes1();
 		//app->map->DrawSpikes2();
 		app->map->DrawSpikes3();
 	}
-	//else if ((!app->map->laver1Pressed && !app->map->laver2Pressed && !app->map->laver3Pressed && app->map->laverFinalPressed) || (app->map->laver1Pressed && !app->map->laver2Pressed && !app->map->laver3Pressed && app->map->laverFinalPressed))
+	//else if ((!app->map->lever1Pressed && !app->map->lever2Pressed && !app->map->lever3Pressed && app->map->leverFinalPressed) || (app->map->lever1Pressed && !app->map->lever2Pressed && !app->map->lever3Pressed && app->map->leverFinalPressed))
 	//{
 	//	app->map->DrawSpikes1();
 	//	app->map->DrawSpikes2();
@@ -338,6 +371,39 @@ bool SceneDungeon::PostUpdate()
 		btnExit->Draw();
 	}
 
+	if (pos == 0)
+	{
+		posScaleX = btnResume->bounds.x - 20;
+		posScaleY = btnResume->bounds.y - 2;
+	}
+	if (pos == 1)
+	{
+		posScaleX = btnSettings->bounds.x - 20;
+		posScaleY = btnSettings->bounds.y - 2;
+	}
+	if (pos == 2)
+	{
+		posScaleX = btnBackIntro->bounds.x - 20;
+		posScaleY = btnBackIntro->bounds.y - 2;
+	}
+	if (pos == 3)
+	{
+		posScaleX = btnExit->bounds.x - 20;
+		posScaleY = btnExit->bounds.y - 2;
+	}
+	if (pos == 4)
+	{
+		posScaleX = btnBack->bounds.x - 20;
+		posScaleY = btnBack->bounds.y - 2;
+	}
+	if (pos == 5)
+	{
+		posScaleX = checkBoxFullscreen->bounds.x - 125;
+		posScaleY = checkBoxFullscreen->bounds.y + 1;
+	}
+
+
+	if (paused || pausedSettings) app->render->DrawTexture(selectorTex, posScaleX, posScaleY, NULL);
 	return ret;
 }
 
@@ -404,6 +470,47 @@ bool SceneDungeon::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
+void SceneDungeon::Select()
+{
+	if (pos == 0)
+	{
+		paused = false;
+	}
+	else if (pos == 1)
+	{
+		pausedSettings = true;
+		pos = 5;
+	}
+
+	else if (pos == 2)
+	{
+		app->map->CleanUp();
+		app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
+		paused = false;
+
+	}
+	else if (pos == 3)
+	{
+		if (app->scene->player != nullptr)
+		{
+			app->scene->player->position.x = 350;
+			app->scene->player->position.y = 875;
+			app->SaveGameRequest();
+		}
+		app->sceneIntro->exit = true;
+	}
+	else if (pos == 4)
+	{
+		pausedSettings = false;
+		pos = 0;
+	}
+	else if (pos == 5)
+	{
+		app->win->fullScreen = !app->win->fullScreen;
+		app->win->ChangeScreenSize();
+	}
+
+}
 
 void SceneDungeon::ChangeScene(DungeonScene nextScene)
 {
@@ -478,5 +585,6 @@ bool SceneDungeon::CleanUp()
 {
 	app->font->UnLoad(whiteFont);
 	app->tex->UnLoad(winText);
+	app->tex->UnLoad(selectorTex);
 	return true;
 }

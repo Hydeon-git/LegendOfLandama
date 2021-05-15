@@ -58,6 +58,8 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	void Select();
+
 	// GuiClick
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
@@ -118,6 +120,8 @@ private:
 	SDL_Texture* creditText = nullptr;
 	SDL_Texture* no;
 
+	SDL_Texture* selectorTex = nullptr;
+
 	Animation clockAnim;
 
 	// GUI
@@ -157,7 +161,8 @@ private:
 	char timerText[10] = { "\0" };
 	
 	int seconds = 0;
-
+	int pos = 0;
+	int posScaleY = 0, posScaleX = 0;
 	uint doorOpenFx = 0;
 	uint doorCloseFx = 0;
 	uint doorKnokFx = 0;

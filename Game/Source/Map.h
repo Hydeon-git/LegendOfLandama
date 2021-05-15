@@ -129,7 +129,7 @@ public:
 	void DrawDoorGreen();
 	void DrawWalls2Dungeon();
 	void DrawFloor2Dungeon();
-	void DrawLavers();
+	void DrawLevers();
 	void DrawPuzzle();
 	void DrawChest();
 	void DrawSpikes1();
@@ -184,10 +184,10 @@ public:
 	bool heartTaken = false;
 	bool chestTaken = false;
 
-	bool laver1Pressed = false;
-	bool laver2Pressed = false;
-	bool laver3Pressed = false;
-	bool laverFinalPressed = false;
+	bool lever1Pressed = false;
+	bool lever2Pressed = false;
+	bool lever3Pressed = false;
+	bool leverFinalPressed = false;
 
 	bool blueKeyTaken = false;
 	bool redKeyTaken = false;

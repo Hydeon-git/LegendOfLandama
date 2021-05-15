@@ -47,6 +47,8 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	bool PostUpdate();
 
+	void Select();
+
 	bool OnGuiMouseClickEvent(GuiControl* control);
 	bool CleanUp() override;
 	void Pause();
@@ -63,6 +65,7 @@ private:
 	int whiteFont = -1;
 	SDL_Texture* winText = nullptr;
 
+	SDL_Texture* selectorTex = nullptr;
 	
 	bool exit = false;
 	bool pausedSettings = false;
@@ -79,6 +82,9 @@ private:
 
 	SDL_Rect* fullscreenRect;
 	int scale;
+
+	int pos = 0;
+	int posScaleY = 0, posScaleX = 0;
 
 	// Player
 	Player* player;
