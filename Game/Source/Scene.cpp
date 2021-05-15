@@ -414,7 +414,7 @@ bool Scene::Update(float dt)
 			if (pos > 3) pos = 0;
 		}
 	}
-	if (count <= 401)
+	if (count <= 301)
 	{
 		count++;
 	}
@@ -434,7 +434,7 @@ bool Scene::PostUpdate()
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();
 
-	if (count < 400)
+	if (count < 300)
 	{
 		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
 		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);

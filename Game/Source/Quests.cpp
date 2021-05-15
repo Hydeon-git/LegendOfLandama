@@ -76,13 +76,11 @@ bool Quests::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true)
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !questsIsOpen || pad.r1 == true)
 	{
 		questsIsOpen = true;
 		app->shop->open = false;
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.b == true)
+	} else if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && questsIsOpen || pad.b == true)
 	{
 		questsIsOpen = false;
 	}
@@ -91,8 +89,7 @@ bool Quests::Update(float dt)
 	{
 		quest1Done = true;
 	}
-
-
+	
 	if (app->sceneDungeon->active)
 	{
 		if (app->sceneDungeon->player->keyGreenDone)
@@ -125,11 +122,11 @@ bool Quests::Update(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
-	{
-		questsIsOpen = false;
-		app->hud->bagIsOpen = true;
-	}
+	//if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+	//{
+	//	questsIsOpen = false;
+	//	app->hud->bagIsOpen = true;
+	//}
 
 	return true;
 }
@@ -212,7 +209,7 @@ bool Quests::PostUpdate()
 			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
 			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 
-			app->font->DrawText(15, 205, app->scene->whiteFont, "Quest 3 Completed");
+			app->font->DrawText(15, 205, app->scene->whiteFont, "Quest 2 Completed");
 		}
 	}
 	if (quest3Done)
@@ -297,7 +294,7 @@ void Quests::drawMark2()
 	SrcR.h = 720;
 
 	DestR.x = 400;
-	DestR.y = 326;
+	DestR.y = 426;
 	DestR.w = 40;
 	DestR.h = 40;
 	SDL_RenderCopy(app->render->renderer, markTex, &SrcR, &DestR);

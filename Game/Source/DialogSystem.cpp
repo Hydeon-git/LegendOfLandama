@@ -71,7 +71,10 @@ bool DialogueSystem::Update(float dt)
 		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
 		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) 
 		{
+
 			app->scene->quest1message = true;
+
+
 			id = 2;
 		}
 		else if (app->scene->currentScene == GameScene::SCENE_BSMITH)

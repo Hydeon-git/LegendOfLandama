@@ -75,22 +75,22 @@ bool HUD::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.l1 == true)
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !bagIsOpen || pad.l1 == true)
 	{
 		bagIsOpen = true;
 		app->shop->open = false;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.b == true)
+	else if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && bagIsOpen || pad.b == true)
 	{
 		 bagIsOpen= false;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
-	{
-		app->quests->questsIsOpen = true;
-		bagIsOpen = false;
-	}
+	//if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+	//{
+	//	app->quests->questsIsOpen = true;
+	//	bagIsOpen = false;
+	//}
 
 	return true;
 }
