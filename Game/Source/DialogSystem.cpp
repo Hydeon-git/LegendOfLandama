@@ -69,13 +69,27 @@ bool DialogueSystem::Update(float dt)
 	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || pad.b == true)
 	{	
 		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
-		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
-		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
-		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
+		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) 
+		{
+			app->scene->quest1message = true;
+			id = 2;
+		}
+		else if (app->scene->currentScene == GameScene::SCENE_BSMITH)
+		{
+			app->scene->quest3message = true;
+			id = 1;
+		}
+
+		else if (app->scene->currentScene == GameScene::SCENE_INN)
+		{
+			app->scene->quest2message = true;
+			id = 3;
+		}
 
 		currentNode = dialogueTrees[id]->dialogueNodes[0];
 		playerInput = 9;
 		app->scene->player->dialogeOn = false;
+
 	}
 	return true;
 }

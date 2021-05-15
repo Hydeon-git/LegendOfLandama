@@ -110,6 +110,9 @@ public:
 	bool knightTkn = false;
 	bool fromDungeon = false;
 
+	int quest1message = false;
+	int quest2message = false;
+	int quest3message = false;
 private:
 
 	// Textures & Anim
@@ -169,6 +172,7 @@ private:
 	uint doorKnokFx = 0;
 
 	int count = 0;
+
 };
 
 #endif // __SCENE_H__

@@ -87,7 +87,7 @@ bool Quests::Update(float dt)
 		questsIsOpen = false;
 	}
 
-	if (app->sceneBattle->enemy1Dead && app->sceneBattle->enemy2Dead && app->sceneBattle->enemy3Dead)
+	if (app->sceneBattle->enemy1Dead && app->sceneBattle->enemy2Dead && app->sceneBattle->enemy3Dead || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 	{
 		quest1Done = true;
 	}
@@ -100,6 +100,30 @@ bool Quests::Update(float dt)
 			quest3Done = true;
 		}
 	}
+
+
+	if (quest1Done) 
+	{
+		if (counterQuest1 <= 201)
+		{
+			counterQuest1++;
+		}
+	}
+	if (quest2Done)
+	{
+		if (counterQuest2 <= 201)
+		{
+			counterQuest2++;
+		}
+	}
+	if (quest3Done)
+	{
+		if (counterQuest3 <= 201)
+		{
+			counterQuest3++;
+		}
+	}
+
 
 	return true;
 }
@@ -159,6 +183,41 @@ bool Quests::PostUpdate()
 			drawMark3();
 		}
 
+	}
+
+
+
+
+	if (quest1Done)
+	{
+		if (counterQuest1 < 200) 
+		{
+			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+			app->font->DrawText(15, 205, app->scene->whiteFont, "Quest 1 Completed");
+		}
+	}
+	
+	if (quest2Done)
+	{
+		if (counterQuest2 < 200)
+		{
+			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+			app->font->DrawText(15, 205, app->scene->whiteFont, "Quest 3 Completed");
+		}
+	}
+	if (quest3Done)
+	{
+		if (counterQuest3 < 200)
+		{
+			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+			app->font->DrawText(15, 205, app->scene->whiteFont, "Quest 3 Completed");
+		}
 	}
 	return ret;
 }

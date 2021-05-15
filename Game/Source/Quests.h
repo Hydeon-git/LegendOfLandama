@@ -59,6 +59,9 @@ private:
 	void drawMark2();
 	void drawMark3();
 
+	int counterQuest1 = 0;
+	int counterQuest2 = 0;
+	int counterQuest3 = 0;
 
 };
 #endif // !_QUESTS_H_

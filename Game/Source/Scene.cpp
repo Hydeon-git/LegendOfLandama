@@ -443,6 +443,14 @@ bool Scene::PostUpdate()
 		app->font->DrawText(15, 220, whiteFont, "Press Q or RB to open quest list");
 	}
 
+	if (quest1message || quest2message || quest3message)
+	{
+		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+		app->font->DrawText(15, 205, whiteFont, "New quest added to your list");
+	}
+
 
 	// Draw Road Signal
 	if (player->ThereIsLimit())
@@ -654,6 +662,9 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->dialogueSystem->Start();
 			app->dialogueSystem->currentNode = app->dialogueSystem->dialogueTrees[app->dialogueSystem->id]->dialogueNodes[0];
 
+			quest1message = false;
+			quest2message = false;
+			quest3message = false;
 			// Deteting in which house the player was
 			// Reposition the player
 			switch (house)
