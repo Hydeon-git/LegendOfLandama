@@ -89,28 +89,30 @@ bool Shop::Start()
 
 bool Shop::Update(float dt)
 {
+	GamePad& pad = app->input->pads[0];
+
 	if (!selectorActive) return true;
 	
 	itemPos = (shopX + (4 * (shopY - 1)))-1;
 
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { select(); }
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a) { select(); }
 	
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) 
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 	{
 		shopY--;
 		if (shopY <= 0)shopY = 4;
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) 
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 	{
 		shopY ++;
 		if (shopY >=5)shopY = 1;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || pad.right)
 	{
 		shopX --;
 		if (shopX <= 0) {
@@ -119,7 +121,7 @@ bool Shop::Update(float dt)
 
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || pad.left)
 	{
 		shopX ++;
 		if (shopX >= 5) {
@@ -127,7 +129,7 @@ bool Shop::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.b)
 	{
 		staticPlayer = false;
 		open = false;

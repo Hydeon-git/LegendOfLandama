@@ -22,7 +22,8 @@
 	<fadeToBlack />
 	<Shop />
 	<HUD />
+	<Quests />
 	<renderer>
-		<camera x="-35" y="-2" />
+		<camera x="-167" y="-323" />
 	</renderer>
 </save_state>

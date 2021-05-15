@@ -192,6 +192,7 @@ bool SceneBattle::Start()
 
 bool SceneBattle::Update(float dt)
 {
+	GamePad& pad = app->input->pads[0];
 
 	if (app->scene->knightTkn)
 	{
@@ -329,11 +330,11 @@ bool SceneBattle::Update(float dt)
 				}
 			}
 
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { Select(); }
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a) { Select(); }
 
 			if (posX == 0)
 			{
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 				{
 					changed = true;
 					if (heroineCounter == 1 && mageCounter == 1 && knightCounter == 1)
@@ -376,7 +377,7 @@ bool SceneBattle::Update(float dt)
 
 				}
 			
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 				{
 					changed = true;
 					if (heroineCounter == 1 && mageCounter == 1 && knightCounter == 1)
@@ -418,14 +419,14 @@ bool SceneBattle::Update(float dt)
 			else if (posX == 1)
 			{
 				changed = false;
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 				{
 					posY--;
 					if (posY < 0) posY = 2;
 				}
 
 
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 				{
 					posY++;
 					if (posY > 2) posY = 0;
@@ -433,7 +434,7 @@ bool SceneBattle::Update(float dt)
 			}
 			else if (posX == 2)
 			{
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 				{
 
 					if (enemiesAlive == 3 || enemiesAlive == 2)posY--;
@@ -452,7 +453,7 @@ bool SceneBattle::Update(float dt)
 					}
 				}
 
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 				{
 					if (enemiesAlive == 3 || enemiesAlive == 2) posY++;
 					if (enemiesAlive == 3)

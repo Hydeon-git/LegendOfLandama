@@ -139,6 +139,8 @@ bool SceneDungeon::Start()
 
 bool SceneDungeon::Update(float dt)
 {
+	GamePad& pad = app->input->pads[0];
+
 	if (currentScene == DungeonScene::SCENE_HALL && player->door == COLLIDER_GREEN_DUNGEON)
 	{
 		ChangeScene(DungeonScene::SCENE_MID);
@@ -221,7 +223,7 @@ bool SceneDungeon::Update(float dt)
 	}
 
 	// Pause Menu
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !app->scene->player->dialogeOn)
+	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.start) && !app->scene->player->dialogeOn)
 	{
 		if (!pausedSettings)
 		{
@@ -248,18 +250,18 @@ bool SceneDungeon::Update(float dt)
 	}
 	if (paused || pausedSettings)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { Select(); }
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a) { Select(); }
 	}
 
 	if (pausedSettings)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 		{
 			pos--;
 			if (pos < 4) pos = 5;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 		{
 			pos++;
 			if (pos > 5) pos = 4;
@@ -267,12 +269,12 @@ bool SceneDungeon::Update(float dt)
 	}
 	else if (paused)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 		{
 			pos--;
 			if (pos < 0) pos = 3;
 		}
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 		{
 			pos++;
 			if (pos > 3) pos = 0;

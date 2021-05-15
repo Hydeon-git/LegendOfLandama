@@ -74,13 +74,15 @@ bool Quests::Start()
 
 bool Quests::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+	GamePad& pad = app->input->pads[0];
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true)
 	{
 		questsIsOpen = true;
 		app->shop->open = false;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.b == true)
 	{
 		questsIsOpen = false;
 	}

@@ -474,7 +474,7 @@ bool Player::Update(float dt)
 
 			if (ThereIsNPC()==1 || ThereIsNPC() == 4 || ThereIsNPCUp() ||ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight())
 			{
-				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
 				{
 					dialogeOn = true;
 					app->audio->PlayFx(talkFx, 0);
@@ -536,7 +536,7 @@ bool Player::Update(float dt)
 
 		if (OpenChest() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
 			{
 				//app->audio->PlayFx(chestFx, 0);
 				app->map->chestOpened = true;
@@ -544,7 +544,7 @@ bool Player::Update(float dt)
 		}
 		if (OpenLever1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever1Done)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
 			{
 				app->audio->PlayFx(leverFx, 0);
 				app->map->lever1Pressed = true;
@@ -556,7 +556,7 @@ bool Player::Update(float dt)
 		}
 		if (OpenLever2() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever2Done)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
 			{
 				app->audio->PlayFx(leverFx, 0);
 				app->map->lever2Pressed = true;
@@ -568,7 +568,7 @@ bool Player::Update(float dt)
 		}
 		if (OpenLever3() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever3Done)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
 			{
 				app->audio->PlayFx(leverFx, 0);
 				app->map->lever3Pressed = true;
@@ -580,7 +580,7 @@ bool Player::Update(float dt)
 		}
 		if (OpenLeverFinal() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !leverFinalDone)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
 			{
 				if (app->map->lever3Pressed && app->map->lever2Pressed && app->map->lever1Pressed)
 				{

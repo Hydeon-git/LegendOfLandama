@@ -172,6 +172,8 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {	
+	GamePad& pad = app->input->pads[0];
+
 	if (fromDungeon)
 	{
 		ChangeScene(GameScene::SCENE_ENTRYDUNGEON);		
@@ -264,7 +266,7 @@ bool Scene::Update(float dt)
 	}
 
 	// Pause Menu
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !app->scene->player->dialogeOn)
+	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.start == true) && !app->scene->player->dialogeOn)
 	{
 		if (!pausedSettings)
 		{
@@ -310,15 +312,15 @@ bool Scene::Update(float dt)
 
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
-					if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall() && !player->ThereIsNPCLeft() && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) app->render->camera.x += 3.0f;
-					else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall() && !player->ThereIsNPCRight() && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) app->render->camera.x -= 3.0f;
+					if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) || !pad.right) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsLeftWall() && !player->ThereIsNPCLeft() && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down)) app->render->camera.x += 3.0f;
+					else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right) && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) || !pad.left) && player->position.x > 220 && player->position.x <= 419 && !player->ThereIsRightWall() && !player->ThereIsNPCRight() && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down)) app->render->camera.x -= 3.0f;
 				}
 				//camera y
 				if ((app->render->counter == 0 || player->godModeEnabled) && !player->dialogeOn && !paused)
 				{
 
-					if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y += 3.0f;
-					else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow() && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) app->render->camera.y -= 3.0f;
+					if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || !pad.down) && (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) || !pad.down) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsTopWall() && !player->ThereIsNPCUp() && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right)) app->render->camera.y += 3.0f;
+					else if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down) && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || !pad.up) && (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) || !pad.up) && player->position.y > 120 && player->position.y <= 400 && !player->ThereIsBottomWall() && !player->ThereIsNPCBelow() && (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || !pad.left) && (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right)) app->render->camera.y -= 3.0f;
 
 				}
 			}			
@@ -381,18 +383,18 @@ bool Scene::Update(float dt)
 	}
 	if (paused || pausedSettings)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { Select(); }
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a) { Select(); }
 	}
 	
 	if (pausedSettings)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 		{
 			pos--;
 			if (pos < 4) pos = 5;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 		{
 			pos++;
 			if (pos > 5) pos = 4;
@@ -400,13 +402,13 @@ bool Scene::Update(float dt)
 	}
 	else if (paused)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 		{
 			pos--;
 			if (pos < 0) pos = 3;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 		{
 			pos++;
 			if (pos > 3) pos = 0;

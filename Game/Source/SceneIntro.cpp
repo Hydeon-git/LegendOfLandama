@@ -96,24 +96,6 @@ bool SceneIntro::Start()
 bool SceneIntro::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
-	//Debug key for gamepad rumble testing purposes
-
-	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		app->input->ShakeController(0, 12, 0.33f);
-	}
-
-	//Debug key for gamepad rumble testing purposes
-	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		app->input->ShakeController(0, 36, 0.66f);
-	}
-
-	//Debug key for gamepad rumble testing purposes
-	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		app->input->ShakeController(0, 60, 1.0f);
-	}
 
 	if (count <= 200) 
 	{

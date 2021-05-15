@@ -29,6 +29,7 @@ bool DialogueSystem::Start()
 
 bool DialogueSystem::Update(float dt)
 {
+	GamePad& pad = app->input->pads[0];
 
 	if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
@@ -65,7 +66,7 @@ bool DialogueSystem::Update(float dt)
 		PerformDialogue(id);
 	}
 
-	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || pad.b == true)
 	{	
 		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
 		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
