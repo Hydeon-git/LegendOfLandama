@@ -79,7 +79,9 @@ bool Quests::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !questsIsOpen || pad.r1 == true)
 	{
 		questsIsOpen = true;
+		app->hud->bagIsOpen = false;
 		app->shop->open = false;
+
 	} else if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && questsIsOpen || pad.b == true)
 	{
 		questsIsOpen = false;

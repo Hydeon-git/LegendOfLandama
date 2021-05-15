@@ -78,6 +78,7 @@ bool HUD::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !bagIsOpen || pad.l1 == true)
 	{
 		bagIsOpen = true;
+		app->quests->questsIsOpen = false;
 		app->shop->open = false;
 	}
 
@@ -85,12 +86,6 @@ bool HUD::Update(float dt)
 	{
 		 bagIsOpen= false;
 	}
-
-	//if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
-	//{
-	//	app->quests->questsIsOpen = true;
-	//	bagIsOpen = false;
-	//}
 
 	return true;
 }
