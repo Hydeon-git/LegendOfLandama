@@ -30,6 +30,8 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	bool PostUpdate();
 
+	void Select();
+
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	bool CleanUp() override;
@@ -61,6 +63,7 @@ private:
 	GuiCheckBox* checkBoxVSync;
 
 	SDL_Texture* introText = nullptr;
+	SDL_Texture* selectorTex = nullptr;
 
 	SDL_Texture* logoBackText = nullptr;
 	SDL_Texture* logoRightText = nullptr;
@@ -72,7 +75,8 @@ private:
 	uint logoFx = 0;
 
 	int whiteFont = -1;
-
+	int pos = 0;
+	int posScaleY = 0, posScaleX = 0;
 	int count = 0;
 };
 

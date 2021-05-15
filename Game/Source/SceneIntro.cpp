@@ -49,6 +49,7 @@ bool SceneIntro::Start()
 	logoRightText = app->tex->Load("Assets/Textures/logoRight.png");
 	logoMidText = app->tex->Load("Assets/Textures/logoMid.png");
 	logoLeftText = app->tex->Load("Assets/Textures/logoLeft.png");
+	selectorTex = app->tex->Load("Assets/Textures/pointer.png");
 
 	app->sceneLose->Disable();
 	app->sceneWin->Disable();
@@ -87,6 +88,8 @@ bool SceneIntro::Start()
 	/*checkBoxVSync = new GuiCheckBox(2, { 225,370,10,10 }, "   VSYNC");
 	checkBoxVSync->SetObserver(this);*/
 
+	pos = 0;
+
 	return ret;
 }
 
@@ -114,6 +117,37 @@ bool SceneIntro::Update(float dt)
 			btnContinue->Update(dt);
 			btnOptions->Update(dt);
 			btnExit->Update(dt);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { Select(); }
+		if (!options)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			{
+				pos--;
+				if (pos < 0) pos = 3;
+				if (pos == 1 && !posContinue) pos--;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			{
+				pos++;
+				if (pos > 3) pos = 0;
+				if (pos == 1 && !posContinue) pos++;
+			}
+		}
+		else if (options)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			{
+				pos--;
+				if (pos < 4) pos = 5;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			{
+				pos++;
+				if (pos > 5) pos = 4;
+			}
 		}
 	}
 	return true;
@@ -183,10 +217,87 @@ bool SceneIntro::PostUpdate()
 			btnOptions->Draw();
 			btnExit->Draw();
 		}
-	}
 
+
+		if (pos == 0)
+		{
+			posScaleX = btnStart->bounds.x - 20;
+			posScaleY = btnStart->bounds.y - 2;
+		}
+		if (pos == 1 && posContinue)
+		{
+			posScaleX = btnContinue->bounds.x - 20;
+			posScaleY = btnContinue->bounds.y - 2;
+		}
+		if (pos == 2)
+		{
+			posScaleX = btnOptions->bounds.x - 20;
+			posScaleY = btnOptions->bounds.y - 2;
+		}
+		if (pos == 3)
+		{
+			posScaleX = btnExit->bounds.x - 20;
+			posScaleY = btnExit->bounds.y - 2;
+		}
+		if (pos == 4)
+		{
+			posScaleX = btnBackOptions->bounds.x - 20;
+			posScaleY = btnBackOptions->bounds.y - 2;
+		}
+		if (pos == 5)
+		{
+			posScaleX = checkBoxFullscreen->bounds.x - 125;
+			posScaleY = checkBoxFullscreen->bounds.y + 1;
+		}
+
+
+		app->render->DrawTexture(selectorTex, posScaleX, posScaleY, NULL);
+	}
 	return ret;
 }
+
+void SceneIntro::Select()
+{
+	if (pos == 0)
+	{
+		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+		startClicked = true;
+		app->sceneBattle->enemy1Dead = false;
+		app->sceneBattle->enemy2Dead = false;
+		app->sceneBattle->enemy3Dead = false;
+		app->sceneBattle->enemiesAlive = 3;
+	}
+	else if (pos == 1) app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+
+	else if (pos == 2)
+	{
+		options = true;
+		pos = 5;
+	}
+	else if (pos == 3)
+	{
+		if (app->scene->player != nullptr)
+		{
+			app->scene->player->position.x = 350;
+			app->scene->player->position.y = 875;
+			app->SaveGameRequest();
+		}
+		exit = true;
+	}
+	else if (pos == 4)
+	{
+		btnOptions->state = GuiControlState::NORMAL;
+		options = false;
+		pos = 0;
+	}
+	else if (pos == 5)
+	{
+		app->win->fullScreen = !app->win->fullScreen;
+		app->win->ChangeScreenSize();
+	}
+
+}
+
 
 bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 {

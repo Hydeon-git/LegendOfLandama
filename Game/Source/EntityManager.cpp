@@ -15,6 +15,7 @@
 #include "ModuleParticles.h"
 #include "App.h"
 #include "Scene.h"
+#include "SceneDungeon.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -110,7 +111,7 @@ bool EntityManager::PreUpdate()
 
 bool EntityManager::Update(float dt)
 {
-	if (!app->scene->paused)
+	if (!app->scene->paused || !app->sceneDungeon->paused)
 	{
 		for (unsigned int i = 0; i < entities.Count(); i++)
 		{

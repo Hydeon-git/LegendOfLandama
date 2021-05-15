@@ -6,6 +6,7 @@
 #include "FlyingEnemy.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneDungeon.h"
 #include "FadeToBlack.h"
 #include "SceneWin.h"
 #include "SceneLose.h"
@@ -80,7 +81,7 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
-	if (!app->scene->paused)
+	if (!app->scene->paused || !app->sceneDungeon->paused)
 	{
 		if (app->scene->player != nullptr)
 		{

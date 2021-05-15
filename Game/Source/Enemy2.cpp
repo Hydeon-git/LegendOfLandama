@@ -119,7 +119,7 @@ bool Enemy2::Update(float dt)
 
 bool Enemy2::PostUpdate()
 {
-	if ((this->active == true) && (!app->scene->paused) && (!app->sceneBattle->enemy2Dead))
+	if ((this->active == true) && (!app->scene->paused) && (!app->sceneDungeon->paused) && (!app->sceneBattle->enemy2Dead))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texEnemy2, position.x, position.y, &rect);

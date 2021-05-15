@@ -366,10 +366,6 @@ bool SceneDungeon::OnGuiMouseClickEvent(GuiControl* control)
 		else if (control->id == 3)
 		{
 			app->map->CleanUp();
-			//if (currentScene != GameScene::SCENE_TOWN)
-			//{
-			//	currentScene = GameScene::SCENE_TOWN;
-			//}
 			app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
 			paused = false;
 		}

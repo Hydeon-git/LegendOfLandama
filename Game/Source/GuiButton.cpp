@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Input.h"
 #include "SceneWin.h"
+#include "SceneDungeon.h"
 #include "Textures.h"
 #include "DialogSystem.h"
 
@@ -106,17 +107,17 @@ bool GuiButton::Draw()
 	//app->font->DrawText(bounds.x / app->win->GetScale(), bounds.y / app->win->GetScale(), 0, text.GetString());
 
 
-	if (app->scene->guiColliders && app->scene->paused) app->render->DrawRectangle({ bounds.x - 4, bounds.y - 4,bounds.w + 8,bounds.h + 8 }, 0, 0, 255, 100);
+	if (app->scene->guiColliders && app->scene->paused && app->sceneDungeon->paused) app->render->DrawRectangle({ bounds.x - 4, bounds.y - 4,bounds.w + 8,bounds.h + 8 }, 0, 0, 255, 100);
 
-	if (app->sceneIntro->guiColliders && !app->scene->paused && !app->sceneLose->guiColliders && !app->sceneWin->guiColliders)
+	if (app->sceneIntro->guiColliders && !app->scene->paused && !app->sceneDungeon->paused && !app->sceneLose->guiColliders && !app->sceneWin->guiColliders)
 	{
 		if (this->state == GuiControlState::DISABLED) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 0, 0, 100);
 		else app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 0, 255, 100);
 	}
 
-	if (app->sceneLose->guiColliders && !app->sceneIntro->guiColliders && !app->sceneWin->guiColliders && !app->scene->paused) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 0, 255, 100);
+	if (app->sceneLose->guiColliders && !app->sceneIntro->guiColliders && !app->sceneWin->guiColliders && !app->scene->paused && !app->sceneDungeon->paused) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 0, 255, 100);
 
-	if (app->sceneWin->guiColliders && !app->sceneLose->guiColliders && !app->sceneIntro->guiColliders && !app->scene->paused) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 0, 255, 100);
+	if (app->sceneWin->guiColliders && !app->sceneLose->guiColliders && !app->sceneIntro->guiColliders && !app->scene->paused && !app->sceneDungeon->paused) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 0, 255, 100);
 
 	return false;
 }

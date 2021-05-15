@@ -23,6 +23,6 @@
 	<Shop />
 	<HUD />
 	<renderer>
-		<camera x="-142" y="-56" />
+		<camera x="-134" y="-23" />
 	</renderer>
 </save_state>
