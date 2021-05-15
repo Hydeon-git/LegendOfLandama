@@ -22,10 +22,11 @@
 #define COLLIDER_YELLOW 268
 
 
-DiamondWand::DiamondWand() : Item(ItemType::Diamond_Wand)
+DiamondWand::DiamondWand() : Item(ItemType::DIAMOND_WAND)
 {
 	texture = app->tex->Load("Assets/Textures/diamond_wand.png");
 
+	price = 20;
 
 }
 

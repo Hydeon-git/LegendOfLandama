@@ -22,9 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-FireSword::FireSword() : Item(ItemType::Fire_Sword)
+FireSword::FireSword() : Item(ItemType::FIRE_SWORD)
 {
 	texture = app->tex->Load("Assets/Textures/fire_sword.png");
+	price = 20;
 
 
 }

@@ -22,7 +22,7 @@
 #define COLLIDER_YELLOW 268
 
 
-Potion::Potion() : Item(ItemType::Potion)
+Potion::Potion() : Item(ItemType::POTION)
 {
 	texture = app->tex->Load("Assets/Textures/life_potion.png");
 

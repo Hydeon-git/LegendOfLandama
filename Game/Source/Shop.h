@@ -3,7 +3,7 @@
 
 #include "Module.h"
 #include "Animation.h"
-
+#include "Item.h"
 
 struct SDL_Texture;
 
@@ -47,27 +47,6 @@ public:
 
 
 public:
-	enum SHOP_SLOT : int {
-		
-		WOOD_SWORD, 
-		STEEL_SWORD,
-		GOLD_SWORD,
-		FIRE_SWORD,
-		WOOD_PROTECTION,
-		STEEL_PROTECTION,
-		GOLD_PROTECTION,
-		FIRE_PROTECTION,
-		WOOD_BOW,
-		STEEL_BOW,
-		GOLD_BOW,
-		DIAMOND_BOW,
-		WOOD_WAND,
-		AMATIST_WAND,
-		RUBY_WAND,
-		DIAMOND_WAND,
-		EXIT,
-
-	};
 	
 	void getOwnedItems();
 
@@ -82,7 +61,6 @@ public:
 	uint InsuficientMoney = 0;
 
 	bool keyDownPad = false;
-	int shopFont = 0;
 
 	int selectedItem;
 	bool selectorActive;
@@ -95,10 +73,12 @@ public:
 
 	bool open = false;
 
+	void buyItem(ItemType itemType, Item *item);
+	void drawItemPrice();
+
 	ItemsPrice items[15];
 
 	char moneyText[10] = { "\0" };
-
 
 
 

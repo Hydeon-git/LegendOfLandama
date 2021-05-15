@@ -22,9 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-GoldShield::GoldShield() : Item(ItemType::Gold_Shield)
+GoldShield::GoldShield() : Item(ItemType::GOLD_PROTECTION)
 {
 	texture = app->tex->Load("Assets/Textures/gold_shield.png");
+	price = 12;
 
 
 }

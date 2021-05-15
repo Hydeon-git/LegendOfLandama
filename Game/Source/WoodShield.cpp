@@ -22,11 +22,11 @@
 #define COLLIDER_YELLOW 268
 
 
-WoodShield::WoodShield() : Item(ItemType::Wood_Shield)
+WoodShield::WoodShield() : Item(ItemType::WOOD_PROTECTION)
 {
 
 	texture = app->tex->Load("Assets/Textures/wood_shield.png");
-
+	price = 5;
 }
 
 // Destructor

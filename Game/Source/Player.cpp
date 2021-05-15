@@ -144,6 +144,7 @@ bool Player::Start()
 {
 	if (this->active == true)
 	{
+		coins = 20;
 		dead = false;
 		spiked = false;
 		win = false;
@@ -683,6 +684,7 @@ void Player::addItemToIventory(Item * item)
 
 		if (inventory[i] == nullptr)
 		{
+			coins -= item->price;
 			inventory[i] = item;
 			break;
 		}

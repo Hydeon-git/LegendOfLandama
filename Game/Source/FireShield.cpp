@@ -22,10 +22,11 @@
 #define COLLIDER_YELLOW 268
 
 
-FireShield::FireShield() : Item(ItemType::Fire_Shield)
+FireShield::FireShield() : Item(ItemType::FIRE_PROTECTION)
 {
 
 	texture = app->tex->Load("Assets/Textures/fire_shield.png");
+	price = 20;
 
 }
 

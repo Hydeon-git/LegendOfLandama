@@ -40,15 +40,16 @@ public:
 
 	bool bagIsOpen;
 
-
 private:
 	
 
 	SDL_Texture* bagTex = nullptr;
+	SDL_Texture* coinTex = nullptr;
 
 	SDL_Texture* openbagTex = nullptr;
 
 
+	void drawCoins();
 
 
 

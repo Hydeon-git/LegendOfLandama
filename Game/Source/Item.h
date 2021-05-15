@@ -8,26 +8,27 @@
 #include "SDL/include/SDL.h"
 #include "PugiXml/src/pugixml.hpp"
 
-enum class ItemType
+enum ItemType: int
 {
-	Potion,
-	Coin,
-	Wood_Sword,
-	Steel_Sword,
-	Gold_Sword,
-	Fire_Sword,
-	Wood_Shield,
-	Steel_Shield,
-	Gold_Shield,
-	Fire_Shield,
-	Wood_Bow,
-	Steel_Bow,
-	Gold_Bow,
-	Diamond_Bow,
-	Wood_Wand,
-	Amatist_Wand,
-	Ruby_Wand,
-	Diamond_Wand,
+
+	WOOD_SWORD,
+	STEEL_SWORD,
+	GOLD_SWORD,
+	FIRE_SWORD,
+	WOOD_PROTECTION,
+	STEEL_PROTECTION,
+	GOLD_PROTECTION,
+	FIRE_PROTECTION,
+	WOOD_BOW,
+	STEEL_BOW,
+	GOLD_BOW,
+	DIAMOND_BOW,
+	WOOD_WAND,
+	AMATIST_WAND,
+	RUBY_WAND,
+	DIAMOND_WAND,
+	POTION,
+	COIN,
 	UNKNOWN
 };
 

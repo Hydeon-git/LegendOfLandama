@@ -22,10 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-WoodBow::WoodBow() : Item(ItemType::Wood_Bow)
+WoodBow::WoodBow() : Item(ItemType::WOOD_BOW)
 {
 	texture = app->tex->Load("Assets/Textures/wood_bow.png");
-
+	price = 5;
 
 }
 

@@ -22,10 +22,11 @@
 #define COLLIDER_YELLOW 268
 
 
-SteelShield::SteelShield() : Item(ItemType::Steel_Shield)
+SteelShield::SteelShield() : Item(ItemType::STEEL_PROTECTION)
 {
 
 	texture = app->tex->Load("Assets/Textures/steel_shield.png");
+	price = 8;
 
 }
 

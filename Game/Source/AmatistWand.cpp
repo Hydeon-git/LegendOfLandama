@@ -22,9 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-AmatistWand::AmatistWand() : Item(ItemType::Amatist_Wand)
+AmatistWand::AmatistWand() : Item(ItemType::AMATIST_WAND)
 {
 	texture = app->tex->Load("Assets/Textures/amatist_wand.png");
+	price = 18;
 
 
 }

@@ -22,10 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-WoodSword::WoodSword() : Item(ItemType::Wood_Sword)
+WoodSword::WoodSword() : Item(ItemType::WOOD_SWORD)
 {
 	texture = app->tex->Load("Assets/Textures/wood_sword.png");
-
+	price = 5;
 
 }
 

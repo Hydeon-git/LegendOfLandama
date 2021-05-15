@@ -22,9 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-SteelBow::SteelBow() : Item(ItemType::Steel_Bow)
+SteelBow::SteelBow() : Item(ItemType::STEEL_BOW)
 {
 	texture = app->tex->Load("Assets/Textures/steel_bow.png");
+	price = 8;
 
 
 }

@@ -22,10 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-WoodWand::WoodWand() : Item(ItemType::Wood_Wand)
+WoodWand::WoodWand() : Item(ItemType::WOOD_WAND)
 {
 	texture = app->tex->Load("Assets/Textures/wood_wand.png");
-
+	price = 5;
 
 }
 

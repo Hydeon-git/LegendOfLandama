@@ -20,12 +20,14 @@
 #include "WoodSword.h"
 #include "WoodBow.h"
 #include "SteelBow.h"
+#include "DialogSystem.h"
 #include "GoldBow.h"
 #include "DiamondBow.h"
 #include "WoodWand.h"
 #include "AmatistWand.h"
 #include "RubyWand.h"
 #include "DiamondWand.h"
+#include "Item.h"
 #include "App.h"
 #include "Audio.h"
 #include "Input.h"
@@ -42,6 +44,9 @@
 #include "Shop.h"
 #include "SceneIntro.h"
 #include "GuiButton.h"
+#include <string>
+#include <stdio.h>
+
 
 #include <iostream>
 
@@ -70,8 +75,6 @@ bool Shop::Start()
 	{
 		
 		LOG("Loading background assets");
-		char lookupTable[] = { "! #$%&@()*+,-./0123456789:;<=>? ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~" };
-		shopFont = app->font->Load("Assets/Textures/white_font.png", lookupTable, 1);
 		shopTex = app->tex->Load("Assets/Textures/shop.png");
 		itemSold = app->tex->Load("Assets/Textures/shop_owned.png");
 		selectorTex = app->tex->Load("Assets/Textures/pointer.png");
@@ -163,8 +166,8 @@ bool Shop::PostUpdate()
 		else if (shopX == 4)
 			posX = shopX * 39;
 
-		getOwnedItems();
 
+		getOwnedItems();
 		app->render->DrawTexture(selectorTex, posX, posY, NULL);
 
 
@@ -177,7 +180,6 @@ bool Shop::PostUpdate()
 
 bool Shop::CleanUp()
 {
-	app->font->UnLoad(shopFont);
 	app->tex->UnLoad(shopTex);
 	app->tex->UnLoad(selectorTex);
 	app->tex->UnLoad(itemSold);
@@ -191,172 +193,126 @@ void Shop::select()
 	{
 	case WOOD_SWORD:
 	{	
-		items[WOOD_SWORD].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Wood_Sword))
-		{
-			WoodSword* woodsword = new WoodSword();
-			app->scene->player->addItemToIventory(woodsword);
-		}
+		WoodSword* woodsword = new WoodSword();
+		buyItem(WOOD_SWORD,woodsword);
+		
 	}
 	break;
 	case STEEL_SWORD:
 	{
-		items[STEEL_SWORD].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Steel_Sword))
-		{
-			SteelSword* steelsword = new SteelSword();
-			app->scene->player->addItemToIventory(steelsword);
-		}
+		SteelSword* steelsword = new SteelSword();
+		buyItem(STEEL_SWORD, steelsword);
+
+		
 	}
 		break;
 	case GOLD_SWORD:
 	{
-		items[GOLD_SWORD].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Gold_Sword))
-		{
-			GoldSword* goldsword = new GoldSword();
-			app->scene->player->addItemToIventory(goldsword);
-		}
+		GoldSword* goldsword = new GoldSword();
+		buyItem(GOLD_SWORD, goldsword);
+
 
 	}
 		break;
 	case FIRE_SWORD:
 	{
-		items[FIRE_SWORD].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Fire_Sword))
-		{
-			FireSword* firesword = new FireSword();
-			app->scene->player->addItemToIventory(firesword);
-		}
+		FireSword* firesword = new FireSword();
+		buyItem(FIRE_SWORD, firesword);
+
 	}
 		break;
 	case WOOD_PROTECTION:
 	{
-		items[WOOD_PROTECTION].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Wood_Shield))
-		{
-			WoodShield* woodshield = new WoodShield();
-			app->scene->player->addItemToIventory(woodshield);
-		}
+		WoodShield* woodshield = new WoodShield();
+		buyItem(WOOD_PROTECTION, woodshield);
+
 
 	}
 		break;
 	case STEEL_PROTECTION:
 	{
-		items[STEEL_PROTECTION].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Steel_Shield))
-		{
-			SteelShield* steelshield = new SteelShield();
-			app->scene->player->addItemToIventory(steelshield);
-		}
+		SteelShield* steelshield = new SteelShield();
+		buyItem(STEEL_PROTECTION, steelshield);
+
 	}
 		break;
 	case GOLD_PROTECTION:
 	{
-		items[GOLD_PROTECTION].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Gold_Shield))
-		{
-			GoldShield* goldshield = new GoldShield();
-			app->scene->player->addItemToIventory(goldshield);
-		}
+		GoldShield* goldshield = new GoldShield();
+		buyItem(GOLD_PROTECTION, goldshield);
+
 	}
 
 		break;
 	case FIRE_PROTECTION:	
 	{
-		items[FIRE_PROTECTION].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Fire_Shield))
-		{
-			FireShield* fireshield = new FireShield();
-			app->scene->player->addItemToIventory(fireshield);
-		}
+		FireShield* fireshield = new FireShield();
+		buyItem(FIRE_PROTECTION, fireshield);
+
 	}
 		break;
 	case WOOD_BOW:
 	{
-		items[WOOD_BOW].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Wood_Bow))
-		{
-			WoodBow* woodbow = new WoodBow();
-			app->scene->player->addItemToIventory(woodbow);
-		}
+		WoodBow* woodbow = new WoodBow();
+		buyItem(WOOD_BOW, woodbow);
+
 	}
 
 		break;
 	case STEEL_BOW:
 	{
-		items[STEEL_BOW].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Steel_Bow))
-		{
-			SteelBow* steelbow = new SteelBow();
-			app->scene->player->addItemToIventory(steelbow);
-		}
+		SteelBow* steelbow = new SteelBow();
+		buyItem(STEEL_BOW, steelbow);
+
 	}
 
 		break;
 	case GOLD_BOW:
 	{
-		items[GOLD_BOW].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Gold_Bow))
-		{
-			GoldBow* goldbow = new GoldBow();
-			app->scene->player->addItemToIventory(goldbow);
-		}
+		GoldBow* goldbow = new GoldBow();
+		buyItem(GOLD_BOW, goldbow);
+
 	}
 
 		break;
 	case DIAMOND_BOW:
 	{
-		items[DIAMOND_BOW].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Diamond_Bow))
-		{
-			DiamondBow* diamondbow = new DiamondBow();
-			app->scene->player->addItemToIventory(diamondbow);
-		}
+		DiamondBow* diamondbow = new DiamondBow();
+		buyItem(DIAMOND_BOW, diamondbow);
+
+		
 	}
 
 		break;
 	case WOOD_WAND:
 	{
-		items[WOOD_WAND].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Wood_Wand))
-		{
-			WoodWand* woodwand = new WoodWand();
-			app->scene->player->addItemToIventory(woodwand);
-		}
+		WoodWand* woodwand = new WoodWand();
+		buyItem(WOOD_WAND, woodwand);
+
 	}
 
 		break;
 	case AMATIST_WAND:
 	{
-		items[AMATIST_WAND].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Amatist_Wand))
-		{
-			AmatistWand* amatistwand = new AmatistWand();
-			app->scene->player->addItemToIventory(amatistwand);
-		}
+		AmatistWand* amatistwand = new AmatistWand();
+		buyItem(AMATIST_WAND, amatistwand);
+
 	}
 
 		break;
 	case RUBY_WAND:
 	{
-		items[RUBY_WAND].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Ruby_Wand))
-		{
-			RubyWand* rubywand = new RubyWand();
-			app->scene->player->addItemToIventory(rubywand);
-		}
+		RubyWand* rubywand = new RubyWand();
+		buyItem(RUBY_WAND, rubywand);
+
 	}
 
 		break;
 	case DIAMOND_WAND:
 	{
-		items[DIAMOND_WAND].selected = true;
-		if (!app->scene->player->isItemInInventory(ItemType::Diamond_Wand))
-		{
-			DiamondWand* diamondwand = new DiamondWand();
-			app->scene->player->addItemToIventory(diamondwand);
-		}
+		DiamondWand* diamondwand = new DiamondWand();
+		buyItem(DIAMOND_WAND, diamondwand);
+
 	}
 
 		break;
@@ -368,68 +324,83 @@ void Shop::select()
 void Shop::getOwnedItems()
 {
 	if (open) {
-		if (items[WOOD_SWORD].selected == true) {
+		if (items[ItemType::WOOD_SWORD].selected == true) {
 			app->render->DrawTexture(itemSold, 80, 170, NULL, 3);
 		}
 
-		if (items[STEEL_SWORD].selected == true) {
+		if (items[ItemType::STEEL_SWORD].selected == true) {
 			app->render->DrawTexture(itemSold, 215, 170, NULL, 3);
 		}
 
-		if (items[GOLD_SWORD].selected == true) {
+		if (items[ItemType::GOLD_SWORD].selected == true) {
 			app->render->DrawTexture(itemSold, 359, 170, NULL, 3);
 		}
 
-		if (items[FIRE_SWORD].selected == true) {
+		if (items[ItemType::FIRE_SWORD].selected == true) {
 			app->render->DrawTexture(itemSold, 497, 170, NULL, 3);
 		}
 
-		if (items[WOOD_PROTECTION].selected == true) {
+		if (items[ItemType::WOOD_PROTECTION].selected == true) {
 			app->render->DrawTexture(itemSold, 80, 269, NULL, 3);
 		}
 
-		if (items[STEEL_PROTECTION].selected == true) {
+		if (items[ItemType::STEEL_PROTECTION].selected == true) {
 			app->render->DrawTexture(itemSold, 215, 269, NULL, 3);
 		}
 
-		if (items[GOLD_PROTECTION].selected == true) {
+		if (items[ItemType::GOLD_PROTECTION].selected == true) {
 			app->render->DrawTexture(itemSold, 359, 269, NULL, 3);
 		}
 
-		if (items[FIRE_PROTECTION].selected == true) {
+		if (items[ItemType::FIRE_PROTECTION].selected == true) {
 			app->render->DrawTexture(itemSold, 497, 269, NULL, 3);
 		}
 
-		if (items[WOOD_BOW].selected == true) {
+		if (items[ItemType::WOOD_BOW].selected == true) {
 			app->render->DrawTexture(itemSold, 80, 364, NULL, 3);
 		}
 
-		if (items[STEEL_BOW].selected == true) {
+		if (items[ItemType::STEEL_BOW].selected == true) {
 			app->render->DrawTexture(itemSold, 215, 364, NULL, 3);
 		}
 
-		if (items[GOLD_BOW].selected == true) {
+		if (items[ItemType::GOLD_BOW].selected == true) {
 			app->render->DrawTexture(itemSold, 359, 364, NULL, 3);
 		}
 
-		if (items[DIAMOND_BOW].selected == true) {
+		if (items[ItemType::DIAMOND_BOW].selected == true) {
 			app->render->DrawTexture(itemSold, 497, 364, NULL, 3);
 		}
 
-		if (items[WOOD_WAND].selected == true) {
+		if (items[ItemType::WOOD_WAND].selected == true) {
 			app->render->DrawTexture(itemSold, 80, 465, NULL, 3);
 		}
 
-		if (items[AMATIST_WAND].selected == true) {
+		if (items[ItemType::AMATIST_WAND].selected == true) {
 			app->render->DrawTexture(itemSold, 215, 465, NULL, 3);
 		}
 
-		if (items[RUBY_WAND].selected == true) {
+		if (items[ItemType::RUBY_WAND].selected == true) {
 			app->render->DrawTexture(itemSold, 359, 465, NULL, 3);
 		}
 
-		if (items[DIAMOND_WAND].selected == true) {
+		if (items[ItemType::DIAMOND_WAND].selected == true) {
 			app->render->DrawTexture(itemSold, 497, 465, NULL, 3);
 		}
 	}
 }
+
+void Shop::buyItem(ItemType itemType, Item *item)
+{
+	if (!app->scene->player->isItemInInventory(itemType))
+	{
+		if (app->scene->player->coins >= item->price)
+		{
+			items[itemType].selected = true;
+			app->scene->player->addItemToIventory(item);
+		}
+	}
+}
+
+
+

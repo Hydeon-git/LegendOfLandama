@@ -22,9 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-GoldBow::GoldBow() : Item(ItemType::Gold_Bow)
+GoldBow::GoldBow() : Item(ItemType::GOLD_BOW)
 {
 	texture = app->tex->Load("Assets/Textures/gold_bow.png");
+	price = 12;
 
 
 }

@@ -22,9 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-DiamondBow::DiamondBow() : Item(ItemType::Diamond_Bow)
+DiamondBow::DiamondBow() : Item(ItemType::DIAMOND_BOW)
 {
 	texture = app->tex->Load("Assets/Textures/diamond_bow.png");
+	price = 20;
 
 
 }

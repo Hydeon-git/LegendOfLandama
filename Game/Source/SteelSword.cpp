@@ -22,11 +22,11 @@
 #define COLLIDER_YELLOW 268
 
 
-SteelSword::SteelSword() : Item(ItemType::Steel_Sword)
+SteelSword::SteelSword() : Item(ItemType::STEEL_SWORD)
 {
 
 	texture = app->tex->Load("Assets/Textures/steel_sword.png");
-
+	price = 8;
 }
 
 // Destructor

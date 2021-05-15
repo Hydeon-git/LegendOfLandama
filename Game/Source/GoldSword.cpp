@@ -22,9 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-GoldSword::GoldSword() : Item(ItemType::Gold_Sword)
+GoldSword::GoldSword() : Item(ItemType::GOLD_SWORD)
 {
 	texture = app->tex->Load("Assets/Textures/gold_sword.png");
+	price = 12;
 
 }
 

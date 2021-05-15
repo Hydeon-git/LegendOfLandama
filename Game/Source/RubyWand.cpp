@@ -22,9 +22,10 @@
 #define COLLIDER_YELLOW 268
 
 
-RubyWand::RubyWand() : Item(ItemType::Ruby_Wand)
+RubyWand::RubyWand() : Item(ItemType::RUBY_WAND)
 {
 	texture = app->tex->Load("Assets/Textures/rubi_wand.png");
+	price = 12;
 
 
 }

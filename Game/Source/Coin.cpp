@@ -22,7 +22,7 @@
 #define COLLIDER_YELLOW 268
 
 
-Coin::Coin(iPoint pos) : Item(ItemType::Coin)
+Coin::Coin(iPoint pos) : Item(ItemType::COIN)
 {
 
 
