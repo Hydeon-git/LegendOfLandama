@@ -66,8 +66,6 @@ bool Quests::Start()
 		questsTex = app->tex->Load("Assets/Textures/quests.png");
 		markTex = app->tex->Load("Assets/Textures/quest_done.png");
 		journalTex = app->tex->Load("Assets/Textures/tasks.png");
-		questFx = app->audio->LoadFx("Assets/Audio/Fx/open_quest.wav");
-		questDoneFx = app->audio->LoadFx("Assets/Audio/Fx/quest_done.wav");
 		questsIsOpen = false;
 
 	}
@@ -82,19 +80,16 @@ bool Quests::Update(float dt)
 	{
 		questsIsOpen = true;
 		app->hud->bagIsOpen = false;
-		app->audio->PlayFx(questFx, 0);
 		app->shop->open = false;
 
 	} else if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && questsIsOpen || pad.b == true)
 	{
 		questsIsOpen = false;
-		app->audio->PlayFx(questFx, 0);
 	}
 
-	if (app->sceneBattle->enemy1Dead && app->sceneBattle->enemy2Dead && app->sceneBattle->enemy3Dead)
+	if (app->sceneBattle->enemy1Dead && app->sceneBattle->enemy2Dead && app->sceneBattle->enemy3Dead || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 	{
 		quest1Done = true;
-
 	}
 	
 	if (app->sceneDungeon->active)
@@ -200,11 +195,6 @@ bool Quests::PostUpdate()
 
 	if (quest1Done)
 	{
-		if (counterQuest1 < 2)
-		{
-			app->audio->PlayFx(questDoneFx, 0);
-		}
-
 		if (counterQuest1 < 200) 
 		{
 			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
@@ -216,10 +206,6 @@ bool Quests::PostUpdate()
 	
 	if (quest2Done)
 	{
-		if (counterQuest2 < 2)
-		{
-			app->audio->PlayFx(questDoneFx, 0);
-		}
 		if (counterQuest2 < 200)
 		{
 			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
@@ -230,10 +216,6 @@ bool Quests::PostUpdate()
 	}
 	if (quest3Done)
 	{
-		if (counterQuest3 < 2)
-		{
-			app->audio->PlayFx(questDoneFx, 0);
-		}
 		if (counterQuest3 < 200)
 		{
 			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
@@ -314,7 +296,7 @@ void Quests::drawMark2()
 	SrcR.h = 720;
 
 	DestR.x = 400;
-	DestR.y = 326;
+	DestR.y = 426;
 	DestR.w = 40;
 	DestR.h = 40;
 	SDL_RenderCopy(app->render->renderer, markTex, &SrcR, &DestR);
