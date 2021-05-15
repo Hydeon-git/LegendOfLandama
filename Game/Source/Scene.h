@@ -167,6 +167,8 @@ private:
 	uint doorOpenFx = 0;
 	uint doorCloseFx = 0;
 	uint doorKnokFx = 0;
+
+	int count = 0;
 };
 
 #endif // __SCENE_H__

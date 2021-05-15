@@ -414,6 +414,10 @@ bool Scene::Update(float dt)
 			if (pos > 3) pos = 0;
 		}
 	}
+	if (count <= 401)
+	{
+		count++;
+	}
 	return true;
 }
 
@@ -429,6 +433,16 @@ bool Scene::PostUpdate()
 	app->map->DrawPuzzle();
 	if (!app->map->chestTaken) app->map->DrawChest();
 	if (app->map->chestTaken) app->map->DrawHeart();
+
+	if (count < 400)
+	{
+		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+		app->font->DrawText(15, 205, whiteFont, "Talk with people to get quests");
+		app->font->DrawText(15, 220, whiteFont, "Press Q or RB to open quest list");
+	}
+
 
 	// Draw Road Signal
 	if (player->ThereIsLimit())
