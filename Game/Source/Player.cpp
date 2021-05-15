@@ -209,6 +209,8 @@ bool Player::Start()
 
 bool Player::Update(float dt)
 {
+	GamePad& pad = app->input->pads[0];
+
 	if (loaded)
 	{
 		app->render->camera.x = -588;
@@ -224,7 +226,8 @@ bool Player::Update(float dt)
 		{
 			if (!app->scene->paused && !app->sceneDungeon->paused && !dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen && !app->quests->questsIsOpen) 
 			{
-				if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+				if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up == true) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+
 				{
 					if (!ThereIsTopWall() && !ThereIsNPCUp())
 					{
@@ -285,7 +288,7 @@ bool Player::Update(float dt)
 
 					}
 				}
-				if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+				if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down == true) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{
 					if (!ThereIsBottomWall() && !ThereIsNPCBelow())
 					{
@@ -347,7 +350,7 @@ bool Player::Update(float dt)
 					}
 				}
 
-				if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
+				if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left == true) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 				{
 					if (!ThereIsLeftWall() && !ThereIsNPCLeft())
 					{
@@ -407,7 +410,7 @@ bool Player::Update(float dt)
 
 					}
 				}
-				else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
+				else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right == true) && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 				{
 					if (!ThereIsRightWall() && !ThereIsNPCRight())
 					{

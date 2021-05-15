@@ -87,14 +87,33 @@ bool SceneIntro::Start()
 
 	/*checkBoxVSync = new GuiCheckBox(2, { 225,370,10,10 }, "   VSYNC");
 	checkBoxVSync->SetObserver(this);*/
-
+	
 	pos = 0;
-
+	app->input->Enable();
 	return ret;
 }
 
 bool SceneIntro::Update(float dt)
 {
+	GamePad& pad = app->input->pads[0];
+	//Debug key for gamepad rumble testing purposes
+
+	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		app->input->ShakeController(0, 12, 0.33f);
+	}
+
+	//Debug key for gamepad rumble testing purposes
+	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	{
+		app->input->ShakeController(0, 36, 0.66f);
+	}
+
+	//Debug key for gamepad rumble testing purposes
+	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		app->input->ShakeController(0, 60, 1.0f);
+	}
 
 	if (count <= 200) 
 	{
@@ -118,17 +137,17 @@ bool SceneIntro::Update(float dt)
 			btnOptions->Update(dt);
 			btnExit->Update(dt);
 		}
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { Select(); }
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a == true) { Select(); }
 		if (!options)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up == true)
 			{
 				pos--;
 				if (pos < 0) pos = 3;
 				if (pos == 1 && !posContinue) pos--;
 			}
 
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down == true)
 			{
 				pos++;
 				if (pos > 3) pos = 0;
@@ -137,13 +156,13 @@ bool SceneIntro::Update(float dt)
 		}
 		else if (options)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up == true)
 			{
 				pos--;
 				if (pos < 4) pos = 5;
 			}
 
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down == true)
 			{
 				pos++;
 				if (pos > 5) pos = 4;

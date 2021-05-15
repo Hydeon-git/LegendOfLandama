@@ -3,9 +3,15 @@
 
 #include "Module.h"
 
+#include "SDL/include/SDL_scancode.h"
+
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
+#define MAX_PADS 4
+
+struct _SDL_GameController;
+struct _SDL_Haptic;
 
 struct SDL_Rect;
 
@@ -24,6 +30,28 @@ enum KeyState
 	KEY_REPEAT,
 	KEY_UP
 };
+
+
+struct GamePad
+{
+	//Input data
+	bool start, back, guide;
+	bool x, y, a, b, l1, r1, l3, r3;
+	bool up, down, left, right;
+	float l2, r2;
+	float l_x, l_y, r_x, r_y, l_dz, r_dz;
+
+	//Controller data
+	bool enabled;
+	int index;
+	_SDL_GameController* controller;
+	_SDL_Haptic* haptic;
+
+	//Rumble controller
+	int rumble_countdown;
+	float rumble_strength;
+};
+
 
 class Input : public Module
 {
@@ -65,6 +93,21 @@ public:
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
+	// Activates SDL device funcionallity when a gamepad has been connected
+	void HandleDeviceConnection(int index);
+
+	// Deactivates SDL device funcionallity when a gamepad has been disconnected
+	void HandleDeviceRemoval(int index);
+
+	// Called at PreUpdate
+	// Iterates through all active gamepads and update all input data
+	void UpdateGamepadsInput();
+
+	bool ShakeController(int id, int duration, float strength = 0.5f);
+	const char* GetControllerName(int id) const;
+
+	GamePad pads[MAX_PADS];
+
 private:
 	bool windowEvents[WE_COUNT];
 	KeyState*	keyboard;
@@ -73,6 +116,8 @@ private:
 	int mouseMotionY;
 	int mouseX;
 	int mouseY;
+
+	
 };
 
 #endif // __INPUT_H__
