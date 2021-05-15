@@ -84,6 +84,16 @@ bool SceneDungeon::Start()
 		enemy1->Start();
 		enemy2->Start();
 		enemy3->Start();		
+		
+		app->scene->mageTkn=true;
+		app->scene->knightTkn=true;
+
+		app->scene->player->kDoorTaked = false; 
+		app->scene->player->doorTaked = false; 
+
+		app->scene->player->kDoorTaked = false;
+		app->scene->player->doorTaked = false;
+
 
 		// Texture assignations for the scene dungeon
 		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");

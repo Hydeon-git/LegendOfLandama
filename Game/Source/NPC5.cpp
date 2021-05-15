@@ -146,12 +146,16 @@ bool NPC5::Update(float dt)
 
 
 				//movement
-			if (app->scene->player->posMoved < 24)
+			if (app->scene->player->posMoved < 24 && !app->sceneDungeon->active)
 			{
 				if (app->scene->player->lastPositionX != 0) position.x = app->scene->player->lastPositionX;
 				if (app->scene->player->lastPositionY != 0) position.y = app->scene->player->lastPositionY - 5;
 			}
-
+			if (app->scene->player->kposMoved < 24 && app->sceneDungeon->active)
+			{
+				if (app->sceneDungeon->player->lastPositionX != 0) app->sceneDungeon->npc5->position.x = app->sceneDungeon->player->lastPositionX;
+				if (app->sceneDungeon->player->lastPositionY != 0) app->sceneDungeon->npc5->position.y = app->sceneDungeon->player->lastPositionY - 5;
+			}
 
 
 
@@ -208,7 +212,7 @@ bool NPC5::Update(float dt)
 
 		//if (!app->scene->player->doorTakedX || !app->scene->player->doorTakedY)
 		//rotation
-			if (!app->scene->player->doorTaked)
+			if (!app->scene->player->doorTaked && !app->sceneDungeon->active)
 			{
 				if (app->scene->player->lastPositionX < app->scene->player->lastPosX[23])
 				{
@@ -223,6 +227,30 @@ bool NPC5::Update(float dt)
 					currentAnimation = &upAnim;
 				}
 				else if (app->scene->player->lastPositionY < app->scene->player->lastPosY[23])
+				{
+					currentAnimation = &rightAnim;
+				}
+				else
+				{
+					currentAnimation = &idlAnim;
+
+				}
+			}
+			if (!app->scene->player->doorTaked && app->sceneDungeon->active)
+			{
+				if (app->sceneDungeon->player->lastPositionX < app->sceneDungeon->player->lastPosX[23])
+				{
+					currentAnimation = &rightAnim;
+				}
+				else if (app->sceneDungeon->player->lastPositionX > app->sceneDungeon->player->lastPosX[23])
+				{
+					currentAnimation = &leftAnim;
+				}
+				else if (app->sceneDungeon->player->lastPositionY > app->sceneDungeon->player->lastPosY[23])
+				{
+					currentAnimation = &upAnim;
+				}
+				else if (app->sceneDungeon->player->lastPositionY < app->sceneDungeon->player->lastPosY[23])
 				{
 					currentAnimation = &rightAnim;
 				}

@@ -32,13 +32,13 @@ NPC7::NPC7() : Entity(EntityType::NPC7)
 		position.x = 105;
 		position.y = 122;
 	}
-	else if(app->sceneBattle->knightRevive)
+	else if (app->sceneBattle->knightRevive)
 	{
 		app->scene->player->battleDoneKnight = false;
 		app->scene->knightTkn = false;
 		position.x = 128;
 		position.y = 139;
-		
+
 	}
 	else {
 		//position.x = app->scene->player->lastPositionX;
@@ -133,12 +133,22 @@ bool NPC7::Update(float dt)
 				app->scene->player->kposMoved = 0;
 				app->scene->player->kDoorTaked2 = false;
 			}
-			// Movement
-			if (app->scene->player->kposMoved < 49)
+
+			//movement
+			if (app->scene->player->kposMoved < 49 && !app->sceneDungeon->active)
+
 			{
 				if (app->scene->player->klastPositionX != 0) position.x = app->scene->player->klastPositionX;
 				if (app->scene->player->klastPositionY != 0) position.y = app->scene->player->klastPositionY - 5;
 			}
+
+			if (app->scene->player->kposMoved < 49 && app->sceneDungeon->active)
+			{
+				if (app->sceneDungeon->player->klastPositionX != 0) app->sceneDungeon->npc7->position.x = app->sceneDungeon->player->klastPositionX;
+				if (app->sceneDungeon->player->klastPositionY != 0) app->sceneDungeon->npc7->position.y = app->sceneDungeon->player->klastPositionY - 5;
+			}
+
+
 
 			if (app->scene->player->kDoorTaked)
 			{
@@ -150,8 +160,13 @@ bool NPC7::Update(float dt)
 					app->scene->player->kDoorTaked = false;
 				}
 			}
-			
-			if (!app->scene->player->kDoorTaked)
+
+
+
+
+
+			//rotation
+			if (!app->scene->player->kDoorTaked && !app->sceneDungeon->active)
 			{
 				if (app->scene->player->klastPositionX < app->scene->player->klastPosX[48])
 				{
@@ -175,6 +190,32 @@ bool NPC7::Update(float dt)
 
 				}
 			}
+
+			if (!app->scene->player->kDoorTaked && app->sceneDungeon->active)
+			{
+				if (app->sceneDungeon->player->klastPositionX < app->sceneDungeon->player->klastPosX[48])
+				{
+					currentAnimation = &rightAnim;
+				}
+				else if (app->sceneDungeon->player->klastPositionX > app->sceneDungeon->player->klastPosX[48])
+				{
+					currentAnimation = &leftAnim;
+				}
+				else if (app->sceneDungeon->player->klastPositionY > app->sceneDungeon->player->klastPosY[48])
+				{
+					currentAnimation = &upAnim;
+				}
+				else if (app->sceneDungeon->player->klastPositionY < app->sceneDungeon->player->klastPosY[48])
+				{
+					currentAnimation = &rightAnim;
+				}
+				else
+				{
+					currentAnimation = &idlAnim;
+
+				}
+			}
+
 		}
 	}
 	currentAnimation->Update();
@@ -186,7 +227,7 @@ bool NPC7::PostUpdate()
 	if ((this->active == true) && (!app->scene->paused) && (!app->sceneDungeon->paused) && !app->sceneBattle->knightDead)
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		// app->render->DrawTexture(texNPC7, position.x, position.y, &rect);
+		app->render->DrawTexture(texNPC7, position.x, position.y, &rect);
 	}
 	return true;
 }

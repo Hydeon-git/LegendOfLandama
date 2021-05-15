@@ -61,6 +61,12 @@ public:
 
 	DungeonScene currentScene;
 
+	// Player
+	Player* player;
+	// NPCS
+	NPC5* npc5;
+	NPC7* npc7;
+
 private:
 	int whiteFont = -1;
 	SDL_Texture* winText = nullptr;
@@ -86,11 +92,7 @@ private:
 	int pos = 0;
 	int posScaleY = 0, posScaleX = 0;
 
-	// Player
-	Player* player;
-	// NPCS
-	NPC5* npc5;
-	NPC7* npc7;
+
 	// Enemy
 	Enemy1* enemy1;
 	Enemy2* enemy2;
