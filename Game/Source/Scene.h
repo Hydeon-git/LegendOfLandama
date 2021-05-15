@@ -106,6 +106,8 @@ public:
 	bool enemyMoving = false;
 	bool houseClosed = false;
 	
+	bool mageTxt = false;
+	bool mageTxt2 = false;
 	bool mageTkn = false;
 	bool knightTkn = false;
 	bool fromDungeon = false;
@@ -172,6 +174,7 @@ private:
 	uint doorKnokFx = 0;
 
 	int count = 0;
+	int count2 = 0;
 
 };
 
