@@ -54,14 +54,14 @@
       <dialogue option="1: I@m here to save Landama!" returnCode="0" nextNode="1"/>
       <dialogue option="2: I@m sorry!" returnCode="0" nextNode="2"/>
     </node>
-    <node text="You what!? I@m calling the guards!"  id="1">
-      <dialogue option="1: Please don@t!" returnCode="0" nextNode="3"/>
-      <dialogue option="2: Let@s fight old man. Prepare to die!" returnCode="0" nextNode="2"/>
+    <node text="You will have to fight if you want to save us"  id="1">
+      <dialogue option="1: I don@t know if I can fight alone" returnCode="0" nextNode="3"/>
+      <dialogue option="2: I will kill all of them!" returnCode="0" nextNode="2"/>
     </node>
-    <node text="Get out of here before I kill you!" id="2">
-      <dialogue option="1: Bye!" returnCode="0" nextNode="3"/>
+    <node text="I have a quest for you lady" id="2">
+      <dialogue option="1: Okay, I will help you!" returnCode="0" nextNode="3"/>
     </node>
-    <node text="Young people don@t have any respect..." id="3">
+    <node text="Poor girl, I hope she can defeat them..." id="3">
 	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
 	</node>    
   </NPC>
@@ -79,11 +79,11 @@
     </node>
 	<node text="The knights are searching for a mercenary."  id="2">
       <dialogue option="1: That@s helpful, thanks." returnCode="0" nextNode="3"/>
-    </node>	
-	<node text="Okay, see you!"  id="3">
+    </node>
+	<node text="Go with the Blacksmith before leaving the town"  id="3">
 	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
 	</node>
-	<node text="Have a nice rest."  id="4">
+    <node text="You can also buy items to the Blacksmith"  id="4">
 	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
 	</node>	
   </NPC>
