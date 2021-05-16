@@ -54,7 +54,6 @@ public:
 	int knightHealth = 100;
 	int knightMagicDmg = 40;
 
-	
 
 private:
 	float speed = 1.0f;

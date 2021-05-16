@@ -228,6 +228,7 @@ bool NPC7::PostUpdate()
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC7, position.x, position.y, &rect);
+	
 	}
 	return true;
 }
@@ -235,7 +236,10 @@ bool NPC7::PostUpdate()
 bool NPC7::CleanUp()
 {
 	LOG("Freeing scene");
+
 	app->tex->UnLoad(texNPC7);
+
+
 	return true;
 }
 

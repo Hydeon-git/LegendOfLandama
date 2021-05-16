@@ -675,15 +675,15 @@ void Scene::ChangeScene(GameScene nextScene)
 				npc5->Start();
 			}
 
-			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
-			npc7->Start();
+			//npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			//npc7->Start();
 			//unload knight
-			if (!app->scene->knightTkn)
+			/*if (!knightTkn && !app->sceneBattle->knightRevive)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
 				npc7 = nullptr;
-			}
+			}*/
 
 			// Setting dialogue to id 0 Beach Girl and restart dialog system
 			app->dialogueSystem->CleanUp();
@@ -858,14 +858,14 @@ void Scene::ChangeScene(GameScene nextScene)
 			}
 
 			//unload knight
-			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
-			npc7->Start();
-			if (!app->scene->knightTkn)
+			//npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			//npc7->Start();
+			/*if (!knightTkn)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
 				npc7 = nullptr;
-			}
+			}*/
 
 			// Creates Fisherman and starts it	
 			npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
@@ -921,10 +921,10 @@ void Scene::ChangeScene(GameScene nextScene)
 				app->entityManager->DestroyEntity(npc5);
 				npc5 = nullptr;
 			}
-			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
-			npc7->Start();
+			//npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			//npc7->Start();
 			//unload knight
-			if (!app->scene->knightTkn)
+			if (!knightTkn)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
@@ -981,10 +981,10 @@ void Scene::ChangeScene(GameScene nextScene)
 				app->entityManager->DestroyEntity(npc5);
 				npc5 = nullptr;
 			}
-			npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
-			npc7->Start();
+			//npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+			//npc7->Start();
 			//unload knight
-			if (!app->scene->knightTkn)
+			if (!knightTkn)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
@@ -1056,8 +1056,7 @@ void Scene::ChangeScene(GameScene nextScene)
 				npc5 = nullptr;
 			}
 
-			// Load knight
-			if (!app->scene->knightTkn)
+			if (!knightTkn && !app->sceneBattle->knightRevive)
 			{
 				npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 				npc7->Start();
