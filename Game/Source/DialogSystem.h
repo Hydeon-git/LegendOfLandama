@@ -69,6 +69,7 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
+	void Select();
 	void PerformDialogue(int treeId);
 	bool LoadDialogue(const char*);
 	bool LoadNodes(pugi::xml_node& trees, DialogueTree* oak);
@@ -87,6 +88,10 @@ private:
 	Input* input;
 	Render* render;
 	Textures* tex;
+
+	int pos = 0;
+	int posScaleY = 0, posScaleX = 0;
+
 	void checkPurchase();
 };
 #endif // __DIALOGSYSTEM_H__

@@ -4,87 +4,87 @@
    <!-- Beach Girl -->
   <NPC Id="0">
     <node text="Hello stranger!" id="0">
-      <dialogue option="1: What are you doing?" returnCode="0" nextNode="1"/>
-      <dialogue option="2: Hello little girl!" returnCode="0" nextNode="4"/>
+      <dialogue option="  What are you doing?" returnCode="0" nextNode="1"/>
+      <dialogue option="  Hello little girl!" returnCode="0" nextNode="4"/>
     </node>
     <node text="I@m collecting shells from the beach."  id="1">
-      <dialogue option="1: What are those for?" returnCode="0" nextNode="2"/>
-      <dialogue option="2: Losing time huh?" returnCode="0" nextNode="7"/>
+      <dialogue option="  What are those for?" returnCode="0" nextNode="2"/>
+      <dialogue option="  Losing time huh?" returnCode="0" nextNode="7"/>
     </node>
 	<node text="I@m making a necklace for mommy!" id="2">
-      <dialogue option="1: That@s very cool! She@ll love it!" returnCode="0" nextNode="3"/>
+      <dialogue option="  That@s very cool! She@ll love it!" returnCode="0" nextNode="3"/>
     </node>
     <node text="I@m leaving now, see you!" id="3">
-      <dialogue option="1: Bye!" returnCode="0" nextNode="8"/>
+      <dialogue option="  Bye!" returnCode="0" nextNode="8"/>
     </node>
 	<node text="Hello kind stranger." id="4">
-      <dialogue option="1: Do you know where the Inn is?" returnCode="0" nextNode="5"/>
-      <dialogue option="2: Do you know where the Blacksmith is?" returnCode="0" nextNode="6"/>
+      <dialogue option="  Do you know where the Inn is?" returnCode="0" nextNode="5"/>
+      <dialogue option="  Do you know where the Blacksmith is?" returnCode="0" nextNode="6"/>
     </node>
 	<node text="You can find the Inn at the town center." id="5">
-      <dialogue option="1: Thanks!" returnCode="0" nextNode="8"/>	  
-      <dialogue option="2: Do you know where is the Blacksmith?" returnCode="0" nextNode="6"/>
+      <dialogue option="  Thanks!" returnCode="0" nextNode="8"/>	  
+      <dialogue option="  Do you know where is the Blacksmith?" returnCode="0" nextNode="6"/>
     </node>
 	<node text="You can find it on the north-east." id="6">
-      <dialogue option="1: Thanks!" returnCode="0" nextNode="8"/>
-      <dialogue option="2: Do you know where is the Inn?" returnCode="0" nextNode="5"/>
+      <dialogue option="  Thanks!" returnCode="0" nextNode="8"/>
+      <dialogue option="  Do you know where is the Inn?" returnCode="0" nextNode="5"/>
     </node>
     <node text="Uh? *snif* I@m going home..." id="7">
-	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="6"/>
+	 <dialogue option="  Press R to end the conversation." returnCode="0" nextNode="6"/>
 	</node>
     <node text="Bye!" id="8">
-	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="8"/>
+	 <dialogue option="  Press R to end the conversation." returnCode="0" nextNode="8"/>
 	</node>    
   </NPC>
   
   <!-- Blacksmith -->
   <NPC Id="1">
     <node text="Hello adventurer! Do you wanna buy something?" id="0">
-      <dialogue option="1: Yes" returnCode="1" nextNode="172"/>
-      <dialogue option="2: No, I'm just looking. Thank you." returnCode="0" nextNode="1"/>
+      <dialogue option="  Yes" returnCode="1" nextNode="172"/>
+      <dialogue option="  No, I'm just looking. Thank you." returnCode="0" nextNode="1"/>
     </node>
     <node text="Goodbye! Take care." id="1">
-	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
+	 <dialogue option="  Press R to end the conversation." returnCode="0" nextNode="5"/>
 	</node>    
   </NPC>
   
   <!-- Fisherman -->
   <NPC Id="2">
     <node text="What are you doing on my house?"  id="0">
-      <dialogue option="1: I@m here to save Landama!" returnCode="0" nextNode="1"/>
-      <dialogue option="2: I@m sorry!" returnCode="0" nextNode="2"/>
+      <dialogue option="  I@m here to save Landama!" returnCode="0" nextNode="1"/>
+      <dialogue option="  I@m sorry!" returnCode="0" nextNode="2"/>
     </node>
-    <node text="You will have to fight if you want to save us"  id="1">
-      <dialogue option="1: I don@t know if I can fight alone" returnCode="0" nextNode="3"/>
-      <dialogue option="2: I will kill all of them!" returnCode="0" nextNode="2"/>
+    <node text="You will have to fight if you want to save us."  id="1">
+      <dialogue option="  I don@t know if I can fight alone." returnCode="0" nextNode="3"/>
+      <dialogue option="  I will kill all of them!" returnCode="0" nextNode="2"/>
     </node>
-    <node text="I have a quest for you lady" id="2">
-      <dialogue option="1: Okay, I will help you!" returnCode="0" nextNode="3"/>
+    <node text="I have a quest for you, lady." id="2">
+      <dialogue option="  Okay, I will help you!" returnCode="0" nextNode="3"/>
     </node>
     <node text="Poor girl, I hope she can defeat them..." id="3">
-	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
+	 <dialogue option="  Press R to end the conversation." returnCode="0" nextNode="5"/>
 	</node>    
   </NPC>
   
   <!-- Posadera -->
   <NPC Id="3">
     <node text="Greetings adventurer! What can I do for you?"  id="0">
-      <dialogue option="1: I want to stay one night!" returnCode="0" nextNode="1"/>
-      <dialogue option="2: Give me some information." returnCode="0" nextNode="2"/>
-      <dialogue option="3: Bye" returnCode="0" nextNode="3"/>
+      <dialogue option="  I want to stay one night!" returnCode="0" nextNode="1"/>
+      <dialogue option="  Give me some information." returnCode="0" nextNode="2"/>
+      <dialogue option="  Bye" returnCode="0" nextNode="3"/>
     </node>
-	<node text="Perfect! That will be 2 gold coins"  id="1">
-      <dialogue option="1: Here. (Give her 2 gold coins)" returnCode="0" nextNode="4"/>
-      <dialogue option="2: You know, I think I@m gonna pass." returnCode="0" nextNode="3"/>
+	<node text="Perfect! That will be 2 gold coins."  id="1">
+      <dialogue option="  Here. (Give her 2 gold coins)" returnCode="0" nextNode="4"/>
+      <dialogue option="  You know, I think I@m gonna pass." returnCode="0" nextNode="3"/>
     </node>
 	<node text="The knights are searching for a mercenary."  id="2">
-      <dialogue option="1: That@s helpful, thanks." returnCode="0" nextNode="3"/>
+      <dialogue option="  That@s helpful, thanks." returnCode="0" nextNode="3"/>
     </node>
-	<node text="Go with the Blacksmith before leaving the town"  id="3">
-	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
+	<node text="Visit the Blacksmith before leaving the town."  id="3">
+	 <dialogue option="  Press R to end the conversation." returnCode="0" nextNode="5"/>
 	</node>
-    <node text="You can also buy items to the Blacksmith"  id="4">
-	 <dialogue option="Press R to end the conversation." returnCode="0" nextNode="5"/>
+    <node text="You can also buy items to the Blacksmith."  id="4">
+	 <dialogue option="  Press R to end the conversation." returnCode="0" nextNode="5"/>
 	</node>	
   </NPC>
 </dialogueTree>

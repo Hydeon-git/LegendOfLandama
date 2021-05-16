@@ -159,11 +159,11 @@ bool SceneDungeon::Update(float dt)
 		// Camera x
 		if ((app->render->counter == 0 || player->godModeEnabled))
 		{
-			if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) 
-				&& !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
-				&& !(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
-				&& !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left)
+				&& (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !pad.right)
+				&& (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) && !pad.right)
+				&& (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !pad.up)
+				&& (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !pad.down)
 				&& !player->ThereIsLeftWall() 
 				&& !player->ThereIsNPCLeft())
 			{
@@ -171,11 +171,11 @@ bool SceneDungeon::Update(float dt)
 			}
 				
 
-			else if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
-				&& !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right)
+				&& (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && pad.left)
+				&& (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) && pad.left)
+				&& (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !pad.up)
+				&& (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !pad.down)
 				&& !player->ThereIsRightWall()
 				&& !player->ThereIsNPCRight())
 			{
@@ -187,23 +187,23 @@ bool SceneDungeon::Update(float dt)
 		if ((app->render->counter == 0 || player->godModeEnabled))
 		{
 
-			if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up)
+				&& (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !pad.down)
+				&& (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && !pad.down)
 				&& !player->ThereIsTopWall()
 				&& !player->ThereIsNPCUp()
-				&& !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+				&& (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !pad.left)
+				&& (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !pad.right))
 			{
 				app->render->camera.y += 3.0f;
 			}
-			else if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			else if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down)
+				&& (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !pad.up)
+				&& (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && !pad.up)
 				&& !player->ThereIsBottomWall()
 				&& !player->ThereIsNPCBelow()
-				&& !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-				&& !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+				&& (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !pad.left)
+				&& (!(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !pad.right))
 			{
 				app->render->camera.y -= 3.0f;
 			}

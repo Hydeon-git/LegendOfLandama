@@ -31,39 +31,22 @@ bool DialogueSystem::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
-		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
-		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
-		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
-		
-		checkPurchase();
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a == true) { Select(); }
 
-		playerInput = 0;
-		PerformDialogue(id);
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up == true)
+	{
+		pos--;
+		if (pos < 0 && currentNode->answersList.Count() == 2) pos = 1;
+		else if (pos < 0 && currentNode->answersList.Count() == 3) pos = 2;
+		else if (pos < 0 && currentNode->answersList.Count() == 1) pos = 0;
 	}
 
-	if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down == true)
 	{
-		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
-		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
-		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
-		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
-
-		playerInput = 1;
-		PerformDialogue(id);
-	}
-
-	if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
-		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
-		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
-		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
-
-		playerInput = 2;
-		PerformDialogue(id);
+		pos++;
+		if (pos > 2 && currentNode->answersList.Count() == 3) pos = 0;
+		else if (pos > 1 && currentNode->answersList.Count() == 2) pos = 0;
+		else if (pos > 0 && currentNode->answersList.Count() == 1) pos = 0;
 	}
 
 	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || pad.b == true)
@@ -127,10 +110,67 @@ bool DialogueSystem::PostUpdate()
 				sprintf_s(response, 128, currentNode->answersList.At(i)->data.c_str(), 56);
 				app->font->DrawText(15, 198 + 14 * i, app->scene->whiteFont, response);
 			}
+
+			if (pos == 0)
+			{
+				posScaleY = 196;
+			}
+			if (pos == 1)
+			{
+				posScaleY = 210;
+			}
+			if (pos == 2)
+			{
+				posScaleY = 224;
+			}
+			app->render->DrawTexture(pointerText, 15, posScaleY, NULL);
 		}
 	}
 
 	return ret;
+}
+
+void DialogueSystem::Select()
+{
+
+	if (pos == 0)
+	{
+		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
+		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
+		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
+		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
+
+		checkPurchase();
+
+		playerInput = 0;
+		PerformDialogue(id);
+		pos = 0;
+	}
+	else if (pos == 1)
+	{
+		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
+		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
+		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
+		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
+
+		playerInput = 1;
+		PerformDialogue(id);
+		pos = 0;
+	}
+
+	else if (pos == 2)
+	{
+		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
+		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) id = 2;
+		else if (app->scene->currentScene == GameScene::SCENE_BSMITH) id = 1;
+		else if (app->scene->currentScene == GameScene::SCENE_INN) id = 3;
+
+		playerInput = 2;
+		PerformDialogue(id);
+		pos = 0;
+	}
+	
+
 }
 
 bool DialogueSystem::CleanUp()

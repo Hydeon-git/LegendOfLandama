@@ -24,6 +24,6 @@
 	<HUD />
 	<Quests />
 	<renderer>
-		<camera x="-167" y="-323" />
+		<camera x="-35" y="-847" />
 	</renderer>
 </save_state>
