@@ -12,9 +12,6 @@
 #include "NPC4.h"
 #include "NPC5.h"
 #include "NPC7.h"
-#include "Enemy1.h"
-#include "Enemy2.h"
-#include "Enemy3.h"
 #include "EntityManager.h"
 #include "FadeToBlack.h"
 #include "PathFinding.h"
@@ -76,19 +73,11 @@ bool SceneDungeon::Start()
 		npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
 		npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 
-		enemy1 = (Enemy1*)app->entityManager->CreateEntity(EntityType::Enemy1);
-		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
-		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
-
 		app->scene->player->dead = false;
 		player->Start();
 
 		npc5->Start();
-		npc7->Start();
-
-		enemy1->Start();
-		enemy2->Start();
-		enemy3->Start();		
+		npc7->Start();			
 		
 		app->scene->mageTkn=true;
 		app->scene->knightTkn=true;
@@ -390,12 +379,13 @@ bool SceneDungeon::PostUpdate()
 			app->font->DrawText(30, 20, whiteFont, "200 coins added to your inventary");
 			app->font->DrawText(30, 35, whiteFont, "going to deliver the sword...");
 		}
-		//else
-		//{
-		//	countSword = 500;
-		//	app->fadeToBlack->FadeToBlk(this, app->scene, 30);
-		//	app->fadeToBlack->animId = 1;
-		//}
+		else
+		{
+			countSword = 500;
+			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+			app->fadeToBlack->animId = 1;
+			app->scene->fromDungeon = true;
+		}
 
 	}
 
@@ -538,9 +528,6 @@ bool SceneDungeon::CleanUp()
 	app->entityManager->DestroyEntity(player);	
 	app->entityManager->DestroyEntity(npc5);
 	app->entityManager->DestroyEntity(npc7);
-	app->entityManager->DestroyEntity(enemy1);
-	app->entityManager->DestroyEntity(enemy2);
-	app->entityManager->DestroyEntity(enemy3);
 
 	app->map->Disable();
 	app->entityManager->Disable();

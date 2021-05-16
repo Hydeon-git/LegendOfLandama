@@ -488,7 +488,7 @@ bool Player::Update(float dt)
 				app->sceneBattle->battleOn = true;
 
 				app->fadeToBlack->FadeToBlk(app->scene, app->sceneBattle, 30);
-				app->fadeToBlack->animId = 2;
+				app->fadeToBlack->animId = 3;
 			}
 
 						

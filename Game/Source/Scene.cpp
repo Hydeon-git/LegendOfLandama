@@ -66,7 +66,7 @@ bool Scene::Start()
 	if (this->active == true)
 	{
 		// Set Current Scene to TOWN
-		currentScene = GameScene::SCENE_TOWN;
+		currentScene = GameScene::SCENE_TOWN;		
 
 		// EntityManager Start
 		app->entityManager->Enable();
@@ -92,6 +92,7 @@ bool Scene::Start()
 		enemy2->Start();
 		enemy3->Start();
 		player->Start();
+
 		// Enables the Map
 		app->map->Enable();
 		app->hud->Enable();
@@ -182,6 +183,12 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {	
 	GamePad& pad = app->input->pads[0];	
+
+	if (fromDungeon)
+	{
+		app->scene->ChangeScene(GameScene::SCENE_BSMITH);
+		fromDungeon = false;
+	}
 
 	//View Colliders
 	//God Mode
