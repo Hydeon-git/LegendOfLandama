@@ -61,7 +61,7 @@ public:
 	void Select();
 
 	// GuiClick
-	bool OnGuiMouseClickEvent(GuiControl* control);
+	//bool OnGuiMouseClickEvent(GuiControl* control);
 
 	// Change Scene
 	void ChangeScene(GameScene nextScene);	
@@ -176,6 +176,9 @@ private:
 	uint doorOpenFx = 0;
 	uint doorCloseFx = 0;
 	uint doorKnokFx = 0;
+
+	int guiButtonFx = 0;
+	int guiButtonMoveFx = 0;
 
 	int count = 0;
 	int count2 = 0;

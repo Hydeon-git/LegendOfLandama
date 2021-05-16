@@ -43,9 +43,6 @@ public:
 
 	void select();
 
-	void activeSelected(int _items);
-
-
 public:
 	
 	void getOwnedItems();

@@ -53,8 +53,13 @@ bool SceneIntro::Start()
 
 	app->sceneLose->Disable();
 	app->sceneWin->Disable();
+
 	app->audio->PlayMusic("Assets/Audio/Music/start.ogg");
 	logoFx = app->audio->LoadFx("Assets/Audio/Fx/logoFx.wav");
+
+	guiButtonFx = app->audio->LoadFx("Assets/Audio/Fx/gui_button_fx.wav");
+	guiButtonMoveFx = app->audio->LoadFx("Assets/Audio/Fx/gui_button_move.wav");
+
 	app->render->camera.x = 0;
 	app->render->camera.y = -555;
 
@@ -76,10 +81,10 @@ bool SceneIntro::Start()
 	btnBackOptions = new GuiButton(5, { 120, 405, 36, 10 }, "BACK");
 	btnBackOptions->SetObserver(this);
 
-	sliderMusicVolume = new GuiSlider(1, { 180, 320, 2, 5 }, "MUSIC VOLUME");
+	sliderMusicVolume = new GuiSlider(1, { 180, 320, 4, 8 }, "MUSIC VOLUME");
 	sliderMusicVolume->SetObserver(this);
 
-	sliderFxVolume = new GuiSlider(2, { 180, 340, 2, 5 }, "FX VOLUME");
+	sliderFxVolume = new GuiSlider(2, { 180, 340, 4, 8 }, "FX VOLUME");
 	sliderFxVolume->SetObserver(this);
 
 	checkBoxFullscreen = new GuiCheckBox(1, { 164, 360, 12, 12 }, "FULLSCREEN");
@@ -139,12 +144,18 @@ bool SceneIntro::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnBackOptions->state = GuiControlState::PRESSED;
 		}
 		
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP || pad.a == true) { Select(); }
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP || pad.a == true) 
+		{ 
+			if (pos != 5 && pos != 6) app->audio->PlayFx(guiButtonFx, 0);
+			Select(); 
+			
+		}
 
 		if (!options)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up == true)
 			{
+				app->audio->PlayFx(guiButtonMoveFx, 0);
 				pos--;
 				if (pos < 0) pos = 3;
 				if (pos == 1 && !posContinue) pos--;
@@ -152,6 +163,7 @@ bool SceneIntro::Update(float dt)
 
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down == true)
 			{
+				app->audio->PlayFx(guiButtonMoveFx, 0);
 				pos++;
 				if (pos > 3) pos = 0;
 				if (pos == 1 && !posContinue) pos++;
@@ -161,12 +173,14 @@ bool SceneIntro::Update(float dt)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up == true)
 			{
+				app->audio->PlayFx(guiButtonMoveFx, 0);
 				pos--;
 				if (pos < 4) pos = 8;
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down == true)
 			{
+				app->audio->PlayFx(guiButtonMoveFx, 0);
 				pos++;
 				if (pos > 8) pos = 4;
 			}
@@ -333,11 +347,11 @@ void SceneIntro::Select()
 	}
 	else if (pos == 5)
 	{
-		app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
+		//app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
 	}
 	else if (pos == 6)
 	{
-		app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
+		//app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
 	}
 	else if (pos == 7)
 	{
@@ -352,70 +366,70 @@ void SceneIntro::Select()
 }
 
 
-bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
-{
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		if (control->id == 1)
-		{
-			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
-			app->fadeToBlack->animId = 1;
-			startClicked = true;
-			app->sceneBattle->enemy1Dead = false;
-			app->sceneBattle->enemy2Dead = false;
-			app->sceneBattle->enemy3Dead = false;
-			app->sceneBattle->enemiesAlive = 3;
-		}
-		else if (control->id == 2)
-		{
-			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
-			app->fadeToBlack->animId = 1;
-		}
-
-		else if (control->id == 3)
-		{
-			options = true;
-		}
-		else if (control->id == 4)
-		{
-			if (app->scene->player != nullptr)
-			{
-				app->scene->player->position.x = 350;
-				app->scene->player->position.y = 875;
-				app->SaveGameRequest();
-			}
-			exit = true;
-		}
-		else if (control->id == 5)
-		{
-			btnOptions->state = GuiControlState::NORMAL;
-			options = false;
-		}
-		break;
-	}
-	case GuiControlType::SLIDER:
-	{
-		if (control->id == 1) app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
-		else if (control->id == 2) app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
-		break;
-	}
-	case GuiControlType::CHECKBOX:
-	{
-		if (control->id == 1)
-		{
-			app->win->fullScreen = !app->win->fullScreen;
-			app->win->ChangeScreenSize();
-		}
-		else if (control->id == 2) app->vSync = !app->vSync;
-		break;
-	}
-	default: break;
-	}
-
-	return true;
-}
+//bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
+//{
+//	switch (control->type)
+//	{
+//	case GuiControlType::BUTTON:
+//	{
+//		if (control->id == 1)
+//		{
+//			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+//			app->fadeToBlack->animId = 1;
+//			startClicked = true;
+//			app->sceneBattle->enemy1Dead = false;
+//			app->sceneBattle->enemy2Dead = false;
+//			app->sceneBattle->enemy3Dead = false;
+//			app->sceneBattle->enemiesAlive = 3;
+//		}
+//		else if (control->id == 2)
+//		{
+//			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+//			app->fadeToBlack->animId = 1;
+//		}
+//
+//		else if (control->id == 3)
+//		{
+//			options = true;
+//		}
+//		else if (control->id == 4)
+//		{
+//			if (app->scene->player != nullptr)
+//			{
+//				app->scene->player->position.x = 350;
+//				app->scene->player->position.y = 875;
+//				app->SaveGameRequest();
+//			}
+//			exit = true;
+//		}
+//		else if (control->id == 5)
+//		{
+//			btnOptions->state = GuiControlState::NORMAL;
+//			options = false;
+//		}
+//		break;
+//	}
+//	case GuiControlType::SLIDER:
+//	{
+//		if (control->id == 1) app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
+//		else if (control->id == 2) app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
+//		break;
+//	}
+//	case GuiControlType::CHECKBOX:
+//	{
+//		if (control->id == 1)
+//		{
+//			app->win->fullScreen = !app->win->fullScreen;
+//			app->win->ChangeScreenSize();
+//		}
+//		else if (control->id == 2) app->vSync = !app->vSync;
+//		break;
+//	}
+//	default: break;
+//	}
+//
+//	return true;
+//}
 
 bool SceneIntro::CleanUp()
 {

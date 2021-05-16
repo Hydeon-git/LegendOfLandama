@@ -32,7 +32,7 @@ bool GuiButton::Update(float dt)
 		int mouseX, mouseY;
 		app->input->GetMousePosition(mouseX, mouseY);
 
-		mouseX += -app->render->camera.x / app->win->GetScale();
+		mouseX += -app->render->camera.x / app->win->GetScale() + 1000;
 		mouseY += -app->render->camera.y / app->win->GetScale();
 
 		if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
@@ -40,7 +40,7 @@ bool GuiButton::Update(float dt)
 			state = GuiControlState::FOCUSED;
 			if (!soundDone)
 			{
-				app->audio->PlayFx(guiButtonMoveFx, 0);
+				//app->audio->PlayFx(guiButtonMoveFx, 0);
 				soundDone = true;
 			}
 
@@ -48,7 +48,7 @@ bool GuiButton::Update(float dt)
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
 			{
-				app->audio->PlayFx(guiButtonFx, 0);
+				//app->audio->PlayFx(guiButtonFx, 0);
 				NotifyObserver();
 			}
 		}

@@ -28,7 +28,7 @@ bool GuiSlider::Update(float dt)
 
 	if (state != GuiControlState::DISABLED)
 	{
-		int mouseX, mouseY;
+		/*int mouseX, mouseY;
 		app->input->GetMousePosition(mouseX, mouseY);
 
 		mouseX += -app->render->camera.x / app->win->GetScale();
@@ -52,7 +52,7 @@ bool GuiSlider::Update(float dt)
 			
 			else state = GuiControlState::NORMAL;
 		}
-		else state = GuiControlState::NORMAL;
+		else state = GuiControlState::NORMAL;*/
 	}
 
 	return false;

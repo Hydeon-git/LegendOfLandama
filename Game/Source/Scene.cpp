@@ -108,6 +108,9 @@ bool Scene::Start()
 		doorCloseFx = app->audio->LoadFx("Assets/Audio/Fx/door_close.wav");
 		doorKnokFx = app->audio->LoadFx("Assets/Audio/Fx/door_knok.wav");
 
+		guiButtonFx = app->audio->LoadFx("Assets/Audio/Fx/gui_button_fx.wav");
+		guiButtonMoveFx = app->audio->LoadFx("Assets/Audio/Fx/gui_button_move.wav");
+
 		selectorTex = app->tex->Load("Assets/Textures/pointer.png");
 
 		enemyMoving = false;
@@ -155,10 +158,10 @@ bool Scene::Start()
 		btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200, 36 ,10 }, "BACK");
 		btnBack->SetObserver(this);
 
-		sliderMusicVolume = new GuiSlider(1, { -app->render->camera.x / 3, -app->render->camera.y / 3 , 2, 5 }, "MUSIC VOLUME");
+		sliderMusicVolume = new GuiSlider(1, { -app->render->camera.x / 3, -app->render->camera.y / 3 , 4, 8 }, "MUSIC VOLUME");
 		sliderMusicVolume->SetObserver(this);
 
-		sliderFxVolume = new GuiSlider(2, { -app->render->camera.x / 3, -app->render->camera.y / 3, 2, 5 }, "FX VOLUME");
+		sliderFxVolume = new GuiSlider(2, { -app->render->camera.x / 3, -app->render->camera.y / 3, 4, 8 }, "FX VOLUME");
 		sliderFxVolume->SetObserver(this);
 
 		checkBoxFullscreen = new GuiCheckBox(1, { -app->render->camera.x / 3, -app->render->camera.y / 3, 12, 12 }, "FULLSCREEN");
@@ -423,19 +426,25 @@ bool Scene::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnBack->state = GuiControlState::PRESSED;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP || pad.a) { Select(); }
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP || pad.a) 
+		{
+			if (pos != 5 && pos != 6) app->audio->PlayFx(guiButtonFx, 0);
+			Select(); 
+		}
 	}
 	
 	if (pausedSettings)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 		{
+			app->audio->PlayFx(guiButtonMoveFx, 0);
 			pos--;
 			if (pos < 4) pos = 8;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 		{
+			app->audio->PlayFx(guiButtonMoveFx, 0);
 			pos++;
 			if (pos > 8) pos = 4;
 		}
@@ -444,12 +453,14 @@ bool Scene::Update(float dt)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up)
 		{
+			app->audio->PlayFx(guiButtonMoveFx, 0);
 			pos--;
 			if (pos < 0) pos = 3;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down)
 		{
+			app->audio->PlayFx(guiButtonMoveFx, 0);
 			pos++;
 			if (pos > 3) pos = 0;
 		}
@@ -675,11 +686,11 @@ void Scene::Select()
 	}
 	else if (pos == 5)
 	{
-		app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
+		//app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
 	}
 	else if (pos == 6)
 	{
-		app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
+		//app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
 	}
 	else if (pos == 7)
 	{
@@ -1195,70 +1206,70 @@ void Scene::Pause()
 	btnExit->bounds = { -app->render->camera.x / 3 + 170,  -app->render->camera.y / 3 + 175, 36, 10 };
 	btnBack->bounds = { -app->render->camera.x / 3 + 190,  -app->render->camera.y / 3 + 205, 36, 10 };
 
-	sliderMusicVolume->bounds = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 115, 2,5 };
-	sliderMusicVolume->boundsSlider = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 115, 2,5 };
+	sliderMusicVolume->bounds = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 115, 4,8 };
+	sliderMusicVolume->boundsSlider = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 115, 4,8 };
 
-	sliderFxVolume->bounds = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 135, 2,5 };
-	sliderFxVolume->boundsSlider = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 135, 2,5 };
+	sliderFxVolume->bounds = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 135, 4,8 };
+	sliderFxVolume->boundsSlider = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 135, 4,8 };
 
 	checkBoxFullscreen->bounds = { -app->render->camera.x / 3 + 234,  -app->render->camera.y / 3 + 155, 12,12 };
 	checkBoxVSync->bounds = { -app->render->camera.x / 3 + 234,  -app->render->camera.y / 3 + 175, 12,12 };
 }
 
-bool Scene::OnGuiMouseClickEvent(GuiControl* control)
-{
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		if (control->id == 1)
-		{
-			paused = false;
-			
-		}
-		else if (control->id == 2) pausedSettings = true;
-		else if (control->id == 3)
-		{
-			app->map->CleanUp();
-			//if (currentScene != GameScene::SCENE_TOWN)
-			//{
-			//	currentScene = GameScene::SCENE_TOWN;
-			//}
-			app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
-			app->fadeToBlack->animId = 1;
-			paused = false;
-		}
-		else if (control->id == 4)
-		{
-			if (app->scene->player != nullptr)
-			{
-				app->scene->player->position.x = 350;
-				app->scene->player->position.y = 875;
-				app->SaveGameRequest();
-			}
-			app->sceneIntro->exit = true;
-		}
-		else if (control->id == 5) pausedSettings = false;
-		break;
-	}
-	case GuiControlType::SLIDER:
-	{
-		if (control->id == 1) app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
-		else if (control->id == 2) app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
-		break;
-	}
-	case GuiControlType::CHECKBOX:
-	{
-		if (control->id == 1)
-		{
-			app->win->fullScreen = !app->win->fullScreen;
-			app->win->ChangeScreenSize();
-		}
-		else if (control->id == 2) app->vSync = !app->vSync;
-		break;
-	}
-	default: break;
-	}
-
-	return true;
-}
+//bool Scene::OnGuiMouseClickEvent(GuiControl* control)
+//{
+//	switch (control->type)
+//	{
+//	case GuiControlType::BUTTON:
+//	{
+//		if (control->id == 1)
+//		{
+//			paused = false;
+//			
+//		}
+//		else if (control->id == 2) pausedSettings = true;
+//		else if (control->id == 3)
+//		{
+//			app->map->CleanUp();
+//			//if (currentScene != GameScene::SCENE_TOWN)
+//			//{
+//			//	currentScene = GameScene::SCENE_TOWN;
+//			//}
+//			app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
+//			app->fadeToBlack->animId = 1;
+//			paused = false;
+//		}
+//		else if (control->id == 4)
+//		{
+//			if (app->scene->player != nullptr)
+//			{
+//				app->scene->player->position.x = 350;
+//				app->scene->player->position.y = 875;
+//				app->SaveGameRequest();
+//			}
+//			app->sceneIntro->exit = true;
+//		}
+//		else if (control->id == 5) pausedSettings = false;
+//		break;
+//	}
+//	case GuiControlType::SLIDER:
+//	{
+//		if (control->id == 1) app->audio->ChangeMusicVolume(sliderMusicVolume->ReturnValue());
+//		else if (control->id == 2) app->audio->ChangeFxVolume(sliderFxVolume->ReturnValue());
+//		break;
+//	}
+//	case GuiControlType::CHECKBOX:
+//	{
+//		if (control->id == 1)
+//		{
+//			app->win->fullScreen = !app->win->fullScreen;
+//			app->win->ChangeScreenSize();
+//		}
+//		else if (control->id == 2) app->vSync = !app->vSync;
+//		break;
+//	}
+//	default: break;
+//	}
+//
+//	return true;
+//}
