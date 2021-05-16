@@ -52,7 +52,7 @@ private:
 
 	void drawCoins();
 
-
+	uint hudFx = 0;
 
 
 };

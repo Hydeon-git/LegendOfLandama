@@ -28,6 +28,7 @@
 #include "Shop.h"
 #include "HUD.h"
 #include "Quests.h"
+#include "PlayerStats.h"
 
 #include "SceneBattle.h"
 #include "SceneDungeon.h"
@@ -66,7 +67,7 @@ bool Quests::Start()
 		questsTex = app->tex->Load("Assets/Textures/quests.png");
 		markTex = app->tex->Load("Assets/Textures/quest_done.png");
 		journalTex = app->tex->Load("Assets/Textures/tasks.png");
-		questFx = app->audio->LoadFx("Assets/Audio/Fx/open_quest.wav");
+		questFx = app->audio->LoadFx("Assets/Audio/Fx/stats_sound.wav");
 		questDoneFx = app->audio->LoadFx("Assets/Audio/Fx/quest_done.wav");
 		questsIsOpen = false;
 
@@ -78,15 +79,16 @@ bool Quests::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && !questsIsOpen)
+	if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && !questsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		questsIsOpen = true;
 		app->hud->bagIsOpen = false;
+		app->playerStats->statsIsOpen = false;
 		app->audio->PlayFx(questFx, 0);
 		app->shop->open = false;
 	} 
 
-	else if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && questsIsOpen)
+	else if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && questsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		questsIsOpen = false;
 		app->audio->PlayFx(questFx, 0);

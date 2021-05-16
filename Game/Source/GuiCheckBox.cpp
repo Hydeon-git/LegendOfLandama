@@ -74,8 +74,8 @@ bool GuiCheckBox::Draw()
 		if (app->win->fullScreen && id == 1) app->render->DrawRectangle(bounds, 0, 255, 0, 255);
 		else if (!app->win->fullScreen && id == 1) app->render->DrawRectangle(bounds, 255, 0, 0, 255);
 
-		/*if (app->vSync && id == 2) app->render->DrawRectangle(bounds, 0, 255, 0, 255);
-		else if (!app->vSync && id == 2) app->render->DrawRectangle(bounds, 255, 0, 0, 255);*/
+		if (app->vSync && id == 2) app->render->DrawRectangle(bounds, 0, 255, 0, 255);
+		else if (!app->vSync && id == 2) app->render->DrawRectangle(bounds, 255, 0, 0, 255);
 
 	} break;
 	case GuiControlState::FOCUSED: app->render->DrawRectangle(bounds, 200, 100, 220, 255);
@@ -87,23 +87,23 @@ bool GuiCheckBox::Draw()
 	default:
 		break;
 	}
-	app->font->DrawText(bounds.x - 105 + (app->render->camera.x) / app->win->GetScale(), bounds.y + 3 + (app->render->camera.y) / app->win->GetScale(), 0, text.GetString());
+	app->font->DrawText(bounds.x - 120 + (app->render->camera.x) / app->win->GetScale(), bounds.y + 2 + (app->render->camera.y) / app->win->GetScale(), 0, text.GetString());
 
 	if (app->scene->guiColliders && app->scene->pausedSettings)
 	{
 		if (app->win->fullScreen && id == 1) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 155, 155, 150);
 		else if (!app->win->fullScreen && id == 1) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 155, 155, 0, 150);
 
-		/*if (app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 155, 155, 150);
-		else if (!app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 155, 155, 0, 150);*/
+		if (app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 155, 155, 150);
+		else if (!app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 155, 155, 0, 150);
 	}
 	if (app->sceneIntro->guiColliders && !app->scene->paused)
 	{
 		if (app->win->fullScreen && id == 1) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 155, 155, 150);
 		else if (!app->win->fullScreen && id == 1) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 155, 155, 0, 150);
 
-		/*if (app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 155, 155, 150);
-		else if (!app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 155, 155, 0, 150);*/
+		if (app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 155, 155, 150);
+		else if (!app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 155, 155, 0, 150);
 	}
 
 	return false;

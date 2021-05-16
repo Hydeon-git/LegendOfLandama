@@ -51,6 +51,7 @@ private:
 	SDL_Texture* knightTex = nullptr;
 	SDL_Texture* mageTex = nullptr;
 
+	uint statsFx = 0;
 
 	void drawHealthHeroine();
 	void drawHealthMage();

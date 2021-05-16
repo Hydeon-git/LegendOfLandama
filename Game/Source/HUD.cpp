@@ -29,6 +29,7 @@
 #include "Shop.h"
 #include "HUD.h"
 #include "Quests.h"
+#include "PlayerStats.h"
 
 #include "SceneIntro.h"
 #include "GuiButton.h"
@@ -65,6 +66,7 @@ bool HUD::Start()
 		bagTex = app->tex->Load("Assets/Textures/backpack.png");
 		openbagTex = app->tex->Load("Assets/Textures/open_backpack.png");
 		coinTex = app->tex->Load("Assets/Textures/coin.png");
+		hudFx = app->audio->LoadFx("Assets/Audio/Fx/inventory.wav");
 		coins = 20;
 
 		bagIsOpen = false;
@@ -77,16 +79,19 @@ bool HUD::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.l1 == true) && !bagIsOpen)
+	if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.y == true) && !bagIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		bagIsOpen = true;
 		app->quests->questsIsOpen = false;
+		app->playerStats->statsIsOpen = false;
+		app->audio->PlayFx(hudFx, 0);
 		app->shop->open = false;
 	}
 
-	else if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.l1 == true) && bagIsOpen )
+	else if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.y == true) && bagIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		bagIsOpen = false;
+		app->audio->PlayFx(hudFx, 0);
 	}
 
 	return true;

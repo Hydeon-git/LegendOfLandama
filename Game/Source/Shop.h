@@ -54,6 +54,8 @@ public:
 	SDL_Texture* selectorTex = nullptr;
 	SDL_Texture* itemSold = nullptr;
 
+	uint buyFx = 0;
+
 	int shopX = 0, shopY = 0;
 	int itemPos = 0;
 	uint OptionSelection = 0;

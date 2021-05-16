@@ -81,6 +81,7 @@ bool Shop::Start()
 		shopTex = app->tex->Load("Assets/Textures/shop.png");
 		itemSold = app->tex->Load("Assets/Textures/shop_owned.png");
 		selectorTex = app->tex->Load("Assets/Textures/pointer.png");
+		buyFx = app->audio->LoadFx("Assets/Audio/Fx/buy_item.wav");
 		selectorActive = false;
 		shopX = 1;
 		shopY = 1;
@@ -408,7 +409,7 @@ void Shop::buyItem(ItemType itemType, Item *item)
 			app->scene->player->addItemToIventory(item);
 			if (app->quests->quest2Taken)
 			app->quests->quest2Done = true;
-
+			app->audio->PlayFx(buyFx, 0);
 		}
 	}
 }

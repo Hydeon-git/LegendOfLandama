@@ -81,7 +81,7 @@ bool GuiSlider::Draw()
 		break;
 	}
 
-	app->font->DrawText((boundsSlider.x + (app->render->camera.x) - 150) / app->win->GetScale(), (boundsSlider.y + (app->render->camera.y) - 2) / app->win->GetScale(), 0, text.GetString());
+	app->font->DrawText(boundsSlider.x - 135 + (app->render->camera.x) / app->win->GetScale(), boundsSlider.y + 2 + (app->render->camera.y) / app->win->GetScale(), 0, text.GetString());
 
 	if (app->scene->guiColliders && app->scene->pausedSettings)
 	{

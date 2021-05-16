@@ -83,7 +83,11 @@ private:
 
 	GuiButton* btnBack;
 
+	GuiSlider* sliderMusicVolume;
+	GuiSlider* sliderFxVolume;
+
 	GuiCheckBox* checkBoxFullscreen;
+	GuiCheckBox* checkBoxVSync;
 
 	SDL_Rect* fullscreenRect;
 	int scale;

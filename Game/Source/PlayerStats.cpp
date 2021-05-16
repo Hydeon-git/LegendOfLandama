@@ -72,6 +72,7 @@ bool PlayerStats::Start()
 		heroineTex = app->tex->Load("Assets/Textures/maincharacter.png");
 		mageTex = app->tex->Load("Assets/Textures/mage.png");
 		knightTex = app->tex->Load("Assets/Textures/knight.png");
+		statsFx = app->audio->LoadFx("Assets/Audio/Fx/stats_sound.wav");
 		statsIsOpen = false;
 
 	}
@@ -82,16 +83,19 @@ bool PlayerStats::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.r1 == true) && !statsIsOpen)
+	if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.l1 == true) && !statsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		statsIsOpen = true;
 		app->hud->bagIsOpen = false;
+		app->quests->questsIsOpen = false;
+		app->audio->PlayFx(statsFx, 0);
 		app->shop->open = false;
 	}
 
-	else if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.r1 == true) && statsIsOpen)
+	else if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.l1 == true) && statsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		statsIsOpen = false;
+		app->audio->PlayFx(statsFx, 0);
 	}
 
 	return true;
