@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Player.h"
+#include "PlayerStats.h"
 #include "Shop.h"
 #include "Scene.h"
 #include "SceneDungeon.h"
@@ -195,7 +196,7 @@ bool Player::Start()
 		lastPositionY = position.y;
 
 		klastPositionX = position.x;
-		klastPositionY = position.y;
+		klastPositionY = position.y;				
 
 		doorTaked = true;
 		kDoorTaked = true;
@@ -215,429 +216,408 @@ bool Player::Update(float dt)
 		app->render->camera.y = -99;
 		loaded = false;
 	}
-	if (!spiked && !dead)
-	{
-		//currentAnimation = &idlAnim;
-
-		if (ThereIsDoor() && app->map->keyTaken) win = true;
-		else
-		{
-			if (!app->scene->paused && !app->sceneDungeon->paused && !dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen && !app->quests->questsIsOpen) 
-			{
-				if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up == true) && !app->scene->knightTxt && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
-				{
-					app->scene->mageTxt = false;
-					if (!ThereIsTopWall() && !ThereIsNPCUp())
-					{
-						position.y -= speed;
-						currentAnimation = &upAnim;
-						if (doorTaked) posMoved++;
-						if (kDoorTaked) kposMoved++;
-						
-						for (int i = 0; i < 25; i++)
-						{
-							if (i == 24) {
-								lastPosY[0] = position.y;
-							}
-							else
-							{
-								lastPosY[24 - i] = lastPosY[23 - i];
-							}
-						}
-						if(lastPosY!=0) lastPositionY = lastPosY[24];
-
-						for (int i = 0; i < 25; i++)
-						{
-							if (i == 24) {
-								lastPosX[0] = position.x;
-							}
-							else
-							{
-								lastPosX[24 - i] = lastPosX[23 - i];
-							}
-						}
-						if (lastPosY != 0) lastPositionX = lastPosX[24];
-
-
-						for (int i = 0; i < 50; i++)
-						{
-							if (i == 49) {
-								klastPosY[0] = position.y;
-							}
-							else
-							{
-								klastPosY[49 - i] = klastPosY[48 - i];
-							}
-						}
-						if (klastPosY != 0) klastPositionY = klastPosY[49];
-
-						for (int i = 0; i < 50; i++)
-						{
-							if (i == 49) {
-								klastPosX[0] = position.x;
-							}
-							else
-							{
-								klastPosX[49 - i] = klastPosX[48 - i];
-							}
-						}
-						if (klastPosX != 0) klastPositionX = klastPosX[49];
-
-
-					}
-				}
-				if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down == true) && !app->scene->mageTxt && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
-				{
-					app->scene->knightTxt = false;
-					if (!ThereIsBottomWall() && !ThereIsNPCBelow())
-					{
-						position.y += speed;
-						currentAnimation = &leftAnim;
-						if (doorTaked) posMoved++;
-						if (kDoorTaked) kposMoved++;
-						for (int i = 0; i < 25; i++)
-						{
-							if (i == 24) {
-								lastPosY[0] = position.y;
-							}
-							else
-							{
-								lastPosY[24 - i] = lastPosY[23 - i];
-							}
-						}
-						if (lastPosY != 0) lastPositionY = lastPosY[24];
-
-						for (int i = 0; i < 25; i++)
-						{
-							if (i == 24) {
-								lastPosX[0] = position.x;
-							}
-							else
-							{
-								lastPosX[24 - i] = lastPosX[23 - i];
-							}
-						}
-						
-						if (lastPosX != 0) lastPositionX = lastPosX[24];
-
-
-						for (int i = 0; i < 50; i++)
-						{
-							if (i == 49) {
-								klastPosY[0] = position.y;
-							}
-							else
-							{
-								klastPosY[49 - i] = klastPosY[48 - i];
-							}
-						}
-						if (klastPosY != 0) klastPositionY = klastPosY[49];
-
-						for (int i = 0; i < 50; i++)
-						{
-							if (i == 49) {
-								klastPosX[0] = position.x;
-							}
-							else
-							{
-								klastPosX[49 - i] = klastPosX[48 - i];
-							}
-						}
-						if (klastPosX != 0) klastPositionX = klastPosX[49];
-
-
-					}
-				}
-
-				if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left == true) && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
-				{
-					if (!ThereIsLeftWall() && !ThereIsNPCLeft())
-					{
-						position.x -= speed;
-						currentAnimation = &leftAnim;
-						if (doorTaked) posMoved++;
-						if (kDoorTaked) kposMoved++;
-						for (int i = 0; i < 25; i++)
-						{
-							if (i == 24) {
-								lastPosY[0] = position.y;
-							}
-							else
-							{
-								lastPosY[24 - i] = lastPosY[23 - i];
-							}
-						}
-						if (lastPosY != 0) lastPositionY = lastPosY[24];
-
-						for (int i = 0; i < 25; i++)
-						{
-							if (i == 24) {
-								lastPosX[0] = position.x;
-							}
-							else
-							{
-								lastPosX[24 - i] = lastPosX[23 - i];
-							}
-						}
-						if (lastPosX != 0) lastPositionX = lastPosX[24];
-
-						for (int i = 0; i < 50; i++)
-						{
-							if (i == 49) {
-								klastPosY[0] = position.y;
-							}
-							else
-							{
-								klastPosY[49 - i] = klastPosY[48 - i];
-							}
-						}
-						if (klastPosY != 0) klastPositionY = klastPosY[49];
-
-						for (int i = 0; i < 50; i++)
-						{
-							if (i == 49) {
-								klastPosX[0] = position.x;
-							}
-							else
-							{
-								klastPosX[49 - i] = klastPosX[48 - i];
-							}
-						}
-						if (klastPosX != 0) klastPositionX = klastPosX[49];
-
-
-
-					}
-				}
-				else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right == true) && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
-				{
-					if (!ThereIsRightWall() && !ThereIsNPCRight())
-					{
-						position.x += speed;
-						currentAnimation = &rightAnim;
-						if (doorTaked) posMoved++;
-						if (kDoorTaked) kposMoved++;
-						for (int i = 0; i < 25; i++)
-						{
-							if (i == 24) {
-								lastPosY[0] = position.y;
-							}
-							else
-							{
-								lastPosY[24 - i] = lastPosY[23 - i];
-							}
-						}
-						if (lastPosY != 0) lastPositionY = lastPosY[24];
-
-						for (int i = 0; i < 25; i++)
-						{
-							if (i == 24) {
-								lastPosX[0] = position.x;
-							}
-							else
-							{
-								lastPosX[24 - i] = lastPosX[23 - i];
-							}
-						}
-						if (lastPosX != 0) lastPositionX = lastPosX[24];
-
-
-						for (int i = 0; i < 50; i++)
-						{
-							if (i == 49) {
-								klastPosY[0] = position.y;
-							}
-							else
-							{
-								klastPosY[49 - i] = klastPosY[48 - i];
-							}
-						}
-						if (klastPosY != 0) klastPositionY = klastPosY[49];
-
-						for (int i = 0; i < 50; i++)
-						{
-							if (i == 49) {
-								klastPosX[0] = position.x;
-							}
-							else
-							{
-								klastPosX[49 - i] = klastPosX[48 - i];
-							}
-						}
-						if (klastPosX != 0) klastPositionX = klastPosX[49];
-
-
-					}
-				}
-			}
-
-			if (ThereIsNPC()==1 || ThereIsNPC() == 4 || ThereIsNPCUp() ||ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight())
-			{
-				if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
-				{
-					dialogeOn = true;
-					app->audio->PlayFx(talkFx, 0);
-				}
-			}
-			else
-			{
-				dialogeOn = false;
-			}
-			if((ThereIsEnemy() && !app->sceneBattle->enemy1Dead && !app->sceneBattle->enemy2Dead && !app->sceneBattle->enemy3Dead)|| (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN))
-			{
-				app->sceneBattle->battleOn = true;
-
-				app->fadeToBlack->FadeToBlk(app->scene, app->sceneBattle, 30);
-				app->fadeToBlack->animId = 3;
-			}
-
-						
-		}
-		if (app->scene->currentScene == GameScene::SCENE_TOWN || app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL || app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
-		{
-			CheckDoor();
 	
-		}
-		if (app->scene->currentScene == GameScene::SCENE_BSMITH ||app->scene->currentScene == GameScene::SCENE_HOUSE1 || app->scene->currentScene == GameScene::SCENE_INN || app->scene->currentScene == GameScene::SCENE_ENTRYDUNGEON)
+	if (!app->scene->paused && !app->sceneDungeon->paused && !dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen && !app->quests->questsIsOpen && !app->playerStats->statsIsOpen)
+	{
+		if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up == true) && !app->scene->knightTxt && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 		{
-			CheckHouseDoor();
-			
-		}
-
-		//if (app->scene->currentScene == GameScene::SCENE_HOUSE1 && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
-		//{
-		//	app->quests->quest1Taken = true;
-		//}
-		//if (app->scene->currentScene == GameScene::SCENE_INN && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
-		//{
-		//	app->quests->quest2Taken = true;
-		//}
-		//if (app->scene->currentScene == GameScene::SCENE_BSMITH && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
-		//{
-		//	app->quests->quest3Taken = true;
-		//}
-
-		if (shotCountdown > 0) --shotCountdown;
-		
-		if (DungeonDoorOpen() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !button2Done)
-		{
-			app->map->puzzle1DungeonDone = true;
-			
-			app->audio->PlayFx(buttonFx, 0);
-			app->audio->PlayFx(puzzleSolvedFx, 0);
-			button2Done = true;
-		}		
-		if (DungeonFloorUp() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !button1Done)
-		{
-			app->map->buttonFloorPressed = true;
-			app->audio->PlayFx(buttonFx, 0);
-			button1Done = true;
-		}
-
-		if (OpenChest() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !chestDone)
-		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+			app->scene->mageTxt = false;
+			if (!ThereIsTopWall() && !ThereIsNPCUp())
 			{
-				app->audio->PlayFx(chestFx, 0);
-				app->map->chestOpened = true;
-				chestDone = true;
-				app->hud->coins += 20;
-				
+				position.y -= speed;
+				currentAnimation = &upAnim;
+				if (doorTaked) posMoved++;
+				if (kDoorTaked) kposMoved++;
+
+				for (int i = 0; i < 25; i++)
+				{
+					if (i == 24) {
+						lastPosY[0] = position.y;
+					}
+					else
+					{
+						lastPosY[24 - i] = lastPosY[23 - i];
+					}
+				}
+				if (lastPosY != 0) lastPositionY = lastPosY[24];
+
+				for (int i = 0; i < 25; i++)
+				{
+					if (i == 24) {
+						lastPosX[0] = position.x;
+					}
+					else
+					{
+						lastPosX[24 - i] = lastPosX[23 - i];
+					}
+				}
+				if (lastPosY != 0) lastPositionX = lastPosX[24];
+
+
+				for (int i = 0; i < 50; i++)
+				{
+					if (i == 49) {
+						klastPosY[0] = position.y;
+					}
+					else
+					{
+						klastPosY[49 - i] = klastPosY[48 - i];
+					}
+				}
+				if (klastPosY != 0) klastPositionY = klastPosY[49];
+
+				for (int i = 0; i < 50; i++)
+				{
+					if (i == 49) {
+						klastPosX[0] = position.x;
+					}
+					else
+					{
+						klastPosX[49 - i] = klastPosX[48 - i];
+					}
+				}
+				if (klastPosX != 0) klastPositionX = klastPosX[49];
+
+
+			}
+		}
+		if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down == true) && !app->scene->mageTxt && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+		{
+			app->scene->knightTxt = false;
+			if (!ThereIsBottomWall() && !ThereIsNPCBelow())
+			{
+				position.y += speed;
+				currentAnimation = &leftAnim;
+				if (doorTaked) posMoved++;
+				if (kDoorTaked) kposMoved++;
+				for (int i = 0; i < 25; i++)
+				{
+					if (i == 24) {
+						lastPosY[0] = position.y;
+					}
+					else
+					{
+						lastPosY[24 - i] = lastPosY[23 - i];
+					}
+				}
+				if (lastPosY != 0) lastPositionY = lastPosY[24];
+
+				for (int i = 0; i < 25; i++)
+				{
+					if (i == 24) {
+						lastPosX[0] = position.x;
+					}
+					else
+					{
+						lastPosX[24 - i] = lastPosX[23 - i];
+					}
+				}
+
+				if (lastPosX != 0) lastPositionX = lastPosX[24];
+
+
+				for (int i = 0; i < 50; i++)
+				{
+					if (i == 49) {
+						klastPosY[0] = position.y;
+					}
+					else
+					{
+						klastPosY[49 - i] = klastPosY[48 - i];
+					}
+				}
+				if (klastPosY != 0) klastPositionY = klastPosY[49];
+
+				for (int i = 0; i < 50; i++)
+				{
+					if (i == 49) {
+						klastPosX[0] = position.x;
+					}
+					else
+					{
+						klastPosX[49 - i] = klastPosX[48 - i];
+					}
+				}
+				if (klastPosX != 0) klastPositionX = klastPosX[49];
+
+
 			}
 		}
 
-
-		if (OpenSword() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !swordDone)
+		if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left == true) && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+			if (!ThereIsLeftWall() && !ThereIsNPCLeft())
 			{
-				app->audio->PlayFx(chestFx, 0);
-				app->map->swordOpened = true;
-				swordDone = true;
-				app->hud->coins += 200;
+				position.x -= speed;
+				currentAnimation = &leftAnim;
+				if (doorTaked) posMoved++;
+				if (kDoorTaked) kposMoved++;
+				for (int i = 0; i < 25; i++)
+				{
+					if (i == 24) {
+						lastPosY[0] = position.y;
+					}
+					else
+					{
+						lastPosY[24 - i] = lastPosY[23 - i];
+					}
+				}
+				if (lastPosY != 0) lastPositionY = lastPosY[24];
+
+				for (int i = 0; i < 25; i++)
+				{
+					if (i == 24) {
+						lastPosX[0] = position.x;
+					}
+					else
+					{
+						lastPosX[24 - i] = lastPosX[23 - i];
+					}
+				}
+				if (lastPosX != 0) lastPositionX = lastPosX[24];
+
+				for (int i = 0; i < 50; i++)
+				{
+					if (i == 49) {
+						klastPosY[0] = position.y;
+					}
+					else
+					{
+						klastPosY[49 - i] = klastPosY[48 - i];
+					}
+				}
+				if (klastPosY != 0) klastPositionY = klastPosY[49];
+
+				for (int i = 0; i < 50; i++)
+				{
+					if (i == 49) {
+						klastPosX[0] = position.x;
+					}
+					else
+					{
+						klastPosX[49 - i] = klastPosX[48 - i];
+					}
+				}
+				if (klastPosX != 0) klastPositionX = klastPosX[49];
+
+
 
 			}
 		}
-
-		if (OpenLever1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever1Done)
+		else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right == true) && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+			if (!ThereIsRightWall() && !ThereIsNPCRight())
+			{
+				position.x += speed;
+				currentAnimation = &rightAnim;
+				if (doorTaked) posMoved++;
+				if (kDoorTaked) kposMoved++;
+				for (int i = 0; i < 25; i++)
+				{
+					if (i == 24) {
+						lastPosY[0] = position.y;
+					}
+					else
+					{
+						lastPosY[24 - i] = lastPosY[23 - i];
+					}
+				}
+				if (lastPosY != 0) lastPositionY = lastPosY[24];
+
+				for (int i = 0; i < 25; i++)
+				{
+					if (i == 24) {
+						lastPosX[0] = position.x;
+					}
+					else
+					{
+						lastPosX[24 - i] = lastPosX[23 - i];
+					}
+				}
+				if (lastPosX != 0) lastPositionX = lastPosX[24];
+
+
+				for (int i = 0; i < 50; i++)
+				{
+					if (i == 49) {
+						klastPosY[0] = position.y;
+					}
+					else
+					{
+						klastPosY[49 - i] = klastPosY[48 - i];
+					}
+				}
+				if (klastPosY != 0) klastPositionY = klastPosY[49];
+
+				for (int i = 0; i < 50; i++)
+				{
+					if (i == 49) {
+						klastPosX[0] = position.x;
+					}
+					else
+					{
+						klastPosX[49 - i] = klastPosX[48 - i];
+					}
+				}
+				if (klastPosX != 0) klastPositionX = klastPosX[49];
+
+
+			}
+		}
+	}
+
+	if (ThereIsNPC() == 1 || ThereIsNPC() == 4 || ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight())
+	{
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+		{
+			dialogeOn = true;
+			app->audio->PlayFx(talkFx, 0);
+		}
+	}
+	else
+	{
+		dialogeOn = false;
+	}
+	if ((ThereIsEnemy() && !app->sceneBattle->enemy1Dead && !app->sceneBattle->enemy2Dead && !app->sceneBattle->enemy3Dead) || (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN))
+	{
+		app->sceneBattle->battleOn = true;
+
+		app->fadeToBlack->FadeToBlk(app->scene, app->sceneBattle, 30);
+		app->fadeToBlack->animId = 3;
+	}
+
+	if (app->scene->currentScene == GameScene::SCENE_TOWN || app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL || app->sceneDungeon->currentScene == DungeonScene::SCENE_MID)
+	{
+		CheckDoor();
+
+	}
+	if (app->scene->currentScene == GameScene::SCENE_BSMITH || app->scene->currentScene == GameScene::SCENE_HOUSE1 || app->scene->currentScene == GameScene::SCENE_INN || app->scene->currentScene == GameScene::SCENE_ENTRYDUNGEON)
+	{
+		CheckHouseDoor();
+
+	}
+
+	if (shotCountdown > 0) --shotCountdown;
+
+	if (DungeonDoorOpen() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !button2Done)
+	{
+		app->map->puzzle1DungeonDone = true;
+
+		app->audio->PlayFx(buttonFx, 0);
+		app->audio->PlayFx(puzzleSolvedFx, 0);
+		button2Done = true;
+	}
+	if (DungeonFloorUp() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !button1Done)
+	{
+		app->map->buttonFloorPressed = true;
+		app->audio->PlayFx(buttonFx, 0);
+		button1Done = true;
+	}
+
+	if (OpenChest() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !chestDone)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+		{
+			app->audio->PlayFx(chestFx, 0);
+			app->map->chestOpened = true;
+			chestDone = true;
+			app->hud->coins += 20;
+
+		}
+	}
+
+
+	if (OpenSword() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !swordDone)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+		{
+			app->audio->PlayFx(chestFx, 0);
+			app->map->swordOpened = true;
+			swordDone = true;
+			app->hud->coins += 200;
+
+		}
+	}
+
+	if (OpenLever1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever1Done)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+		{
+			app->audio->PlayFx(leverFx, 0);
+			app->map->lever1Pressed = true;
+			spikes1Down = true;
+			spikes2Down = false;
+			spikes3Down = false;
+			lever1Done = true;
+		}
+	}
+	if (OpenLever2() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever2Done)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+		{
+			app->audio->PlayFx(leverFx, 0);
+			app->map->lever2Pressed = true;
+			spikes1Down = false;
+			spikes2Down = true;
+			spikes3Down = false;
+			lever2Done = true;
+		}
+	}
+	if (OpenLever3() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever3Done)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+		{
+			app->audio->PlayFx(leverFx, 0);
+			app->map->lever3Pressed = true;
+			spikes1Down = true;
+			spikes2Down = true;
+			spikes3Down = false;
+			lever3Done = true;
+		}
+	}
+	if (OpenLeverFinal() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !leverFinalDone)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+		{
+			if (app->map->lever3Pressed && app->map->lever2Pressed && app->map->lever1Pressed)
 			{
 				app->audio->PlayFx(leverFx, 0);
-				app->map->lever1Pressed = true;
-				spikes1Down  =  true;
-				spikes2Down = false;
-				spikes3Down = false;
-				lever1Done = true;
-			}
-		}
-		if (OpenLever2() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever2Done)
-		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
-			{
-				app->audio->PlayFx(leverFx, 0);
-				app->map->lever2Pressed = true;
-				spikes1Down = false;
-				spikes2Down = true;
-				spikes3Down = false;
-				lever2Done = true;
-			}
-		}
-		if (OpenLever3() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever3Done)
-		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
-			{
-				app->audio->PlayFx(leverFx, 0);
-				app->map->lever3Pressed = true;
+				app->audio->PlayFx(puzzleSolvedFx, 0);
+				app->map->leverFinalPressed = true;
 				spikes1Down = true;
 				spikes2Down = true;
-				spikes3Down = false;
-				lever3Done = true;
+				spikes3Down = true;
+				leverFinalDone = true;
 			}
+			else app->audio->PlayFx(leverErrorFx, 0);
 		}
-		if (OpenLeverFinal() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !leverFinalDone)
-		{
-			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
-			{
-				if (app->map->lever3Pressed && app->map->lever2Pressed && app->map->lever1Pressed)
-				{
-					app->audio->PlayFx(leverFx, 0);
-					app->audio->PlayFx(puzzleSolvedFx, 0);
-					app->map->leverFinalPressed = true;
-					spikes1Down = true;
-					spikes2Down = true;
-					spikes3Down = true;
-					leverFinalDone = true;
-				}else app->audio->PlayFx(leverErrorFx, 0);
-			}
-		}
+	}
 
 
-		if (TakeBlueKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyBlueDone)
-		{
-			app->map->blueKeyTaken = true;
-			app->audio->PlayFx(keyTakenFx, 0);
-			keyBlueDone = true;
-		}
-		if (TakeRedKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyRedDone)
-		{
-			app->map->redKeyTaken = true;
-			app->audio->PlayFx(keyTakenFx, 0);
-			keyRedDone = true;
-		}
-		if (TakeYellowKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyYellowDone)
-		{
-			app->map->yellowKeyTaken = true;
-			app->audio->PlayFx(keyTakenFx, 0);
-			keyYellowDone = true;
-		}
-		if (TakeGreenKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyGreenDone)
-		{
-			app->map->greenKeyTaken = true;
-			app->audio->PlayFx(keyTakenFx, 0);
-			app->audio->PlayFx(puzzleSolvedFx, 0);
-			keyGreenDone = true;
-		}
+	if (TakeBlueKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyBlueDone)
+	{
+		app->map->blueKeyTaken = true;
+		app->audio->PlayFx(keyTakenFx, 0);
+		keyBlueDone = true;
+	}
+	if (TakeRedKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyRedDone)
+	{
+		app->map->redKeyTaken = true;
+		app->audio->PlayFx(keyTakenFx, 0);
+		keyRedDone = true;
+	}
+	if (TakeYellowKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyYellowDone)
+	{
+		app->map->yellowKeyTaken = true;
+		app->audio->PlayFx(keyTakenFx, 0);
+		keyYellowDone = true;
+	}
+	if (TakeGreenKey() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !keyGreenDone)
+	{
+		app->map->greenKeyTaken = true;
+		app->audio->PlayFx(keyTakenFx, 0);
+		app->audio->PlayFx(puzzleSolvedFx, 0);
+		keyGreenDone = true;
 	}
 
 	//restart when dies
