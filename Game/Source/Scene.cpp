@@ -675,10 +675,12 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(enemy3);
 	app->entityManager->DestroyEntity(particles);
 
-	//app->entityManager->Disable();
 	app->map->Disable();
 	app->entityManager->Disable();
 	app->dialogueSystem->Disable();
+	app->hud->Disable();
+	app->quests->Disable();
+
 
 	//RELEASE(btnResume);
 	//RELEASE(btnSettings);

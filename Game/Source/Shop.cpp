@@ -135,7 +135,7 @@ bool Shop::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.b)
+	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.b)
 	{
 		staticPlayer = false;
 		open = false;

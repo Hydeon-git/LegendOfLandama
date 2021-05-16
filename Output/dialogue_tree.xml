@@ -43,8 +43,8 @@
       <dialogue option="  Yes" returnCode="1" nextNode="172"/>
       <dialogue option="  No, I@m just looking. Thank you." returnCode="0" nextNode="1"/>
     </node>
-    <node text="Goodbye! Take care." id="1">
-	 <dialogue option="  Press R or B to end the conversation." returnCode="0" nextNode="5"/>
+    <node text="Recover a weapon from the dungeon, please!" id="1">
+	 <dialogue option="  Press R or B to accept the quest." returnCode="0" nextNode="5"/>
 	</node>    
   </NPC>
   
@@ -62,7 +62,7 @@
       <dialogue option="  Okay, I will help you!" returnCode="0" nextNode="3"/>
     </node>
     <node text="Poor girl, I hope she can defeat them..." id="3">
-	 <dialogue option="  Press R or B to end the conversation." returnCode="0" nextNode="5"/>
+	 <dialogue option="  Press R or B to accept the quest." returnCode="0" nextNode="5"/>
 	</node>    
   </NPC>
   
@@ -81,10 +81,10 @@
       <dialogue option="  That@s helpful, thanks." returnCode="0" nextNode="3"/>
     </node>
 	<node text="Visit the Blacksmith before leaving the town."  id="3">
-	 <dialogue option="  Press R or B to end the conversation." returnCode="0" nextNode="5"/>
+	 <dialogue option="  Press R or B to accept the quest." returnCode="0" nextNode="5"/>
 	</node>
     <node text="You can also buy items to the Blacksmith."  id="4">
-	 <dialogue option="  Press R or B to end the conversation." returnCode="0" nextNode="5"/>
+	 <dialogue option="  Press R or B to accept the quest." returnCode="0" nextNode="5"/>
 	</node>	
   </NPC>
 </dialogueTree>
