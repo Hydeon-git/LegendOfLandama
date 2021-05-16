@@ -51,6 +51,7 @@ bool SceneBattle::Start()
 	bool ret = true;
 	if (this->active == true)
 	{
+		app->entityManager->Enable();
 		app->scene->player->battleDoneMage = true;
 		app->scene->player->battleDoneKnight = true;
 		if (app->scene->knightTkn)
@@ -1555,13 +1556,6 @@ void SceneBattle::Select()
 	
 }
 
-
-	
-
-
-
-
-
 //
 //bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 //{
@@ -2060,7 +2054,6 @@ void SceneBattle::Select()
 //}
 //
 
-
 bool SceneBattle::CleanUp()
 {
 	app->tex->UnLoad(battletext);
@@ -2073,6 +2066,8 @@ bool SceneBattle::CleanUp()
 	app->entityManager->DestroyEntity(enemy3);
 	app->entityManager->DestroyEntity(npc5);
 	app->entityManager->DestroyEntity(npc7);
+
+	app->entityManager->Disable();
 	return true;
 }
 

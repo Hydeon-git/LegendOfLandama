@@ -86,7 +86,6 @@ bool Scene::Start()
 		// Starts entities that are on the TOWN
 		npc1->Start();
 		npc5->Start();
-		//npc7->Start();
 		enemy1->Start();
 		enemy2->Start();
 		enemy3->Start();
