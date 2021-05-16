@@ -282,6 +282,7 @@ void SceneIntro::Select()
 	if (pos == 0)
 	{
 		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+		app->fadeToBlack->animId = 1;
 		startClicked = true;
 		app->sceneBattle->enemy1Dead = false;
 		app->sceneBattle->enemy2Dead = false;
@@ -291,6 +292,7 @@ void SceneIntro::Select()
 	else if (pos == 1)
 	{
 		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+		app->fadeToBlack->animId = 1;
 	}
 
 	else if (pos == 2)
@@ -332,13 +334,18 @@ bool SceneIntro::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 1)
 		{
 			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+			app->fadeToBlack->animId = 1;
 			startClicked = true;
 			app->sceneBattle->enemy1Dead = false;
 			app->sceneBattle->enemy2Dead = false;
 			app->sceneBattle->enemy3Dead = false;
 			app->sceneBattle->enemiesAlive = 3;
 		}
-		else if (control->id == 2) app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+		else if (control->id == 2)
+		{
+			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+			app->fadeToBlack->animId = 1;
+		}
 
 		else if (control->id == 3)
 		{

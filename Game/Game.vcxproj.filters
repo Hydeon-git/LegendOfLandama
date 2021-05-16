@@ -396,6 +396,9 @@
     <ClInclude Include="Source\Quests.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Source\easings.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

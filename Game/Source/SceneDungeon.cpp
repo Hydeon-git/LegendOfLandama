@@ -512,6 +512,7 @@ bool SceneDungeon::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->map->CleanUp();
 			app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
+			app->fadeToBlack->animId = 1;
 			paused = false;
 		}
 		else if (control->id == 4)
@@ -559,6 +560,7 @@ void SceneDungeon::Select()
 	{
 		app->map->CleanUp();
 		app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
+		app->fadeToBlack->animId = 1;
 		paused = false;
 	}
 	else if (pos == 3)

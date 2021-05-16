@@ -200,6 +200,7 @@ bool SceneBattle::Update(float dt)
 		if (enemiesAlive == 0 || (playerDead && mageDead && knightDead))
 		{
 			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+			app->fadeToBlack->animId = 1;
 			battleOn = false;
 			battleEnd = true;
 		}
@@ -480,6 +481,7 @@ bool SceneBattle::Update(float dt)
 		if (enemiesAlive == 0 || (playerDead && mageDead))
 		{
 			app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+			app->fadeToBlack->animId = 1;
 			battleOn = false;
 			battleEnd = true;
 		}

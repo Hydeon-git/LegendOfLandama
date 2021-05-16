@@ -196,6 +196,7 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 	{
 		app->fadeToBlack->FadeToBlk(this, app->sceneDungeon, 30);
+		app->fadeToBlack->animId = 1;
 	}
 
 	//Cap in-game FPS
@@ -239,6 +240,7 @@ bool Scene::Update(float dt)
 	if (player->houseDoor == COLLIDER_GREEN_FOREST)
 	{
 		app->fadeToBlack->FadeToBlk(this, app->sceneDungeon, 30);
+		app->fadeToBlack->animId = 1;
 	}
 	if (player->houseDoor == COLLIDER_BLUE_FOREST)
 	{
@@ -632,6 +634,7 @@ void Scene::Select()
 	{
 		app->map->CleanUp();
 		app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
+		app->fadeToBlack->animId = 1;
 		paused = false;
 		
 	}
@@ -1176,6 +1179,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			//	currentScene = GameScene::SCENE_TOWN;
 			//}
 			app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
+			app->fadeToBlack->animId = 1;
 			paused = false;
 		}
 		else if (control->id == 4)
