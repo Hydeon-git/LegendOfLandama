@@ -102,9 +102,12 @@ bool Quests::Update(float dt)
 	
 	if (app->sceneDungeon->active)
 	{
-		if (app->sceneDungeon->player->keyGreenDone)
+		if (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS)
 		{
-			quest3Done = true;
+			if (app->sceneDungeon->player->position.y == 153)
+			{
+				quest3Done = true;
+			}
 		}
 	}
 
