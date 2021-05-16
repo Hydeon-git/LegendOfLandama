@@ -54,21 +54,27 @@ bool DialogueSystem::Update(float dt)
 		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
 		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) 
 		{
-
-			app->scene->quest1message = true;
-
-
+			if (!quest1In)
+			{ 
+				quest1In = true;
+			}
 			id = 2;
 		}
 		else if (app->scene->currentScene == GameScene::SCENE_BSMITH)
 		{
-			app->scene->quest3message = true;
+			if (!quest3In)
+			{
+				quest3In = true;
+			}
 			id = 1;
 		}
 
 		else if (app->scene->currentScene == GameScene::SCENE_INN)
 		{
-			app->scene->quest2message = true;
+			if (!quest2In)
+			{
+				quest2In = true;
+			}
 			id = 3;
 		}
 
@@ -77,6 +83,18 @@ bool DialogueSystem::Update(float dt)
 		app->scene->player->dialogeOn = false;
 
 	}
+	if (quest1In) 
+	{
+		if (quest1Counter <= 151) quest1Counter++;
+	}
+	if (quest2In)
+	{
+		if (quest2Counter <= 151) quest2Counter++;
+	}
+	if (quest3In)
+	{
+		if (quest3Counter <= 151) quest3Counter++;
+	}
 	return true;
 }
 
@@ -84,6 +102,33 @@ bool DialogueSystem::PostUpdate()
 {
 
 	bool ret = true;
+
+	if (quest1In)
+	{ 
+		if (quest1Counter < 150)
+		{
+			app->scene->quest1message = true;
+		}else app->scene->quest1message = false;
+	}
+	if (quest2In)
+	{
+		if (quest2Counter < 150)
+		{
+			app->scene->quest2message = true;
+		}
+		else app->scene->quest2message = false;
+	}
+	if (quest3In)
+	{
+		if (quest3Counter < 150)
+		{
+			app->scene->quest3message = true;
+		}
+		else app->scene->quest3message = false;
+	}
+
+
+
 	if(app->scene->player != nullptr)
 	{
 		if (app->scene->player->dialogeOn)

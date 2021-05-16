@@ -329,6 +329,7 @@ bool SceneDungeon::PostUpdate()
 			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 
 			app->font->DrawText(15, 205, whiteFont, "You found 1 Potion");
+			app->font->DrawText(15, 220, whiteFont, "20 coins added to your inventary");
 
 		}
 	}

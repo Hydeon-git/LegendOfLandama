@@ -537,6 +537,7 @@ bool Player::Update(float dt)
 			{
 				app->audio->PlayFx(chestFx, 0);
 				app->map->chestOpened = true;
+				coins = coins + 20;
 				chestDone = true;
 			}
 		}
