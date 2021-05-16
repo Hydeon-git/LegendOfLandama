@@ -401,6 +401,7 @@
     </ClInclude>
     <ClInclude Include="Source\easings.h">
       <Filter>Utils</Filter>
+	</ClInclude>
     <ClInclude Include="Source\PlayerStats.h">
       <Filter>Modules</Filter>
     </ClInclude>
