@@ -92,7 +92,7 @@ private:
 	int pos = 0;
 	int posScaleY = 0, posScaleX = 0;
 
-
+	int countChest = 0;
 	// Enemy
 	Enemy1* enemy1;
 	Enemy2* enemy2;

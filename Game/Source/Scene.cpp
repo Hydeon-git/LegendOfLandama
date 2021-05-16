@@ -96,9 +96,9 @@ bool Scene::Start()
 		
 		// Texture assignations for the scene
 		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
-		doorOpenFx = app->audio->LoadFx("Assets/Audio/Fx/doorOpen.wav");
-		doorCloseFx = app->audio->LoadFx("Assets/Audio/Fx/doorClose.wav");
-		doorKnokFx = app->audio->LoadFx("Assets/Audio/Fx/doorKnok.wav");
+		doorOpenFx = app->audio->LoadFx("Assets/Audio/Fx/door_open.wav");
+		doorCloseFx = app->audio->LoadFx("Assets/Audio/Fx/door_close.wav");
+		doorKnokFx = app->audio->LoadFx("Assets/Audio/Fx/door_knok.wav");
 
 		selectorTex = app->tex->Load("Assets/Textures/pointer.png");
 

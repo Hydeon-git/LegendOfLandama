@@ -179,13 +179,10 @@ bool Player::Start()
 		texPlayer = app->tex->Load("Assets/Textures/main_character.png");
 
 		playerDeathFx = app->audio->LoadFx("Assets/Audio/Fx/death_sound.wav");
-		itemTakenFx = app->audio->LoadFx("Assets/Audio/Fx/item.wav");
 		keyTakenFx = app->audio->LoadFx("Assets/Audio/Fx/key.wav");
-		heartFx = app->audio->LoadFx("Assets/Audio/Fx/heart.wav");
-		fireFx = app->audio->LoadFx("Assets/Audio/Fx/fire.wav");
 		talkFx = app->audio->LoadFx("Assets/Audio/Fx/huh.wav");
 
-		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest_sound.ogg");
+		chestFx = app->audio->LoadFx("Assets/Audio/Fx/chest_sound.wav");
 		leverFx = app->audio->LoadFx("Assets/Audio/Fx/lever_open.wav");
 		leverErrorFx = app->audio->LoadFx("Assets/Audio/Fx/lever_error.wav");
 
@@ -534,12 +531,13 @@ bool Player::Update(float dt)
 			button1Done = true;
 		}
 
-		if (OpenChest() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL)
+		if (OpenChest() && app->sceneDungeon->currentScene == DungeonScene::SCENE_HALL && !chestDone)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
 			{
-				//app->audio->PlayFx(chestFx, 0);
+				app->audio->PlayFx(chestFx, 0);
 				app->map->chestOpened = true;
+				chestDone = true;
 			}
 		}
 		if (OpenLever1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever1Done)

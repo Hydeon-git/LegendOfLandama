@@ -289,6 +289,13 @@ bool SceneDungeon::Update(float dt)
 		app->scene->fromDungeon = true;
 	}
 
+	if (app->map->chestOpened)
+	{
+		if (countChest <= 201)
+		{
+			countChest++;
+		}
+	}
 	return true;
 }
 
@@ -313,6 +320,19 @@ bool SceneDungeon::PostUpdate()
 		app->map->DrawFloor2Dungeon();
 	}
 	
+
+	if (app->map->chestOpened)
+	{
+		if (countChest < 200)
+		{
+			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+			app->font->DrawText(15, 205, whiteFont, "You found 1 Potion");
+
+		}
+	}
+
 	//spikes
 	if (!app->map->lever1Pressed && !app->map->lever2Pressed && !app->map->lever3Pressed && !app->map->leverFinalPressed)
 	{

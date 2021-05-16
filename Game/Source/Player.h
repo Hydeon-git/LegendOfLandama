@@ -188,6 +188,7 @@ public:
 	bool keyBlueDone = false;
 	bool keyGreenDone = false;
 	bool keyYellowDone = false;
+	bool chestDone = false;
 
 private:
 	float speed = 1.0f;
@@ -199,11 +200,8 @@ private:
 private:
 	SDL_Texture* texFireBall;
 	uint playerDeathFx = 0;
-	uint itemTakenFx = 0;
 	uint keyTakenFx = 0;
 	uint chestFx = 0;
-	uint heartFx = 0;
-	uint fireFx = 0;
 
 	uint leverFx = 0;
 	uint leverErrorFx = 0;
