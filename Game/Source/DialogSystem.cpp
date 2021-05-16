@@ -152,7 +152,7 @@ bool DialogueSystem::PostUpdate()
 
 			char NPCdialogue[128] = { 0 };
 			sprintf_s(NPCdialogue, 128, currentNode->text.c_str(), 56);
-			app->font->DrawText(15, 178, app->scene->whiteFont, NPCdialogue);
+			app->font->DrawText(12, 178, app->scene->whiteFont, NPCdialogue);
 
 			char response[128] = { 0 };
 			for (int i = 0; i < currentNode->answersList.Count(); i++)

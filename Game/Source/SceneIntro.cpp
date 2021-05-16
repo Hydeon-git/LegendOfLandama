@@ -89,7 +89,6 @@ bool SceneIntro::Start()
 	checkBoxVSync->SetObserver(this);*/
 	
 	pos = 0;
-	app->input->Enable();
 	return ret;
 }
 
@@ -119,7 +118,29 @@ bool SceneIntro::Update(float dt)
 			btnOptions->Update(dt);
 			btnExit->Update(dt);
 		}
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a == true) { Select(); }
+		if (pos == 0)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnStart->state = GuiControlState::PRESSED;
+		}
+		if (pos == 1 && posContinue)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnContinue->state = GuiControlState::PRESSED;
+		}
+		if (pos == 2)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnOptions->state = GuiControlState::PRESSED;
+		}
+		if (pos == 3)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnExit->state = GuiControlState::PRESSED;
+		}
+		if (pos == 4)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnBackOptions->state = GuiControlState::PRESSED;
+		}
+		
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP || pad.a == true) { Select(); }
+
 		if (!options)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up == true)
@@ -205,7 +226,6 @@ bool SceneIntro::PostUpdate()
 			//sliderMusicVolume->Draw();
 			//sliderFxVolume->Draw();
 			btnBackOptions->Draw();
-			//btnExit->Draw();
 			checkBoxFullscreen->Draw();
 			//checkBoxVSync->Draw();
 		}
@@ -268,7 +288,10 @@ void SceneIntro::Select()
 		app->sceneBattle->enemy3Dead = false;
 		app->sceneBattle->enemiesAlive = 3;
 	}
-	else if (pos == 1) app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+	else if (pos == 1)
+	{
+		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+	}
 
 	else if (pos == 2)
 	{

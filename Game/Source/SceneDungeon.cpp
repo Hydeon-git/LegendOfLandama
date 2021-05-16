@@ -116,22 +116,22 @@ bool SceneDungeon::Start()
 		}
 
 		//Buttons
-		btnResume = new GuiButton(1, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 115, 70, 12 }, "RESUME");
+		btnResume = new GuiButton(1, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 115, 54, 10 }, "RESUME");
 		btnResume->SetObserver(this);
 
-		btnSettings = new GuiButton(2, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 70, 12 }, "SETTINGS");
+		btnSettings = new GuiButton(2, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 72, 10 }, "SETTINGS");
 		btnSettings->SetObserver(this);
 
-		btnBackIntro = new GuiButton(3, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 }, "BACK MENU");
+		btnBackIntro = new GuiButton(3, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 81, 10 }, "BACK MENU");
 		btnBackIntro->SetObserver(this);
 
-		btnExit = new GuiButton(4, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 175, 70, 12 }, "EXIT");
+		btnExit = new GuiButton(4, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 175, 36, 10 }, "EXIT");
 		btnExit->SetObserver(this);
 
-		btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200,70 ,12 }, "BACK");
+		btnBack = new GuiButton(5, { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 200, 36 ,10 }, "BACK");
 		btnBack->SetObserver(this);
 
-		checkBoxFullscreen = new GuiCheckBox(1, { -app->render->camera.x / 3, -app->render->camera.y / 3, 40, 40 }, "FULLSCREEN");
+		checkBoxFullscreen = new GuiCheckBox(1, { -app->render->camera.x / 3, -app->render->camera.y / 3, 15, 15 }, "FULLSCREEN");
 		checkBoxFullscreen->SetObserver(this);
 	}
 	return ret;
@@ -250,7 +250,28 @@ bool SceneDungeon::Update(float dt)
 	}
 	if (paused || pausedSettings)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a) { Select(); }
+		if (pos == 0)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnResume->state = GuiControlState::PRESSED;
+		}
+		if (pos == 1)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnSettings->state = GuiControlState::PRESSED;
+		}
+		if (pos == 2)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnBackIntro->state = GuiControlState::PRESSED;
+		}
+		if (pos == 3)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnExit->state = GuiControlState::PRESSED;
+		}
+		if (pos == 4)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) btnBack->state = GuiControlState::PRESSED;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP || pad.a) { Select(); }
 	}
 
 	if (pausedSettings)
@@ -469,11 +490,11 @@ bool SceneDungeon::CleanUp()
 
 void SceneDungeon::Pause()
 {
-	btnResume->bounds = { -app->render->camera.x / 3 + 170,-app->render->camera.y / 3 + 115, 70, 12 };
-	btnSettings->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 70, 12 };
-	btnBackIntro->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 70, 12 };
-	btnExit->bounds = { -app->render->camera.x / 3 + 170,  -app->render->camera.y / 3 + 175, 70, 12 };
-	btnBack->bounds = { -app->render->camera.x / 3 + 190,  -app->render->camera.y / 3 + 175, 70, 12 };
+	btnResume->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 115, 54, 10 };
+	btnSettings->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 135, 72, 10 };
+	btnBackIntro->bounds = { -app->render->camera.x / 3 + 170, -app->render->camera.y / 3 + 155, 81, 10 };
+	btnExit->bounds = { -app->render->camera.x / 3 + 170,  -app->render->camera.y / 3 + 175, 36, 10 };
+	btnBack->bounds = { -app->render->camera.x / 3 + 190,  -app->render->camera.y / 3 + 175, 36, 10 };
 	checkBoxFullscreen->bounds = { -app->render->camera.x / 3 + 250,  -app->render->camera.y / 3 + 135, 15,15 };
 }
 
