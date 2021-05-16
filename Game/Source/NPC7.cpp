@@ -43,8 +43,8 @@ NPC7::NPC7() : Entity(EntityType::NPC7)
 	else {
 		//position.x = app->scene->player->lastPositionX;
 		//position.y = app->scene->player->lastPositionY - 5;
-		position.x = 300;
-		position.y = 172;
+		position.x = 535;
+		position.y = 75;
 		//position.x = 200;
 		//position.y = 100;
 

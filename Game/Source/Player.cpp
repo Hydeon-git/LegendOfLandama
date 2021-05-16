@@ -222,7 +222,7 @@ bool Player::Update(float dt)
 		{
 			if (!app->scene->paused && !app->sceneDungeon->paused && !dialogeOn && !onBattle && !app->shop->staticPlayer && !app->hud->bagIsOpen && !app->quests->questsIsOpen) 
 			{
-				if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up == true) && !app->scene->mageTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+				if (((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || pad.up == true) && !app->scene->knightTxt && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{
 					app->scene->mageTxt = false;
 					if (!ThereIsTopWall() && !ThereIsNPCUp())
@@ -284,8 +284,9 @@ bool Player::Update(float dt)
 
 					}
 				}
-				if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down == true) && !app->scene->mageTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)&&!app->scene->mageTxt)
+				if (((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || pad.down == true) && !app->scene->mageTxt && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 				{
+					app->scene->knightTxt = false;
 					if (!ThereIsBottomWall() && !ThereIsNPCBelow())
 					{
 						position.y += speed;
@@ -346,7 +347,7 @@ bool Player::Update(float dt)
 					}
 				}
 
-				if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left == true) && !app->scene->mageTxt2 && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
+				if (((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || pad.left == true) && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 				{
 					if (!ThereIsLeftWall() && !ThereIsNPCLeft())
 					{
@@ -406,7 +407,7 @@ bool Player::Update(float dt)
 
 					}
 				}
-				else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right == true) && !app->scene->mageTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
+				else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right == true) && !app->scene->mageTxt2 && !app->scene->knightTxt2 && !(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 				{
 					if (!ThereIsRightWall() && !ThereIsNPCRight())
 					{
@@ -650,7 +651,7 @@ bool Player::Update(float dt)
 	//if (!knightTkn&& position.y <= 150) knightTkn = true;
 	//if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) app->scene->mageTkn = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->scene->knightTkn = true;
+	//if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->scene->knightTkn = true;
 
 	if (battleDoneMage && !app->sceneBattle->mageRevive) app->scene->mageTkn = true;
 	if (battleDoneKnight && !app->sceneBattle->knightRevive) app->scene->knightTkn = true;

@@ -108,8 +108,13 @@ public:
 	
 	bool mageTxt = false;
 	bool mageTxt2 = false;
+	bool knightTxt = false;
+	bool knightTxt2 = false;
 	bool mageTkn = false;
 	bool knightTkn = false;
+	bool fromDungeon = false;
+	bool forest = false;
+
 
 	int quest1message = false;
 	int quest2message = false;
@@ -174,6 +179,7 @@ private:
 
 	int count = 0;
 	int count2 = 0;
+	int count3 = 0;
 
 };
 
