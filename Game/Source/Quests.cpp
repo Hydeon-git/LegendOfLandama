@@ -78,14 +78,15 @@ bool Quests::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !questsIsOpen || pad.r1 == true)
+	if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && !questsIsOpen)
 	{
 		questsIsOpen = true;
 		app->hud->bagIsOpen = false;
 		app->audio->PlayFx(questFx, 0);
 		app->shop->open = false;
+	} 
 
-	} else if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && questsIsOpen || pad.r1 == true)
+	else if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && questsIsOpen)
 	{
 		questsIsOpen = false;
 		app->audio->PlayFx(questFx, 0);
@@ -104,7 +105,6 @@ bool Quests::Update(float dt)
 			quest3Done = true;
 		}
 	}
-
 
 	if (quest1Done) 
 	{
@@ -127,7 +127,6 @@ bool Quests::Update(float dt)
 			counterQuest3++;
 		}
 	}
-
 
 	//if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	//{

@@ -453,7 +453,7 @@ bool Scene::Update(float dt)
 	}
 
 	if (player->position.y > 306&&!mageTkn&&!mageTxt) mageTxt = true;
-	if (mageTxt && !mageTkn && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x)
+	if (mageTxt && !mageTkn && (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x))
 	{
 		mageTxt2 = true;
 	}
