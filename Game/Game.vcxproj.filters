@@ -180,6 +180,9 @@
     <ClCompile Include="Source\Quests.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayerStats.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -398,6 +401,8 @@
     </ClInclude>
     <ClInclude Include="Source\easings.h">
       <Filter>Utils</Filter>
+    <ClInclude Include="Source\PlayerStats.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

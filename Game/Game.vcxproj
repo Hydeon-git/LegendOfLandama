@@ -127,6 +127,7 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\PlayerStats.cpp" />
     <ClCompile Include="Source\Potion.cpp" />
     <ClCompile Include="Source\Quests.cpp" />
     <ClCompile Include="Source\RubyWand.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\PlayerStats.h" />
     <ClInclude Include="Source\Potion.h" />
     <ClInclude Include="Source\PQueue.h" />
     <ClInclude Include="Source\Quests.h" />

@@ -50,9 +50,9 @@ public:
 	Animation upAnim;
 
 	// NPC7 Knight Stats
-	int knightDmg = 10;
-	int knightHealth = 100;
-	int knightMagicDmg = 40;
+	int knightDmg = 30;
+	int knightHealth = 200;
+	int knightMagicDmg = 5;
 
 
 private:

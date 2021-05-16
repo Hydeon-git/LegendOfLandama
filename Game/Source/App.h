@@ -32,6 +32,7 @@ class DialogueSystem;
 class Shop;
 class HUD;
 class Quests;
+class PlayerStats;
 
 class App
 {
@@ -116,6 +117,7 @@ public:
 	Shop* shop;
 	HUD* hud;
 	Quests* quests;
+	PlayerStats* playerStats;
 
 	bool capped = false;
 	bool loadGameRequested;

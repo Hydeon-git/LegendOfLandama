@@ -170,8 +170,8 @@ public:
 	
 
 	// Player Stats
-	int playerDmg = 250;
-	int playerHealth = 200;
+	int playerDmg = 50;
+	int playerHealth = 150;
 	int playerMagicDmg = 15;
 
 	bool battleDoneMage = false;

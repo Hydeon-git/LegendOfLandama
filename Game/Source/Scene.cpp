@@ -37,6 +37,8 @@
 #include "Log.h"
 #include "HUD.h"
 #include "Quests.h"
+#include "PlayerStats.h"
+
 
 
 Scene::Scene() : Module()
@@ -94,6 +96,7 @@ bool Scene::Start()
 		app->map->Enable();
 		app->hud->Enable();
 		app->quests->Enable();
+		app->playerStats->Enable();
 		player->spiked = false;
 		player->onBattle = false;
 		app->sceneBattle->battleOn = false;

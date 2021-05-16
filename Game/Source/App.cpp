@@ -23,6 +23,7 @@
 #include "Log.h"
 #include "HUD.h"
 #include "Quests.h"
+#include "PlayerStats.h"
 #include <iostream>
 #include <sstream>
 
@@ -55,6 +56,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	shop = new Shop();
 	hud = new HUD();
 	quests = new Quests();
+	playerStats = new PlayerStats();
 
 
 
@@ -79,6 +81,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(shop, false);
 	AddModule(hud, false);
 	AddModule(quests, false);
+	AddModule(playerStats, false);
 	// Render last to swap buffer
 	AddModule(render, true);
 

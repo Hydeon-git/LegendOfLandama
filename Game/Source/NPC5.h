@@ -50,8 +50,8 @@ public:
 	Animation upAnim;
 
 	// NPC5 Mage Stats
-	int mageDmg = 10;
-	int mageHealth = 100;
+	int mageDmg = 15;
+	int mageHealth = 125;
 	int mageMagicDmg = 40;
 
 	
