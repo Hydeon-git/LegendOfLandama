@@ -101,6 +101,7 @@ bool Scene::Start()
 		player->spiked = false;
 		player->onBattle = false;
 		app->sceneBattle->battleOn = false;
+		app->shop->staticPlayer = false;
 		
 		// Texture assignations for the scene
 		texMenu = app->tex->Load("Assets/Textures/pause_menu.png");
@@ -322,7 +323,7 @@ bool Scene::Update(float dt)
 		case GameScene::SCENE_TOWN:
 		{
 			// Camera Settings
-			if (!paused && !app->hud->bagIsOpen && !app->quests->questsIsOpen)
+			if (!paused && !app->hud->bagIsOpen && !app->quests->questsIsOpen && !app->playerStats->statsIsOpen)
 			{
 				//camera x
 
@@ -366,7 +367,7 @@ bool Scene::Update(float dt)
 		case GameScene::SCENE_ENTRYDUNGEON:
 		{
 			// Camera Settings
-			if (!app->scene->paused && !app->hud->bagIsOpen && !app->quests->questsIsOpen)
+			if (!app->scene->paused && !app->hud->bagIsOpen && !app->quests->questsIsOpen && !app->playerStats->statsIsOpen)
 			{
 				//camera x
 
