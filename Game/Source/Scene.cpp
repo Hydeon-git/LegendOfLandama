@@ -66,6 +66,11 @@ bool Scene::Start()
 		// Set Current Scene to TOWN
 		currentScene = GameScene::SCENE_TOWN;
 
+		// EntityManager Start
+		app->entityManager->Enable();
+
+		// Dialogue Setup
+		app->dialogueSystem->Enable();
 		// Setting dialogue to id 0 - Beach Girl
 		app->dialogueSystem->id = 0;
 
@@ -298,8 +303,7 @@ bool Scene::Update(float dt)
 	sceneCounterCheckpoint = player->counterCheckpoint;
 	sceneCounterHeart = player->counterHeart;
 	sceneCounterPuzzle = player->counterPuzzle;
-
-	if (app->sceneIntro->exit == true) return false;
+	
 	// Current Scene Update()
 	switch (currentScene)
 	{
@@ -440,6 +444,7 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+	if (app->sceneIntro->exit == true) return false;
 
 	// Draw map
 	app->map->Draw();
@@ -579,13 +584,7 @@ void Scene::Select()
 		
 	}
 	else if (pos == 3)
-	{
-		if (app->scene->player != nullptr)
-		{
-			app->scene->player->position.x = 350;
-			app->scene->player->position.y = 875;
-			app->SaveGameRequest();
-		}
+	{		
 		app->sceneIntro->exit = true;
 	}
 	else if (pos == 4)
@@ -623,6 +622,7 @@ bool Scene::CleanUp()
 	app->entityManager->DestroyEntity(enemy3);
 	app->entityManager->DestroyEntity(particles);
 
+	//app->entityManager->Disable();
 	app->map->Disable();
 
 	//RELEASE(btnResume);

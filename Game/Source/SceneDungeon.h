@@ -73,7 +73,6 @@ private:
 
 	SDL_Texture* selectorTex = nullptr;
 	
-	bool exit = false;
 	bool pausedSettings = false;
 
 

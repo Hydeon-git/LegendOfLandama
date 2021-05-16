@@ -303,7 +303,7 @@ bool SceneDungeon::Update(float dt)
 bool SceneDungeon::PostUpdate()
 {
 	bool ret = true;
-	if (exit == true) ret = false;
+	if (app->sceneIntro->exit == true) ret = false;
 
 	app->map->Draw();
 
@@ -496,13 +496,7 @@ bool SceneDungeon::OnGuiMouseClickEvent(GuiControl* control)
 			paused = false;
 		}
 		else if (control->id == 4)
-		{
-			if (app->scene->player != nullptr)
-			{
-				app->scene->player->position.x = 350;
-				app->scene->player->position.y = 875;
-				app->SaveGameRequest();
-			}
+		{			
 			app->sceneIntro->exit = true;
 		}
 		else if (control->id == 5) pausedSettings = false;
@@ -550,13 +544,7 @@ void SceneDungeon::Select()
 
 	}
 	else if (pos == 3)
-	{
-		if (app->scene->player != nullptr)
-		{
-			app->scene->player->position.x = 350;
-			app->scene->player->position.y = 875;
-			app->SaveGameRequest();
-		}
+	{		
 		app->sceneIntro->exit = true;
 	}
 	else if (pos == 4)

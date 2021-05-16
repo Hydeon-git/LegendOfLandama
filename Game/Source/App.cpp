@@ -71,8 +71,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene, false);
 	AddModule(sceneDungeon, false);
 	AddModule(map, false);
-	AddModule(dialogueSystem, true);
-	AddModule(entityManager, true);
+	AddModule(dialogueSystem, false);
+	AddModule(entityManager, false);
 	AddModule(font, true);
 	AddModule(pathfinding, true);
 	AddModule(fadeToBlack, true);
