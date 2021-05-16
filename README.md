@@ -37,11 +37,11 @@ Go inside Landama's town and fight, make friends, save them from fear and become
 
 - Implement a TOWN map with at least 3 locations to visit (i.e. House, Tavern, Graveyard...)
 
-- Implement at least 2 Playable Characters, available as the base Team Party
+- Implement 3 Playable Characters
 
-- Implement at least 3 NPC Characters (town people, wizard, tavern…)
+- Implement NPC Characters (town people, wizard, tavern…)
 
-- Implement at least 4 Dialogs with branching with NPC characters (Research: Dialog System)
+- Implement Dialogs with branching with NPC characters
 
 - INPUTS: Keyboard/Gamepad inputs supported
 
@@ -57,6 +57,23 @@ Go inside Landama's town and fight, make friends, save them from fear and become
 
 - UI: Implement a minimal menu to choose next player actions.
 
+- UI: Implement a minimal menu system (inventory)
+
+- Screen Battle Transition
+
+- ANIM: Animated logo in/out
+
+- Implement a DUNGEON map with at least 3 map-puzzles to solve (i.e. Activate level,Move rock, Push button...)
+
+- UI: Implement a minimal menu system (Characters Stats)
+
+- Implement 3 Quests
+
+- AUDIO: Sound FX characteristic for all interaction
+
+- Implement Items to collect
+
+- Custom background with victory/lose messages (custom font)
 
 ## Controls
 
@@ -66,8 +83,12 @@ Go inside Landama's town and fight, make friends, save them from fear and become
 - W -> Up Movement
 - S -> Down Movement
 - E -> Start dialog
-- R -> Finish dialog
-- 1/2/3 -> Choose dialog options
+- R -> Finish dialog/accept quest
+- I -> Open/Close Inventory
+- Q -> Open/Close Quest list
+- C -> Open/Close Characters stats
+- T -> Close Shop if Open
+- SPACE -> Choose options
 - Esc -> Menu Pause
 
  Debug keys:
