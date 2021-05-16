@@ -61,6 +61,9 @@ bool SceneDungeon::Start()
 
 		// Map
 		app->map->Enable();
+		app->entityManager->Enable();
+		app->hud->Enable();
+		app->quests->Enable();
 
 		// Music
 		app->audio->PlayMusic("Assets/Audio/Music/dungeon_music.ogg");
@@ -476,6 +479,9 @@ bool SceneDungeon::CleanUp()
 	app->entityManager->DestroyEntity(enemy3);
 
 	app->map->Disable();
+	app->entityManager->Disable();
+	app->hud->Disable();
+	app->quests->Disable();
 
 	return true;
 }
@@ -554,7 +560,6 @@ void SceneDungeon::Select()
 		app->map->CleanUp();
 		app->fadeToBlack->FadeToBlk(this, app->sceneIntro, 30);
 		paused = false;
-
 	}
 	else if (pos == 3)
 	{		
@@ -570,7 +575,6 @@ void SceneDungeon::Select()
 		app->win->fullScreen = !app->win->fullScreen;
 		app->win->ChangeScreenSize();
 	}
-
 }
 
 void SceneDungeon::ChangeScene(DungeonScene nextScene)
