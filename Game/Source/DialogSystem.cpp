@@ -30,58 +30,63 @@ bool DialogueSystem::Start()
 bool DialogueSystem::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
-
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a == true) { Select(); }
-
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up == true)
+	if (app->scene->player != nullptr)
 	{
-		pos--;
-		if (pos < 0 && currentNode->answersList.Count() == 2) pos = 1;
-		else if (pos < 0 && currentNode->answersList.Count() == 3) pos = 2;
-		else if (pos < 0 && currentNode->answersList.Count() == 1) pos = 0;
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down == true)
-	{
-		pos++;
-		if (pos > 2 && currentNode->answersList.Count() == 3) pos = 0;
-		else if (pos > 1 && currentNode->answersList.Count() == 2) pos = 0;
-		else if (pos > 0 && currentNode->answersList.Count() == 1) pos = 0;
-	}
-
-	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || pad.b == true)
-	{	
-		if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
-		else if (app->scene->currentScene == GameScene::SCENE_HOUSE1) 
+		if (app->scene->player->dialogeOn)
 		{
-			if (!quest1In)
-			{ 
-				quest1In = true;
-			}
-			id = 2;
-		}
-		else if (app->scene->currentScene == GameScene::SCENE_BSMITH)
-		{
-			if (!quest3In)
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a == true) { Select(); }
+
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up == true)
 			{
-				quest3In = true;
+				pos--;
+				if (pos < 0 && currentNode->answersList.Count() == 2) pos = 1;
+				else if (pos < 0 && currentNode->answersList.Count() == 3) pos = 2;
+				else if (pos < 0 && currentNode->answersList.Count() == 1) pos = 0;
 			}
-			id = 1;
-		}
 
-		else if (app->scene->currentScene == GameScene::SCENE_INN)
-		{
-			if (!quest2In)
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down == true)
 			{
-				quest2In = true;
+				pos++;
+				if (pos > 2 && currentNode->answersList.Count() == 3) pos = 0;
+				else if (pos > 1 && currentNode->answersList.Count() == 2) pos = 0;
+				else if (pos > 0 && currentNode->answersList.Count() == 1) pos = 0;
 			}
-			id = 3;
+
+			if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || pad.b == true)
+			{
+				if (app->scene->currentScene == GameScene::SCENE_TOWN) id = 0;
+				else if (app->scene->currentScene == GameScene::SCENE_HOUSE1)
+				{
+					if (!quest1In)
+					{
+						quest1In = true;
+					}
+					id = 2;
+				}
+				else if (app->scene->currentScene == GameScene::SCENE_BSMITH)
+				{
+					if (!quest3In)
+					{
+						quest3In = true;
+					}
+					id = 1;
+				}
+
+				else if (app->scene->currentScene == GameScene::SCENE_INN)
+				{
+					if (!quest2In)
+					{
+						quest2In = true;
+					}
+					id = 3;
+				}
+
+				currentNode = dialogueTrees[id]->dialogueNodes[0];
+				playerInput = 9;
+				app->scene->player->dialogeOn = false;
+
+			}
 		}
-
-		currentNode = dialogueTrees[id]->dialogueNodes[0];
-		playerInput = 9;
-		app->scene->player->dialogeOn = false;
-
 	}
 	if (quest1In) 
 	{
@@ -168,7 +173,9 @@ bool DialogueSystem::PostUpdate()
 			{
 				posScaleY = 224;
 			}
-			app->render->DrawTexture(pointerText, 15, posScaleY, NULL);
+			SDL_Rect rect;
+			rect = { 0, 0, 16, 16 };
+			app->render->DrawTexture(pointerText, 15, posScaleY, &rect, 1, false);
 		}
 	}
 

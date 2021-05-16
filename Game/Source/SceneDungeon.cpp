@@ -171,9 +171,9 @@ bool SceneDungeon::Update(float dt)
 			}
 				
 
-			else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || !pad.right)
-				&& (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && pad.left)
-				&& (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) && pad.left)
+			else if (((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || pad.right)
+				&& (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !pad.left)
+				&& (!(app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) && !pad.left)
 				&& (!(app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && !pad.up)
 				&& (!(app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && !pad.down)
 				&& !player->ThereIsRightWall()

@@ -85,7 +85,7 @@ bool Quests::Update(float dt)
 		app->audio->PlayFx(questFx, 0);
 		app->shop->open = false;
 
-	} else if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && questsIsOpen || pad.b == true)
+	} else if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && questsIsOpen || pad.r1 == true)
 	{
 		questsIsOpen = false;
 		app->audio->PlayFx(questFx, 0);
