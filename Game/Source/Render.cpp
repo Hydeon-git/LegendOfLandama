@@ -138,6 +138,7 @@ void Render::RestartValues()
 			app->render->camera.y = app->scene->player->position.y - (app->render->camera.h * 2) + 10 - 1440;
 			app->map->keyTaken = false;
 			app->map->chestTaken = false;
+			app->map->swordTaken = false;
 			app->map->heartTaken = false;
 			app->map->puzzleTaken = false;
 			app->map->puzzle1DungeonDone = false;

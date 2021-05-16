@@ -37,6 +37,7 @@
 #define COLLIDER_GREENER_DUNGEON 1034
 #define COLLIDER_BLACK_DUNGEON 1035
 #define COLLIDER_BROWN_DUNGEON 1036
+#define COLLIDER_WHITE_DUNGEON 1037
 
 struct SDL_Texture;
 class Collider;
@@ -85,6 +86,7 @@ public:
 	bool DungeonFloorUp();
 	bool ThereIsDoor();
 	bool OpenChest();
+	bool OpenSword();
 	bool OpenLever1();
 	bool OpenLever2();
 	bool OpenLever3();
@@ -188,6 +190,7 @@ public:
 	bool keyGreenDone = false;
 	bool keyYellowDone = false;
 	bool chestDone = false;
+	bool swordDone = false;
 
 private:
 	float speed = 1.0f;

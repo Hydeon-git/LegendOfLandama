@@ -632,6 +632,38 @@ void Map::DrawChest()
 }
 
 
+void Map::DrawSword()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* keySword = data.layers.start;
+	//spikes3
+	while (keySword != NULL)
+	{
+		if (keySword->data->name == "sword")
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tileId = keySword->data->Get(x, y);
+					if (tileId > 0)
+					{
+						// L04: DONE 9: Complete the draw function
+						TileSet* set = GetTilesetFromTileId(tileId);
+						SDL_Rect rect = set->GetTileRect(tileId);
+						iPoint pos = MapToWorld(x, y);
+						app->render->DrawTexture(set->texture, pos.x, pos.y, &rect);
+					}
+				}
+			}
+		}
+		keySword = keySword->next;
+	}
+}
+
+
+
 void Map::DrawLevers()
 {
 	if (mapLoaded == false) return;

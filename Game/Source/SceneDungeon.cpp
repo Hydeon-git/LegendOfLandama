@@ -312,6 +312,14 @@ bool SceneDungeon::Update(float dt)
 			countChest++;
 		}
 	}
+
+	if (app->map->swordOpened)
+	{
+		if (countSword <= 401)
+		{
+			countSword++;
+		}
+	}
 	return true;
 }
 
@@ -326,6 +334,7 @@ bool SceneDungeon::PostUpdate()
 	app->map->DrawDoor();
 	app->map->DrawDoorMid();
 	app->map->DrawChest();
+	app->map->DrawSword();
 	app->map->DrawLevers();
 	if (!app->map->puzzle1DungeonDone)
 	{
@@ -348,6 +357,35 @@ bool SceneDungeon::PostUpdate()
 			app->font->DrawText(15, 220, whiteFont, "20 coins added to your inventary");
 
 		}
+	}
+
+
+	if (app->map->swordOpened)
+	{
+		if (countSword < 200)
+		{
+			app->render->DrawRectangle({ 0, 30, 1280, 140 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 40, 1260, 120 }, 100, 100, 200, 220, true, false);
+
+
+			app->font->DrawText(160, 20, whiteFont, "CONTRATULATIONS!");
+			app->font->DrawText(150, 35, whiteFont, "YOU FOUND THE SWORD");
+
+		}
+		else if (countSword < 400)
+		{
+			app->render->DrawRectangle({ 0, 30, 1280, 140 }, 0, 0, 0, 220, true, false);
+			app->render->DrawRectangle({ 10, 40, 1260, 120 }, 100, 100, 200, 220, true, false);
+			app->font->DrawText(30, 20, whiteFont, "200 coins added to your inventary");
+			app->font->DrawText(30, 35, whiteFont, "going to deliver the sword...");
+		}
+		//else
+		//{
+		//	countSword = 500;
+		//	app->fadeToBlack->FadeToBlk(this, app->scene, 30);
+		//	app->fadeToBlack->animId = 1;
+		//}
+
 	}
 
 	//spikes

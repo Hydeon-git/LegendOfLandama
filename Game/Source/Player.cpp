@@ -154,11 +154,13 @@ bool Player::Start()
 		{
 			app->map->keyTaken = false;
 			app->map->chestTaken = false;
+			app->map->swordTaken = false;
 			app->map->heartTaken = false;
 			app->map->puzzleTaken = false;
 			app->map->puzzle1DungeonDone = false;
 			app->map->buttonFloorPressed = false;
 			app->map->chestOpened = false;
+			app->map->swordOpened = false;
 			lifes = 3;
 			counterKey = 0;
 			counterCheckpoint = 0;
@@ -543,6 +545,20 @@ bool Player::Update(float dt)
 				
 			}
 		}
+
+
+		if (OpenSword() && app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && !swordDone)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
+			{
+				app->audio->PlayFx(chestFx, 0);
+				app->map->swordOpened = true;
+				swordDone = true;
+				app->hud->coins += 200;
+
+			}
+		}
+
 		if (OpenLever1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever1Done)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.x == true)
@@ -962,7 +978,8 @@ bool Player::ThereIsTopWall()
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_YELLOW_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_BEIGE_DUNGEON && !app->map->redKeyTaken)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_BROWN_DUNGEON && !app->map->blueKeyTaken)
-						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_GREENER_DUNGEON && !app->map->greenKeyTaken))
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_GREENER_DUNGEON && !app->map->greenKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_WHITE_DUNGEON && !app->map->swordTaken))
 					{
 						valid = true;
 					}
@@ -999,7 +1016,8 @@ bool Player::ThereIsBottomWall()
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_ORANGE_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && groundId == COLLIDER_YELLOW_DUNGEON)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_YELLOW_DUNGEON && !app->map->yellowKeyTaken)
-						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken))
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && groundId == COLLIDER_WHITE_DUNGEON && !app->map->swordTaken))
 					{
 						valid = true;
 					}
@@ -1039,7 +1057,8 @@ bool Player::ThereIsLeftWall()
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_BROWN_DUNGEON && !spikes2Down)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && leftWallId == COLLIDER_CIAN_DUNGEON && !spikes3Down)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && leftWallId == COLLIDER_YELLOW_DUNGEON && !app->map->yellowKeyTaken)
-						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && leftWallId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken))
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && leftWallId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && leftWallId == COLLIDER_WHITE_DUNGEON && !app->map->swordTaken))
 					{
 						valid = true;
 					}
@@ -1077,7 +1096,8 @@ bool Player::ThereIsRightWall()
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_BROWN_DUNGEON && !spikes2Down)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && rightWallId == COLLIDER_CIAN_DUNGEON && !spikes3Down)
 						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && rightWallId == COLLIDER_YELLOW_DUNGEON && !app->map->yellowKeyTaken)
-						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && rightWallId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken))
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && rightWallId == COLLIDER_GREY_DUNGEON && !app->map->blueKeyTaken)
+						|| (app->sceneDungeon->currentScene == DungeonScene::SCENE_BOSS && rightWallId == COLLIDER_WHITE_DUNGEON && !app->map->swordTaken))
 					{
 						valid = true;
 					}
@@ -1410,6 +1430,46 @@ bool Player::OpenChest()
 	return valid;
 
 }
+
+
+bool Player::OpenSword()
+{
+	bool valid = false;
+	if (!godModeEnabled)
+	{
+		iPoint tilePosition;
+		ListItem<MapLayer*>* layer = app->map->data.layers.start;
+		int swordId;
+		while (layer != NULL)
+		{
+			if (layer->data->name == "colliders")
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					tilePosition = app->map->WorldToMap(position.x + playerWidth + 1, position.y + i * 4);
+					swordId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (swordId == COLLIDER_WHITE_DUNGEON) valid = true;
+				}
+				for (int j = 0; j < 4; ++j)
+				{
+					tilePosition = app->map->WorldToMap(position.x - 1, position.y + j * 4);
+					swordId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (swordId == COLLIDER_WHITE_DUNGEON) valid = true;
+				}
+				for (int k = 0; k < 4; ++k)
+				{
+					tilePosition = app->map->WorldToMap(position.x + k * 4, position.y - 1);
+					swordId = layer->data->Get(tilePosition.x, tilePosition.y);
+					if (swordId == COLLIDER_WHITE_DUNGEON) valid = true;
+				}
+			}
+			layer = layer->next;
+		}
+	}
+	return valid;
+
+}
+
 
 bool Player::OpenLever1()
 {

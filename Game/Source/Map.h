@@ -132,6 +132,7 @@ public:
 	void DrawLevers();
 	void DrawPuzzle();
 	void DrawChest();
+	void DrawSword();
 	void DrawSpikes1();
 	void DrawSpikes2();
 	void DrawSpikes3();
@@ -180,9 +181,11 @@ public:
 	bool puzzle1DungeonDone = false;
 	bool buttonFloorPressed = false;
 	bool chestOpened = false;
+	bool swordOpened = false;
 	bool puzzleTaken = false;
 	bool heartTaken = false;
 	bool chestTaken = false;
+	bool swordTaken = false;
 
 	bool lever1Pressed = false;
 	bool lever2Pressed = false;

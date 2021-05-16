@@ -495,6 +495,7 @@ bool Scene::PostUpdate()
 	//app->map->DrawCheckpoint();
 	app->map->DrawPuzzle();
 	if (!app->map->chestTaken) app->map->DrawChest();
+	if (!app->map->swordTaken) app->map->DrawSword();
 	if (app->map->chestTaken) app->map->DrawHeart();
 
 	if (mageTxt2)
