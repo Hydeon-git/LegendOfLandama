@@ -649,7 +649,7 @@ bool Player::Update(float dt)
 	//if (!mageTkn&& position.y >= 319) mageTkn = true;
 	//
 	//if (!knightTkn&& position.y <= 150) knightTkn = true;
-	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) app->scene->mageTkn = true;
+	//if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) app->scene->mageTkn = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) app->scene->knightTkn = true;
 

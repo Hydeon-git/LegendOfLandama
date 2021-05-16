@@ -996,13 +996,17 @@ void Scene::ChangeScene(GameScene nextScene)
 			{
 				npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
 				npc5->Start();
+				mageTkn = true;
 			}
 			//load knight
 			if (app->sceneBattle->knightRevive)
 			{
 				npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
 				npc7->Start();
+				knightTkn = true;
+
 			}
+
 
 			npc4 = (NPC4*)app->entityManager->CreateEntity(EntityType::NPC4);
 			npc4->Start();
