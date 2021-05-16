@@ -49,7 +49,8 @@ public:
 
 	void Select();
 
-	bool OnGuiMouseClickEvent(GuiControl* control);
+	//bool OnGuiMouseClickEvent(GuiControl* control);
+
 	bool CleanUp() override;
 	void Pause();
 	void ChangeScene(DungeonScene nextScene);
@@ -73,6 +74,9 @@ private:
 
 	SDL_Texture* selectorTex = nullptr;
 	
+	int guiButtonFx = 0;
+	int guiButtonMoveFx = 0;
+
 	bool pausedSettings = false;
 
 

@@ -32,7 +32,7 @@ public:
 
 	void Select();
 
-	bool OnGuiMouseClickEvent(GuiControl* control);
+	//bool OnGuiMouseClickEvent(GuiControl* control);
 
 	bool CleanUp() override;
 
@@ -73,6 +73,9 @@ private:
 	SDL_Rect* fullscreenRect;
 
 	uint logoFx = 0;
+
+	int guiButtonFx = 0;
+	int guiButtonMoveFx = 0;
 
 	int whiteFont = -1;
 	int pos = 0;
