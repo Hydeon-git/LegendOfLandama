@@ -179,12 +179,8 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {	
-	GamePad& pad = app->input->pads[0];
-	
-	if (fromDungeon)
-	{
-		ChangeScene(GameScene::SCENE_ENTRYDUNGEON);		
-	}
+	GamePad& pad = app->input->pads[0];	
+
 	//View Colliders
 	//God Mode
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -498,8 +494,8 @@ bool Scene::PostUpdate()
 		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
 		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 
-		app->font->DrawText(15, 205, whiteFont, "Talk with people to get quests");
-		app->font->DrawText(15, 220, whiteFont, "Press Q or RB to open quest list");
+		app->font->DrawText(15, 205, whiteFont, "Press E to talk with people and get quests.");
+		app->font->DrawText(15, 220, whiteFont, "Press Q or RB to open quest list.");
 	}
 
 	if (quest1message || quest2message || quest3message)
@@ -507,7 +503,7 @@ bool Scene::PostUpdate()
 		app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
 		app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 
-		app->font->DrawText(15, 205, whiteFont, "New quest added to your list");
+		app->font->DrawText(15, 205, whiteFont, "New quest added to your list!");
 	}
 
 
@@ -649,6 +645,8 @@ bool Scene::CleanUp()
 
 	//app->entityManager->Disable();
 	app->map->Disable();
+	app->entityManager->Disable();
+	app->dialogueSystem->Disable();
 
 	//RELEASE(btnResume);
 	//RELEASE(btnSettings);
@@ -881,16 +879,13 @@ void Scene::ChangeScene(GameScene nextScene)
 				app->entityManager->DestroyEntity(npc5);
 				npc5 = nullptr;
 			}
-
-			//unload knight
-			//npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
-			//npc7->Start();
-			/*if (!knightTkn)
+			// Unload knight			
+			if (!knightTkn && npc7 != nullptr)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
 				npc7 = nullptr;
-			}*/
+			}
 
 			// Creates Fisherman and starts it	
 			npc3 = (NPC3*)app->entityManager->CreateEntity(EntityType::NPC3);
@@ -921,9 +916,7 @@ void Scene::ChangeScene(GameScene nextScene)
 		} break;
 		case GameScene::SCENE_BSMITH:
 		{
-
-				app->shop->Enable();
-			
+			app->shop->Enable();			
 
 			if (app->map->Load("herreria.tmx") == true)
 			{
@@ -939,27 +932,23 @@ void Scene::ChangeScene(GameScene nextScene)
 			npc1->CleanUp();
 			app->entityManager->DestroyEntity(npc1);
 			npc1 = nullptr;
-			//unload mage
+			// Unload mage
 			if (!mageTkn)
 			{
 				npc5->CleanUp();
 				app->entityManager->DestroyEntity(npc5);
 				npc5 = nullptr;
 			}
-			//npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
-			//npc7->Start();
-			//unload knight
-			if (!knightTkn)
+			// Unload Kight if not taken
+			if (!knightTkn && npc7 != nullptr)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
 				npc7 = nullptr;
 			}
-
 			// Creates Blacksmith and Starts it
 			npc2 = (NPC2*)app->entityManager->CreateEntity(EntityType::NPC2);
 			npc2->Start();
-
 			
 			// Setting dialogue to id 1 Blacksmith and restart dialog system
 			app->dialogueSystem->CleanUp();
@@ -1006,10 +995,7 @@ void Scene::ChangeScene(GameScene nextScene)
 				app->entityManager->DestroyEntity(npc5);
 				npc5 = nullptr;
 			}
-			//npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
-			//npc7->Start();
-			//unload knight
-			if (!knightTkn)
+			if (!knightTkn && npc7 != nullptr)
 			{
 				npc7->CleanUp();
 				app->entityManager->DestroyEntity(npc7);
@@ -1096,17 +1082,8 @@ void Scene::ChangeScene(GameScene nextScene)
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
 
-			if (!fromDungeon)
-			{
-				app->scene->player->position.x = 20;
-				app->scene->player->position.y = 53;
-			}
-			else
-			{
-				app->scene->player->position.x = 536;
-				app->scene->player->position.y = 81;
-				fromDungeon = false;
-			}			
+			app->scene->player->position.x = 20;
+			app->scene->player->position.y = 53;
 
 			player->lastPositionX2 = player->position.x;
 			player->lastPositionY2 = player->position.y;

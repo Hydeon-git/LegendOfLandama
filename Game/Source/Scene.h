@@ -110,7 +110,6 @@ public:
 	bool mageTxt2 = false;
 	bool mageTkn = false;
 	bool knightTkn = false;
-	bool fromDungeon = false;
 
 	int quest1message = false;
 	int quest2message = false;

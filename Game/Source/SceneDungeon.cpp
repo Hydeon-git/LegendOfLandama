@@ -302,14 +302,6 @@ bool SceneDungeon::Update(float dt)
 		}
 	}
 
-	// Collision Detection
-	if (player->door == COLLIDER_PINK_DUNGEON)
-	{
-		player->door = 0;
-		app->fadeToBlack->FadeToBlk(this, app->scene, 30);
-		app->scene->fromDungeon = true;
-	}
-
 	if (app->map->chestOpened)
 	{
 		if (countChest <= 201)
