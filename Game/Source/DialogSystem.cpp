@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "SDL/include/SDL.h"
 #include "Player.h"
+#include "Quests.h"
 
 #include <iostream>
 
@@ -60,6 +61,7 @@ bool DialogueSystem::Update(float dt)
 					if (!quest1In)
 					{
 						quest1In = true;
+						app->quests->quest1Taken = true;
 					}
 					id = 2;
 				}
@@ -68,6 +70,7 @@ bool DialogueSystem::Update(float dt)
 					if (!quest3In)
 					{
 						quest3In = true;
+						app->quests->quest3Taken = true;
 					}
 					id = 1;
 				}
@@ -77,6 +80,7 @@ bool DialogueSystem::Update(float dt)
 					if (!quest2In)
 					{
 						quest2In = true;
+						app->quests->quest2Taken = true;
 					}
 					id = 3;
 				}

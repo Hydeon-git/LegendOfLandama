@@ -504,18 +504,18 @@ bool Player::Update(float dt)
 			
 		}
 
-		if (app->scene->currentScene == GameScene::SCENE_HOUSE1 && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
-		{
-			app->quests->quest1Taken = true;
-		}
-		if (app->scene->currentScene == GameScene::SCENE_INN && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
-		{
-			app->quests->quest2Taken = true;
-		}
-		if (app->scene->currentScene == GameScene::SCENE_BSMITH && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
-		{
-			app->quests->quest3Taken = true;
-		}
+		//if (app->scene->currentScene == GameScene::SCENE_HOUSE1 && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
+		//{
+		//	app->quests->quest1Taken = true;
+		//}
+		//if (app->scene->currentScene == GameScene::SCENE_INN && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
+		//{
+		//	app->quests->quest2Taken = true;
+		//}
+		//if (app->scene->currentScene == GameScene::SCENE_BSMITH && (ThereIsNPCUp() || ThereIsNPCBelow() || ThereIsNPCLeft() || ThereIsNPCRight()))
+		//{
+		//	app->quests->quest3Taken = true;
+		//}
 
 		if (shotCountdown > 0) --shotCountdown;
 		
