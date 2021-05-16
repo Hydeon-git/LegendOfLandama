@@ -52,6 +52,7 @@ public:
 	// NPC5 Mage Stats
 	int mageDmg = 15;
 	int mageHealth = 125;
+	int mageHealthF = 50;
 	int mageMagicDmg = 40;
 
 	

@@ -27,6 +27,7 @@
 #include "SceneDungeon.h"
 #include "HUD.h"
 #include "Quests.h"
+#include "PlayerStats.h"
 
 SceneDungeon::SceneDungeon() : Module()
 {
@@ -64,6 +65,7 @@ bool SceneDungeon::Start()
 		app->entityManager->Enable();
 		app->hud->Enable();
 		app->quests->Enable();
+		app->playerStats->Enable();
 
 		// Music
 		app->audio->PlayMusic("Assets/Audio/Music/dungeon_music.ogg");
@@ -520,7 +522,7 @@ bool SceneDungeon::CleanUp()
 	app->entityManager->Disable();
 	app->hud->Disable();
 	app->quests->Disable();
-
+	app->playerStats->Disable();
 	return true;
 }
 

@@ -686,7 +686,7 @@ bool Scene::CleanUp()
 	app->dialogueSystem->Disable();
 	app->hud->Disable();
 	app->quests->Disable();
-
+	app->playerStats->Disable();
 
 	//RELEASE(btnResume);
 	//RELEASE(btnSettings);

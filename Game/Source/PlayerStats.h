@@ -46,7 +46,7 @@ private:
 
 	SDL_Texture* statsTex = nullptr;
 	//SDL_Texture* markTex = nullptr;
-	SDL_Texture* journalTex = nullptr;
+	SDL_Texture* statusTex = nullptr;
 	SDL_Texture* heroineTex = nullptr;
 	SDL_Texture* knightTex = nullptr;
 	SDL_Texture* mageTex = nullptr;
@@ -56,12 +56,6 @@ private:
 	void drawHealthMage();
 	void drawHealthKnight();
 
-	int counterQuest1 = 0;
-	int counterQuest2 = 0;
-	int counterQuest3 = 0;
-
-	uint questFx = 0;
-	uint questDoneFx = 0;
 };
 #endif // !_PLAYERSTATS_H_
 #pragma once

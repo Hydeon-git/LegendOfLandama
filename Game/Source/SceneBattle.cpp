@@ -697,15 +697,15 @@ bool SceneBattle::PostUpdate()
 		app->font->DrawText(280, 167, goldFont, "HP");
 
 		// Heroine
-		sprintf_s(heroineHpText, 10, "%d/200", player->playerHealth);
+		sprintf_s(heroineHpText, 10, "%d/150", player->playerHealth);
 		app->font->DrawText(280, 182, whiteFont, heroineHpText);
 
 		// mage
-		sprintf_s(mageHpText, 10, "%d/120", npc5->mageHealth);
+		sprintf_s(mageHpText, 10, "%d/125", npc5->mageHealth);
 		app->font->DrawText(280, 200, whiteFont, mageHpText);
 
 		//knight
-		sprintf_s(knightHpText, 10, "%d/120", npc7->knightHealth);
+		sprintf_s(knightHpText, 10, "%d/200", npc7->knightHealth);
 		app->font->DrawText(280, 218, whiteFont, knightHpText);
 
 		// Print Enemies HP
@@ -812,12 +812,12 @@ bool SceneBattle::PostUpdate()
 		app->font->DrawText(280, 180, goldFont, "HP");
 		// Heroine
 
-		sprintf_s(heroineHpText, 10, "%d/200", player->playerHealth);
+		sprintf_s(heroineHpText, 10, "%d/150", player->playerHealth);
 		app->font->DrawText(280, 200, whiteFont, heroineHpText);
 
 		// Heroine
 
-		sprintf_s(mageHpText, 10, "%d/120", npc5->mageHealth);
+		sprintf_s(mageHpText, 10, "%d/125", npc5->mageHealth);
 		app->font->DrawText(280, 220, whiteFont, mageHpText);
 
 		// Print Enemies HP

@@ -42,7 +42,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-#define JOURNAL_TILE_SIZE 124
+#define STATUS_TILE_SIZE 124
 
 PlayerStats::PlayerStats() : Module()
 {
@@ -68,12 +68,10 @@ bool PlayerStats::Start()
 		LOG("Loading background assets");
 		statsTex = app->tex->Load("Assets/Textures/stats.png");
 		//markTex = app->tex->Load("Assets/Textures/quest_done.png");
-		journalTex = app->tex->Load("Assets/Textures/tasks.png");
+		statusTex = app->tex->Load("Assets/Textures/status.png");
 		heroineTex = app->tex->Load("Assets/Textures/maincharacter.png");
 		mageTex = app->tex->Load("Assets/Textures/mage.png");
 		knightTex = app->tex->Load("Assets/Textures/knight.png");
-		questFx = app->audio->LoadFx("Assets/Audio/Fx/open_quest.wav");
-		questDoneFx = app->audio->LoadFx("Assets/Audio/Fx/quest_done.wav");
 		statsIsOpen = false;
 
 	}
@@ -84,18 +82,16 @@ bool PlayerStats::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if ((app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN || pad.r1 == true) && !statsIsOpen)
+	if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.r1 == true) && !statsIsOpen)
 	{
 		statsIsOpen = true;
 		app->hud->bagIsOpen = false;
-		app->audio->PlayFx(questFx, 0);
 		app->shop->open = false;
 	}
 
-	else if ((app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN || pad.r1 == true) && statsIsOpen)
+	else if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.r1 == true) && statsIsOpen)
 	{
 		statsIsOpen = false;
-		app->audio->PlayFx(questFx, 0);
 	}
 
 	return true;
@@ -112,15 +108,15 @@ bool PlayerStats::PostUpdate()
 
 	SrcR.x = 0;
 	SrcR.y = 0;
-	SrcR.w = JOURNAL_TILE_SIZE;
-	SrcR.h = JOURNAL_TILE_SIZE;
+	SrcR.w = STATUS_TILE_SIZE;
+	SrcR.h = STATUS_TILE_SIZE;
 
 	DestR.x = 1150;
-	DestR.y = 80;
-	DestR.w = JOURNAL_TILE_SIZE;
-	DestR.h = JOURNAL_TILE_SIZE;
+	DestR.y = 160;
+	DestR.w = STATUS_TILE_SIZE;
+	DestR.h = STATUS_TILE_SIZE;
 	if (!statsIsOpen)
-		SDL_RenderCopy(app->render->renderer, journalTex, &SrcR, &DestR);
+		SDL_RenderCopy(app->render->renderer, statusTex, &SrcR, &DestR);
 
 
 	openBackPack();
@@ -189,16 +185,16 @@ void PlayerStats::drawHealthHeroine()
 	std::string x = std::to_string(app->scene->player->playerDmg);
 	char const* xchar = x.c_str();
 
-	std::string y = std::to_string(app->scene->player->playerDmg);
+	std::string y = std::to_string(app->scene->player->playerMagicDmg);
 	char const* ychar = y.c_str();
 
 	app->font->DrawText(215, 85, app->scene->whiteFont, rchar);
 
 	app->font->DrawText(250, 85, app->scene->whiteFont, xchar);
 
-	app->font->DrawText(290, 85, app->scene->whiteFont, ychar);
+	app->font->DrawText(280, 85, app->scene->whiteFont, ychar);
 
-	app->font->DrawText(285, 85, app->scene->whiteFont, "/");
+	app->font->DrawText(270, 85, app->scene->whiteFont, "/");
 
 	SDL_Rect SrcR;
 	SDL_Rect DestR;
@@ -218,21 +214,42 @@ void PlayerStats::drawHealthHeroine()
 
 void PlayerStats::drawHealthMage()
 {
+	if (app->scene->active)
+	{
+		std::string r = std::to_string(app->scene->npc5->mageHealth);
+		char const* rchar = r.c_str();
 
-	std::string r = std::to_string(app->scene->npc5->mageHealth);
-	char const* rchar = r.c_str();
+		std::string x = std::to_string(app->scene->npc5->mageDmg);
+		char const* xchar = x.c_str();
 
-	std::string x = std::to_string(app->scene->npc5->mageDmg);
-	char const* xchar = x.c_str();
+		std::string y = std::to_string(app->scene->npc5->mageMagicDmg);
+		char const* ychar = y.c_str();
 
-	std::string y = std::to_string(app->scene->npc5->mageDmg);
-	char const* ychar = y.c_str();
+		app->font->DrawText(215, 120, app->scene->whiteFont, rchar);
 
-	app->font->DrawText(215, 120, app->scene->whiteFont, rchar);
+		app->font->DrawText(250, 120, app->scene->whiteFont, xchar);
 
-	app->font->DrawText(250, 120, app->scene->whiteFont, xchar);
+		app->font->DrawText(280, 120, app->scene->whiteFont, ychar);
+	}
+	if (app->sceneDungeon->active)
+	{
+		std::string p = std::to_string(app->sceneDungeon->npc5->mageHealth);
+		char const* pchar = p.c_str();
 
-	app->font->DrawText(290, 120, app->scene->whiteFont, ychar);
+		std::string o = std::to_string(app->sceneDungeon->npc5->mageDmg);
+		char const* ochar = o.c_str();
+
+		std::string u = std::to_string(app->sceneDungeon->npc5->mageMagicDmg);
+		char const* uchar = u.c_str();
+
+		app->font->DrawText(215, 120, app->scene->whiteFont, pchar);
+
+		app->font->DrawText(250, 120, app->scene->whiteFont, ochar);
+
+		app->font->DrawText(280, 120, app->scene->whiteFont, uchar);
+	}
+
+	app->font->DrawText(270, 120, app->scene->whiteFont, "/");
 
 	SDL_Rect SrcR;
 	SDL_Rect DestR;
@@ -243,7 +260,7 @@ void PlayerStats::drawHealthMage()
 	SrcR.h = 720;
 
 	DestR.x = 360;
-	DestR.y = 350;
+	DestR.y = 340;
 	DestR.w = 46;
 	DestR.h = 60;
 	SDL_RenderCopy(app->render->renderer, mageTex, &SrcR, &DestR);
@@ -252,21 +269,42 @@ void PlayerStats::drawHealthMage()
 
 void PlayerStats::drawHealthKnight()
 {
+	if (app->scene->active)
+	{
+		std::string r = std::to_string(app->scene->npc7->knightHealth);
+		char const* rchar = r.c_str();
 
-	std::string r = std::to_string(app->scene->npc7->knightHealth);
-	char const* rchar = r.c_str();
+		std::string x = std::to_string(app->scene->npc7->knightDmg);
+		char const* xchar = x.c_str();
 
-	std::string x = std::to_string(app->scene->npc7->knightDmg);
-	char const* xchar = x.c_str();
+		std::string y = std::to_string(app->scene->npc7->knightMagicDmg);
+		char const* ychar = y.c_str();
 
-	std::string y = std::to_string(app->scene->npc7->knightMagicDmg);
-	char const* ychar = x.c_str();
+		app->font->DrawText(215, 155, app->scene->whiteFont, rchar);
 
-	app->font->DrawText(215, 155, app->scene->whiteFont, rchar);
+		app->font->DrawText(250, 155, app->scene->whiteFont, xchar);
 
-	app->font->DrawText(250, 155, app->scene->whiteFont, xchar);
+		app->font->DrawText(280, 155, app->scene->whiteFont, ychar);
+	}
+	else if (app->sceneDungeon->active)
+	{
+		std::string p = std::to_string(app->sceneDungeon->npc7->knightHealth);
+		char const* pchar = p.c_str();
 
-	app->font->DrawText(290, 155, app->scene->whiteFont, ychar);
+		std::string o = std::to_string(app->sceneDungeon->npc7->knightDmg);
+		char const* ochar = o.c_str();
+
+		std::string u = std::to_string(app->sceneDungeon->npc7->knightMagicDmg);
+		char const* uchar = u.c_str();
+
+		app->font->DrawText(215, 155, app->scene->whiteFont, pchar);
+
+		app->font->DrawText(250, 155, app->scene->whiteFont, ochar);
+
+		app->font->DrawText(280, 155, app->scene->whiteFont, uchar);
+	}
+
+	app->font->DrawText(270, 155, app->scene->whiteFont, "/");
 
 	SDL_Rect SrcR;
 	SDL_Rect DestR;
@@ -277,7 +315,7 @@ void PlayerStats::drawHealthKnight()
 	SrcR.h = 720;
 
 	DestR.x = 360;
-	DestR.y = 475;
+	DestR.y = 455;
 	DestR.w = 46;
 	DestR.h = 60;
 	SDL_RenderCopy(app->render->renderer, knightTex, &SrcR, &DestR);
