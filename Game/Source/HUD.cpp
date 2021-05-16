@@ -11,6 +11,7 @@
 #include <SDL\include\SDL_keyboard.h>
 #include "stdio.h"
 #include <string>
+#include "SceneDungeon.h"
 
 #include "App.h"
 #include "Audio.h"
@@ -64,6 +65,7 @@ bool HUD::Start()
 		bagTex = app->tex->Load("Assets/Textures/backpack.png");
 		openbagTex = app->tex->Load("Assets/Textures/open_backpack.png");
 		coinTex = app->tex->Load("Assets/Textures/coin.png");
+		coins = 20;
 
 		bagIsOpen = false;
 
@@ -158,8 +160,9 @@ void HUD::openBackPack()
 void HUD::drawCoins()
 {
 
-	std::string r = std::to_string(app->scene->player->coins);
+	std::string r = std::to_string(coins);
 	char const* rchar = r.c_str();
+
 
 
 	app->font->DrawText(290, 152, app->scene->whiteFont, rchar);

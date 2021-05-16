@@ -24,7 +24,7 @@
 
 Potion::Potion() : Item(ItemType::POTION)
 {
-	texture = app->tex->Load("Assets/Textures/life_potion.png");
+	texture = app->tex->Load("Assets/Textures/potion.png");
 
 
 }

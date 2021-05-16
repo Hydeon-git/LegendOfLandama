@@ -146,7 +146,6 @@ bool Player::Start()
 {
 	if (this->active == true)
 	{
-		coins = 20;
 		dead = false;
 		spiked = false;
 		win = false;
@@ -537,8 +536,9 @@ bool Player::Update(float dt)
 			{
 				app->audio->PlayFx(chestFx, 0);
 				app->map->chestOpened = true;
-				coins = coins + 20;
 				chestDone = true;
+				app->hud->coins += 20;
+				
 			}
 		}
 		if (OpenLever1() && app->sceneDungeon->currentScene == DungeonScene::SCENE_MID && !lever1Done)
@@ -728,7 +728,7 @@ void Player::addItemToIventory(Item * item)
 
 		if (inventory[i] == nullptr)
 		{
-			coins -= item->price;
+			app->hud->coins -= item->price;
 			inventory[i] = item;
 			break;
 		}

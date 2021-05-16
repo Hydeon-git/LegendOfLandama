@@ -21,6 +21,8 @@
 #include "WoodBow.h"
 #include "SteelBow.h"
 #include "DialogSystem.h"
+#include "HUD.h"
+
 #include "GoldBow.h"
 #include "DiamondBow.h"
 #include "WoodWand.h"
@@ -400,12 +402,13 @@ void Shop::buyItem(ItemType itemType, Item *item)
 {
 	if (!app->scene->player->isItemInInventory(itemType) )
 	{
-		if (app->scene->player->coins >= item->price)
+		if (app->hud->coins >= item->price)
 		{
 			items[itemType].selected = true;
 			app->scene->player->addItemToIventory(item);
 			if (app->quests->quest2Taken)
 			app->quests->quest2Done = true;
+
 		}
 	}
 }
