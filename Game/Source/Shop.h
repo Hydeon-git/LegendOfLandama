@@ -64,7 +64,7 @@ public:
 	int selectedItem;
 	bool selectorActive;
 
-	bool staticPlayer;
+	bool staticPlayer = false;
 	bool begin = false;
 	bool shoploop;
 

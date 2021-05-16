@@ -207,12 +207,6 @@ bool Scene::Update(float dt)
 		player->godModeEnabled = !player->godModeEnabled;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-	{
-		app->fadeToBlack->FadeToBlk(this, app->sceneDungeon, 30);
-		app->fadeToBlack->animId = 1;
-	}
-
 	//Cap in-game FPS
 	//if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) app->capped = !app->capped;
 	if (app->sceneBattle->playerRevive)
