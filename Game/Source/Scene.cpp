@@ -77,7 +77,7 @@ bool Scene::Start()
 		// Loads entities
 		npc1 = (NPC1*)app->entityManager->CreateEntity(EntityType::NPC1);		
 		npc5 = (NPC5*)app->entityManager->CreateEntity(EntityType::NPC5);
-		npc7 = (NPC7*)app->entityManager->CreateEntity(EntityType::NPC7);
+		
 		enemy1 = (Enemy1*)app->entityManager->CreateEntity(EntityType::Enemy1);
 		enemy2 = (Enemy2*)app->entityManager->CreateEntity(EntityType::Enemy2);
 		enemy3 = (Enemy3*)app->entityManager->CreateEntity(EntityType::Enemy3);
@@ -178,7 +178,7 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {	
 	GamePad& pad = app->input->pads[0];
-
+	
 	if (fromDungeon)
 	{
 		ChangeScene(GameScene::SCENE_ENTRYDUNGEON);		
@@ -425,10 +425,10 @@ bool Scene::Update(float dt)
 	{
 		count++;
 	}
-	if (mageTxt2&&count2 <= 301)
+	if (mageTxt2&&count2 <= 101)
 	{
 		count2++;
-		if (count2 == 301) mageTxt2 = false;
+		if (count2 == 101) mageTxt2 = false;
 	}
 
 	if (player->position.y > 306&&!mageTkn&&!mageTxt) mageTxt = true;
@@ -457,12 +457,12 @@ bool Scene::PostUpdate()
 	if (mageTxt2)
 	{
 
-		if (count2 < 300)
+		if (count2 < 100)
 		{
 			app->render->DrawRectangle({ 0, 580, 1280, 140 }, 0, 0, 0, 220, true, false);
 			app->render->DrawRectangle({ 10, 590, 1260, 120 }, 100, 100, 200, 220, true, false);
 
-			app->font->DrawText(15, 205, whiteFont, "Me quieren ver partir a Tirpa");
+			app->font->DrawText(15, 205, whiteFont, "The mage joined the team!");
 		}
 		mageTkn = true;
 		mageTxt = false;

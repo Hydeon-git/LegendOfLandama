@@ -148,8 +148,6 @@ bool NPC7::Update(float dt)
 				if (app->sceneDungeon->player->klastPositionY != 0) app->sceneDungeon->npc7->position.y = app->sceneDungeon->player->klastPositionY - 5;
 			}
 
-
-
 			if (app->scene->player->kDoorTaked)
 			{
 				position.x = app->scene->player->klastPositionX2;
@@ -160,10 +158,6 @@ bool NPC7::Update(float dt)
 					app->scene->player->kDoorTaked = false;
 				}
 			}
-
-
-
-
 
 			//rotation
 			if (!app->scene->player->kDoorTaked && !app->sceneDungeon->active)
@@ -224,11 +218,10 @@ bool NPC7::Update(float dt)
 
 bool NPC7::PostUpdate()
 {
-	if ((this->active == true) && (!app->scene->paused) && (!app->sceneDungeon->paused) && !app->sceneBattle->knightDead)
+	if ((this->active == true) && (!app->scene->paused) && (!app->sceneDungeon->paused) && (!app->sceneBattle->knightDead))
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texNPC7, position.x, position.y, &rect);
-	
 	}
 	return true;
 }
