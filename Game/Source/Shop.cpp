@@ -178,10 +178,6 @@ bool Shop::PostUpdate()
 
 		getOwnedItems();
 		app->render->DrawTexture(selectorTex, posX, posY, NULL);
-
-
-		
-
 	}
 	return ret;
 }
