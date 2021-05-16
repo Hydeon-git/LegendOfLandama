@@ -83,6 +83,13 @@ public:
 	std::vector <DialogueTree*> dialogueTrees;	
 	pugi::xml_document	dialogues;
 
+	bool quest1In = false;
+	bool quest2In = false;
+	bool quest3In = false;
+
+	int quest1Counter = 0;
+	int quest2Counter = 0;
+	int quest3Counter = 0;
 private:
 	Font* font;
 	Input* input;
@@ -92,13 +99,8 @@ private:
 	int pos = 0;
 	int posScaleY = 0, posScaleX = 0;
 
-	bool quest1In = false;
-	bool quest2In = false;
-	bool quest3In = false;
 
-	int quest1Counter = 0;
-	int quest2Counter = 0;
-	int quest3Counter = 0;
+	
 
 	void checkPurchase();
 };

@@ -25,8 +25,8 @@ bool GuiCheckBox::Update(float dt)
 		int mouseX, mouseY;
 		app->input->GetMousePosition(mouseX, mouseY);
 
-		/*mouseX += -app->render->camera.x / app->win->GetScale()*/;
-		/*mouseY += -app->render->camera.y / app->win->GetScale()*/;
+		mouseX += -app->render->camera.x / app->win->GetScale() + 1000;
+		mouseY += -app->render->camera.y / app->win->GetScale();
 
 		if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
 		{
@@ -89,7 +89,7 @@ bool GuiCheckBox::Draw()
 	}
 	app->font->DrawText(bounds.x - 120 + (app->render->camera.x) / app->win->GetScale(), bounds.y + 2 + (app->render->camera.y) / app->win->GetScale(), 0, text.GetString());
 
-	if (app->scene->guiColliders && app->scene->pausedSettings)
+	/*if (app->scene->guiColliders && app->scene->pausedSettings)
 	{
 		if (app->win->fullScreen && id == 1) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 155, 155, 150);
 		else if (!app->win->fullScreen && id == 1) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 155, 155, 0, 150);
@@ -104,7 +104,7 @@ bool GuiCheckBox::Draw()
 
 		if (app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 0, 155, 155, 150);
 		else if (!app->vSync && id == 2) app->render->DrawRectangle({ bounds.x - 2, bounds.y - 2,bounds.w + 4,bounds.h + 4 }, 155, 155, 0, 150);
-	}
+	}*/
 
 	return false;
 }

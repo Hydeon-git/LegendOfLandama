@@ -83,7 +83,7 @@ bool PlayerStats::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.l1 == true) && !statsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
+	if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.l1 == true) && !app->shop->open && !statsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		statsIsOpen = true;
 		app->hud->bagIsOpen = false;
@@ -92,7 +92,7 @@ bool PlayerStats::Update(float dt)
 		app->shop->open = false;
 	}
 
-	else if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.l1 == true) && statsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
+	else if ((app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || pad.l1 == true) && !app->shop->open && statsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		statsIsOpen = false;
 		app->audio->PlayFx(statsFx, 0);

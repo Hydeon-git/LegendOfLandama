@@ -19,6 +19,8 @@
 #include "GuiCheckBox.h"
 #include "Font.h"
 #include "Map.h"
+#include "Quests.h"
+#include "DialogSystem.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -317,6 +319,23 @@ void SceneIntro::Select()
 		app->sceneBattle->enemy2Dead = false;
 		app->sceneBattle->enemy3Dead = false;
 		app->sceneBattle->enemiesAlive = 3;
+		app->quests->quest1Taken = false;
+		app->quests->quest2Taken = false;
+		app->quests->quest3Taken = false;
+		app->quests->quest1Done = false;
+		app->quests->quest2Done = false;
+		app->quests->quest3Done = false;
+		app->dialogueSystem->quest1In = false;
+		app->dialogueSystem->quest2In = false;
+		app->dialogueSystem->quest3In = false;
+		app->dialogueSystem->quest1Counter = 0;
+		app->dialogueSystem->quest2Counter = 0;
+		app->dialogueSystem->quest3Counter = 0;
+		app->scene->mageTkn = false;
+		app->scene->knightTkn = false;
+		app->scene->count = false;
+		app->scene->count2 = false;
+		app->scene->count3 = false;
 	}
 	else if (pos == 1)
 	{

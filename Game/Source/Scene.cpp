@@ -127,6 +127,8 @@ bool Scene::Start()
 		app->sceneBattle->mageDead = false;
 		app->sceneBattle->playerDead = false;
 
+		
+
 		if(!app->sceneIntro->posContinue) timer = 0;
 
 		// Loads the map and creates walkability map

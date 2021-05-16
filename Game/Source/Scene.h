@@ -119,6 +119,11 @@ public:
 	int quest1message = false;
 	int quest2message = false;
 	int quest3message = false;
+
+	int count = 0;
+	int count2 = 0;
+	int count3 = 0;
+
 private:
 
 	// Textures & Anim
@@ -179,10 +184,6 @@ private:
 
 	int guiButtonFx = 0;
 	int guiButtonMoveFx = 0;
-
-	int count = 0;
-	int count2 = 0;
-	int count3 = 0;
 
 };
 

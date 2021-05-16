@@ -79,7 +79,7 @@ bool HUD::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.y == true) && !bagIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
+	if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.y == true) && !app->shop->open && !bagIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		bagIsOpen = true;
 		app->quests->questsIsOpen = false;
@@ -88,7 +88,7 @@ bool HUD::Update(float dt)
 		app->shop->open = false;
 	}
 
-	else if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.y == true) && bagIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
+	else if ((app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.y == true) && !app->shop->open && bagIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		bagIsOpen = false;
 		app->audio->PlayFx(hudFx, 0);

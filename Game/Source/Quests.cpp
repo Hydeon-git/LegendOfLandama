@@ -79,7 +79,7 @@ bool Quests::Update(float dt)
 {
 	GamePad& pad = app->input->pads[0];
 
-	if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && !questsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
+	if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && !app->shop->open && !questsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		questsIsOpen = true;
 		app->hud->bagIsOpen = false;
@@ -88,7 +88,7 @@ bool Quests::Update(float dt)
 		app->shop->open = false;
 	} 
 
-	else if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && questsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
+	else if ((app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.r1 == true) && !app->shop->open && questsIsOpen && !app->scene->paused && !app->sceneDungeon->paused)
 	{
 		questsIsOpen = false;
 		app->audio->PlayFx(questFx, 0);
