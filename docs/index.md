@@ -1,37 +1,34 @@
-## Welcome to GitHub Pages
+## Legend of Landama
 
-You can use the [editor on GitHub](https://github.com/Hydeon-git/Project2_RPG/edit/game_page/docs/index.md) to maintain and preview the content for your website in Markdown files.
+<img src="https://i.ibb.co/TwzbDKN/portada.jpg" width="1000">
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
+## About Us
+<img src="https://cdn.discordapp.com/attachments/811262591149146154/817781329495326720/Logoo.png" width="800">
 
-[Link](url) and ![Image](src)
-```
+## Team members
+**Albert Pou**
+* _Lead_
+* **Github**: [Hydeon-git](https://github.com/Hydeon-git)
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+**Max Llovera**
+* _Design_
+* **Github**: [MaxLlovera](https://github.com/MaxLlovera)
 
-### Jekyll Themes
+**Arnau Bonada**
+* _Code_
+* **Github**: [arnaubonada](https://github.com/arnaubonada)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Hydeon-git/Project2_RPG/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+**Maria Garrigolas**
+* _UI and Management_
+* **Github**: [Meeeri08](https://github.com/Meeeri08)
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+**Arnau Ustrell**
+* _Art + Audio_
+* **Github**: [ArnauUstrell](https://github.com/ArnauUstrell)
