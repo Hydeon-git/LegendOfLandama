@@ -43,7 +43,7 @@ Go inside Landama's town and fight, make friends, save them from fear and become
 
 - Implement Dialogs with branching with NPC characters
 
-- INPUTS: Keyboard/Gamepad inputs supported
+- Keyboard Input Supported
 
 - UI: PAUSE menu available on pause
 
@@ -75,8 +75,15 @@ Go inside Landama's town and fight, make friends, save them from fear and become
 
 - Custom background with victory/lose messages (custom font)
 
+- Gamepad Input Supported
+
+- Game Webpage: A webpage dedicated to our game (https://hydeon-git.github.io/Project2_RPG/).
+  
+- Game Trailer: A short trailer to sell the game and show its key features.
+
 ## Controls
 
+### Keyboard
  Player Movement:
 - A -> Left Movement
 - D -> Right Movement
@@ -95,6 +102,21 @@ Go inside Landama's town and fight, make friends, save them from fear and become
 - F5 -> Save
 - F6 -> Load
 - F10 -> GOD mode: no-damage, fly-around mode, show bounds, visual debug info…
+
+### Gamepad
+ Player Movement:
+- Left Arrow -> Left Movement
+- Right Arrow -> Right Movement
+- Up Arrow -> Up Movement
+- Down Arrow -> Down Movement
+- X -> Start dialog
+- B -> Finish dialog/accept quest
+- Y -> Open/Close Inventory
+- RB -> Open/Close Quest list
+- LB -> Open/Close Characters stats
+- B -> Close Shop if Open
+- A-> Choose options
+- Start -> Menu Pause
 
 
 ## Developers
@@ -119,6 +141,11 @@ Arnau Ustrell
 Art + Audio
 Github: ArnauUstrell
 
+## Website
+https://hydeon-git.github.io/Project2_RPG/
+
+## Trailer
+https://www.youtube.com/embed/qNdkIld_jJE?autoplay=1
 
 ## License
 
